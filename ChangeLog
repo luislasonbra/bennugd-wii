@@ -1,0 +1,1136 @@
+2009-07-09 17:08  SplinterGU
+
+	* /modules/libkey/libkey.c: - Added constants:
+	  STAT_RSHIFT
+	  STAT_LSHIFT
+	  STAT_CTRL
+	  STAT_ALT
+
+2009-07-09 01:10  SplinterGU
+
+	* /core/bgdrtm/src/dirs.c: - Fix fileinfo.path in linux
+
+2009-07-08 00:43  SplinterGU
+
+	* /modules/libjoy/libjoy.c: - Constant libjoy fixed
+
+2009-07-07 01:56  SplinterGU
+
+	* /modules/configure, /modules/configure.in: - Fix configure
+
+2009-07-06 04:47  SplinterGU
+
+	* /core/bgdrtm/src/dirs.c: - Fix diropen if directory if void
+
+2009-07-05 04:32  SplinterGU
+
+	* /tools/moddesc/moddesc.c: - Add "types_def" report to moddesc
+	  
+	  -Esta línea y las que están debajo serán ignoradas--
+	  
+	  M tools/moddesc/moddesc.c
+
+2009-07-05 04:27  SplinterGU
+
+	* /core/bgdc/src/c_main.c: - Add "types_def" to shared library
+	  systems
+
+2009-07-03 23:36  SplinterGU
+
+	* /modules/mod_map/file_png.c: - Png 32 bits fix save (don't change
+	  original data)
+
+2009-07-02 22:23  SplinterGU
+
+	* /core/Makefile.in, /core/bgdc/Makefile.in,
+	  /core/bgdc/src/Makefile.am, /core/bgdc/src/Makefile.in,
+	  /core/bgdi/Makefile.in, /core/bgdi/src/Makefile.in,
+	  /core/bgdrtm/Makefile.in, /core/bgdrtm/src/Makefile.am,
+	  /core/bgdrtm/src/Makefile.in, /core/configure,
+	  /core/configure.in, /modules/Makefile.in, /modules/configure,
+	  /modules/configure.in, /modules/libblit/Makefile.am,
+	  /modules/libblit/Makefile.in, /modules/libdraw/Makefile.am,
+	  /modules/libdraw/Makefile.in, /modules/libfont/Makefile.am,
+	  /modules/libfont/Makefile.in, /modules/libgrbase/Makefile.am,
+	  /modules/libgrbase/Makefile.in, /modules/libjoy/Makefile.am,
+	  /modules/libjoy/Makefile.in, /modules/libkey/Makefile.am,
+	  /modules/libkey/Makefile.in, /modules/libmouse/Makefile.am,
+	  /modules/libmouse/Makefile.in, /modules/librender/Makefile.am,
+	  /modules/librender/Makefile.in, /modules/libscroll/Makefile.am,
+	  /modules/libscroll/Makefile.in,
+	  /modules/libsdlhandler/Makefile.am,
+	  /modules/libsdlhandler/Makefile.in, /modules/libtext/Makefile.am,
+	  /modules/libtext/Makefile.in, /modules/libvideo/Makefile.am,
+	  /modules/libvideo/Makefile.in, /modules/libwm/Makefile.am,
+	  /modules/libwm/Makefile.in, /modules/mod_blendop/Makefile.am,
+	  /modules/mod_blendop/Makefile.in, /modules/mod_cd/Makefile.am,
+	  /modules/mod_cd/Makefile.in, /modules/mod_crypt/Makefile.am,
+	  /modules/mod_crypt/Makefile.in, /modules/mod_debug/Makefile.am,
+	  /modules/mod_debug/Makefile.in, /modules/mod_dir/Makefile.am,
+	  /modules/mod_dir/Makefile.in, /modules/mod_draw/Makefile.am,
+	  /modules/mod_draw/Makefile.in, /modules/mod_effects/Makefile.am,
+	  /modules/mod_effects/Makefile.in, /modules/mod_ffi/Makefile.am,
+	  /modules/mod_file/Makefile.am, /modules/mod_file/Makefile.in,
+	  /modules/mod_flic/Makefile.am, /modules/mod_flic/Makefile.in,
+	  /modules/mod_grproc/Makefile.am, /modules/mod_grproc/Makefile.in,
+	  /modules/mod_joy/Makefile.am, /modules/mod_joy/Makefile.in,
+	  /modules/mod_key/Makefile.am, /modules/mod_key/Makefile.in,
+	  /modules/mod_m7/Makefile.am, /modules/mod_m7/Makefile.in,
+	  /modules/mod_map/Makefile.am, /modules/mod_map/Makefile.in,
+	  /modules/mod_math/Makefile.am, /modules/mod_math/Makefile.in,
+	  /modules/mod_mem/Makefile.am, /modules/mod_mem/Makefile.in,
+	  /modules/mod_mouse/Makefile.am, /modules/mod_mouse/Makefile.in,
+	  /modules/mod_path/Makefile.am, /modules/mod_path/Makefile.in,
+	  /modules/mod_proc/Makefile.am, /modules/mod_proc/Makefile.in,
+	  /modules/mod_rand/Makefile.am, /modules/mod_rand/Makefile.in,
+	  /modules/mod_regex/Makefile.am, /modules/mod_regex/Makefile.in,
+	  /modules/mod_say/Makefile.am, /modules/mod_say/Makefile.in,
+	  /modules/mod_screen/Makefile.am, /modules/mod_screen/Makefile.in,
+	  /modules/mod_scroll/Makefile.am, /modules/mod_scroll/Makefile.in,
+	  /modules/mod_sort/Makefile.am, /modules/mod_sort/Makefile.in,
+	  /modules/mod_sound/Makefile.am, /modules/mod_sound/Makefile.in,
+	  /modules/mod_string/Makefile.am, /modules/mod_string/Makefile.in,
+	  /modules/mod_sys/Makefile.am, /modules/mod_sys/Makefile.in,
+	  /modules/mod_text/Makefile.am, /modules/mod_text/Makefile.in,
+	  /modules/mod_time/Makefile.am, /modules/mod_time/Makefile.in,
+	  /modules/mod_timers/Makefile.am, /modules/mod_timers/Makefile.in,
+	  /modules/mod_video/Makefile.am, /modules/mod_video/Makefile.in,
+	  /modules/mod_wm/Makefile.am, /modules/mod_wm/Makefile.in: - Fix
+	  all configure/makefiles dependencies
+
+2009-07-02 19:46  SplinterGU
+
+	* /modules/mod_crypt/Makefile.in: - Add Makefile.in to mod_crypt
+
+2009-07-02 00:20  SplinterGU
+
+	* /core/bgdc/src/Makefile.am, /core/bgdc/src/Makefile.in,
+	  /core/bgdrtm/src/Makefile.am, /core/bgdrtm/src/Makefile.in,
+	  /core/bgdrtm/src/dirs.c, /core/common/crypt.c, /core/configure,
+	  /core/configure.in, /core/include/crypt.h, /core/include/dirs.h,
+	  /modules/Makefile.am, /modules/Makefile.in, /modules/configure,
+	  /modules/configure.in, /modules/mod_crypt,
+	  /modules/mod_crypt/Makefile.am, /modules/mod_crypt/mod_crypt.c,
+	  /modules/mod_dir/mod_dir.c, /vendor, /vendor/des-4.04b,
+	  /vendor/des-4.04b/COPYRIGHT, /vendor/des-4.04b/DES.pm,
+	  /vendor/des-4.04b/DES.pod, /vendor/des-4.04b/DES.xs,
+	  /vendor/des-4.04b/FILES, /vendor/des-4.04b/INSTALL,
+	  /vendor/des-4.04b/Imakefile, /vendor/des-4.04b/KERBEROS,
+	  /vendor/des-4.04b/MODES.DES, /vendor/des-4.04b/Makefile,
+	  /vendor/des-4.04b/Makefile.PL, /vendor/des-4.04b/Makefile.lit,
+	  /vendor/des-4.04b/Makefile.ssl, /vendor/des-4.04b/Makefile.uni,
+	  /vendor/des-4.04b/PC1, /vendor/des-4.04b/PC2,
+	  /vendor/des-4.04b/README, /vendor/des-4.04b/VERSION,
+	  /vendor/des-4.04b/asm, /vendor/des-4.04b/asm/crypt586.pl,
+	  /vendor/des-4.04b/asm/d-win32.asm,
+	  /vendor/des-4.04b/asm/d-win32.obj,
+	  /vendor/des-4.04b/asm/des-586.pl,
+	  /vendor/des-4.04b/asm/des686.pl,
+	  /vendor/des-4.04b/asm/desboth.pl,
+	  /vendor/des-4.04b/asm/dx86unix.cpp,
+	  /vendor/des-4.04b/asm/perlasm,
+	  /vendor/des-4.04b/asm/perlasm/cbc.pl,
+	  /vendor/des-4.04b/asm/perlasm/readme,
+	  /vendor/des-4.04b/asm/perlasm/x86asm.pl,
+	  /vendor/des-4.04b/asm/perlasm/x86ms.pl,
+	  /vendor/des-4.04b/asm/perlasm/x86unix.pl,
+	  /vendor/des-4.04b/asm/readme, /vendor/des-4.04b/asm/y-win32.asm,
+	  /vendor/des-4.04b/asm/y-win32.obj,
+	  /vendor/des-4.04b/asm/yx86unix.cpp, /vendor/des-4.04b/cbc3_enc.c,
+	  /vendor/des-4.04b/cbc_cksm.c, /vendor/des-4.04b/cbc_enc.c,
+	  /vendor/des-4.04b/cfb64ede.c, /vendor/des-4.04b/cfb64enc.c,
+	  /vendor/des-4.04b/cfb_enc.c, /vendor/des-4.04b/des.c,
+	  /vendor/des-4.04b/des.doc, /vendor/des-4.04b/des.h,
+	  /vendor/des-4.04b/des.man, /vendor/des-4.04b/des.org,
+	  /vendor/des-4.04b/des.pl, /vendor/des-4.04b/des3s.cpp,
+	  /vendor/des-4.04b/des_crypt.man, /vendor/des-4.04b/des_enc.c,
+	  /vendor/des-4.04b/des_locl.h, /vendor/des-4.04b/des_locl.org,
+	  /vendor/des-4.04b/des_opts.c, /vendor/des-4.04b/des_ver.h,
+	  /vendor/des-4.04b/dess.cpp, /vendor/des-4.04b/destest.c,
+	  /vendor/des-4.04b/doIP, /vendor/des-4.04b/doPC1,
+	  /vendor/des-4.04b/doPC2, /vendor/des-4.04b/ecb3_enc.c,
+	  /vendor/des-4.04b/ecb_enc.c, /vendor/des-4.04b/enc_read.c,
+	  /vendor/des-4.04b/enc_writ.c, /vendor/des-4.04b/fcrypt.c,
+	  /vendor/des-4.04b/fcrypt_b.c, /vendor/des-4.04b/makefile.bc,
+	  /vendor/des-4.04b/ofb64ede.c, /vendor/des-4.04b/ofb64enc.c,
+	  /vendor/des-4.04b/ofb_enc.c, /vendor/des-4.04b/options.txt,
+	  /vendor/des-4.04b/pcbc_enc.c, /vendor/des-4.04b/podd.h,
+	  /vendor/des-4.04b/qud_cksm.c, /vendor/des-4.04b/rand_key.c,
+	  /vendor/des-4.04b/read2pwd.c, /vendor/des-4.04b/read_pwd.c,
+	  /vendor/des-4.04b/rpc_des.h, /vendor/des-4.04b/rpc_enc.c,
+	  /vendor/des-4.04b/rpw.c, /vendor/des-4.04b/set_key.c,
+	  /vendor/des-4.04b/shifts.pl, /vendor/des-4.04b/sk.h,
+	  /vendor/des-4.04b/speed.c, /vendor/des-4.04b/spr.h,
+	  /vendor/des-4.04b/str2key.c, /vendor/des-4.04b/supp.c,
+	  /vendor/des-4.04b/t, /vendor/des-4.04b/t/test,
+	  /vendor/des-4.04b/testdes.pl, /vendor/des-4.04b/times,
+	  /vendor/des-4.04b/times/486-50.sol,
+	  /vendor/des-4.04b/times/586-100.lnx,
+	  /vendor/des-4.04b/times/686-200.fre,
+	  /vendor/des-4.04b/times/aix.cc, /vendor/des-4.04b/times/alpha.cc,
+	  /vendor/des-4.04b/times/hpux.cc,
+	  /vendor/des-4.04b/times/sparc.gcc,
+	  /vendor/des-4.04b/times/usparc.cc, /vendor/des-4.04b/typemap,
+	  /vendor/des-4.04b/vms.com, /vendor/des-4.04b/xcbc_enc.c: - New
+	  dirs lib and new glob, diropen, dirread, dirclose functions
+	  - New mod_crypt:
+	  
+	  method
+	  ------
+	  CRYPT_NONE
+	  CRYPT_DES
+	  CRYPT_3DES
+	  
+	  functions
+	  ---------
+	  
+	  handle CRYPT_NEW(int method, byte * key); /* key = byte [8] in
+	  DES, byte [24] 3DES */
+	  int CRYPT_DEL(handle);
+	  int CRYPT_ENCRYPT(handle, pointer in, pointer out, int blocks );
+	  /* each block = 8 bytes */
+	  int CRYPT_DECRYPT(handle, pointer in, pointer out, int blocks );
+	  /* each block = 8 bytes */
+	  int CRYPT_ENCRYPT(int method, byte * key, pointer in, pointer
+	  out, int blocks ); /* each block = 8 bytes */
+	  int CRYPT_DECRYPT(int method, byte * key, pointer in, pointer
+	  out, int blocks ); /* each block = 8 bytes */
+	  
+	  - add vendor folder and modified libdes-4.04b
+	  - some configure fix
+
+2009-06-23 23:11  SplinterGU
+
+	* /core/bgdc/src/dcbw.c, /core/bgdc/src/typedef.c: - Save cleaned
+	  dcb
+
+2009-06-23 21:12  SplinterGU
+
+	* /modules/librender/g_object.c: - Fix on use of containers when
+	  the last process on some Z list change
+	  to other Z list
+
+2009-06-15 18:34  SplinterGU
+
+	* /core/common/files.c, /core/include/files.h,
+	  /modules/mod_file/mod_file.c, /modules/mod_mem/mod_mem.c: - Add
+	  FMOVE, FREMOVE, FREWIND
+	  - Add MEM_CALLOC and CALLOC
+
+2009-06-14 22:36  SplinterGU
+
+	* /core/bgdc/src/token.c: - Fix parse on ; at end line when
+	  #include
+
+2009-06-14 15:39  SplinterGU
+
+	* /core/bgdc/include/bgdc.h, /core/bgdc/include/messages.h,
+	  /core/bgdc/src/Makefile.am, /core/bgdc/src/Makefile.in,
+	  /core/bgdc/src/c_code.c, /core/bgdc/src/c_data.c,
+	  /core/bgdc/src/c_main.c, /core/bgdc/src/codeblock.c,
+	  /core/bgdc/src/constants.c, /core/bgdc/src/main.c,
+	  /core/bgdc/src/messages.c, /core/bgdc/src/segment.c,
+	  /core/bgdc/src/sysstub.c, /core/bgdc/src/token.c,
+	  /core/bgdc/src/typedef.c, /core/bgdi/src/main.c: - Rename
+	  messages.c to messages.h
+	  - Fix usage help for bgdi
+
+2009-06-13 15:50  SplinterGU
+
+	* /core/bgdc/src/c_code.c: - Fix "Runtime error in ???(????) -
+	  Mnemonic 0xC2F not implemented"
+
+2009-06-12 01:38  SplinterGU
+
+	* /modules/mod_map/file_fpg.c: - load_fpg 1bpp fixed
+
+2009-06-11 01:16  SplinterGU
+
+	* /core/bgdrtm/src/copy.c, /core/bgdrtm/src/dcbr.c,
+	  /core/bgdrtm/src/strings.c, /core/bgdrtm/src/sysprocs.c,
+	  /core/common/varspace_file.c, /modules/mod_proc/mod_proc.c,
+	  /modules/mod_sort/mod_sort.c: - Remove spanish error message
+	  - Change some spanish code
+	  - Remove some printf
+
+2009-06-11 00:18  SplinterGU
+
+	* /core/bgdrtm/src/copy.c, /core/common/varspace_file.c: - Pointer
+	  type support in copy and save/load structs
+
+2009-06-10 01:28  SplinterGU
+
+	* /modules/libgrbase/g_bitmap.c, /modules/libgrbase/g_pal.c,
+	  /modules/mod_map/file_map.c, /modules/mod_map/file_pal.c,
+	  /modules/mod_map/file_pcx.c, /modules/mod_map/file_png.c: - Fix
+	  some stuff with palettes
+
+2009-06-06 00:21  SplinterGU
+
+	* /core/bgdc/src/c_code.c: - Add support of string += char and
+	  char[]+= char
+
+2009-06-05 11:57  SplinterGU
+
+	* /modules/libgrbase/g_grlib.c: - Fix on grlib_get and new bitmaps
+	  (not graphs)
+
+2009-06-05 03:13  SplinterGU
+
+	* /modules/libgrbase/g_pal.c: - Now fpgid are cyclic
+	  - Now fpg limit removed
+	  - Fix alpha in 32 bits rgba functions
+
+2009-06-05 01:37  SplinterGU
+
+	* /modules/libgrbase/bitwise_map.h: - Add missing file
+
+2009-06-05 01:19  SplinterGU
+
+	* /core/bgdrtm/src/strings.c, /modules/libgrbase/g_bitmap.c,
+	  /modules/libgrbase/g_bitmap.h, /modules/libgrbase/g_grlib.c,
+	  /modules/mod_map/file_fpg.c: - Fix memory leak on unload_fpg
+	  - Fix clean memory on bitmap (not graphs) operations
+	  - Fix free memory on fpg load error
+	  - Remove innecesary graphs linked lists
+
+2009-06-04 02:53  SplinterGU
+
+	* /core/bgdc/src/c_code.c, /core/bgdrtm/src/interpreter.c,
+	  /core/bgdrtm/src/strings.c, /core/common/debug.c,
+	  /core/include/pslang.h: - Fix use of string[] (indexes access),
+	  now return char type value
+
+2009-06-02 01:03  SplinterGU
+
+	* /modules/mod_string/mod_string.c: - ASC fix
+
+2009-06-01 03:08  SplinterGU
+
+	* /core/bgdc/src/main_core.c: - MAX_CHAR y MIN_CHAR constants added
+
+2009-06-01 02:22  SplinterGU
+
+	* /modules/libgrbase/g_pal.c, /modules/libkey/libkey.c: - Replace
+	  SDL_KEYEVENTMASK with (SDL_EVENTMASK(SDL_KEYDOWN)|
+	  SDL_EVENTMASK(SDL_KEYUP)) (Thanks Sandman)
+	  - Fix rgb* functions that on (0,0,0) return 1 in 16 bits, and
+	  right value in 32 bits
+	  - Speed up for 32 bits in rgb* funciones
+
+2009-05-30 14:58  SplinterGU
+
+	* /modules/libgrbase/g_pal.c, /modules/librender/g_instance.c: -
+	  RESOLUTION is used in detect object change
+	  - rgb now return correct value in 32 bits is value is 0 (thanks
+	  Sandman)
+
+2009-05-29 01:26  SplinterGU
+
+	* /core/bgdrtm/src/instance.c, /modules/mod_debug/mod_debug.c: -
+	  Fix crash by bug in intances.c
+	  - Stupid optimizations on mod_debug
+
+2009-05-26 10:49  SplinterGU
+
+	* /core/bgdrtm/src/instance.c: - Fix priority if it reach limits
+
+2009-05-26 01:21  SplinterGU
+
+	* /core/bgdrtm/src/dcbr.c: - Fix dcb read data on non-intel (thanks
+	  Sandman)
+
+2009-05-25 23:23  SplinterGU
+
+	* /core/bgdc/include/compiler.h, /core/bgdc/include/identifiers.h,
+	  /core/bgdc/src/Makefile.am, /core/bgdc/src/Makefile.in,
+	  /core/bgdc/src/c_code.c, /core/bgdc/src/c_data.c,
+	  /core/bgdc/src/c_main.c, /core/bgdc/src/codeblock.c,
+	  /core/bgdc/src/dcbw.c, /core/bgdc/src/error.c,
+	  /core/bgdc/src/identifier.c, /core/bgdc/src/main.c,
+	  /core/bgdc/src/messages.c, /core/bgdc/src/segment.c,
+	  /core/bgdc/src/strings.c, /core/bgdc/src/token.c,
+	  /core/bgdc/src/varspace.c, /core/bgdi/include/bgdi.h,
+	  /core/bgdi/src/Makefile.am, /core/bgdi/src/Makefile.in,
+	  /core/bgdrtm/src/dcbr.c, /core/bgdrtm/src/dirs.c,
+	  /core/bgdrtm/src/instance.c, /core/bgdrtm/src/interpreter.c,
+	  /core/bgdrtm/src/misc.c, /core/bgdrtm/src/strings.c,
+	  /core/bgdrtm/src/sysprocs.c, /core/common/debug.c,
+	  /core/common/files.c, /core/common/varspace_file.c,
+	  /core/common/xctype.c, /core/include/dcb.h,
+	  /core/include/i_procdef_st.h, /core/include/instance.h,
+	  /core/include/instance_st.h, /core/include/loadlib.h,
+	  /core/include/sysprocs.h, /modules/libblit/g_blit.c,
+	  /modules/libblit/g_pixel.c, /modules/libdraw/libdraw.c,
+	  /modules/libfont/libfont.c, /modules/libgrbase/g_bitmap.c,
+	  /modules/libgrbase/g_blendop.h, /modules/libmouse/libmouse.c,
+	  /modules/libtext/libtext.c, /modules/libvideo/g_video.c,
+	  /modules/mod_blendop/mod_blendop.c,
+	  /modules/mod_debug/mod_debug.c, /modules/mod_debug/systexts.c,
+	  /modules/mod_grproc/mod_grproc.c, /modules/mod_map/file_fnt.c,
+	  /modules/mod_map/file_fpg.c, /modules/mod_map/file_map.c,
+	  /modules/mod_map/file_pal.c, /modules/mod_map/file_png.c,
+	  /modules/mod_map/mod_map.c, /modules/mod_proc/mod_proc.c,
+	  /modules/mod_screen/mod_screen.c, /modules/mod_text/mod_text.c,
+	  /modules/mod_timers/mod_timers.c: - New instances system, hash on
+	  priority, type. Speed up improved on iterate instances.
+	  - Instances now are limited to 65536 running at same time
+	  - Instances dirty list by change on priority is removed.
+	  - collision, getid, signal,... speed up improved by use of new
+	  instance system and other.
+	  - speed up improved on show debug info
+	  - compiler parse number is fixed
+	  - debug console parse number is fixed
+	  - debug console color tags fixed
+	  - several casts are added in code
+	  - several sizeof are added in code
+	  - libvideo now start in 32 bits as default
+	  - getscreen now return graphic without control point 0,
+	  (centered)
+
+2009-05-14 01:43  SplinterGU
+
+	* /modules/mod_map/file_png.c: - Fix memory leak problem in
+	  save_png and load_png
+
+2009-05-12 03:24  SplinterGU
+
+	* /core/bgdrtm/src/sysprocs.c: - Fix void pointer increment
+
+2009-05-12 03:19  SplinterGU
+
+	* /modules/libsdlhandler/libsdlhandler.c: - Mix 2 hook in
+	  sdlhandler
+
+2009-05-10 05:56  SplinterGU
+
+	* /contrib, /contrib/CONTRIB_HERE, /core/configure,
+	  /core/configure.in, /modules/configure, /modules/configure.in: -
+	  contrib directory added
+	  - version 1.0.0
+
+2009-05-10 05:46  SplinterGU
+
+	* /modules/libvideo/g_video.c: - Use gr_set_caption
+
+2009-05-10 05:44  SplinterGU
+
+	* /core/bgdc/src/c_main.c, /modules/libgrbase/libgrbase.c,
+	  /modules/libgrbase/libgrbase.h, /modules/librender/g_instance.c,
+	  /modules/libvideo/g_video.c, /modules/libvideo/g_video.h,
+	  /modules/mod_wm/mod_wm.c: - Compiler: Arguments type process now
+	  are supported
+	  - fix in g_instance graph change detection
+	  - two new internals functions gr_set_caption and gr_set_icon
+	  (used in libvideo and in mod_wm)
+	  - move some vars from libgrbase to libvideo
+	  - mod_wm now call new funtions on libvideo (gr_set_caption and
+	  gr_set_icon)
+
+2009-05-09 03:12  SplinterGU
+
+	* /modules/libvideo/g_video.c, /modules/mod_wm/mod_wm.c: - Set ICON
+	  palette fix
+
+2009-05-09 02:19  SplinterGU
+
+	* /core/bgdc/src/c_code.c, /core/bgdc/src/c_data.c,
+	  /core/bgdc/src/typedef.c: - Fix sizeof on members of structs and
+	  types
+	  - Fix operations of add and sub on pointers
+	  - Fix type casts (and others casts)
+
+2009-05-08 03:11  SplinterGU
+
+	* /modules/libgrbase/g_bitmap.c: - Fix bitmap_clone
+
+2009-05-05 03:07  SplinterGU
+
+	* /modules/libblit/g_pixel.c, /modules/libgrbase/g_pal.c,
+	  /modules/mod_map/file_pal.c, /modules/mod_map/file_pcx.c,
+	  /modules/mod_map/file_png.c, /modules/mod_map/mod_map.c,
+	  /modules/mod_screen/mod_screen.c: - Now palette loaded is palette
+	  asigned to system palette
+	  - Fix drawing_color, before find rgb in 8 bits video
+	  - get_screen now clone bitmap(0,-1) (last screen drawed)
+
+2009-05-01 20:34  SplinterGU
+
+	* /core/bgdrtm/src/misc.c, /modules/mod_sys/mod_sys.c,
+	  /modules/mod_wm/mod_wm.c: - bgdrtm - Fix exit status
+	  - exec - Fix return status from child dead _P_WAIT
+	  Fix return status on error
+	  Fix return status on _P_NOWAIT
+	  - mod_wm, none important
+
+2009-05-01 02:28  SplinterGU
+
+	* /modules/mod_sys/mod_sys.c, /modules/mod_wm/mod_wm.c: - Fix in
+	  exec
+	  - Fix in move_windows x11
+
+2009-04-28 14:15  SplinterGU
+
+	* /modules/mod_mem/mod_mem.c: - Now memcopy call to C memcpy
+
+2009-04-25 00:31  SplinterGU
+
+	* /modules/librender/g_object.c: - Check on non-exists ctr
+
+2009-04-25 00:28  SplinterGU
+
+	* /core/bgdrtm/src/strings.c, /modules/librender/g_object.c,
+	  /modules/librender/g_object.h: - Optimizations on strings (thanks
+	  Sandman)
+	  - Remove bad optimization on g_object
+
+2009-04-24 02:28  SplinterGU
+
+	* /modules/librender/g_object.c, /modules/librender/g_object.h: -
+	  Little g_object optimization
+
+2009-04-24 01:28  SplinterGU
+
+	* /modules/mod_debug/mod_debug.c: - Fix debug console background
+	  color
+
+2009-04-22 00:42  SplinterGU
+
+	* /core/bgdc/src/main_core.c, /core/bgdrtm/src/misc.c,
+	  /core/bgdrtm/src/strings.c, /core/configure, /core/configure.in,
+	  /core/include/commons_defs.h, /modules/configure,
+	  /modules/configure.in: - Fix format function
+	  - Added GP2X constant
+
+2009-04-08 10:03  SplinterGU
+
+	* /core/bgdc/src/c_code.c, /core/include/typedef_st.h: - Fix in the
+	  behavior of signed/unsigned expression
+
+2009-04-04 01:19  SplinterGU
+
+	* /core/bgdc/src/dcbw.c, /core/bgdi/src/main.c,
+	  /core/bgdrtm/src/dcbr.c, /core/common/files.c: - Fix stupid
+	  message "don't exist or isn't version 7 DCB compatible"
+	  when don't use full dcbname
+	  - Fix add files to dcb when files added are gzip (fpg)
+	  - Minor fixed in dcb (byteorder)
+
+2009-04-02 14:11  SplinterGU
+
+	* /modules/libblit/g_pixel.c, /modules/libblit/g_pixel.h,
+	  /modules/libdraw/libdraw.c: - Primitive alpha fix in 32 bits
+
+2009-03-31 23:18  SplinterGU
+
+	* /core/bgdc/src/main.c, /core/bgdrtm/src/dirs.c,
+	  /modules/mod_dir/mod_dir.c, /modules/mod_map/mod_map.c: -
+	  Optimize of dirs functions
+	  - Fix mod_dir that don't use string_discard
+	  - New function MAP_NEW(w,h,depth,flags) where flags can be:
+	  B_CLEAR (bitmap clear) or 0 (no clear new bitmap)
+
+2009-03-29 01:41  SplinterGU
+
+	* /modules/Makefile.am, /modules/Makefile.in, /modules/configure,
+	  /modules/configure.in, /modules/libgrbase/g_bitmap.c,
+	  /modules/libjoy, /modules/libjoy/Makefile.am,
+	  /modules/libjoy/Makefile.in, /modules/libjoy/libjoy.c,
+	  /modules/libjoy/libjoy.h, /modules/mod_joy/Makefile.am,
+	  /modules/mod_joy/Makefile.in, /modules/mod_joy/mod_joy.c: -
+	  mod_joy splitted (thanks Sandman)
+	  - libjoy added (thanks Sandman)
+	  - fix bitmap_clone
+
+2009-03-21 21:00  SplinterGU
+
+	* /tools/moddesc/configure, /tools/moddesc/configure.ac: - moddesc
+	  configure fix
+
+2009-03-21 20:19  SplinterGU
+
+	* /core/configure, /core/configure.in, /modules/configure,
+	  /modules/configure.in, /tools/moddesc/configure,
+	  /tools/moddesc/configure.ac: - revert aditive CFLAGS and LDFLAGS
+	  change... in win32 the compiled
+	  binaries are very big (5x or more)
+
+2009-03-21 13:17  SplinterGU
+
+	* /core/bgdrtm/src/interpreter.c, /core/bgdrtm/src/strings.c,
+	  /core/common/files.c, /modules/mod_file/mod_file.c,
+	  /modules/mod_string/mod_string.c: - bgdrtm: speedup string
+	  functions (string_char, string_concat,
+	  string_add, string[...], others)
+	  - Now find, substr, and any function with access to out of string
+	  limits
+	  return null string or -1.
+	  - strlen() function added, alias of len().
+	  - file_eof() and file_read() fixed in detection of end of file.
+	  - file() fixed, sizeof internal buffer and concat of data chunks.
+	  - fgets() fixed, sizeof internal buffer.
+	  - fexists() added, alias of file_exists().
+
+2009-03-19 23:09  SplinterGU
+
+	* /core/configure, /core/configure.in, /modules/configure,
+	  /modules/configure.in, /tools/moddesc/configure,
+	  /tools/moddesc/configure.ac: *FLAGS+= fix
+
+2009-03-18 02:22  SplinterGU
+
+	* /core/configure, /core/configure.in, /modules/configure,
+	  /modules/configure.in: - Additive CFLAGS
+
+2009-03-15 00:03  SplinterGU
+
+	* /modules/libblit/g_pixel.c, /modules/libblit/g_pixel.h,
+	  /modules/libdraw/libdraw.c, /modules/libtext/libtext.c,
+	  /modules/libtext/libtext.h, /modules/mod_text/mod_text.c: - 32
+	  bits drawing alpha support (alpha-pixel and drawing_alpha)
+	  - speed up some drawing functions
+	  - write_var pointer vars support
+
+2009-03-14 23:58  SplinterGU
+
+	* /core/bgdc/include/token.h, /core/bgdc/src/c_code.c,
+	  /core/bgdc/src/c_data.c, /core/bgdc/src/c_main.c,
+	  /core/bgdc/src/constants.c, /core/bgdc/src/main_core.c,
+	  /core/bgdc/src/messages.c, /core/bgdc/src/token.c,
+	  /core/bgdrtm/src/strings.c, /core/include/xstrings.h: - new
+	  string_ptoa more efficient and same result in different SO.
+	  - check constants already defined as variable
+	  - Fix variant arg for pointer vars
+	  - Fix unsigned comparations
+
+2009-03-12 22:47  SplinterGU
+
+	* /modules/libblit/g_blit.c, /modules/libgrbase/g_conversion.c,
+	  /modules/libgrbase/g_pal.c: - Fixed Translucent tables in 8 bits
+	  - Fixed blend operations in 8 bits
+	  - Fixed Translucent+Blend in 8 bits
+
+2009-03-12 14:30  SplinterGU
+
+	* /modules/libblit/g_blit.c: - Transparency tables update
+
+2009-03-08 03:40  SplinterGU
+
+	* /modules/libgrbase/g_conversion.c, /modules/librender/g_fade.c: -
+	  Fade 32bits support
+
+2009-03-07 01:12  SplinterGU
+
+	* /modules/mod_joy/mod_joy.c: - Dependency for mod_joy is fixed
+	  (thanks Sandman)
+
+2009-02-17 00:56  SplinterGU
+
+	* /modules/mod_map/file_fpg.c: - Fix gr_save_fpg
+
+2009-02-09 18:24  SplinterGU
+
+	* /core/README, /modules/README: README updated (not final)
+
+2009-02-05 01:13  SplinterGU
+
+	* /modules/Makefile.am, /modules/Makefile.in, /modules/configure,
+	  /modules/configure.in, /modules/mod_map/Makefile.in,
+	  /tools/moddesc/Makefile.in, /tools/moddesc/aclocal.m4,
+	  /tools/moddesc/configure: mod_ffi removed
+
+2009-01-31 19:59  SplinterGU
+
+	* /modules/libtext/libtext.c: - set_text_color 32bits support
+
+2009-01-25 06:00  SplinterGU
+
+	* /modules/libdraw/libdraw.c, /modules/libmouse/libmouse.c,
+	  /modules/librender/g_object.c, /modules/mod_draw/mod_draw.c: -
+	  Notes in g_object source code
+	  - Fix dirty update in draw objects
+	  - Check for center change in mouse graph
+
+2009-01-24 23:12  SplinterGU
+
+	* /modules/Makefile.am, /modules/configure.in: - mod_ffi is removed
+	  temporaly
+
+2009-01-24 21:20  SplinterGU
+
+	* /tools/moddesc/config.log, /tools/moddesc/config.status,
+	  /tools/moddesc/libtool: - Removed unnecesary files
+
+2009-01-24 20:59  SplinterGU
+
+	* /core/config.log, /core/config.status, /core/libtool,
+	  /modules/config.log, /modules/config.status, /modules/libtool: -
+	  Unnecesary files removed
+
+2009-01-24 20:47  SplinterGU
+
+	* /modules/mod_ffi/Makefile.am, /modules/mod_ffi/Makefile.in: -
+	  libffi 3.0.8 fix
+
+2009-01-24 18:54  SplinterGU
+
+	* /modules/mod_map/Makefile.am, /modules/mod_map/Makefile.in: -
+	  Windows fix
+
+2009-01-24 18:09  SplinterGU
+
+	* /core/Makefile, /core/bgdc/Makefile, /core/bgdc/src/Makefile,
+	  /core/bgdi/Makefile, /core/bgdi/src/Makefile,
+	  /core/bgdrtm/Makefile, /core/bgdrtm/src/Makefile,
+	  /modules/Makefile, /modules/libblit/Makefile,
+	  /modules/libdraw/Makefile, /modules/libfont/Makefile,
+	  /modules/libgrbase/Makefile, /modules/libkey/Makefile,
+	  /modules/libmouse/Makefile, /modules/librender/Makefile,
+	  /modules/libscroll/Makefile, /modules/libsdlhandler/Makefile,
+	  /modules/libtext/Makefile, /modules/libvideo/Makefile,
+	  /modules/libwm/Makefile, /modules/mod_blendop/Makefile,
+	  /modules/mod_cd/Makefile, /modules/mod_debug/Makefile,
+	  /modules/mod_dir/Makefile, /modules/mod_draw/Makefile,
+	  /modules/mod_effects/Makefile, /modules/mod_ffi/Makefile,
+	  /modules/mod_file/Makefile, /modules/mod_flic/Makefile,
+	  /modules/mod_grproc/Makefile, /modules/mod_joy/Makefile,
+	  /modules/mod_key/Makefile, /modules/mod_m7/Makefile,
+	  /modules/mod_map/Makefile, /modules/mod_math/Makefile,
+	  /modules/mod_mem/Makefile, /modules/mod_mouse/Makefile,
+	  /modules/mod_path/Makefile, /modules/mod_proc/Makefile,
+	  /modules/mod_rand/Makefile, /modules/mod_regex/Makefile,
+	  /modules/mod_say/Makefile, /modules/mod_screen/Makefile,
+	  /modules/mod_scroll/Makefile, /modules/mod_sort/Makefile,
+	  /modules/mod_sound/Makefile, /modules/mod_string/Makefile,
+	  /modules/mod_sys/Makefile, /modules/mod_text/Makefile,
+	  /modules/mod_time/Makefile, /modules/mod_timers/Makefile,
+	  /modules/mod_video/Makefile, /modules/mod_wm/Makefile,
+	  /tools/moddesc/Makefile: - Remove Makefile files, they must be
+	  generated with configure
+
+2009-01-24 16:39  SplinterGU
+
+	* /modules/libblit/g_blit.c: - Fixed bug with use of mirror and
+	  point 0 not center
+
+2009-01-21 00:25  SplinterGU
+
+	* /modules/libgrbase/g_bitmap.c, /modules/librender/g_instance.c,
+	  /modules/librender/librender.c, /modules/librender/librender.h: -
+	  Fixed bug on update graph on graph center change
+
+2009-01-16 03:43  SplinterGU
+
+	* /modules/libgrbase/g_grlib.c: - fix on use of file (fpg) = 0
+
+2009-01-15 07:57  SplinterGU
+
+	* /modules/mod_effects/mod_effects.c: - mod_effects constants add:
+	  
+	  BLUR_NORMAL 0
+	  BLUR_3x3 1
+	  BLUR_5x5 2
+	  BLUR_5x5_MAP 3
+	  
+	  GSCALE_RGB 0
+	  GSCALE_R 1
+	  GSCALE_G 2
+	  GSCALE_B 3
+	  GSCALE_RG 4
+	  GSCALE_RB 5
+	  GSCALE_GB 6
+	  GSCALE_OFF -1
+
+2009-01-15 07:36  SplinterGU
+
+	* /modules/mod_map/file_png.c: - PNG load pixel displaced fix
+
+2009-01-12 23:43  SplinterGU
+
+	* /modules/mod_draw/mod_draw.c: - delete_draw(0) fix
+
+2009-01-12 22:30  SplinterGU
+
+	* /modules/libdraw/libdraw.c: - Draw update fix (thanks Sandman)
+
+2009-01-12 18:51  SplinterGU
+
+	* /core/bgdc/include/bgdc.h, /core/bgdc/include/codeblock.h,
+	  /core/bgdc/include/compiler.h, /core/bgdc/include/constants.h,
+	  /core/bgdc/include/errors.h, /core/bgdc/include/errors_st.h,
+	  /core/bgdc/include/identifiers.h, /core/bgdc/include/procdef.h,
+	  /core/bgdc/include/segment.h, /core/bgdc/include/token.h,
+	  /core/bgdc/include/varspace.h, /core/bgdc/src/bgdc.rc,
+	  /core/bgdc/src/c_code.c, /core/bgdc/src/c_data.c,
+	  /core/bgdc/src/c_debug.c, /core/bgdc/src/c_main.c,
+	  /core/bgdc/src/codeblock.c, /core/bgdc/src/constants.c,
+	  /core/bgdc/src/dcbw.c, /core/bgdc/src/error.c,
+	  /core/bgdc/src/identifier.c, /core/bgdc/src/main.c,
+	  /core/bgdc/src/main_core.c, /core/bgdc/src/messages.c,
+	  /core/bgdc/src/procedure.c, /core/bgdc/src/segment.c,
+	  /core/bgdc/src/strings.c, /core/bgdc/src/sysstub.c,
+	  /core/bgdc/src/token.c, /core/bgdc/src/typedef.c,
+	  /core/bgdc/src/varspace.c, /core/bgdi/include/bgdi.h,
+	  /core/bgdi/src/bgdi.rc, /core/bgdi/src/main.c,
+	  /core/bgdrtm/include/bgdrtm.h, /core/bgdrtm/include/sysprocs_p.h,
+	  /core/bgdrtm/src/copy.c, /core/bgdrtm/src/dcbr.c,
+	  /core/bgdrtm/src/dirs.c, /core/bgdrtm/src/instance.c,
+	  /core/bgdrtm/src/interpreter.c, /core/bgdrtm/src/misc.c,
+	  /core/bgdrtm/src/strings.c, /core/bgdrtm/src/sysprocs.c,
+	  /core/common/debug.c, /core/common/files.c,
+	  /core/common/varspace_file.c, /core/common/xctype.c,
+	  /core/include/arrange.h, /core/include/bgdcore.h,
+	  /core/include/bgddl.h, /core/include/commons_defs.h,
+	  /core/include/dcb.h, /core/include/dirs.h,
+	  /core/include/dlvaracc.h, /core/include/files.h,
+	  /core/include/files_st.h, /core/include/fmath.h,
+	  /core/include/i_procdef.h, /core/include/i_procdef_st.h,
+	  /core/include/instance.h, /core/include/instance_st.h,
+	  /core/include/loadlib.h, /core/include/offsets.h,
+	  /core/include/pslang.h, /core/include/sysprocs.h,
+	  /core/include/sysprocs_st.h, /core/include/typedef.h,
+	  /core/include/typedef_st.h, /core/include/varspace_file.h,
+	  /core/include/xctype.h, /core/include/xctype_st.h,
+	  /core/include/xstrings.h, /modules/libblit/g_blit.c,
+	  /modules/libblit/g_blit.h, /modules/libblit/g_pixel.c,
+	  /modules/libblit/g_pixel.h, /modules/libblit/libblit.c,
+	  /modules/libblit/libblit.h, /modules/libdraw/libdraw.c,
+	  /modules/libdraw/libdraw.h, /modules/libfont/libfont.c,
+	  /modules/libfont/libfont.h, /modules/libgrbase/g_bitmap.c,
+	  /modules/libgrbase/g_bitmap.h, /modules/libgrbase/g_blendop.c,
+	  /modules/libgrbase/g_blendop.h, /modules/libgrbase/g_clear.c,
+	  /modules/libgrbase/g_clear.h, /modules/libgrbase/g_conversion.c,
+	  /modules/libgrbase/g_conversion.h, /modules/libgrbase/g_grlib.c,
+	  /modules/libgrbase/g_grlib.h, /modules/libgrbase/g_pal.c,
+	  /modules/libgrbase/g_pal.h, /modules/libgrbase/g_region.h,
+	  /modules/libgrbase/libgrbase.c, /modules/libgrbase/libgrbase.h,
+	  /modules/libgrbase/resolution.h, /modules/libkey/libkey.c,
+	  /modules/libkey/libkey.h, /modules/libmouse/libmouse.c,
+	  /modules/librender/g_fade.c, /modules/librender/g_fade.h,
+	  /modules/librender/g_frame.c, /modules/librender/g_frame.h,
+	  /modules/librender/g_instance.c, /modules/librender/g_instance.h,
+	  /modules/librender/g_object.c, /modules/librender/g_object.h,
+	  /modules/librender/g_rects.c, /modules/librender/g_rects.h,
+	  /modules/librender/g_screen.c, /modules/librender/g_screen.h,
+	  /modules/librender/librender.c, /modules/librender/librender.h,
+	  /modules/librender/scaler.h, /modules/librender/scaler_hq2x.c,
+	  /modules/librender/scaler_hq2x.h,
+	  /modules/librender/scaler_normal.c,
+	  /modules/librender/scaler_normal.h,
+	  /modules/librender/scaler_scale2x.c,
+	  /modules/librender/scaler_scale2x.h,
+	  /modules/librender/scaler_scanline.c,
+	  /modules/librender/scaler_scanline.h,
+	  /modules/libscroll/libscroll.c, /modules/libscroll/libscroll.h,
+	  /modules/libsdlhandler/libsdlhandler.c,
+	  /modules/libtext/libtext.c, /modules/libtext/libtext.h,
+	  /modules/libvideo/g_regions.c, /modules/libvideo/g_regions.h,
+	  /modules/libvideo/g_video.c, /modules/libvideo/g_video.h,
+	  /modules/libvideo/libvideo.h, /modules/libwm/libwm.c,
+	  /modules/mod_blendop/mod_blendop.c, /modules/mod_cd/mod_cd.c,
+	  /modules/mod_debug/mod_debug.c, /modules/mod_debug/systexts.c,
+	  /modules/mod_dir/mod_dir.c, /modules/mod_draw/mod_draw.c,
+	  /modules/mod_effects/mod_effects.c, /modules/mod_ffi/mod_ffi.c,
+	  /modules/mod_file/mod_file.c, /modules/mod_flic/mod_flic.c,
+	  /modules/mod_flic/mod_flic.h, /modules/mod_grproc/mod_grproc.c,
+	  /modules/mod_joy/mod_joy.c, /modules/mod_key/mod_key.c,
+	  /modules/mod_m7/mod_m7.c, /modules/mod_map/file_fnt.c,
+	  /modules/mod_map/file_fpg.c, /modules/mod_map/file_map.c,
+	  /modules/mod_map/file_pal.c, /modules/mod_map/file_pcx.c,
+	  /modules/mod_map/file_png.c, /modules/mod_map/mod_map.c,
+	  /modules/mod_map/mod_map.h, /modules/mod_math/mod_math.c,
+	  /modules/mod_mem/mod_mem.c, /modules/mod_mouse/mod_mouse.c,
+	  /modules/mod_path/mod_path.c, /modules/mod_proc/mod_proc.c,
+	  /modules/mod_rand/mod_rand.c, /modules/mod_regex/mod_regex.c,
+	  /modules/mod_regex/regex.c, /modules/mod_regex/regex.h,
+	  /modules/mod_say/mod_say.c, /modules/mod_screen/mod_screen.c,
+	  /modules/mod_scroll/mod_scroll.c, /modules/mod_sort/mod_sort.c,
+	  /modules/mod_sound/mod_sound.c, /modules/mod_string/mod_string.c,
+	  /modules/mod_sys/mod_sys.c, /modules/mod_text/mod_text.c,
+	  /modules/mod_time/mod_time.c, /modules/mod_timers/mod_timers.c,
+	  /modules/mod_video/mod_video.c, /modules/mod_wm/mod_wm.c,
+	  /tools/moddesc/moddesc.c: - License update
+
+2008-12-31 15:43  SplinterGU
+
+	* /modules/libmouse/libmouse.c, /modules/mod_blendop/mod_blendop.c:
+	  Dependencies fix
+
+2008-12-30 15:25  SplinterGU
+
+	* /core/Makefile, /core/bgdc/Makefile, /core/bgdc/src/Makefile,
+	  /core/bgdi/Makefile, /core/bgdi/src/Makefile,
+	  /core/bgdrtm/Makefile, /core/bgdrtm/src/Makefile,
+	  /core/config.log, /core/config.status, /core/libtool,
+	  /modules/Makefile, /modules/config.log, /modules/config.status,
+	  /modules/libblit/Makefile, /modules/libdraw/Makefile,
+	  /modules/libfont/Makefile, /modules/libgrbase/Makefile,
+	  /modules/libkey/Makefile, /modules/libmouse/Makefile,
+	  /modules/librender/Makefile, /modules/libscroll/Makefile,
+	  /modules/libsdlhandler/Makefile, /modules/libtext/Makefile,
+	  /modules/libtool, /modules/libvideo/Makefile,
+	  /modules/libwm/Makefile, /modules/mod_blendop/Makefile,
+	  /modules/mod_cd/Makefile, /modules/mod_debug/Makefile,
+	  /modules/mod_dir/Makefile, /modules/mod_draw/Makefile,
+	  /modules/mod_effects/Makefile, /modules/mod_ffi/Makefile,
+	  /modules/mod_file/Makefile, /modules/mod_flic/Makefile,
+	  /modules/mod_grproc/Makefile, /modules/mod_joy/Makefile,
+	  /modules/mod_key/Makefile, /modules/mod_m7/Makefile,
+	  /modules/mod_map/Makefile, /modules/mod_math/Makefile,
+	  /modules/mod_mem/Makefile, /modules/mod_mouse/Makefile,
+	  /modules/mod_path/Makefile, /modules/mod_proc/Makefile,
+	  /modules/mod_rand/Makefile, /modules/mod_regex/Makefile,
+	  /modules/mod_say/Makefile, /modules/mod_screen/Makefile,
+	  /modules/mod_scroll/Makefile, /modules/mod_sort/Makefile,
+	  /modules/mod_sound/Makefile, /modules/mod_string/Makefile,
+	  /modules/mod_sys/Makefile, /modules/mod_text/Makefile,
+	  /modules/mod_time/Makefile, /modules/mod_timers/Makefile,
+	  /modules/mod_video/Makefile, /modules/mod_wm/Makefile,
+	  /tools/moddesc/Makefile, /tools/moddesc/config.log,
+	  /tools/moddesc/config.status: - Developer configure run (no
+	  changes)
+
+2008-12-30 15:10  SplinterGU
+
+	* /tools/moddesc/moddesc.c: - Extension remove fix
+	  - Enable interactive mode only in Win32
+
+2008-12-30 14:44  SplinterGU
+
+	* /core/bgdc/src/c_data.c: Initialization fix of type and typeb
+
+2008-12-29 02:13  SplinterGU
+
+	* /core, /core/AUTHORS, /core/COPYING, /core/ChangeLog,
+	  /core/INSTALL, /core/Makefile, /core/Makefile.am,
+	  /core/Makefile.in, /core/NEWS, /core/README, /core/acinclude.m4,
+	  /core/aclocal.m4, /core/bgdc, /core/bgdc/Makefile,
+	  /core/bgdc/Makefile.am, /core/bgdc/Makefile.in,
+	  /core/bgdc/include, /core/bgdc/include/bgdc.h,
+	  /core/bgdc/include/codeblock.h, /core/bgdc/include/compiler.h,
+	  /core/bgdc/include/constants.h, /core/bgdc/include/errors.h,
+	  /core/bgdc/include/errors_st.h, /core/bgdc/include/identifiers.h,
+	  /core/bgdc/include/procdef.h, /core/bgdc/include/segment.h,
+	  /core/bgdc/include/token.h, /core/bgdc/include/varspace.h,
+	  /core/bgdc/src, /core/bgdc/src/Makefile,
+	  /core/bgdc/src/Makefile.am, /core/bgdc/src/Makefile.in,
+	  /core/bgdc/src/bgdc.ico, /core/bgdc/src/bgdc.rc,
+	  /core/bgdc/src/c_code.c, /core/bgdc/src/c_data.c,
+	  /core/bgdc/src/c_debug.c, /core/bgdc/src/c_main.c,
+	  /core/bgdc/src/codeblock.c, /core/bgdc/src/constants.c,
+	  /core/bgdc/src/dcbw.c, /core/bgdc/src/error.c,
+	  /core/bgdc/src/identifier.c, /core/bgdc/src/main.c,
+	  /core/bgdc/src/main_core.c, /core/bgdc/src/messages.c,
+	  /core/bgdc/src/procedure.c, /core/bgdc/src/resource.h,
+	  /core/bgdc/src/segment.c, /core/bgdc/src/strings.c,
+	  /core/bgdc/src/sysstub.c, /core/bgdc/src/token.c,
+	  /core/bgdc/src/typedef.c, /core/bgdc/src/varspace.c, /core/bgdi,
+	  /core/bgdi/Makefile, /core/bgdi/Makefile.am,
+	  /core/bgdi/Makefile.in, /core/bgdi/include,
+	  /core/bgdi/include/bgdi.h, /core/bgdi/src,
+	  /core/bgdi/src/Makefile, /core/bgdi/src/Makefile.am,
+	  /core/bgdi/src/Makefile.in, /core/bgdi/src/bgdi.ico,
+	  /core/bgdi/src/bgdi.rc, /core/bgdi/src/main.c,
+	  /core/bgdi/src/resource.h, /core/bgdrtm, /core/bgdrtm/Makefile,
+	  /core/bgdrtm/Makefile.am, /core/bgdrtm/Makefile.in,
+	  /core/bgdrtm/include, /core/bgdrtm/include/bgdrtm.h,
+	  /core/bgdrtm/include/sysprocs_p.h, /core/bgdrtm/src,
+	  /core/bgdrtm/src/Makefile, /core/bgdrtm/src/Makefile.am,
+	  /core/bgdrtm/src/Makefile.in, /core/bgdrtm/src/copy.c,
+	  /core/bgdrtm/src/dcbr.c, /core/bgdrtm/src/dirs.c,
+	  /core/bgdrtm/src/instance.c, /core/bgdrtm/src/interpreter.c,
+	  /core/bgdrtm/src/misc.c, /core/bgdrtm/src/strings.c,
+	  /core/bgdrtm/src/sysprocs.c, /core/common, /core/common/debug.c,
+	  /core/common/files.c, /core/common/varspace_file.c,
+	  /core/common/xctype.c, /core/compile, /core/config.guess,
+	  /core/config.log, /core/config.status, /core/config.sub,
+	  /core/configure, /core/configure.in, /core/depcomp,
+	  /core/include, /core/include/arrange.h, /core/include/bgdcore.h,
+	  /core/include/bgddl.h, /core/include/commons_defs.h,
+	  /core/include/dcb.h, /core/include/dirs.h,
+	  /core/include/dlvaracc.h, /core/include/files.h,
+	  /core/include/files_st.h, /core/include/fmath.h,
+	  /core/include/i_procdef.h, /core/include/i_procdef_st.h,
+	  /core/include/instance.h, /core/include/instance_st.h,
+	  /core/include/loadlib.h, /core/include/offsets.h,
+	  /core/include/pslang.h, /core/include/sysprocs.h,
+	  /core/include/sysprocs_st.h, /core/include/typedef.h,
+	  /core/include/typedef_st.h, /core/include/varspace_file.h,
+	  /core/include/xctype.h, /core/include/xctype_st.h,
+	  /core/include/xstrings.h, /core/install-sh, /core/libtool,
+	  /core/ltmain.sh, /core/missing, /core/mkinstalldirs, /modules,
+	  /modules/AUTHORS, /modules/COPYING, /modules/ChangeLog,
+	  /modules/INSTALL, /modules/Makefile, /modules/Makefile.am,
+	  /modules/Makefile.in, /modules/NEWS, /modules/README,
+	  /modules/aclocal.m4, /modules/compile, /modules/config.guess,
+	  /modules/config.log, /modules/config.status, /modules/config.sub,
+	  /modules/configure, /modules/configure.in, /modules/depcomp,
+	  /modules/install-sh, /modules/libblit, /modules/libblit/Makefile,
+	  /modules/libblit/Makefile.am, /modules/libblit/Makefile.in,
+	  /modules/libblit/g_blit.c, /modules/libblit/g_blit.h,
+	  /modules/libblit/g_pixel.c, /modules/libblit/g_pixel.h,
+	  /modules/libblit/libblit.c, /modules/libblit/libblit.h,
+	  /modules/libdraw, /modules/libdraw/Makefile,
+	  /modules/libdraw/Makefile.am, /modules/libdraw/Makefile.in,
+	  /modules/libdraw/libdraw.c, /modules/libdraw/libdraw.h,
+	  /modules/libfont, /modules/libfont/Makefile,
+	  /modules/libfont/Makefile.am, /modules/libfont/Makefile.in,
+	  /modules/libfont/libfont.c, /modules/libfont/libfont.h,
+	  /modules/libgrbase, /modules/libgrbase/Makefile,
+	  /modules/libgrbase/Makefile.am, /modules/libgrbase/Makefile.in,
+	  /modules/libgrbase/g_bitmap.c, /modules/libgrbase/g_bitmap.h,
+	  /modules/libgrbase/g_blendop.c, /modules/libgrbase/g_blendop.h,
+	  /modules/libgrbase/g_clear.c, /modules/libgrbase/g_clear.h,
+	  /modules/libgrbase/g_conversion.c,
+	  /modules/libgrbase/g_conversion.h, /modules/libgrbase/g_grlib.c,
+	  /modules/libgrbase/g_grlib.h, /modules/libgrbase/g_pal.c,
+	  /modules/libgrbase/g_pal.h, /modules/libgrbase/g_region.h,
+	  /modules/libgrbase/libgrbase.c, /modules/libgrbase/libgrbase.h,
+	  /modules/libgrbase/resolution.h, /modules/libkey,
+	  /modules/libkey/Makefile, /modules/libkey/Makefile.am,
+	  /modules/libkey/Makefile.in, /modules/libkey/libkey.c,
+	  /modules/libkey/libkey.h, /modules/libmouse,
+	  /modules/libmouse/Makefile, /modules/libmouse/Makefile.am,
+	  /modules/libmouse/Makefile.in, /modules/libmouse/libmouse.c,
+	  /modules/librender, /modules/librender/Makefile,
+	  /modules/librender/Makefile.am, /modules/librender/Makefile.in,
+	  /modules/librender/g_fade.c, /modules/librender/g_fade.h,
+	  /modules/librender/g_frame.c, /modules/librender/g_frame.h,
+	  /modules/librender/g_instance.c, /modules/librender/g_instance.h,
+	  /modules/librender/g_object.c, /modules/librender/g_object.h,
+	  /modules/librender/g_rects.c, /modules/librender/g_rects.h,
+	  /modules/librender/g_screen.c, /modules/librender/g_screen.h,
+	  /modules/librender/librender.c, /modules/librender/librender.h,
+	  /modules/librender/scaler.h, /modules/librender/scaler_hq2x.c,
+	  /modules/librender/scaler_hq2x.h,
+	  /modules/librender/scaler_normal.c,
+	  /modules/librender/scaler_normal.h,
+	  /modules/librender/scaler_scale2x.c,
+	  /modules/librender/scaler_scale2x.h,
+	  /modules/librender/scaler_scanline.c,
+	  /modules/librender/scaler_scanline.h, /modules/libscroll,
+	  /modules/libscroll/Makefile, /modules/libscroll/Makefile.am,
+	  /modules/libscroll/Makefile.in, /modules/libscroll/libscroll.c,
+	  /modules/libscroll/libscroll.h, /modules/libsdlhandler,
+	  /modules/libsdlhandler/Makefile,
+	  /modules/libsdlhandler/Makefile.am,
+	  /modules/libsdlhandler/Makefile.in,
+	  /modules/libsdlhandler/libsdlhandler.c, /modules/libtext,
+	  /modules/libtext/Makefile, /modules/libtext/Makefile.am,
+	  /modules/libtext/Makefile.in, /modules/libtext/libtext.c,
+	  /modules/libtext/libtext.h,
+	  /modules/libtext/libtext_la-g_text.loT, /modules/libtool,
+	  /modules/libvideo, /modules/libvideo/Makefile,
+	  /modules/libvideo/Makefile.am, /modules/libvideo/Makefile.in,
+	  /modules/libvideo/g_regions.c, /modules/libvideo/g_regions.h,
+	  /modules/libvideo/g_video.c, /modules/libvideo/g_video.h,
+	  /modules/libvideo/libvideo.h, /modules/libwm,
+	  /modules/libwm/Makefile, /modules/libwm/Makefile.am,
+	  /modules/libwm/Makefile.in, /modules/libwm/libwm.c,
+	  /modules/ltmain.sh, /modules/missing, /modules/mkinstalldirs,
+	  /modules/mod_blendop, /modules/mod_blendop/Makefile,
+	  /modules/mod_blendop/Makefile.am,
+	  /modules/mod_blendop/Makefile.in,
+	  /modules/mod_blendop/mod_blendop.c, /modules/mod_cd,
+	  /modules/mod_cd/Makefile, /modules/mod_cd/Makefile.am,
+	  /modules/mod_cd/Makefile.in, /modules/mod_cd/mod_cd.c,
+	  /modules/mod_debug, /modules/mod_debug/Makefile,
+	  /modules/mod_debug/Makefile.am, /modules/mod_debug/Makefile.in,
+	  /modules/mod_debug/mod_debug.c, /modules/mod_debug/systexts.c,
+	  /modules/mod_dir, /modules/mod_dir/Makefile,
+	  /modules/mod_dir/Makefile.am, /modules/mod_dir/Makefile.in,
+	  /modules/mod_dir/mod_dir.c, /modules/mod_draw,
+	  /modules/mod_draw/Makefile, /modules/mod_draw/Makefile.am,
+	  /modules/mod_draw/Makefile.in, /modules/mod_draw/mod_draw.c,
+	  /modules/mod_effects, /modules/mod_effects/Makefile,
+	  /modules/mod_effects/Makefile.am,
+	  /modules/mod_effects/Makefile.in,
+	  /modules/mod_effects/mod_effects.c, /modules/mod_ffi,
+	  /modules/mod_ffi/Makefile, /modules/mod_ffi/Makefile.am,
+	  /modules/mod_ffi/Makefile.in, /modules/mod_ffi/mod_ffi.c,
+	  /modules/mod_ffi/readme.txt, /modules/mod_file,
+	  /modules/mod_file/Makefile, /modules/mod_file/Makefile.am,
+	  /modules/mod_file/Makefile.in, /modules/mod_file/mod_file.c,
+	  /modules/mod_flic, /modules/mod_flic/Makefile,
+	  /modules/mod_flic/Makefile.am, /modules/mod_flic/Makefile.in,
+	  /modules/mod_flic/mod_flic.c, /modules/mod_flic/mod_flic.h,
+	  /modules/mod_grproc, /modules/mod_grproc/Makefile,
+	  /modules/mod_grproc/Makefile.am, /modules/mod_grproc/Makefile.in,
+	  /modules/mod_grproc/mod_grproc.c, /modules/mod_joy,
+	  /modules/mod_joy/Makefile, /modules/mod_joy/Makefile.am,
+	  /modules/mod_joy/Makefile.in, /modules/mod_joy/mod_joy.c,
+	  /modules/mod_key, /modules/mod_key/Makefile,
+	  /modules/mod_key/Makefile.am, /modules/mod_key/Makefile.in,
+	  /modules/mod_key/mod_key.c, /modules/mod_m7,
+	  /modules/mod_m7/Makefile, /modules/mod_m7/Makefile.am,
+	  /modules/mod_m7/Makefile.in, /modules/mod_m7/mod_m7.c,
+	  /modules/mod_map, /modules/mod_map/Makefile,
+	  /modules/mod_map/Makefile.am, /modules/mod_map/Makefile.in,
+	  /modules/mod_map/file_fnt.c, /modules/mod_map/file_fpg.c,
+	  /modules/mod_map/file_map.c, /modules/mod_map/file_pal.c,
+	  /modules/mod_map/file_pcx.c, /modules/mod_map/file_png.c,
+	  /modules/mod_map/mod_map.c, /modules/mod_map/mod_map.h,
+	  /modules/mod_math, /modules/mod_math/Makefile,
+	  /modules/mod_math/Makefile.am, /modules/mod_math/Makefile.in,
+	  /modules/mod_math/mod_math.c, /modules/mod_mem,
+	  /modules/mod_mem/Makefile, /modules/mod_mem/Makefile.am,
+	  /modules/mod_mem/Makefile.in, /modules/mod_mem/mod_mem.c,
+	  /modules/mod_mouse, /modules/mod_mouse/Makefile,
+	  /modules/mod_mouse/Makefile.am, /modules/mod_mouse/Makefile.in,
+	  /modules/mod_mouse/mod_mouse.c, /modules/mod_path,
+	  /modules/mod_path/Makefile, /modules/mod_path/Makefile.am,
+	  /modules/mod_path/Makefile.in, /modules/mod_path/mod_path.c,
+	  /modules/mod_proc, /modules/mod_proc/Makefile,
+	  /modules/mod_proc/Makefile.am, /modules/mod_proc/Makefile.in,
+	  /modules/mod_proc/mod_proc.c, /modules/mod_rand,
+	  /modules/mod_rand/Makefile, /modules/mod_rand/Makefile.am,
+	  /modules/mod_rand/Makefile.in, /modules/mod_rand/mod_rand.c,
+	  /modules/mod_regex, /modules/mod_regex/Makefile,
+	  /modules/mod_regex/Makefile.am, /modules/mod_regex/Makefile.in,
+	  /modules/mod_regex/mod_regex.c, /modules/mod_regex/regex.c,
+	  /modules/mod_regex/regex.h, /modules/mod_say,
+	  /modules/mod_say/Makefile, /modules/mod_say/Makefile.am,
+	  /modules/mod_say/Makefile.in, /modules/mod_say/mod_say.c,
+	  /modules/mod_screen, /modules/mod_screen/Makefile,
+	  /modules/mod_screen/Makefile.am, /modules/mod_screen/Makefile.in,
+	  /modules/mod_screen/mod_screen.c, /modules/mod_scroll,
+	  /modules/mod_scroll/Makefile, /modules/mod_scroll/Makefile.am,
+	  /modules/mod_scroll/Makefile.in,
+	  /modules/mod_scroll/mod_scroll.c, /modules/mod_sort,
+	  /modules/mod_sort/Makefile, /modules/mod_sort/Makefile.am,
+	  /modules/mod_sort/Makefile.in, /modules/mod_sort/mod_sort.c,
+	  /modules/mod_sound, /modules/mod_sound/Makefile,
+	  /modules/mod_sound/Makefile.am, /modules/mod_sound/Makefile.in,
+	  /modules/mod_sound/mod_sound.c, /modules/mod_string,
+	  /modules/mod_string/Makefile, /modules/mod_string/Makefile.am,
+	  /modules/mod_string/Makefile.in,
+	  /modules/mod_string/mod_string.c, /modules/mod_sys,
+	  /modules/mod_sys/Makefile, /modules/mod_sys/Makefile.am,
+	  /modules/mod_sys/Makefile.in, /modules/mod_sys/mod_sys.c,
+	  /modules/mod_text, /modules/mod_text/Makefile,
+	  /modules/mod_text/Makefile.am, /modules/mod_text/Makefile.in,
+	  /modules/mod_text/mod_text.c, /modules/mod_time,
+	  /modules/mod_time/Makefile, /modules/mod_time/Makefile.am,
+	  /modules/mod_time/Makefile.in, /modules/mod_time/mod_time.c,
+	  /modules/mod_timers, /modules/mod_timers/Makefile,
+	  /modules/mod_timers/Makefile.am, /modules/mod_timers/Makefile.in,
+	  /modules/mod_timers/mod_timers.c, /modules/mod_video,
+	  /modules/mod_video/Makefile, /modules/mod_video/Makefile.am,
+	  /modules/mod_video/Makefile.in, /modules/mod_video/mod_video.c,
+	  /modules/mod_wm, /modules/mod_wm/Makefile,
+	  /modules/mod_wm/Makefile.am, /modules/mod_wm/Makefile.in,
+	  /modules/mod_wm/mod_wm.c, /tools, /tools/moddesc,
+	  /tools/moddesc/AUTHORS, /tools/moddesc/COPYING,
+	  /tools/moddesc/ChangeLog, /tools/moddesc/INSTALL,
+	  /tools/moddesc/Makefile, /tools/moddesc/Makefile.am,
+	  /tools/moddesc/Makefile.in, /tools/moddesc/NEWS,
+	  /tools/moddesc/README, /tools/moddesc/acinclude.m4,
+	  /tools/moddesc/aclocal.m4, /tools/moddesc/compile,
+	  /tools/moddesc/config.guess, /tools/moddesc/config.log,
+	  /tools/moddesc/config.status, /tools/moddesc/config.sub,
+	  /tools/moddesc/configure, /tools/moddesc/configure.ac,
+	  /tools/moddesc/depcomp, /tools/moddesc/install-sh,
+	  /tools/moddesc/libtool, /tools/moddesc/ltmain.sh,
+	  /tools/moddesc/missing, /tools/moddesc/mkinstalldirs,
+	  /tools/moddesc/moddesc.c: .
+

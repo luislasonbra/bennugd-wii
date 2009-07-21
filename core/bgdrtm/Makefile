@@ -88,7 +88,7 @@ $(BUILD):
 #---------------------------------------------------------------------------------
 clean:
 	@echo clean ...
-	@rm -fr $(BUILD) $(TARGET).a lib$(TARGET).a
+	@rm -fr $(BUILD) $(TARGET).a
 
 #---------------------------------------------------------------------------------
 else
@@ -100,8 +100,7 @@ DEPENDS	:=	$(OFILES:.o=.d)
 #---------------------------------------------------------------------------------
 $(OUTPUT).a: $(OFILES)
 	@echo Gonna link $(OUTPUT).a
-	@powerpc-gekko-ar crs $@ $(OBJS)
-	@mv ../$(TARGET).a ../lib$(TARGET).a
+	@powerpc-gekko-ar crs $@ $(OFILES)
 	@echo done linking
 
 -include $(DEPENDS)

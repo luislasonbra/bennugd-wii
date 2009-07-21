@@ -36,6 +36,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <glob.h>
 
 /* ------------------------------------------------------------------------------------ */
 /*
@@ -235,7 +236,7 @@ __DIR_ST * dir_open( const char * path )
 #elif defined(TARGET_BEOS)
     glob( path_final, GLOB_ERR | GLOB_NOSORT, NULL, &hDir->globd );
 #else
-    glob( path_final, GLOB_ERR | GLOB_PERIOD | GLOB_NOSORT, NULL, &hDir->globd );
+    glob( path_final, GLOB_ERR | GLOB_NOSORT, NULL, &hDir->globd );
 #endif
 
     hDir->currFile = 0;

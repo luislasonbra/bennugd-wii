@@ -27,7 +27,7 @@
 #include <winbase.h>
 #else
 #define _GNU_SOURCE
-#include <dlfcn.h>
+/*#include <dlfcn.h>*/
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -57,16 +57,18 @@ static char * dliberror( void )
 
 static int dlibclose( dlibhandle * handle )
 {
+		/*
     dlclose( handle->hnd );
     free( handle->fname );
     free( handle );
-
+		*/
     return 0;
 }
 
 static dlibhandle * dlibopen( const char * fname )
 {
-#ifdef _WIN32
+    return NULL;
+/*#ifdef _WIN32
     void * hnd = LoadLibrary( fname );
 #else
     void * hnd = dlopen( fname, RTLD_NOW | RTLD_GLOBAL );
@@ -101,12 +103,13 @@ static dlibhandle * dlibopen( const char * fname )
         dlib->hnd = hnd;
 
         return ( dlib );
-    }
+    }*/
 }
 
 static void * dlibaddr( dlibhandle * handle, const char * symbol )
 {
-    char * ptr, * f;
+    return NULL;
+/*    char * ptr, * f;
 
 #ifdef _WIN32
     void * addr = GetProcAddress( (HMODULE)handle->hnd, symbol );
@@ -128,12 +131,6 @@ static void * dlibaddr( dlibhandle * handle, const char * symbol )
         dladdr( addr, &dli );
 
         ptr = ( char * ) dli.dli_fname; f = NULL;
-        /*
-            printf( "dli_fname=%s\n", dli.dli_fname );
-            printf( "dli_fbase=%p\n", dli.dli_fbase );
-            printf( "dli_sname=%s\n", dli.dli_sname );
-            printf( "dli_saddr=%p\n", dli.dli_saddr );
-        */
     }
     while ( *ptr )
     {
@@ -148,16 +145,14 @@ static void * dlibaddr( dlibhandle * handle, const char * symbol )
         return NULL;
     }
 #endif
-/*
-    printf( "[%s:%s]->%p\n", handle->fname, symbol, addr );fflush( stdout );
-*/
 
-    return addr;
+    return addr;*/
 }
 
 static void * _dlibaddr( dlibhandle * handle, const char * symbol )
 {
-    char * ptr, * f;
+    return NULL;
+/*    char * ptr, * f;
     char * sym = (char*)malloc( strlen( handle->fname ) + strlen( symbol ) + 2 );
     if ( !sym )
     {
@@ -180,7 +175,7 @@ static void * _dlibaddr( dlibhandle * handle, const char * symbol )
         void * addr = dlibaddr( handle, sym );
         free( sym );
         return addr;
-    }
+    }*/
 }
 
 #endif

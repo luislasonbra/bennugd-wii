@@ -24,14 +24,14 @@ INCLUDES	:=	include ../include
 # options for code generation
 #---------------------------------------------------------------------------------
 
-CFLAGS		=	-g -O2 -Wall -D__BGDRTM__ $(MACHDEP) $(INCLUDE)
+CFLAGS		=	-g -O2 -Wall -D__BGDRTM__ -DVERSION="1.0" -DTARGET_WII $(MACHDEP) $(INCLUDE)
 CXXFLAGS	=	-save-temps -Xassembler -aln=$@.lst $(CFLAGS)
 LDFLAGS		=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map
 
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS := -ldes -lz -lwiikeyboard -lfat -lwiiuse -lbte -logc -lm
+LIBS := -ldes -lglob -lz -lwiikeyboard -lfat -lwiiuse -lbte -logc -lm
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
 # include and lib
@@ -52,21 +52,14 @@ export DEPSDIR	:=	$(CURDIR)/$(BUILD)
 #---------------------------------------------------------------------------------
 # automatically build a list of object files for our project
 #---------------------------------------------------------------------------------
-CFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.c))) \
-              ../../common/debug.c ../../common/crypt.c ../../common/files.c \
-              ../../common/varspace_file.c ../../common/xctype.c
-CPPFILES	:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.cpp)))
-sFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.s)))
-SFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.S)))
+CFILES		:=	dcbr.c sysprocs.c strings.c dirs.c copy.c misc.c instance.c \
+              interpreter.c \
+              ../../common/debug.c ../../common/files.c ../../common/xctype.c
 	
 #---------------------------------------------------------------------------------
 # use CXX for linking C++ projects, CC for standard C
 #---------------------------------------------------------------------------------
-ifeq ($(strip $(CPPFILES)),)
-	export LD	:=	$(CC)
-else
-	export LD	:=	$(CXX)
-endif
+export LD	:=	$(CC)
 
 export OFILES	:=	$(CPPFILES:.cpp=.o) $(CFILES:.c=.o) \
 					$(sFILES:.s=.o) $(SFILES:.S=.o)
@@ -76,8 +69,7 @@ export OFILES	:=	$(CPPFILES:.cpp=.o) $(CFILES:.c=.o) \
 #---------------------------------------------------------------------------------
 export INCLUDE	:=	$(foreach dir,$(INCLUDES),-I$(CURDIR)/$(dir)) \
 					$(foreach dir,$(LIBDIRS),-I$(dir)/include) \
-					-I$(CURDIR)/$(BUILD) \
-					-I$(LIBOGC_INC) -I$(LIBOGC_INC)/SDL
+					-I$(CURDIR)/$(BUILD) -I$(LIBOGC_INC)
 
 #---------------------------------------------------------------------------------
 # build a list of library paths
@@ -92,12 +84,11 @@ export OUTPUT	:=	$(CURDIR)/$(TARGET)
 $(BUILD):
 	@[ -d $@ ] || mkdir -p $@
 	make -C $(BUILD) -f $(CURDIR)/Makefile
-	powerpc-gekko-strip $(TARGET).elf
 
 #---------------------------------------------------------------------------------
 clean:
 	@echo clean ...
-	@rm -fr $(BUILD) $(OUTPUT).elf $(OUTPUT).dol
+	@rm -fr $(BUILD) $(TARGET).a lib$(TARGET).a
 
 #---------------------------------------------------------------------------------
 else
@@ -107,8 +98,11 @@ DEPENDS	:=	$(OFILES:.o=.d)
 #---------------------------------------------------------------------------------
 # main targets
 #---------------------------------------------------------------------------------
-$(OUTPUT).dol: $(OUTPUT).elf
-$(OUTPUT).elf: $(OFILES)
+$(OUTPUT).a: $(OFILES)
+	@echo Gonna link $(OUTPUT).a
+	@powerpc-gekko-ar crs $@ $(OBJS)
+	@mv ../$(TARGET).a ../lib$(TARGET).a
+	@echo done linking
 
 -include $(DEPENDS)
 

@@ -74,6 +74,9 @@ int debug     = 0;  /* 1 if running in debug mode      */
 #endif
 #define _OS_ID          OS_GP2X
 #endif
+#ifdef TARGET_WII
+#define _OS_ID          OS_WII
+#endif
 
 /* --------------------------------------------------------------------------- */
 /*

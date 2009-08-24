@@ -54,7 +54,8 @@ export DEPSDIR	:=	$(CURDIR)/$(BUILD)
 #---------------------------------------------------------------------------------
 CFILES		:=	dcbr.c sysprocs.c strings.c dirs.c copy.c misc.c instance.c \
               interpreter.c \
-              ../../common/debug.c ../../common/files.c ../../common/xctype.c
+              ../../common/debug.c ../../common/files.c ../../common/xctype.c \
+              ../../../modules/mod_say/mod_say.c
 	
 #---------------------------------------------------------------------------------
 # use CXX for linking C++ projects, CC for standard C

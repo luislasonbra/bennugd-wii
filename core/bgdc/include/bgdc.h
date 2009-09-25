@@ -37,7 +37,6 @@
  *  VERSION
  */
 
-#define VERSION          "1.0.0"
 #define BGDC_VERSION     "BGDC " VERSION " (" __DATE__ " " __TIME__ ")"
 
 /*

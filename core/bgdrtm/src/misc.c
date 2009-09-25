@@ -74,8 +74,11 @@ int debug     = 0;  /* 1 if running in debug mode      */
 #endif
 #define _OS_ID          OS_GP2X
 #endif
-#ifdef TARGET_WII
-#define _OS_ID          OS_WII
+#ifdef TARGET_GP2X_WIZ
+#ifdef _OS_ID
+#undef _OS_ID
+#endif
+#define _OS_ID          OS_GP2X_WIZ
 #endif
 
 /* --------------------------------------------------------------------------- */

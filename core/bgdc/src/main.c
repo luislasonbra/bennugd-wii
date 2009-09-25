@@ -35,10 +35,6 @@
 #include "Shlwapi.h"
 #endif
 
-#ifdef TARGET_Wii
-#include <fat.h>
-#endif
-
 #include "bgdc.h"
 
 #include "errors.h"
@@ -83,19 +79,6 @@ int main( int argc, char **argv )
             "Copyright © 1999-2002 José Luis Cebrián Pagüe (Fenix)\n"
             "Bennu Game Development comes with ABSOLUTELY NO WARRANTY;\n"
             "see COPYING for details\n\n" );
-
-#ifdef TARGET_WII
-  // Initialize the Wii FAT filesystem, check stuff
-	if (!fatInitDefault()) {
-	  printf("Sorry, I cannot access the FAT filesystem on your card :(\n");
-	  return 0;
-	}
-	// We'll be working on the root of the SD card
-	if (chdir("/")) {
-	  printf("Sorry, couldn't go to the root dir on your card :(\n");
-	  return 0;
-	}
-#endif
 
     /* Default lang to EN */
     strcpy( langinfo, "EN" );
@@ -418,8 +401,6 @@ int main( int argc, char **argv )
 
     /* destroy error messages list */
     err_destroyErrorTable();
-    
-    sleep(5);
 
     return 1;
 }

@@ -32,7 +32,7 @@
 /*
  *  VERSION
  */
-#define VERSION          "1.0.0"
+
 #define BGDI_VERSION     "BGDI " VERSION " (" __DATE__ " " __TIME__ ")"
 
 /*

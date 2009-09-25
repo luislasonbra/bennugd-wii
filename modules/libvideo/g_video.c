@@ -43,24 +43,26 @@
 GRAPH * icon = NULL ;
 
 SDL_Surface * screen = NULL ;
+SDL_Surface * scale_screen = NULL ;
 
 char * apptitle = NULL ;
 
 int scr_width = 320 ;
-int scr_height = 200 ;
+int scr_height = 240 ;
 
 int scr_initialized = 0 ;
 
 int enable_16bits = 0 ;
 int enable_32bits = 0 ;
 int enable_scale = 0 ;
+int scale_resolution = 0 ;
 int full_screen = 0 ;
 int double_buffer = 0 ;
 int hardware_scr = 0 ;
 int grab_input = 0 ;
 int frameless = 0 ;
-int scale_mode = SCALE_NONE;
-int waitvsync = 0;
+int scale_mode = SCALE_NONE ;
+int waitvsync = 0 ;
 
 /* --------------------------------------------------------------------------- */
 
@@ -112,14 +114,16 @@ DLCONSTANT  __bgdexport( libvideo, constants_def )[] =
 #define GRAPH_MODE          0
 #define SCALE_MODE          1
 #define FULL_SCREEN         2
+#define SCALE_RESOLUTION    3
 
 /* --------------------------------------------------------------------------- */
 /* Definicion de variables globales (usada en tiempo de compilacion) */
 
 char * __bgdexport( libvideo, globals_def ) =
-    "graph_mode = 0;\n"                 /* Undocumented - Obsolete */
+    "graph_mode = 0;\n"
     "scale_mode = 0;\n"
-    "full_screen = 0;\n"                /* Undocumented - Obsolete */
+    "full_screen = 0;\n"
+    "scale_resolution = 0;\n"
     ;
 
 /* --------------------------------------------------------------------------- */
@@ -133,6 +137,7 @@ DLVARFIXUP __bgdexport( libvideo, globals_fixup )[] =
     { "graph_mode" , NULL, -1, -1 },
     { "scale_mode" , NULL, -1, -1 },
     { "full_screen" , NULL, -1, -1 },
+    { "scale_resolution", NULL, -1, -1 },
     { NULL , NULL, -1, -1 }
 };
 
@@ -251,6 +256,7 @@ int gr_set_mode( int width, int height, int depth )
     waitvsync = ( GLODWORD( libvideo, GRAPH_MODE ) & MODE_WAITVSYNC ) ? 1 : 0 ;
     scale_mode = GLODWORD( libvideo, SCALE_MODE );
     full_screen |= GLODWORD( libvideo, FULL_SCREEN );
+    scale_resolution = GLODWORD( libvideo, SCALE_RESOLUTION );
 
     if ( !depth )
     {
@@ -272,16 +278,29 @@ int gr_set_mode( int width, int height, int depth )
         enable_32bits = 1;
     }
 
-    if ( scale_mode != SCALE_NONE ) enable_scale = 1;
-    if ( enable_scale && scale_mode == SCALE_NONE ) scale_mode = SCALE_SCALE2X;
-
-    if ( enable_scale )
+    if ( scale_resolution != 0                  &&
+         ( scale_resolution / 10000 ) < width    &&
+         ( scale_resolution % 10000 ) < height
+       )
     {
-        enable_16bits = 1;
-        depth = 16;
+        surface_width  = scale_resolution / 10000 ;
+        surface_height = scale_resolution % 10000 ;
+    }
+    else
+    {
+        scale_resolution = 0;
 
-        surface_width *= 2;
-        surface_height *= 2;
+        if ( scale_mode != SCALE_NONE ) enable_scale = 1;
+        if ( enable_scale && scale_mode == SCALE_NONE ) scale_mode = SCALE_SCALE2X;
+
+        if ( enable_scale )
+        {
+            enable_16bits = 1;
+            depth = 16;
+
+            surface_width  *= 2;
+            surface_height *= 2;
+        }
     }
 
     /* Inicializa el modo gráfico */
@@ -301,8 +320,27 @@ int gr_set_mode( int width, int height, int depth )
 
     sdl_flags |= hardware_scr ? SDL_HWSURFACE : SDL_SWSURFACE;
 
+    if ( scale_screen ) SDL_FreeSurface( scale_screen ) ;
     if ( screen ) SDL_FreeSurface( screen ) ;
-    screen = SDL_SetVideoMode( surface_width, surface_height, depth, sdl_flags );
+
+    if ( scale_resolution != 0 )
+    {
+        scale_screen = SDL_SetVideoMode( surface_width, surface_height, depth, sdl_flags );
+        if ( !scale_screen ) return -1;
+        screen = SDL_CreateRGBSurface( sdl_flags,
+                                       width,
+                                       height,
+                                       scale_screen->format->BitsPerPixel,
+                                       scale_screen->format->Rmask,
+                                       scale_screen->format->Gmask,
+                                       scale_screen->format->Bmask,
+                                       scale_screen->format->Amask
+                                     );
+    }
+    else
+    {
+        screen = SDL_SetVideoMode( surface_width, surface_height, depth, sdl_flags );
+    }
 
     if ( !screen ) return -1;
 
@@ -397,6 +435,8 @@ int gr_init( int width, int height )
 
 void __bgdexport( libvideo, module_initialize )()
 {
+    char * e;
+
     if ( !SDL_WasInit( SDL_INIT_VIDEO ) ) SDL_InitSubSystem( SDL_INIT_VIDEO );
 
 #ifdef _WIN32
@@ -404,7 +444,21 @@ void __bgdexport( libvideo, module_initialize )()
 #endif
     apptitle = appname;
 
-    GLODWORD( libvideo, GRAPH_MODE ) = MODE_32BITS;
+    e = getenv("VIDEO_WIDTH");
+    if ( e ) scr_width = atoi(e);
+
+    e = getenv("VIDEO_HEIGHT");
+    if ( e ) scr_height = atoi(e);
+
+    e = getenv("VIDEO_DEPTH");
+    if ( e )
+        GLODWORD( libvideo, GRAPH_MODE ) = atoi(e);
+    else
+/*#ifdef TARGET_GP2X_WIZ*/
+        GLODWORD( libvideo, GRAPH_MODE ) = MODE_16BITS;
+/*#else
+        GLODWORD( libvideo, GRAPH_MODE ) = MODE_32BITS;
+#endif*/
 
     gr_init( scr_width, scr_height ) ;
 }

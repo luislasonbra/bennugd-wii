@@ -51,12 +51,13 @@ static int modsay_say_fast( INSTANCE * my, int * params )
 
 /* ----------------------------------------------------------------- */
 /* Declaracion de funciones                                          */
-
+#ifndef __STATIC__
 DLSYSFUNCS  __bgdexport( mod_say, functions_exports )[] =
 {
     { "SAY"     , "S", TYPE_UNDEFINED, modsay_say     },
     { "SAY_FAST", "S", TYPE_UNDEFINED, modsay_say_fast},
     { 0         , 0  , 0             , 0              }
 };
+#endif
 
 /* ----------------------------------------------------------------- */

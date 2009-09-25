@@ -27,7 +27,9 @@
 #include <winbase.h>
 #else
 #define _GNU_SOURCE
+#ifndef __STATIC__
 #include <dlfcn.h>
+#endif
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -57,15 +59,19 @@ static char * dliberror( void )
 
 static int dlibclose( dlibhandle * handle )
 {
+#ifndef __STATIC__
     dlclose( handle->hnd );
     free( handle->fname );
     free( handle );
+#endif
 
     return 0;
 }
 
 static dlibhandle * dlibopen( const char * fname )
 {
+#ifndef __STATIC__
+
 #ifdef _WIN32
     void * hnd = LoadLibrary( fname );
 #else
@@ -102,10 +108,13 @@ static dlibhandle * dlibopen( const char * fname )
 
         return ( dlib );
     }
+#endif
+    return NULL;
 }
 
 static void * dlibaddr( dlibhandle * handle, const char * symbol )
 {
+#ifndef __STATIC__
     char * ptr, * f;
 
 #ifdef _WIN32
@@ -153,10 +162,13 @@ static void * dlibaddr( dlibhandle * handle, const char * symbol )
 */
 
     return addr;
+#endif
+    return NULL;
 }
 
 static void * _dlibaddr( dlibhandle * handle, const char * symbol )
 {
+#ifndef __STATIC__
     char * ptr, * f;
     char * sym = (char*)malloc( strlen( handle->fname ) + strlen( symbol ) + 2 );
     if ( !sym )
@@ -181,6 +193,8 @@ static void * _dlibaddr( dlibhandle * handle, const char * symbol )
         free( sym );
         return addr;
     }
+#endif
+    return NULL;
 }
 
 #endif

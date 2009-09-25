@@ -73,7 +73,7 @@ int main( int argc, char **argv )
     char compilerimport[__MAX_PATH] = "";
     int i, j;
 
-    printf( BGDC_VERSION "\n"
+    printf( BGDC_VERSION
             "Copyright © 2006-2009 SplinterGU (Fenix/BennuGD)\n"
             "Copyright © 2002-2006 Fenix Team (Fenix)\n"
             "Copyright © 1999-2002 José Luis Cebrián Pagüe (Fenix)\n"

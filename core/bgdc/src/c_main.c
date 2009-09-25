@@ -442,6 +442,7 @@ static char * modules_exts[] =
 
 static void import_module( const char * filename )
 {
+#ifndef __STATIC__
     int         libid ;
     void        * library = NULL;
 
@@ -574,6 +575,7 @@ static void import_module( const char * filename )
             functions_exports++;
         }
     }
+#endif
 }
 
 /* ---------------------------------------------------------------------- */

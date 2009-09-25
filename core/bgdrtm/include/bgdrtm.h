@@ -64,7 +64,10 @@ extern int trace_sentence;
 extern INSTANCE * trace_instance;
 
 /* --------------------------------------------------------------------------- */
-
+// Devkitpro defines strcmpi to strncascmp, but ew don't want that
+#ifdef strncmpi
+  #undef strncmpi
+#endif
 extern int strncmpi( char * str1, char * str2, int sz );
 
 extern int dcb_load( const char * filename ) ;

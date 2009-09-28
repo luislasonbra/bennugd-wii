@@ -105,7 +105,7 @@ int main( int argc, char **argv )
 	  return 0;
 	}
 	// We'll be working on the root of the SD card
-	if (chdir("/")) {
+	if (chdir("sd:/")) {
 	  printf("Sorry, couldn't go to the root dir on your card :(\n");
 	  return 0;
 	}

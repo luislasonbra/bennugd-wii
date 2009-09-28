@@ -30,6 +30,10 @@
 #include <windows.h>
 #endif
 
+#ifdef TARGET_WII
+#include <fat.h>
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -72,6 +76,20 @@ int main( int argc, char **argv )
     int ret = -1;
 
     dcb_signature dcb_signature;
+    
+    /* Must initialize FS from SD card */
+#ifdef TARGET_WII
+    // Initialize the Wii FAT filesystem, check stuff
+	  if (!fatInitDefault()) {
+	    printf("Sorry, I cannot access the FAT filesystem on your card :(\n");
+	    return 0;
+	  }
+	  // We'll be working on the root of the SD card
+	  if (chdir("/")) {
+	    printf("Sorry, couldn't go to the root dir on your card :(\n");
+	    return 0;
+	  }
+#endif
 
     /* Find out if we are calling bgdi.exe or whatever.exe */
 

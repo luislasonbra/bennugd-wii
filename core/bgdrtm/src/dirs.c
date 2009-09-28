@@ -234,6 +234,8 @@ __DIR_ST * dir_open( const char * path )
     glob( path_final, GLOB_ERR | GLOB_NOSORT, NULL, &hDir->globd );
 #elif defined(TARGET_BEOS)
     glob( path_final, GLOB_ERR | GLOB_NOSORT, NULL, &hDir->globd );
+#elif defined(TARGET_WII)
+    glob( path_final, GLOB_ERR | GLOB_NOSORT, NULL, &hDir->globd );
 #else
     glob( path_final, GLOB_ERR | GLOB_PERIOD | GLOB_NOSORT, NULL, &hDir->globd );
 #endif

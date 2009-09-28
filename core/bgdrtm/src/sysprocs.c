@@ -223,7 +223,7 @@ static int tsize( DCB_TYPEDEF orig )
 }
 
 /* ---------------------------------------------------------------------- */
-
+#ifndef __STATIC__
 static void get_var_info( DLVARFIXUP * varfixup, DCB_VAR * basevar, int nvars, char * basedata )
 {
     unsigned int n ;
@@ -311,7 +311,7 @@ static void get_var_info( DLVARFIXUP * varfixup, DCB_VAR * basevar, int nvars, c
         break ;
     }
 }
-
+#endif
 /* ---------------------------------------------------------------------- */
 
 int compare_priority( const HOOK * a1, const HOOK * a2 )
@@ -366,7 +366,7 @@ SYSPROC * sysproc_get( int code )
 }
 
 /* ---------------------------------------------------------------------- */
-
+#ifndef __STATIC__
 void sysproc_add_tab( DLSYSFUNCS * functions_exports )
 {
     if ( functions_exports )
@@ -378,6 +378,7 @@ void sysproc_add_tab( DLSYSFUNCS * functions_exports )
         }
     }
 }
+#endif
 
 /* ---------------------------------------------------------------------- */
 

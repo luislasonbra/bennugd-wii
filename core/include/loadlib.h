@@ -27,7 +27,9 @@
 #include <winbase.h>
 #else
 #define _GNU_SOURCE
+#ifndef __STATIC__
 #include <dlfcn.h>
+#endif
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>

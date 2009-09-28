@@ -39,6 +39,10 @@
 /* Debe existir un header bgdrtm.h */
 extern int bgd_copy_struct( INSTANCE * my, int * params ) ;
 extern int bgd_internal_memcopy( INSTANCE * my, int * params ) ;
+#ifdef __STATIC__
+extern int modsay_say( INSTANCE * my, int * params );
+extern int modsay_say_fast( INSTANCE * my, int * params );
+#endif
 
 #include "sysprocs.h"
 #include "sysprocs_p.h"
@@ -379,6 +383,8 @@ void sysproc_add_tab( DLSYSFUNCS * functions_exports )
 
 void sysproc_init()
 {
+#ifndef __STATIC__
+
     SYSPROC       * proc = sysprocs ;
     void          * library ;
     const char    * filename ;
@@ -524,6 +530,7 @@ void sysproc_init()
     if ( module_initialize_count )
         for ( n = 0; n < module_initialize_count; n++ )
             module_initialize_list[n]();
+#endif
 }
 
 /* ---------------------------------------------------------------------- */

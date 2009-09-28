@@ -64,7 +64,7 @@ extern int trace_sentence;
 extern INSTANCE * trace_instance;
 
 /* --------------------------------------------------------------------------- */
-// Devkitpro defines strcmpi to strncascmp, but ew don't want that
+// Devkitpro defines strcmpi to strncascmp, but we don't want that
 #ifdef strncmpi
   #undef strncmpi
 #endif

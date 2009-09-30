@@ -77,41 +77,9 @@ int main( int argc, char **argv )
     char importname[__MAX_PATH] = "";
     char compilerimport[__MAX_PATH] = "";
     int i, j;
-    FILE *fd;
 
-    printf( BGDC_VERSION
-            "Copyright © 2006-2009 SplinterGU (Fenix/BennuGD)\n"
-            "Copyright © 2002-2006 Fenix Team (Fenix)\n"
-            "Copyright © 1999-2002 José Luis Cebrián Pagüe (Fenix)\n"
-            "Bennu Game Development comes with ABSOLUTELY NO WARRANTY;\n"
-            "see COPYING for details\n\n" );
-
-    /* Default lang to EN */
-    strcpy( langinfo, "EN" );
-    /* LANG detect */
-#ifdef WIN32
-    GetLocaleInfo( LOCALE_USER_DEFAULT, LOCALE_SABBREVCTRYNAME, langinfo, 64 );
-    strlwr( langinfo );
-#else
-    if ( getenv( "LANG" ) != NULL && strlen( getenv( "LANG" ) ) >= 2 )
-        strcpy( langinfo, getenv( "LANG" ) );
-#endif
-    langinfo[2] = 0;
-
-    /* If we're on the WII console, we must tell libfat to write files
-       to the SD card.                                                 */
+/* The following code has been stolen from devkitpro project's wii-examples */
 #ifdef TARGET_WII
-  // Initialize the Wii FAT filesystem, check stuff
-	if (!fatInitDefault()) {
-	  printf("Sorry, I cannot access the FAT filesystem on your card :(\n");
-	  return 0;
-	}
-	// We'll be working on the root of the SD card
-	if (chdir("sd:/")) {
-	  printf("Sorry, couldn't go to the root dir on your card :(\n");
-	  return 0;
-	}
-	
 	/* Now initialize the console, needed by printf */
   static void *xfb = NULL;
   static GXRModeObj *rmode = NULL;
@@ -148,6 +116,42 @@ int main( int argc, char **argv )
 	VIDEO_WaitVSync();
 	if(rmode->viTVMode&VI_NON_INTERLACE) VIDEO_WaitVSync();
 
+  printf("Console initialization complete.\n");
+
+#endif
+
+    printf( BGDC_VERSION
+            "Copyright © 2006-2009 SplinterGU (Fenix/BennuGD)\n"
+            "Copyright © 2002-2006 Fenix Team (Fenix)\n"
+            "Copyright © 1999-2002 José Luis Cebrián Pagüe (Fenix)\n"
+            "Bennu Game Development comes with ABSOLUTELY NO WARRANTY;\n"
+            "see COPYING for details\n\n" );
+
+    /* Default lang to EN */
+    strcpy( langinfo, "EN" );
+    /* LANG detect */
+#ifdef WIN32
+    GetLocaleInfo( LOCALE_USER_DEFAULT, LOCALE_SABBREVCTRYNAME, langinfo, 64 );
+    strlwr( langinfo );
+#else
+    if ( getenv( "LANG" ) != NULL && strlen( getenv( "LANG" ) ) >= 2 )
+        strcpy( langinfo, getenv( "LANG" ) );
+#endif
+    langinfo[2] = 0;
+
+    /* If we're on the WII console, we must tell libfat to write files
+       to the SD card.                                                 */
+#ifdef TARGET_WII
+  // Initialize the Wii FAT filesystem, check stuff
+	if (!fatInitDefault()) {
+	  printf("Sorry, I cannot access the FAT filesystem on your card :(\n");
+	  return 0;
+	}
+	// We'll be working on the root of the SD card
+	if (chdir("sd:/")) {
+	  printf("Sorry, couldn't go to the root dir on your card :(\n");
+	  return 0;
+	}
 #endif
 
     srand( time( NULL ) );
@@ -403,8 +407,6 @@ int main( int argc, char **argv )
     load_file( sourcefile );
 
     compile_program();
-    fd = fopen("3", "w+");
-    fclose(fd);
 
     if ( !dcbname[0] )
     {

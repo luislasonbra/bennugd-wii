@@ -53,8 +53,8 @@ SYSPROC sysprocs[MAX_SYSPROCS] =
     { 0x02, "#MEMCOPY#" , "PPI"   , TYPE_INT        , 3, SYSMACRO(bgd_internal_memcopy) },
     
     /* mod_say */
-    { 0x03, "SAY"       , "S"     , TYPE_UNDEFINED  , 3, SYSMACRO(modsay_say)           },
-    { 0x04, "SAY_FAST"  , "S"     , TYPE_UNDEFINED  , 3, SYSMACRO(modsay_say_fast)      },
+    { 0x03, "SAY"       , "S"     , TYPE_UNDEFINED  , 1, SYSMACRO(modsay_say)           },
+    { 0x04, "SAY_FAST"  , "S"     , TYPE_UNDEFINED  , 1, SYSMACRO(modsay_say_fast)      },
 
     { 0   , 0           , ""      , TYPE_UNDEFINED  , 0, 0                              }
 } ;

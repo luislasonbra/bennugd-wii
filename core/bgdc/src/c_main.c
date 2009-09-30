@@ -1231,8 +1231,6 @@ void compile_process()
 
 void compile_program()
 {
-    FILE *fd;
-
     /* Now PROGRAM is optional :-P */
 
     token_next() ;
@@ -1254,13 +1252,7 @@ void compile_program()
         token_back() ;
     }
     
-    fd = fopen("compiling1", "w+");
-    fclose(fd);
-
     mainproc = procdef_new( procdef_getid(), identifier_search_or_add( "MAIN" ) ) ;
-
-    fd = fopen("compiling2", "w+");
-    fclose(fd);
 
     for ( ;; )
     {
@@ -1343,9 +1335,6 @@ void compile_program()
         }
     }
 
-    fd = fopen("compiling3", "w+");
-    fclose(fd);
-
     if ( debug )
     {
         printf( "\n----- Main procedure\n\n" ) ;
@@ -1369,21 +1358,12 @@ void compile_program()
         /* segment_dump (localdata) ; */
     }
     
-    fd = fopen("compiling4", "w+");
-    fclose(fd);
-
     if ( token.type != NOTOKEN )
     {
         compile_error( MSG_UNEXPECTED_TOKEN ) ;
     }
-    
-    fd = fopen("compiling5", "w+");
-    fclose(fd);
 
     program_postprocess() ;
-    
-    fd = fopen("compiling6", "w+");
-    fclose(fd);
 
     if ( !mainproc->defined )
     {
@@ -1396,8 +1376,6 @@ void compile_program()
         string_dump( NULL ) ;
     }
     
-    fd = fopen("compiling7", "w+");
-    fclose(fd);
 }
 
 /* ---------------------------------------------------------------------- */

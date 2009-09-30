@@ -120,7 +120,7 @@ int main( int argc, char **argv )
 
 #endif
 
-    printf( BGDC_VERSION
+    printf( BGDC_VERSION "\n"
             "Copyright © 2006-2009 SplinterGU (Fenix/BennuGD)\n"
             "Copyright © 2002-2006 Fenix Team (Fenix)\n"
             "Copyright © 1999-2002 José Luis Cebrián Pagüe (Fenix)\n"
@@ -145,12 +145,12 @@ int main( int argc, char **argv )
   // Initialize the Wii FAT filesystem, check stuff
 	if (!fatInitDefault()) {
 	  printf("Sorry, I cannot access the FAT filesystem on your card :(\n");
-	  return 0;
+	  exit(1);
 	}
 	// We'll be working on the root of the SD card
 	if (chdir("sd:/")) {
 	  printf("Sorry, couldn't go to the root dir on your card :(\n");
-	  return 0;
+	  exit(1);
 	}
 #endif
 
@@ -318,7 +318,7 @@ int main( int argc, char **argv )
             if ( sourcefile )
             {
                 printf( MSG_TOO_MANY_FILES "\n" );
-                return 0;
+                exit(0);
             }
 
             char * p, * pathend = NULL;
@@ -351,7 +351,7 @@ int main( int argc, char **argv )
                 MSG_OPTION_D
                 MSG_OPTIONS
                 MSG_LICENSE, argv[0] );
-        return 0;
+        exit(0);
     }
 
     add_simple_define( "COMPILER_VERSION", VERSION );
@@ -444,7 +444,7 @@ int main( int argc, char **argv )
 #endif
                     compile_error( "Can't open stub file %s", stubname );
 #ifdef WIN32
-                    return -1;
+                    exit(-1);
                 }
 #endif
 
@@ -465,7 +465,7 @@ int main( int argc, char **argv )
     /* destroy error messages list */
     err_destroyErrorTable();
 
-    return 1;
+    exit(1);
 }
 
 /* --------------------------------------------------------------------------- */

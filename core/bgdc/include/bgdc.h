@@ -40,6 +40,12 @@
 #define BGDC_VERSION     "BGDC " VERSION " (" __DATE__ " " __TIME__ ")"
 
 /*
+ * INSTEAD OF JUST EXITING, GIVE THE USER SOME GRACE TIME TO READ THE ERRORS
+ */
+
+#define exit( retval ) printf("Giving you 5 grace seconds before quitting.\n"); sleep(5); exit(retval);
+
+/*
  *  HEADER FILES
  */
 

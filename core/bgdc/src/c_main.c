@@ -613,7 +613,9 @@ void compile_import( void )
     token_next() ;
     if ( token.type != STRING ) compile_error( MSG_STRING_EXP ) ;
 
+#ifndef __STATIC__
     import_module( string_get( token.code ) );
+#endif
 }
 
 /* ---------------------------------------------------------------------- */
@@ -1229,7 +1231,9 @@ void compile_process()
 
 void compile_program()
 {
-    /* Ahora lo del program es opcional :-P */
+    FILE *fd;
+
+    /* Now PROGRAM is optional :-P */
 
     token_next() ;
     if ( token.type == IDENTIFIER && token.code == identifier_program )
@@ -1249,8 +1253,14 @@ void compile_program()
     {
         token_back() ;
     }
+    
+    fd = fopen("compiling1", "w+");
+    fclose(fd);
 
     mainproc = procdef_new( procdef_getid(), identifier_search_or_add( "MAIN" ) ) ;
+
+    fd = fopen("compiling2", "w+");
+    fclose(fd);
 
     for ( ;; )
     {
@@ -1333,6 +1343,9 @@ void compile_program()
         }
     }
 
+    fd = fopen("compiling3", "w+");
+    fclose(fd);
+
     if ( debug )
     {
         printf( "\n----- Main procedure\n\n" ) ;
@@ -1355,13 +1368,22 @@ void compile_program()
         varspace_dump( &local, 0 ) ;
         /* segment_dump (localdata) ; */
     }
+    
+    fd = fopen("compiling4", "w+");
+    fclose(fd);
 
     if ( token.type != NOTOKEN )
     {
         compile_error( MSG_UNEXPECTED_TOKEN ) ;
     }
+    
+    fd = fopen("compiling5", "w+");
+    fclose(fd);
 
     program_postprocess() ;
+    
+    fd = fopen("compiling6", "w+");
+    fclose(fd);
 
     if ( !mainproc->defined )
     {
@@ -1373,6 +1395,9 @@ void compile_program()
         identifier_dump() ;
         string_dump( NULL ) ;
     }
+    
+    fd = fopen("compiling7", "w+");
+    fclose(fd);
 }
 
 /* ---------------------------------------------------------------------- */

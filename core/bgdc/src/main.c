@@ -76,6 +76,7 @@ int main( int argc, char **argv )
     char importname[__MAX_PATH] = "";
     char compilerimport[__MAX_PATH] = "";
     int i, j;
+    FILE *fd;
 
     printf( BGDC_VERSION
             "Copyright © 2006-2009 SplinterGU (Fenix/BennuGD)\n"
@@ -286,7 +287,8 @@ int main( int argc, char **argv )
             {
                 if ( *p == ':' || *p == '\\' || *p == '/' ) pathend = p;
                 p++;
-            }
+            }          
+            
             if ( pathend )
             {
                 *( pathend + 1 ) = '\0';
@@ -363,6 +365,8 @@ int main( int argc, char **argv )
     load_file( sourcefile );
 
     compile_program();
+    fd = fopen("3", "w+");
+    fclose(fd);
 
     if ( !dcbname[0] )
     {

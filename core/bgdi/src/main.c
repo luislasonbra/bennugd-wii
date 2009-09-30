@@ -78,57 +78,53 @@ int main( int argc, char **argv )
 
     dcb_signature dcb_signature;
     
-    /* Must initialize FS from SD card */
 #ifdef TARGET_WII
 
-	/* Now initialize the console, needed by printf */
-  static void *xfb = NULL;
-  static GXRModeObj *rmode = NULL;
+	  /* Now initialize the console, needed by printf */
+    static void *xfb = NULL;
+    static GXRModeObj *rmode = NULL;
 
-	// Initialise the video system
-	VIDEO_Init();
+	  // Initialise the video system
+	  VIDEO_Init();
 	
-	// This function initialises the attached controllers
-	WPAD_Init();
+	  // This function initialises the attached controllers
+	  WPAD_Init();
 	
-	// Obtain the preferred video mode from the system
-	// This will correspond to the settings in the Wii menu
-	rmode = VIDEO_GetPreferredMode(NULL);
+	  // Obtain the preferred video mode from the system
+	  // This will correspond to the settings in the Wii menu
+	  rmode = VIDEO_GetPreferredMode(NULL);
 
-	// Allocate memory for the display in the uncached region
-	xfb = MEM_K0_TO_K1(SYS_AllocateFramebuffer(rmode));
+	  // Allocate memory for the display in the uncached region
+	  xfb = MEM_K0_TO_K1(SYS_AllocateFramebuffer(rmode));
 	
-	// Initialise the console, required for printf
-	console_init(xfb,20,20,rmode->fbWidth,rmode->xfbHeight,rmode->fbWidth*VI_DISPLAY_PIX_SZ);
+	  // Initialise the console, required for printf
+	  console_init(xfb,20,20,rmode->fbWidth,rmode->xfbHeight,rmode->fbWidth*VI_DISPLAY_PIX_SZ);
 	
-	// Set up the video registers with the chosen mode
-	VIDEO_Configure(rmode);
+	  // Set up the video registers with the chosen mode
+	  VIDEO_Configure(rmode);
 	
-	// Tell the video hardware where our display memory is
-	VIDEO_SetNextFramebuffer(xfb);
+	  // Tell the video hardware where our display memory is
+	  VIDEO_SetNextFramebuffer(xfb);
 	
-	// Make the display visible
-	VIDEO_SetBlack(FALSE);
+	  // Make the display visible
+	  VIDEO_SetBlack(FALSE);
 
-	// Flush the video register changes to the hardware
-	VIDEO_Flush();
+	  // Flush the video register changes to the hardware
+	  VIDEO_Flush();
 
-	// Wait for Video setup to complete
-	VIDEO_WaitVSync();
-	if(rmode->viTVMode&VI_NON_INTERLACE) VIDEO_WaitVSync();
-
-  printf("Console initialization complete.\n");
-
+	  // Wait for Video setup to complete
+	  VIDEO_WaitVSync();
+	  if(rmode->viTVMode&VI_NON_INTERLACE) VIDEO_WaitVSync();
 
     // Initialize the Wii FAT filesystem, check stuff
 	  if (!fatInitDefault()) {
 	    printf("Sorry, I cannot access the FAT filesystem on your card :(\n");
-	    return 0;
+	    exit(1);
 	  }
 	  // We'll be working on the root of the SD card
 	  if (chdir("sd:/")) {
 	    printf("Sorry, couldn't go to the root dir on your card :(\n");
-	    return 0;
+	    exit(1);
 	  }
 #endif
 
@@ -215,9 +211,9 @@ int main( int argc, char **argv )
         if ( !filename )
         {
             printf( BGDI_VERSION "\n"
-                    "Copyright © 2006-2009 SplinterGU (Fenix/BennuGD)\n"
-                    "Copyright © 2002-2006 Fenix Team (Fenix)\n"
-                    "Copyright © 1999-2002 José Luis Cebrián Pagüe (Fenix)\n"
+                    "Copyright (c) 2006-2009 SplinterGU (Fenix/BennuGD)\n"
+                    "Copyright (c) 2002-2006 Fenix Team (Fenix)\n"
+                    "Copyright (c) 1999-2002 Jose Luis Cebrian Pague (Fenix)\n"
                     "Bennu Game Development comes with ABSOLUTELY NO WARRANTY;\n"
                     "see COPYING for details\n\n"
                     "Usage: %s [options] <data code block file>[.dcb]\n\n"
@@ -229,7 +225,7 @@ int main( int argc, char **argv )
                     "agreement (GNU GPL version 2 or later).\n"
                     "See COPYING for license details.\n",
                     argv[0] ) ;
-            return -1 ;
+            exit(-1) ;
         }
     }
 
@@ -262,7 +258,7 @@ int main( int argc, char **argv )
             if ( !dcbloaded )
             {
                 printf( "%s: don't exist or isn't version %d DCB compatible\n", filename, DCB_VERSION >> 8 ) ;
-                return -1 ;
+                exit(-1) ;
             }
         }
     }
@@ -297,6 +293,6 @@ int main( int argc, char **argv )
 
     bgdrtm_exit( ret );
 
-    return ret;
+    exit(ret);
 }
 

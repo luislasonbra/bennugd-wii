@@ -121,8 +121,8 @@ int main( int argc, char **argv )
 #endif
 
     printf( BGDC_VERSION "\n"
-            "Copyright © 2006-2009 SplinterGU (Fenix/BennuGD)\n"
-            "Copyright © 2002-2006 Fenix Team (Fenix)\n"
+            "Copyright (c) 2006-2009 SplinterGU (Fenix/BennuGD)\n"
+            "Copyright (c) 2002-2006 Fenix Team (Fenix)\n"
             "Copyright © 1999-2002 José Luis Cebrián Pagüe (Fenix)\n"
             "Bennu Game Development comes with ABSOLUTELY NO WARRANTY;\n"
             "see COPYING for details\n\n" );

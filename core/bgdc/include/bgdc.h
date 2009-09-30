@@ -42,8 +42,9 @@
 /*
  * INSTEAD OF JUST EXITING, GIVE THE USER SOME GRACE TIME TO READ THE ERRORS
  */
-
-#define exit( retval ) printf("Giving you 5 grace seconds before quitting.\n"); sleep(5); exit(retval);
+#ifdef TARGET_WII
+#define exit( retval ) printf("\nQUITTING in 5 seconds.\n"); sleep(5); exit(retval);
+#endif
 
 /*
  *  HEADER FILES

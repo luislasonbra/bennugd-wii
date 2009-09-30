@@ -36,6 +36,13 @@
 #define BGDI_VERSION     "BGDI " VERSION " (" __DATE__ " " __TIME__ ")"
 
 /*
+ * INSTEAD OF JUST EXITING, GIVE THE USER SOME GRACE TIME TO READ THE ERRORS
+ */
+#ifdef TARGET_WII
+#define exit( retval ) printf("\nQUITTING in 5 seconds.\n"); sleep(5); exit(retval);
+#endif
+
+/*
  *  HEADER FILES
  */
 

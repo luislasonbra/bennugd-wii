@@ -1,4 +1,4 @@
-Process main
+Process main()
 Private
   int i=0, maxi=100;
 

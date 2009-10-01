@@ -36,7 +36,8 @@ int modsay_say( INSTANCE * my, int * params )
     printf( "%s\n", string_get( params[0] ) );
     fflush( stdout );
     string_discard( params[0] ) ;
-    return 1 ;
+    
+    return 1;
 }
 
 /* ---------------------------------------------------------------------- */
@@ -46,7 +47,8 @@ int modsay_say_fast( INSTANCE * my, int * params )
     /* Show debugging info also in stdout */
     printf( "%s\n", string_get( params[0] ) );
     string_discard( params[0] ) ;
-    return 1 ;
+    
+    return 1;
 }
 
 /* ----------------------------------------------------------------- */

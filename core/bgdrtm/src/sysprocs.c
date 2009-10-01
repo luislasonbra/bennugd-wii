@@ -40,8 +40,8 @@
 extern int bgd_copy_struct( INSTANCE * my, int * params ) ;
 extern int bgd_internal_memcopy( INSTANCE * my, int * params ) ;
 #ifdef __STATIC__
-extern int modsay_say( INSTANCE * my, int * params );
-extern int modsay_say_fast( INSTANCE * my, int * params );
+extern void modsay_say( INSTANCE * my, int * params );
+extern void modsay_say_fast( INSTANCE * my, int * params );
 #endif
 
 #include "sysprocs.h"

@@ -15,23 +15,23 @@ include $(DEVKITPPC)/wii_rules
 # SOURCES is a list of directories containing source code
 # INCLUDES is a list of directories containing extra header files
 #---------------------------------------------------------------------------------
-TARGET		:=	bgdrtm
+TARGET		:=	bgdi
 BUILD     :=	build
 SOURCES		:=	src
-INCLUDES	:=	include ../include
+INCLUDES	:=	include ../include ../bgdrtm/include
 
 #---------------------------------------------------------------------------------
 # options for code generation
 #---------------------------------------------------------------------------------
 
-CFLAGS		=	-g -O2 -Wall -D__BGDRTM__ -D__STATIC__ -DTARGET_WII -DVERSION='"1.0"' $(MACHDEP) $(INCLUDE)
+CFLAGS		=	-g -O2 -Wall -D__BGDI__ -D__STATIC__ -DTARGET_WII -DVERSION='"1.0"' $(MACHDEP) $(INCLUDE)
 CXXFLAGS	=	-save-temps -Xassembler -aln=$@.lst $(CFLAGS)
 LDFLAGS		=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map
 
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS := -lwiikeyboard -lfat -lwiiuse -lbte -logc -lm
+LIBS := ../../bgdrtm/bgdrtm.a -lz -lfat -lwiiuse -lbte -logc -lm
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
 # include and lib
@@ -52,14 +52,19 @@ export DEPSDIR	:=	$(CURDIR)/$(BUILD)
 #---------------------------------------------------------------------------------
 # automatically build a list of object files for our project
 #---------------------------------------------------------------------------------
-CFILES		:=	dcbr.c sysprocs.c strings.c dirs.c copy.c misc.c instance.c \
-              interpreter.c mod_say.c \
-              debug.c crypt.c files.c varspace_file.c xctype.c
+CFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.c)))
+CPPFILES	:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.cpp)))
+sFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.s)))
+SFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.S)))
 	
 #---------------------------------------------------------------------------------
 # use CXX for linking C++ projects, CC for standard C
 #---------------------------------------------------------------------------------
-export LD	:=	$(CC)
+ifeq ($(strip $(CPPFILES)),)
+	export LD	:=	$(CC)
+else
+	export LD	:=	$(CXX)
+endif
 
 export OFILES	:=	$(CPPFILES:.cpp=.o) $(CFILES:.c=.o) \
 					$(sFILES:.s=.o) $(SFILES:.S=.o)
@@ -69,7 +74,8 @@ export OFILES	:=	$(CPPFILES:.cpp=.o) $(CFILES:.c=.o) \
 #---------------------------------------------------------------------------------
 export INCLUDE	:=	$(foreach dir,$(INCLUDES),-I$(CURDIR)/$(dir)) \
 					$(foreach dir,$(LIBDIRS),-I$(dir)/include) \
-					-I$(CURDIR)/$(BUILD) -I$(LIBOGC_INC)
+					-I$(CURDIR)/$(BUILD) \
+					-I$(LIBOGC_INC) -I$(LIBOGC_INC)/SDL
 
 #---------------------------------------------------------------------------------
 # build a list of library paths
@@ -84,11 +90,20 @@ export OUTPUT	:=	$(CURDIR)/$(TARGET)
 $(BUILD):
 	@[ -d $@ ] || mkdir -p $@
 	make -C $(BUILD) -f $(CURDIR)/Makefile
+	powerpc-gekko-strip $(TARGET).elf
 
 #---------------------------------------------------------------------------------
 clean:
 	@echo clean ...
-	@rm -fr $(BUILD) $(TARGET).a
+	@rm -fr $(BUILD) $(OUTPUT).elf $(OUTPUT).dol
+
+#---------------------------------------------------------------------------------
+run:
+	wiiload $(OUTPUT).dol
+
+#---------------------------------------------------------------------------------
+reload:
+	wiiload -r $(OUTPUT).dol
 
 #---------------------------------------------------------------------------------
 else
@@ -98,10 +113,8 @@ DEPENDS	:=	$(OFILES:.o=.d)
 #---------------------------------------------------------------------------------
 # main targets
 #---------------------------------------------------------------------------------
-$(OUTPUT).a: $(OFILES)
-	@echo Gonna link $(OUTPUT).a
-	@powerpc-gekko-ar crs $@ $(OFILES)
-	@echo done linking
+$(OUTPUT).dol: $(OUTPUT).elf
+$(OUTPUT).elf: $(OFILES)
 
 -include $(DEPENDS)
 

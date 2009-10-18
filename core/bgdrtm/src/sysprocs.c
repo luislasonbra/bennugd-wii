@@ -40,8 +40,8 @@
 extern int bgd_copy_struct( INSTANCE * my, int * params ) ;
 extern int bgd_internal_memcopy( INSTANCE * my, int * params ) ;
 #ifdef __STATIC__
-extern void modsay_say( INSTANCE * my, int * params );
-extern void modsay_say_fast( INSTANCE * my, int * params );
+extern int modsay_say( INSTANCE * my, int * params );
+extern int modsay_say_fast( INSTANCE * my, int * params );
 #endif
 
 #include "sysprocs.h"
@@ -120,9 +120,8 @@ static struct
 static const char * token_ptr = NULL;
 
 /* ---------------------------------------------------------------------- */
-
+#ifndef __STATIC__
 /* Very simple tokenizer */
-
 static void get_token()
 {
     char * ptr ;
@@ -170,6 +169,7 @@ static void get_token()
 
     token.type = NOTOKEN ;
 }
+#endif
 
 /* ---------------------------------------------------------------------- */
 
@@ -384,9 +384,10 @@ void sysproc_add_tab( DLSYSFUNCS * functions_exports )
 
 void sysproc_init()
 {
-#ifndef __STATIC__
-
     SYSPROC       * proc = sysprocs ;
+    int             maxcode = 0 ;
+
+#ifndef __STATIC__
     void          * library ;
     const char    * filename ;
     unsigned int    n ;
@@ -502,7 +503,7 @@ void sysproc_init()
     }
 
     if ( debug ) printf ("\n");
-
+#endif
     /* System Procs FixUp */
 
     sysprocs_fixup();
@@ -527,6 +528,7 @@ void sysproc_init()
     if ( handler_hook_list )
         qsort( handler_hook_list, handler_hook_count, sizeof( handler_hook_list[0] ), ( int ( * )( const void *, const void * ) ) compare_priority ) ;
 
+#ifndef __STATIC__
     /* Initialize all modules */
     if ( module_initialize_count )
         for ( n = 0; n < module_initialize_count; n++ )

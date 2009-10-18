@@ -432,6 +432,7 @@ void compile_type()
 
 /* ---------------------------------------------------------------------- */
 
+#ifndef __STATIC__
 static char * modules_exts[] =
 {
     ".dll",
@@ -439,6 +440,7 @@ static char * modules_exts[] =
     ".so",
     NULL
 } ;
+#endif
 
 static void import_module( const char * filename )
 {

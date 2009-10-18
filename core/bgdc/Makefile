@@ -91,7 +91,7 @@ export OUTPUT	:=	$(CURDIR)/$(TARGET)
 $(BUILD):
 	@[ -d $@ ] || mkdir -p $@
 	make -C $(BUILD) -f $(CURDIR)/Makefile
-	powerpc-gekko-strip $(TARGET).elf
+	powerpc-eabi-strip $(TARGET).elf
 
 #---------------------------------------------------------------------------------
 clean:

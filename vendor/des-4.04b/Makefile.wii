@@ -80,7 +80,7 @@ export OUTPUT	:=	$(CURDIR)/$(TARGET)
 $(BUILD): $(OFILES)
 	@[ -d $@ ] || mkdir -p $@
 	@echo Linking libdes.a...
-	@powerpc-gekko-ar crs libdes.a $(OFILES)
+	@powerpc-eabi-ar crs libdes.a $(OFILES)
 
 	
 #---------------------------------------------------------------------------------

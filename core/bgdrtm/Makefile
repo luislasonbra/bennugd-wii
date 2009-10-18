@@ -100,7 +100,7 @@ DEPENDS	:=	$(OFILES:.o=.d)
 #---------------------------------------------------------------------------------
 $(OUTPUT).a: $(OFILES)
 	@echo Gonna link $(OUTPUT).a
-	@powerpc-gekko-ar crs $@ $(OFILES)
+	@powerpc-eabi-ar crs $@ $(OFILES)
 	@echo done linking
 
 -include $(DEPENDS)

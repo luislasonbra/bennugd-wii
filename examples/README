@@ -1,0 +1,14 @@
+If you wish to load all the examples onto the WII, do the following:
+
+Copy bgdc.elf (or any valid WII application, for the matter) into this
+folder and rename it into boot.elf.
+
+Now, compress this folder and send it to your wii (have HBC open there)
+with wiiload, say:
+wiiload example.zip
+
+HBC will ask you if you want to unzip the files there. Say yes.
+A new (unfunctional) entry will have been created in your HBC, just ignore
+it. Your examples will be there.
+
+-- Joseba

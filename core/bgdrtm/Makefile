@@ -53,11 +53,13 @@ export DEPSDIR	:=	$(CURDIR)/$(BUILD)
 # automatically build a list of object files for our project
 #---------------------------------------------------------------------------------
 CFILES		:=	dcbr.c sysprocs.c strings.c dirs.c copy.c misc.c instance.c \
-              interpreter.c ../../../modules/mod_say/mod_say.c \
+              interpreter.c \
               ../../common/crypt.c ../../common/debug.c \
               ../../common/files.c ../../common/varspace_file.c \
-              ../../common/xctype.c
-	
+              ../../common/xctype.c \
+              ../../../modules/mod_say/mod_say.c \
+              ../../../modules/mod_string/mod_string.c
+
 #---------------------------------------------------------------------------------
 # use CXX for linking C++ projects, CC for standard C
 #---------------------------------------------------------------------------------

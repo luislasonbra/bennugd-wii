@@ -31,18 +31,19 @@
 #include "bgddl.h"
 
 /* --------------------------------------------------------------------------- */
-
+#ifndef __STATIC__
 DLCONSTANT __bgdexport( mod_math, constants_def )[] =
 {
     { "PI"  , TYPE_INT  , 180000    },
     { NULL  , 0         , 0         }
 } ;
+#endif
 
 /* --------------------------------------------------------------------------- */
 /* Funciones matemáticas */
 /* --------------------------------------------------------------------------- */
 
-static int math_abs( INSTANCE * my, int * params )
+int math_abs( INSTANCE * my, int * params )
 {
     float num = *( float * ) &params[0] ;
     float res = ( num < 0 ) ? -num : num ;
@@ -51,7 +52,7 @@ static int math_abs( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int math_pow( INSTANCE * my, int * params )
+int math_pow( INSTANCE * my, int * params )
 {
     float res = ( float )pow( *( float * ) & params[0], *( float * ) & params[1] ) ;
     return *(( int * )&res ) ;
@@ -59,7 +60,7 @@ static int math_pow( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int math_sqrt( INSTANCE * my, int * params )
+int math_sqrt( INSTANCE * my, int * params )
 {
     float res = ( float )sqrt( *( float * ) & params[0] ) ;
     return *(( int * )&res ) ;
@@ -67,7 +68,7 @@ static int math_sqrt( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int math_cos( INSTANCE * my, int * params )
+int math_cos( INSTANCE * my, int * params )
 {
     float param = *( float * ) & params[0] ;
     float res = ( float )cos(( double )( param * M_PI / 180000.0 ) ) ;
@@ -76,7 +77,7 @@ static int math_cos( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int math_sin( INSTANCE * my, int * params )
+int math_sin( INSTANCE * my, int * params )
 {
     float param = *( float * ) & params[0] ;
     float res = ( float )sin(( double )( param * M_PI / 180000.0 ) ) ;
@@ -85,7 +86,7 @@ static int math_sin( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int math_tan( INSTANCE * my, int * params )
+int math_tan( INSTANCE * my, int * params )
 {
     float param = *( float * ) & params[0] ;
     float res = ( float )tan(( double )( param * M_PI / 180000.0 ) ) ;
@@ -94,7 +95,7 @@ static int math_tan( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int math_acos( INSTANCE * my, int * params )
+int math_acos( INSTANCE * my, int * params )
 {
     float param = *( float * ) & params[0] ;
     float res = ( float )( acos(( double )param ) * 180000.0 / M_PI ) ;
@@ -103,7 +104,7 @@ static int math_acos( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int math_asin( INSTANCE * my, int * params )
+int math_asin( INSTANCE * my, int * params )
 {
     float param = *( float * ) & params[0] ;
     float res = ( float )( asin(( double )param ) * 180000.0 / M_PI ) ;
@@ -112,7 +113,7 @@ static int math_asin( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int math_atan( INSTANCE * my, int * params )
+int math_atan( INSTANCE * my, int * params )
 {
     float param = *( float * ) & params[0] ;
     float res = ( float )( atan(( double )param ) * 180000.0 / M_PI ) ;
@@ -121,7 +122,7 @@ static int math_atan( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int math_isinf( INSTANCE * my, int * params )
+int math_isinf( INSTANCE * my, int * params )
 {
     double param = ( double ) *( float * ) & params[0] ;
     return isinf( param );
@@ -129,7 +130,7 @@ static int math_isinf( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int math_isnan( INSTANCE * my, int * params )
+int math_isnan( INSTANCE * my, int * params )
 {
     double param = ( double ) *( float * ) & params[0] ;
     return isnan( param );
@@ -137,7 +138,7 @@ static int math_isnan( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int math_finite( INSTANCE * my, int * params )
+int math_finite( INSTANCE * my, int * params )
 {
     double param = ( double ) *( float * ) & params[0] ;
     return finite ( param );
@@ -145,7 +146,7 @@ static int math_finite( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int math_get_disty( INSTANCE * my, int * params )
+int math_get_disty( INSTANCE * my, int * params )
 {
     double angle = params[0] * M_PI / 180000.0 ;
     return ( int )( params[1] * -sin( angle ) ) ;
@@ -153,7 +154,7 @@ static int math_get_disty( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int math_fget_angle( INSTANCE * my, int * params )
+int math_fget_angle( INSTANCE * my, int * params )
 {
     double dx = params[2] - params[0] ;
     double dy = params[3] - params[1] ;
@@ -168,7 +169,7 @@ static int math_fget_angle( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int math_fget_dist( INSTANCE * my, int * params )
+int math_fget_dist( INSTANCE * my, int * params )
 {
     double dx = params[2] - params[0] ;
     double dy = params[3] - params[1] ;
@@ -178,7 +179,7 @@ static int math_fget_dist( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int math_near_angle( INSTANCE * my, int * params )
+int math_near_angle( INSTANCE * my, int * params )
 {
     int angle = params[0] ;
     int dest  = params[1] ;
@@ -208,7 +209,7 @@ static int math_near_angle( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int math_get_distx( INSTANCE * my, int * params )
+int math_get_distx( INSTANCE * my, int * params )
 {
     double angle = params[0] * M_PI / 180000.0 ;
     return ( int )( params[1] * cos( angle ) ) ;
@@ -216,7 +217,7 @@ static int math_get_distx( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 /* Declaracion de funciones                                                    */
-
+#ifndef __STATIC__
 DLSYSFUNCS __bgdexport( mod_math, functions_exports )[] =
 {
     { "ABS"         , "F"       , TYPE_FLOAT    , math_abs          },
@@ -241,5 +242,6 @@ DLSYSFUNCS __bgdexport( mod_math, functions_exports )[] =
 
     { 0             , 0         , 0             , 0                 }
 };
+#endif
 
 /* --------------------------------------------------------------------------- */

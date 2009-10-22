@@ -24,7 +24,7 @@ INCLUDES	:=	include ../include
 # options for code generation
 #---------------------------------------------------------------------------------
 
-CFLAGS		=	-g -O2 -Wall -D__BGDRTM__ -D__STATIC__ -DTARGET_WII -DVERSION='"1.0"' $(MACHDEP) $(INCLUDE)
+CFLAGS		=	-g -O2 -Wall -D__BGDRTM__ -D__STATIC__ -DTARGET_WII -DVERSION='"1.0"' $(MACHDEP) $(INCLUDE) -finline-functions -fno-strict-aliasing
 CXXFLAGS	=	-save-temps -Xassembler -aln=$@.lst $(CFLAGS)
 LDFLAGS		=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map
 
@@ -58,7 +58,8 @@ CFILES		:=	dcbr.c sysprocs.c strings.c dirs.c copy.c misc.c instance.c \
               ../../common/files.c ../../common/varspace_file.c \
               ../../common/xctype.c \
               ../../../modules/mod_say/mod_say.c \
-              ../../../modules/mod_string/mod_string.c
+              ../../../modules/mod_string/mod_string.c \
+              ../../../modules/mod_math/mod_math.c
 
 #---------------------------------------------------------------------------------
 # use CXX for linking C++ projects, CC for standard C

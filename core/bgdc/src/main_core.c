@@ -82,6 +82,11 @@ constants_def[] =
     { "MIN_CHAR"        , TYPE_BYTE , 0                   },
     { "MAX_CHAR"        , TYPE_BYTE , 0xff                },
 
+#ifdef __STATIC__
+    /* mod_math */
+    { "PI"              , TYPE_INT  , 180000              },
+#endif
+
     { NULL              , 0         , 0                   }
 } ;
 

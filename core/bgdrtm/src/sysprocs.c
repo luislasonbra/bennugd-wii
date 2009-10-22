@@ -36,7 +36,7 @@
 
 /* ---------------------------------------------------------------------- */
 
-/* Debe existir un header bgdrtm.h */
+/* bgdrtm.h header must exist */
 extern int bgd_copy_struct( INSTANCE * my, int * params ) ;
 extern int bgd_internal_memcopy( INSTANCE * my, int * params ) ;
 #ifdef __STATIC__
@@ -66,6 +66,24 @@ extern int modstring_strrev( INSTANCE * my, int * params );
 extern int modstring_formatI( INSTANCE * my, int * params );
 extern int modstring_formatF( INSTANCE * my, int * params );
 extern int modstring_formatFI( INSTANCE * my, int * params );
+/* mod_math */
+extern int math_abs( INSTANCE * my, int * params );
+extern int math_pow( INSTANCE * my, int * params );
+extern int math_sqrt( INSTANCE * my, int * params );
+extern int math_cos( INSTANCE * my, int * params );
+extern int math_sin( INSTANCE * my, int * params );
+extern int math_tan( INSTANCE * my, int * params );
+extern int math_acos( INSTANCE * my, int * params );
+extern int math_asin( INSTANCE * my, int * params );
+extern int math_atan( INSTANCE * my, int * params );
+extern int math_isinf( INSTANCE * my, int * params );
+extern int math_isnan( INSTANCE * my, int * params );
+extern int math_finite( INSTANCE * my, int * params );
+extern int math_get_disty( INSTANCE * my, int * params );
+extern int math_fget_angle( INSTANCE * my, int * params );
+extern int math_fget_dist( INSTANCE * my, int * params );
+extern int math_near_angle( INSTANCE * my, int * params );
+extern int math_get_distx( INSTANCE * my, int * params );
 #endif
 
 #include "sysprocs.h"

@@ -99,6 +99,11 @@ SYSPROC sysprocs[MAX_SYSPROCS] =
     { 0x3F, "GET_DISTX"   , "II"  , TYPE_INT     , 2, SYSMACRO(math_get_distx)    },
     { 0x40, "GET_DISTY"   , "II"  , TYPE_INT     , 2, SYSMACRO(math_get_disty)    },
 
+    /* mod_time */
+    { 0x50, "GET_TIMER"   , ""    , TYPE_INT     , 0, SYSMACRO(modtime_get_timer) },
+    { 0x51, "TIME"        , ""    , TYPE_INT     , 0, SYSMACRO(modtime_time)      },
+    { 0x52, "FTIME"       , "SI"  , TYPE_STRING  , 2, SYSMACRO(modtime_ftime)     },
+
     { 0   , 0           , ""      , TYPE_UNDEFINED  , 0, 0                        }
 } ;
 #endif

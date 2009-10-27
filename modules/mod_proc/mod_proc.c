@@ -85,7 +85,7 @@ enum
 
 /* ----------------------------------------------------------------- */
 /* Definicion de constantes (usada en tiempo de compilacion)         */
-
+#ifndef __STATIC__
 DLCONSTANT __bgdexport( mod_proc, constants_def )[] =
 {
     { "S_KILL"              , TYPE_INT, S_KILL              },
@@ -114,7 +114,7 @@ DLCONSTANT __bgdexport( mod_proc, constants_def )[] =
 
     { NULL                  , 0       , 0                   }
 } ;
-
+#endif
 /* ----------------------------------------------------------------- */
 
 char * __bgdexport( mod_proc, locals_def ) =

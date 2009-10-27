@@ -84,6 +84,10 @@ extern int math_fget_angle( INSTANCE * my, int * params );
 extern int math_fget_dist( INSTANCE * my, int * params );
 extern int math_near_angle( INSTANCE * my, int * params );
 extern int math_get_distx( INSTANCE * my, int * params );
+/* mod_time */
+extern int modtime_get_timer( INSTANCE * my, int * params );
+extern int modtime_time( INSTANCE * my, int * params );
+extern int modtime_ftime( INSTANCE * my, int * params );
 #endif
 
 #include "sysprocs.h"

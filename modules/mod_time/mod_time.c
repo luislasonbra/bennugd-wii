@@ -32,7 +32,7 @@
 #include "files.h"
 #include "xstrings.h"
 
-#ifdef TARGET_MAC
+#if defined(TARGET_MAC) || defined(TARGET_WII)
 #include <SDL/SDL.h>
 #else
 #include <SDL.h>
@@ -43,15 +43,15 @@
 /* --------------------------------------------------------------------------- */
 /* Timer                                                                       */
 
-static int modtime_get_timer( INSTANCE * my, int * params )
+int modtime_get_timer( INSTANCE * my, int * params )
 {
     return SDL_GetTicks() ;
 }
 
 /* --------------------------------------------------------------------------- */
-/* Hora del día                                                                */
+/* Time of day                                                                */
 
-static int modtime_time( INSTANCE * my, int * params )
+int modtime_time( INSTANCE * my, int * params )
 {
     return time( 0 ) ;
 }
@@ -70,7 +70,7 @@ static int modtime_time( INSTANCE * my, int * params )
  *
  */
 
-static int modtime_ftime( INSTANCE * my, int * params )
+int modtime_ftime( INSTANCE * my, int * params )
 {
     char buffer[128] ;
     char * format ;
@@ -213,7 +213,7 @@ static int modtime_ftime( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 /* Declaracion de funciones                                                    */
-
+#ifndef __STATIC__
 DLSYSFUNCS __bgdexport( mod_time, functions_exports )[] =
 {
     /* Fecha/Hora */
@@ -222,7 +222,6 @@ DLSYSFUNCS __bgdexport( mod_time, functions_exports )[] =
     { "FTIME"       , "SI"  , TYPE_STRING   , modtime_ftime         },
     { 0             , 0     , 0             , 0                     }
 };
-
 /* --------------------------------------------------------------------------- */
 
 void __bgdexport( mod_time, module_initialize )()
@@ -236,5 +235,6 @@ void __bgdexport( mod_time, module_finalize )()
 {
     if ( SDL_WasInit( SDL_INIT_TIMER ) ) SDL_QuitSubSystem( SDL_INIT_TIMER );
 }
+#endif
 
 /* --------------------------------------------------------------------------- */

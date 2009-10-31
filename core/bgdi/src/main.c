@@ -123,7 +123,7 @@ int main( int argc, char **argv )
 	  VIDEO_WaitVSync();
 	  if(rmode->viTVMode&VI_NON_INTERLACE) VIDEO_WaitVSync();
 
-    // Initialize the Wii FAT filesystem, check stuff
+      // Initialize the Wii FAT filesystem, check stuff
 	  if (!fatInitDefault()) {
 	    printf("Sorry, I cannot access the FAT filesystem on your card :(\n");
 	    exit(1);

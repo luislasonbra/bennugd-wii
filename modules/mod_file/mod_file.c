@@ -99,7 +99,6 @@ int modfile_fopen( INSTANCE * my, int * params )
 
     if ( params[1] < 0 || params[1] > 4 )
         params[0] = 0 ;
-
     r = ( int ) file_open( string_get( params[0] ), ops[params[1]] ) ;
     string_discard( params[0] ) ;
     return r ;

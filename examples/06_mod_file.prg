@@ -5,7 +5,7 @@ import "mod_file";
 
 Process main()
 Private
-	string file="cancion_pirata_espronceda.txt", line="";
+	string file="cancion.txt", line="";
 	int fd=0;
 
 Begin

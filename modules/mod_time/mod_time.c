@@ -216,7 +216,7 @@ int modtime_ftime( INSTANCE * my, int * params )
 #ifndef __STATIC__
 DLSYSFUNCS __bgdexport( mod_time, functions_exports )[] =
 {
-    /* Fecha/Hora */
+    /* mod_time */
     { "GET_TIMER"   , ""    , TYPE_INT      , modtime_get_timer     },
     { "TIME"        , ""    , TYPE_INT      , modtime_time          },
     { "FTIME"       , "SI"  , TYPE_STRING   , modtime_ftime         },

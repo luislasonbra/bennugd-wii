@@ -88,6 +88,26 @@ extern int math_get_distx( INSTANCE * my, int * params );
 extern int modtime_get_timer( INSTANCE * my, int * params );
 extern int modtime_time( INSTANCE * my, int * params );
 extern int modtime_ftime( INSTANCE * my, int * params );
+/* mod_file */
+extern int modfile_save( INSTANCE * my, int * params );
+extern int modfile_load( INSTANCE * my, int * params );
+extern int modfile_fopen( INSTANCE * my, int * params );
+extern int modfile_fclose( INSTANCE * my, int * params );
+extern int modfile_fread( INSTANCE * my, int * params );
+extern int modfile_fwrite( INSTANCE * my, int * params );
+extern int modfile_freadC( INSTANCE * my, int * params );
+extern int modfile_fwriteC( INSTANCE * my, int * params );
+extern int modfile_fseek( INSTANCE * my, int * params );
+extern int modfile_frewind( INSTANCE * my, int * params );
+extern int modfile_ftell( INSTANCE * my, int * params );
+extern int modfile_filelength( INSTANCE * my, int * params );
+extern int modfile_fputs( INSTANCE * my, int * params );
+extern int modfile_fgets( INSTANCE * my, int * params );
+extern int modfile_file( INSTANCE * my, int * params );
+extern int modfile_feof( INSTANCE * my, int * params );
+extern int modfile_exists( INSTANCE * my, int * params );
+extern int modfile_remove( INSTANCE * my, int * params );
+extern int modfile_move( INSTANCE * my, int * params );
 #endif
 
 #include "sysprocs.h"

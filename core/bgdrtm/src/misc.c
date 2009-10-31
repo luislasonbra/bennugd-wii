@@ -35,6 +35,9 @@
 #include "dcb.h"
 #include "sysprocs_p.h"
 #include "xstrings.h"
+#ifdef __STATIC__
+#include <SDL/SDL.h>
+#endif
 
 /* --------------------------------------------------------------------------- */
 
@@ -148,6 +151,13 @@ void bgdrtm_exit( int exit_value )
     if ( module_finalize_count )
         for ( n = 0; n < module_finalize_count; n++ )
             module_finalize_list[n]();
+
+#ifdef TARGET_WII
+	/* We perform the finalization code for the various modules here */
+	/* mod_time */
+	if ( SDL_WasInit( SDL_INIT_TIMER ) ) SDL_QuitSubSystem( SDL_INIT_TIMER );
+#endif
+
     exit( exit_value ) ;
 }
 

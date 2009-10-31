@@ -104,6 +104,28 @@ SYSPROC sysprocs[MAX_SYSPROCS] =
     { 0x51, "TIME"        , ""    , TYPE_INT     , 0, SYSMACRO(modtime_time)      },
     { 0x52, "FTIME"       , "SI"  , TYPE_STRING  , 2, SYSMACRO(modtime_ftime)     },
 
+    /* mod_file */
+    { 0x60, "SAVE"        , "SV++" , TYPE_INT    , 4, SYSMACRO(modfile_save)        },
+    { 0x61, "LOAD"        , "SV++" , TYPE_INT    , 4, SYSMACRO(modfile_load)        },
+    { 0x62, "FOPEN"       , "SI"   , TYPE_INT    , 2, SYSMACRO(modfile_fopen)       },
+    { 0x63, "FCLOSE"      , "I"    , TYPE_INT    , 1, SYSMACRO(modfile_fclose)      },
+    { 0x64, "FREAD"       , "IV++" , TYPE_INT    , 4, SYSMACRO(modfile_fread)       },
+    { 0x65, "FREAD"       , "PII"  , TYPE_INT    , 3, SYSMACRO(modfile_freadC)      },
+    { 0x66, "FWRITE"      , "IV++" , TYPE_INT    , 4, SYSMACRO(modfile_fwrite)      },
+    { 0x67, "FWRITE"      , "PII"  , TYPE_INT    , 3, SYSMACRO(modfile_fwriteC)     },
+    { 0x68, "FSEEK"       , "III"  , TYPE_INT    , 3, SYSMACRO(modfile_fseek)       },
+    { 0x69, "FREWIND"     , "I"    , TYPE_UNDEFINED, 1, SYSMACRO(modfile_frewind)     },
+    { 0x6A, "FTELL"       , "I"    , TYPE_INT    , 1, SYSMACRO(modfile_ftell)       },
+    { 0x6B, "FLENGTH"     , "I"    , TYPE_INT    , 1, SYSMACRO(modfile_filelength)  },
+    { 0x6C, "FPUTS"       , "IS"   , TYPE_INT    , 2, SYSMACRO(modfile_fputs)       },
+    { 0x6D, "FGETS"       , "I"    , TYPE_STRING , 1, SYSMACRO(modfile_fgets)       },
+    { 0x6E, "FEOF"        , "I"    , TYPE_INT    , 1, SYSMACRO(modfile_feof)        },
+    { 0x6F, "FILE"        , "S"    , TYPE_STRING , 1, SYSMACRO(modfile_file)        },
+    { 0x70, "FEXISTS"     , "S"    , TYPE_INT    , 1, SYSMACRO(modfile_exists)      } ,
+    { 0x71, "FILE_EXISTS" , "S"    , TYPE_INT    , 1, SYSMACRO(modfile_exists)      } ,
+    { 0x72, "FREMOVE"     , "S"    , TYPE_INT    , 1, SYSMACRO(modfile_remove)      } ,
+    { 0x73, "FMOVE"       , "SS"   , TYPE_INT    , 2, SYSMACRO(modfile_move)        } ,
+
     { 0   , 0           , ""      , TYPE_UNDEFINED  , 0, 0                        }
 } ;
 #endif

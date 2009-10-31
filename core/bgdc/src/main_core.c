@@ -85,6 +85,16 @@ constants_def[] =
 #ifdef __STATIC__
     /* mod_math */
     { "PI"              , TYPE_INT  , 180000              },
+    /* mod_file */
+    { "O_READ"          , TYPE_INT  , 0                   },
+    { "O_READWRITE"     , TYPE_INT  , 1                   },
+    { "O_RDWR"          , TYPE_INT  , 1                   },
+    { "O_WRITE"         , TYPE_INT  , 2                   },
+    { "O_ZREAD"         , TYPE_INT  , 3                   },
+    { "O_ZWRITE"        , TYPE_INT  , 4                   },
+    { "SEEK_SET"        , TYPE_INT  , 0                   },
+    { "SEEK_CUR"        , TYPE_INT  , 1                   },
+    { "SEEK_END"        , TYPE_INT  , 2                   },
 #endif
 
     { NULL              , 0         , 0                   }

@@ -35,6 +35,10 @@
 #include <wiiuse/wpad.h>
 #endif
 
+#ifdef __STATIC__
+#include <SDL/SDL.h>
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -77,12 +81,15 @@ int main( int argc, char **argv )
     int ret = -1;
 
     dcb_signature dcb_signature;
-    
+
 #ifdef TARGET_WII
 
 	  /* Now initialize the console, needed by printf */
     static void *xfb = NULL;
     static GXRModeObj *rmode = NULL;
+    
+      /* Initialise the SDL Timer subsystem */
+      if ( !SDL_WasInit( SDL_INIT_TIMER ) ) SDL_InitSubSystem( SDL_INIT_TIMER );
 
 	  // Initialise the video system
 	  VIDEO_Init();

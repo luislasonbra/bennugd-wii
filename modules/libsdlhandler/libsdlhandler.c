@@ -30,7 +30,7 @@
 /* ----------------------------------------------------------------- */
 /* Public functions                                                  */
 
-static void  dump_new_events()
+void  dump_new_events()
 {
     SDL_Event event;
     /* Remove all pendings events */
@@ -44,7 +44,7 @@ static void  dump_new_events()
 
 /* ----------------------------------------------------------------- */
 /* Funciones de inicializacion del modulo/plugin                     */
-
+#ifndef __STATIC__
 void __bgdexport( libsdlhandler, module_initialize )()
 {
     if ( !SDL_WasInit( SDL_INIT_EVENTTHREAD ) ) SDL_InitSubSystem( SDL_INIT_EVENTTHREAD );
@@ -67,5 +67,5 @@ HOOK __bgdexport( libsdlhandler, handler_hooks )[] =
     { 5000, dump_new_events                   },
     {    0, NULL                              }
 } ;
-
+#endif
 /* ----------------------------------------------------------------- */

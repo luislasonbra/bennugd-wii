@@ -18,7 +18,7 @@ include $(DEVKITPPC)/wii_rules
 TARGET		:=	bgdrtm
 BUILD     :=	build
 SOURCES		:=	src
-INCLUDES	:=	include ../include ../../modules/libjoy/
+INCLUDES	:=	include ../include ../../modules/libsdlhandler/ ../../modules/libjoy/
 
 #---------------------------------------------------------------------------------
 # options for code generation
@@ -63,6 +63,7 @@ CFILES		:=	dcbr.c sysprocs.c strings.c dirs.c copy.c misc.c instance.c \
               ../../../modules/mod_time/mod_time.c \
               ../../../modules/mod_file/mod_file.c \
               ../../../modules/mod_sound/mod_sound.c \
+              ../../../modules/libsdlhandler/libsdlhandler.c \
               ../../../modules/libjoy/libjoy.c \
               ../../../modules/mod_joy/mod_joy.c
 

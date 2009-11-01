@@ -159,6 +159,8 @@ void bgdrtm_exit( int exit_value )
 	if ( SDL_WasInit( SDL_INIT_TIMER ) ) SDL_QuitSubSystem( SDL_INIT_TIMER );
 	/* mod_sound */
 	if ( SDL_WasInit( SDL_INIT_AUDIO ) ) SDL_QuitSubSystem( SDL_INIT_AUDIO );
+	/* libsdlhandler */
+	if ( SDL_WasInit( SDL_INIT_EVENTTHREAD ) ) SDL_QuitSubSystem( SDL_INIT_EVENTTHREAD );
 	/* libjoy */
     libjoy_finalize();
 #endif

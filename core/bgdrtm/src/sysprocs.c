@@ -35,6 +35,7 @@
 #include <bgddl.h>
 
 #ifdef __STATIC__
+#include <libsdlhandler.h>
 #include <libjoy.h>
 #ifdef TARGET_WII
 #include <SDL/SDL.h>
@@ -506,6 +507,7 @@ void sysproc_init()
     SYSPROC       * proc = sysprocs ;
     int             maxcode = 0 ;
     unsigned int    n ;
+    HOOK          * handler_hooks = NULL ;
 
 #ifndef __STATIC__
     void          * library ;
@@ -521,7 +523,6 @@ void sysproc_init()
     INSTANCE_HOOK   instance_pre_execute_hook ;
     INSTANCE_HOOK   instance_pos_execute_hook ;
     INSTANCE_HOOK   process_exec_hook ;
-    HOOK          * handler_hooks = NULL ;
 
     int             maxcode = 0 ;
 
@@ -654,11 +655,19 @@ void sysproc_init()
             module_initialize_list[n]();
 #else
     /* Initialize all the modules */
-
     /* mod_time */
     if ( !SDL_WasInit( SDL_INIT_TIMER ) ) SDL_InitSubSystem( SDL_INIT_TIMER );
     /* mod_sound */
     if ( !SDL_WasInit( SDL_INIT_AUDIO ) ) SDL_InitSubSystem( SDL_INIT_AUDIO );
+    /* libsdlhandler */
+    if ( !SDL_WasInit( SDL_INIT_EVENTTHREAD ) )
+        SDL_InitSubSystem( SDL_INIT_EVENTTHREAD );
+    handler_hooks = libsdlhandler_hook;
+    while ( handler_hooks && handler_hooks->hook )
+    {
+        hook_add( *handler_hooks, handler_hook_list, handler_hook_allocated, handler_hook_count ) ;
+        handler_hooks++;
+    }
     /* libjoy */
     libjoy_init();
 #endif

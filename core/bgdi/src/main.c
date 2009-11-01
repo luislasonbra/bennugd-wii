@@ -88,8 +88,11 @@ int main( int argc, char **argv )
     static void *xfb = NULL;
     static GXRModeObj *rmode = NULL;
     
-      /* Initialise the SDL Timer subsystem */
+      /* Initialize the various modules */
+      /* mod_time */
       if ( !SDL_WasInit( SDL_INIT_TIMER ) ) SDL_InitSubSystem( SDL_INIT_TIMER );
+      /* mod_sound */
+      if ( !SDL_WasInit( SDL_INIT_AUDIO ) ) SDL_InitSubSystem( SDL_INIT_AUDIO );
 
 	  // Initialise the video system
 	  VIDEO_Init();
@@ -126,11 +129,6 @@ int main( int argc, char **argv )
       // Initialize the Wii FAT filesystem, check stuff
 	  if (!fatInitDefault()) {
 	    printf("Sorry, I cannot access the FAT filesystem on your card :(\n");
-	    exit(1);
-	  }
-	  // We'll be working on the root of the SD card
-	  if (chdir("sd:/")) {
-	    printf("Sorry, couldn't go to the root dir on your card :(\n");
 	    exit(1);
 	  }
 #endif

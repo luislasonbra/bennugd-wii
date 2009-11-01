@@ -156,6 +156,8 @@ void bgdrtm_exit( int exit_value )
 	/* We perform the finalization code for the various modules here */
 	/* mod_time */
 	if ( SDL_WasInit( SDL_INIT_TIMER ) ) SDL_QuitSubSystem( SDL_INIT_TIMER );
+	/* mod_sound */
+	if ( SDL_WasInit( SDL_INIT_AUDIO ) ) SDL_QuitSubSystem( SDL_INIT_AUDIO );
 #endif
 
     exit( exit_value ) ;

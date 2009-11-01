@@ -108,6 +108,32 @@ extern int modfile_feof( INSTANCE * my, int * params );
 extern int modfile_exists( INSTANCE * my, int * params );
 extern int modfile_remove( INSTANCE * my, int * params );
 extern int modfile_move( INSTANCE * my, int * params );
+/* mod_sound */
+extern int modsound_load_song( INSTANCE * my, int * params );
+extern int modsound_play_song( INSTANCE * my, int * params );
+extern int modsound_unload_song( INSTANCE * my, int * params );
+extern int modsound_stop_song( INSTANCE * my, int * params );
+extern int modsound_pause_song( INSTANCE * my, int * params );
+extern int modsound_resume_song( INSTANCE * my, int * params );
+extern int modsound_is_playing_song( INSTANCE * my, int * params );
+extern int modsound_set_song_volume( INSTANCE * my, int * params );
+extern int modsound_fade_music_in( INSTANCE * my, int * params );
+extern int modsound_fade_music_off( INSTANCE * my, int * params );
+extern int modsound_load_wav( INSTANCE * my, int * params );
+extern int modsound_play_wav( INSTANCE * my, int * params );
+extern int modsound_play_wav_channel( INSTANCE * my, int * params );
+extern int modsound_unload_wav( INSTANCE * my, int * params );
+extern int modsound_stop_wav( INSTANCE * my, int * params );
+extern int modsound_pause_wav( INSTANCE * my, int * params );
+extern int modsound_resume_wav( INSTANCE * my, int * params );
+extern int modsound_is_playing_wav( INSTANCE * my, int * params );
+extern int modsound_set_channel_volume( INSTANCE * my, int * params );
+extern int modsound_reserve_channels( INSTANCE * my, int * params );
+extern int modsound_set_wav_volume( INSTANCE * my, int * params );
+extern int modsound_set_panning( INSTANCE * my, int * params );
+extern int modsound_set_position( INSTANCE * my, int * params );
+extern int modsound_set_distance( INSTANCE * my, int * params );
+extern int modsound_reverse_stereo( INSTANCE * my, int * params );
 #endif
 
 #include "sysprocs.h"

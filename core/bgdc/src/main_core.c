@@ -95,6 +95,10 @@ constants_def[] =
     { "SEEK_SET"        , TYPE_INT  , 0                   },
     { "SEEK_CUR"        , TYPE_INT  , 1                   },
     { "SEEK_END"        , TYPE_INT  , 2                   },
+    /* mod_sound */
+    { "MODE_MONO"       , TYPE_INT  , 0                   },
+    { "MODE_STEREO"     , TYPE_INT  , 1                   },
+    { "ALL_SOUND"       , TYPE_INT  , -1                  },
 #endif
 
     { NULL              , 0         , 0                   }

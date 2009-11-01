@@ -125,6 +125,33 @@ SYSPROC sysprocs[MAX_SYSPROCS] =
     { 0x71, "FILE_EXISTS" , "S"    , TYPE_INT    , 1, SYSMACRO(modfile_exists)      } ,
     { 0x72, "FREMOVE"     , "S"    , TYPE_INT    , 1, SYSMACRO(modfile_remove)      } ,
     { 0x73, "FMOVE"       , "SS"   , TYPE_INT    , 2, SYSMACRO(modfile_move)        } ,
+    
+    /* mod_sound */
+    { 0x80, "LOAD_SONG"   , "S"    , TYPE_INT    , 1, SYSMACRO(modsound_load_song)          },
+    { 0x81, "PLAY_SONG"   , "II"   , TYPE_INT    , 2, SYSMACRO(modsound_play_song)          },
+    { 0x82, "UNLOAD_SONG" , "I"    , TYPE_INT    , 1, SYSMACRO(modsound_unload_song)        },
+    { 0x83, "STOP_SONG"   , ""     , TYPE_INT    , 0, SYSMACRO(modsound_stop_song)          },
+    { 0x84, "PAUSE_SONG"  , ""     , TYPE_INT    , 0, SYSMACRO(modsound_pause_song)         },
+    { 0x85, "RESUME_SONG" , ""     , TYPE_INT    , 0, SYSMACRO(modsound_resume_song)        },
+    { 0x86, "SET_SONG_VOLUME", "I" , TYPE_INT    , 1, SYSMACRO(modsound_set_song_volume)    },
+    { 0x87, "IS_PLAYING_SONG", ""  , TYPE_INT    , 0, SYSMACRO(modsound_is_playing_song)    },
+    { 0x88, "LOAD_WAV"    , "S"    , TYPE_INT    , 1, SYSMACRO(modsound_load_wav)           },
+    { 0x89, "PLAY_WAV"    , "II"   , TYPE_INT    , 2, SYSMACRO(modsound_play_wav)           },
+    { 0x8A, "UNLOAD_WAV"  , "I"    , TYPE_INT    , 1, SYSMACRO(modsound_unload_wav)         },
+    { 0x8B, "STOP_WAV"    , "I"    , TYPE_INT    , 1, SYSMACRO(modsound_stop_wav)           },
+    { 0x8C, "PAUSE_WAV"   , "I"    , TYPE_INT    , 1, SYSMACRO(modsound_pause_wav)          },
+    { 0x8C, "RESUME_WAV"  , "I"    , TYPE_INT    , 1, SYSMACRO(modsound_resume_wav)         },
+    { 0x8D, "IS_PLAYING_WAV", "I"  , TYPE_INT    , 1, SYSMACRO(modsound_is_playing_wav)     },
+    { 0x8E, "SET_WAV_VOLUME", "II" , TYPE_INT    , 2, SYSMACRO(modsound_set_wav_volume)     },
+    { 0x8F, "FADE_MUSIC_IN" , "III", TYPE_INT    , 3, SYSMACRO(modsound_fade_music_in)      },
+    { 0x90, "FADE_MUSIC_OFF", "I"  , TYPE_INT    , 1, SYSMACRO(modsound_fade_music_off)     },
+    { 0x91, "SET_CHANNEL_VOLUME", "II", TYPE_INT , 2, SYSMACRO(modsound_set_channel_volume) },
+    { 0x92, "RESERVE_CHANNELS"  , "I" , TYPE_INT , 1, SYSMACRO(modsound_reserve_channels)   },
+    { 0x93, "SET_PANNING" , "III"  , TYPE_INT    , 3, SYSMACRO(modsound_set_panning)        },
+    { 0x94, "SET_POSITION", "III"  , TYPE_INT    , 3, SYSMACRO(modsound_set_position)       },
+    { 0x95, "SET_DISTANCE", "II"   , TYPE_INT    , 2, SYSMACRO(modsound_set_distance)       },
+    { 0x96, "REVERSE_STEREO", "II" , TYPE_INT    , 2, SYSMACRO(modsound_reverse_stereo)     },
+    { 0x97, "PLAY_WAV"    , "III"  , TYPE_INT    , 3, SYSMACRO(modsound_play_wav_channel)   },
 
     { 0   , 0           , ""      , TYPE_UNDEFINED  , 0, 0                        }
 } ;

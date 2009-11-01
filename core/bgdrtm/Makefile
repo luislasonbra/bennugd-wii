@@ -31,7 +31,7 @@ LDFLAGS		=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS := -lwiikeyboard -lfat -lwiiuse -lbte -logc -lm
+LIBS := -lwiiuse -lbte -logc -lm
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
 # include and lib
@@ -61,7 +61,8 @@ CFILES		:=	dcbr.c sysprocs.c strings.c dirs.c copy.c misc.c instance.c \
               ../../../modules/mod_string/mod_string.c \
               ../../../modules/mod_math/mod_math.c \
               ../../../modules/mod_time/mod_time.c \
-              ../../../modules/mod_file/mod_file.c
+              ../../../modules/mod_file/mod_file.c \
+              ../../../modules/mod_sound/mod_sound.c
 
 #---------------------------------------------------------------------------------
 # use CXX for linking C++ projects, CC for standard C

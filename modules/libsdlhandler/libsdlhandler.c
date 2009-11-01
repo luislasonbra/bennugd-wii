@@ -21,7 +21,7 @@
 
 #include "bgddl.h"
 
-#ifdef TARGET_MAC
+#if defined(TARGET_MAC) || defined(TARGET_WII)
 #include <SDL/SDL.h>
 #else
 #include <SDL.h>

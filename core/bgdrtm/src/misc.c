@@ -37,6 +37,7 @@
 #include "xstrings.h"
 #ifdef __STATIC__
 #include <SDL/SDL.h>
+#include <libjoy.h>
 #endif
 
 /* --------------------------------------------------------------------------- */
@@ -152,12 +153,14 @@ void bgdrtm_exit( int exit_value )
         for ( n = 0; n < module_finalize_count; n++ )
             module_finalize_list[n]();
 
-#ifdef TARGET_WII
+#ifdef __STATIC__    
 	/* We perform the finalization code for the various modules here */
 	/* mod_time */
 	if ( SDL_WasInit( SDL_INIT_TIMER ) ) SDL_QuitSubSystem( SDL_INIT_TIMER );
 	/* mod_sound */
 	if ( SDL_WasInit( SDL_INIT_AUDIO ) ) SDL_QuitSubSystem( SDL_INIT_AUDIO );
+	/* libjoy */
+    libjoy_finalize();
 #endif
 
     exit( exit_value ) ;

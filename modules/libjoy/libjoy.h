@@ -43,5 +43,7 @@ extern int libjoy_hats_specific( int joy );
 extern int libjoy_balls_specific( int joy );
 extern int libjoy_get_hat_specific( int joy, int hat );
 extern int libjoy_get_ball_specific( int joy, int ball, int * dx, int * dy );
+extern void libjoy_init();
+extern void libjoy_finalize();
 
 #endif

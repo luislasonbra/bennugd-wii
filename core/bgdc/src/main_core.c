@@ -27,6 +27,12 @@
 
 #include "bgdc.h"
 
+#ifdef __STATIC__
+#ifdef TARGET_WII
+#include <SDL/SDL.h>
+#endif
+#endif
+
 /* ----------------------------------------------------------------------- */
 /* Este módulo contiene las definiciones de constantes, globales y locales */
 /* predefinidos, así como el código que los carga y define cada una de las */
@@ -99,6 +105,16 @@ constants_def[] =
     { "MODE_MONO"       , TYPE_INT  , 0                   },
     { "MODE_STEREO"     , TYPE_INT  , 1                   },
     { "ALL_SOUND"       , TYPE_INT  , -1                  },
+    /* libjoy */
+    { "JOY_HAT_CENTERED"    , TYPE_DWORD, SDL_HAT_CENTERED  },
+    { "JOY_HAT_UP"          , TYPE_DWORD, SDL_HAT_UP        },
+    { "JOY_HAT_RIGHT"       , TYPE_DWORD, SDL_HAT_RIGHT     },
+    { "JOY_HAT_DOWN"        , TYPE_DWORD, SDL_HAT_DOWN      },
+    { "JOY_HAT_LEFT"        , TYPE_DWORD, SDL_HAT_LEFT      },
+    { "JOY_HAT_RIGHTUP"     , TYPE_DWORD, SDL_HAT_RIGHTUP   },
+    { "JOY_HAT_RIGHTDOWN"   , TYPE_DWORD, SDL_HAT_RIGHTDOWN },
+    { "JOY_HAT_LEFTUP"      , TYPE_DWORD, SDL_HAT_LEFTUP    },
+    { "JOY_HAT_LEFTDOWN"    , TYPE_DWORD, SDL_HAT_LEFTDOWN  },
 #endif
 
     { NULL              , 0         , 0                   }

@@ -31,7 +31,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#ifdef TARGET_MAC
+#if defined(TARGET_MAC) || defined(TARGET_WII)
 #include <SDL/SDL.h>
 #else
 #include <SDL.h>
@@ -356,7 +356,7 @@ int libjoy_get_ball_specific( int joy, int ball, int * dx, int * dy )
 
 /* --------------------------------------------------------------------------- */
 /* Funciones de inicializacion del modulo/plugin                               */
-
+#ifndef __STATIC__
 DLCONSTANT __bgdexport( libjoy, constants_def )[] =
 {
     { "JOY_HAT_CENTERED"    , TYPE_DWORD, SDL_HAT_CENTERED  },
@@ -408,7 +408,6 @@ void  __bgdexport( libjoy, module_finalize )()
         if ( _joysticks[i] ) SDL_JoystickClose( _joysticks[i] ) ;
 
     if ( SDL_WasInit( SDL_INIT_JOYSTICK ) ) SDL_QuitSubSystem( SDL_INIT_JOYSTICK );
-
 }
 
 /* ----------------------------------------------------------------- */
@@ -418,5 +417,41 @@ char * __bgdexport( libjoy, modules_dependency )[] =
     "libsdlhandler",
     NULL
 };
+#else
+void libjoy_init()
+{
+    int i;
 
+    if ( !SDL_WasInit( SDL_INIT_JOYSTICK ) )
+    {
+        SDL_InitSubSystem( SDL_INIT_JOYSTICK );
+        SDL_JoystickEventState( SDL_ENABLE ) ;
+    }
+
+    /* Open all joysticks */
+    if (( _max_joys = SDL_NumJoysticks() ) > MAX_JOYS )
+    {
+        printf( "[JOY] Warning: maximum number of joysticks exceeded (%i>%i)", _max_joys, MAX_JOYS );
+        _max_joys = MAX_JOYS;
+    }
+
+    for ( i = 0; i < _max_joys; i++ )
+    {
+        _joysticks[i] = SDL_JoystickOpen( i ) ;
+        if ( !_joysticks[i] ) printf( "[JOY] Failed to open joystick '%i'", i );
+    }
+
+    SDL_JoystickUpdate() ;
+}
+
+void libjoy_finalize()
+{
+    int i;
+    for ( i = 0; i < _max_joys; i++ )
+        if ( _joysticks[i] ) SDL_JoystickClose( _joysticks[i] ) ;
+
+    if ( SDL_WasInit( SDL_INIT_JOYSTICK ) ) SDL_QuitSubSystem( SDL_INIT_JOYSTICK );
+
+}
+#endif
 /* ----------------------------------------------------------------- */

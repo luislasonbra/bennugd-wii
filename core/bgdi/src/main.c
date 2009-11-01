@@ -36,7 +36,9 @@
 #endif
 
 #ifdef __STATIC__
+#ifdef TARGET_WII
 #include <SDL/SDL.h>
+#endif
 #endif
 
 #include <stdio.h>
@@ -83,54 +85,47 @@ int main( int argc, char **argv )
     dcb_signature dcb_signature;
 
 #ifdef TARGET_WII
-
-	  /* Now initialize the console, needed by printf */
+    /* Now initialize the console, needed by printf */
     static void *xfb = NULL;
     static GXRModeObj *rmode = NULL;
-    
-      /* Initialize the various modules */
-      /* mod_time */
-      if ( !SDL_WasInit( SDL_INIT_TIMER ) ) SDL_InitSubSystem( SDL_INIT_TIMER );
-      /* mod_sound */
-      if ( !SDL_WasInit( SDL_INIT_AUDIO ) ) SDL_InitSubSystem( SDL_INIT_AUDIO );
 
-	  // Initialise the video system
-	  VIDEO_Init();
-	
-	  // This function initialises the attached controllers
-	  WPAD_Init();
-	
-	  // Obtain the preferred video mode from the system
-	  // This will correspond to the settings in the Wii menu
-	  rmode = VIDEO_GetPreferredMode(NULL);
+    // Initialise the video system
+    VIDEO_Init();
 
-	  // Allocate memory for the display in the uncached region
-	  xfb = MEM_K0_TO_K1(SYS_AllocateFramebuffer(rmode));
-	
-	  // Initialise the console, required for printf
-	  console_init(xfb,20,20,rmode->fbWidth,rmode->xfbHeight,rmode->fbWidth*VI_DISPLAY_PIX_SZ);
-	
-	  // Set up the video registers with the chosen mode
-	  VIDEO_Configure(rmode);
-	
-	  // Tell the video hardware where our display memory is
-	  VIDEO_SetNextFramebuffer(xfb);
-	
-	  // Make the display visible
-	  VIDEO_SetBlack(FALSE);
+    // This function initialises the attached controllers
+    WPAD_Init();
 
-	  // Flush the video register changes to the hardware
-	  VIDEO_Flush();
+    // Obtain the preferred video mode from the system
+    // This will correspond to the settings in the Wii menu
+    rmode = VIDEO_GetPreferredMode(NULL);
 
-	  // Wait for Video setup to complete
-	  VIDEO_WaitVSync();
-	  if(rmode->viTVMode&VI_NON_INTERLACE) VIDEO_WaitVSync();
+    // Allocate memory for the display in the uncached region
+    xfb = MEM_K0_TO_K1(SYS_AllocateFramebuffer(rmode));
 
-      // Initialize the Wii FAT filesystem, check stuff
-	  if (!fatInitDefault()) {
-	    printf("Sorry, I cannot access the FAT filesystem on your card :(\n");
-	    exit(1);
-	  }
+    // Initialise the console, required for printf
+    console_init(xfb,20,20,rmode->fbWidth,rmode->xfbHeight,rmode->fbWidth*VI_DISPLAY_PIX_SZ);
+
+    // Set up the video registers with the chosen mode
+    VIDEO_Configure(rmode);
+
+    // Tell the video hardware where our display memory is
+    VIDEO_SetNextFramebuffer(xfb);
+
+    // Make the display visible
+    VIDEO_SetBlack(FALSE);
+
+    // Flush the video register changes to the hardware
+    VIDEO_Flush();
+
+    // Wait for Video setup to complete
+    VIDEO_WaitVSync();
+    if(rmode->viTVMode&VI_NON_INTERLACE) VIDEO_WaitVSync();
+
+    // Initialize the Wii FAT filesystem, check stuff
+    if (!fatInitDefault()) {
+        printf("Sorry, I cannot access the FAT filesystem on your card :(\n");
+        exit(1);
+    }
 #endif
 
     /* Find out if we are calling bgdi.exe or whatever.exe */

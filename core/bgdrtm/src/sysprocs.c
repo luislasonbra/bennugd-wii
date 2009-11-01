@@ -34,6 +34,13 @@
 
 #include <bgddl.h>
 
+#ifdef __STATIC__
+#include <libjoy.h>
+#ifdef TARGET_WII
+#include <SDL/SDL.h>
+#endif
+#endif
+
 /* ---------------------------------------------------------------------- */
 
 /* bgdrtm.h header must exist */
@@ -134,6 +141,26 @@ extern int modsound_set_panning( INSTANCE * my, int * params );
 extern int modsound_set_position( INSTANCE * my, int * params );
 extern int modsound_set_distance( INSTANCE * my, int * params );
 extern int modsound_reverse_stereo( INSTANCE * my, int * params );
+/* mod_joy */
+extern int modjoy_num( INSTANCE * my, int * params );
+extern int modjoy_name( INSTANCE * my, int * params );
+extern int modjoy_select( INSTANCE * my, int * params );
+extern int modjoy_buttons( INSTANCE * my, int * params );
+extern int modjoy_axes( INSTANCE * my, int * params );
+extern int modjoy_get_button( INSTANCE * my, int * params );
+extern int modjoy_get_position( INSTANCE * my, int * params );
+extern int modjoy_hats( INSTANCE * my, int * params );
+extern int modjoy_balls( INSTANCE * my, int * params );
+extern int modjoy_get_hat( INSTANCE * my, int * params );
+extern int modjoy_get_ball( INSTANCE * my, int * params );
+extern int modjoy_buttons_specific( INSTANCE * my, int * params );
+extern int modjoy_axes_specific( INSTANCE * my, int * params );
+extern int modjoy_get_button_specific( INSTANCE * my, int * params );
+extern int modjoy_get_position_specific( INSTANCE * my, int * params );
+extern int modjoy_hats_specific( INSTANCE * my, int * params );
+extern int modjoy_balls_specific( INSTANCE * my, int * params );
+extern int modjoy_get_hat_specific( INSTANCE * my, int * params );
+extern int modjoy_get_ball_specific( INSTANCE * my, int * params );
 #endif
 
 #include "sysprocs.h"
@@ -478,11 +505,11 @@ void sysproc_init()
 {
     SYSPROC       * proc = sysprocs ;
     int             maxcode = 0 ;
+    unsigned int    n ;
 
 #ifndef __STATIC__
     void          * library ;
     const char    * filename ;
-    unsigned int    n ;
 
     DLVARFIXUP    * globals_fixup = NULL ;
     DLVARFIXUP    * locals_fixup = NULL ;
@@ -625,6 +652,15 @@ void sysproc_init()
     if ( module_initialize_count )
         for ( n = 0; n < module_initialize_count; n++ )
             module_initialize_list[n]();
+#else
+    /* Initialize all the modules */
+
+    /* mod_time */
+    if ( !SDL_WasInit( SDL_INIT_TIMER ) ) SDL_InitSubSystem( SDL_INIT_TIMER );
+    /* mod_sound */
+    if ( !SDL_WasInit( SDL_INIT_AUDIO ) ) SDL_InitSubSystem( SDL_INIT_AUDIO );
+    /* libjoy */
+    libjoy_init();
 #endif
 }
 

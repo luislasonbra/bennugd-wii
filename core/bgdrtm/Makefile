@@ -18,7 +18,7 @@ include $(DEVKITPPC)/wii_rules
 TARGET		:=	bgdrtm
 BUILD     :=	build
 SOURCES		:=	src
-INCLUDES	:=	include ../include
+INCLUDES	:=	include ../include ../../modules/libjoy/
 
 #---------------------------------------------------------------------------------
 # options for code generation
@@ -62,7 +62,9 @@ CFILES		:=	dcbr.c sysprocs.c strings.c dirs.c copy.c misc.c instance.c \
               ../../../modules/mod_math/mod_math.c \
               ../../../modules/mod_time/mod_time.c \
               ../../../modules/mod_file/mod_file.c \
-              ../../../modules/mod_sound/mod_sound.c
+              ../../../modules/mod_sound/mod_sound.c \
+              ../../../modules/libjoy/libjoy.c \
+              ../../../modules/mod_joy/mod_joy.c
 
 #---------------------------------------------------------------------------------
 # use CXX for linking C++ projects, CC for standard C

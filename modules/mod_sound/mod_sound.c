@@ -34,7 +34,6 @@
 #include <SDL/SDL_mixer.h>
 #else
 #include <SDL.h>
-#include "SDL_mixer.h";
 #endif
 
 #include "files.h"
@@ -44,14 +43,14 @@
 
 /* --------------------------------------------------------------------------- */
 
-static int sound_active = 0;     //var to check wether sound has been activated
+static int sound_active = 0;     //variable para comprobar si el sonido está activado.
 static int audio_initialized = 0 ;
 
 /* --------------------------------------------------------------------------- */
 
-#define SOUND_FREQ              22050
+#define SOUND_FREQ              0
 #define SOUND_MODE              1
-#define SOUND_CHANNELS          8
+#define SOUND_CHANNELS          2
 
 /* --------------------------------------------------------------------------- */
 /* Definicion de constantes (usada en tiempo de compilacion)                   */
@@ -86,7 +85,6 @@ DLVARFIXUP  __bgdexport( mod_sound, globals_fixup )[] =
     { NULL, NULL, -1, -1 }
 };
 #endif
-
 /* ------------------------------------- */
 /* Interfaz SDL_RWops Bennu              */
 /* ------------------------------------- */
@@ -166,7 +164,6 @@ static void sound_init()
         audio_initialized = 1;
 
         /* Initialize variables: but limit quality to some fixed options */
-#ifndef TARGET_WII
         audio_rate = SOUND_FREQ;
 
         if ( audio_rate > 22050 )
@@ -175,21 +172,18 @@ static void sound_init()
             audio_rate = 22050;
         else
             audio_rate = 11025;
-
-        audio_format = AUDIO_S16SYS;
+#ifdef TARGET_WII
+        audio_format = AUDIO_S16MSB;
+#else
+        audio_format = AUDIO_S16;
+#endif
         audio_channels = SOUND_MODE + 1;
         audio_buffers = 1024 * audio_rate / 22050;
-#else
-        /* The WII sound chip requires some special fixed parameters */
-        audio_rate = 32000;
-        audio_format = AUDIO_S16MSB;
-        audio_channels = 2;
-        audio_buffers = 512;
-#endif
+
         /* Open the audio device */
         if ( Mix_OpenAudio( audio_rate, audio_format, audio_channels, audio_buffers ) < 0 )
         {
-            fprintf( stderr, "[SOUND] Couldn't init audio: %s\n", SDL_GetError() ) ;
+            fprintf( stderr, "[SOUND] No se pudo inicializar el audio: %s\n", SDL_GetError() ) ;
             sound_active = 0;
             return;
         }
@@ -198,7 +192,6 @@ static void sound_init()
             SOUND_CHANNELS <= 32 ? Mix_AllocateChannels( SOUND_CHANNELS ) : Mix_AllocateChannels( 32 ) ;
             Mix_QuerySpec( &audio_rate, &audio_format, &audio_channels );
             audio_mix_channels = Mix_AllocateChannels( -1 ) ;
-            //SOUND_CHANNELS = audio_mix_channels ;
             /*
                   gr_con_printf ("Opened audio at %d Hz %d bit %s, %d bytes audio buffer\n", audio_rate,
                                (audio_format&0xFF),
@@ -1627,7 +1620,7 @@ DLSYSFUNCS  __bgdexport( mod_sound, functions_exports )[] =
 };
 
 /* --------------------------------------------------------------------------- */
-/* plugin initialization code                              */
+/* Funciones de inicializacion del modulo/plugin                               */
 
 void  __bgdexport( mod_sound, module_initialize )()
 {
@@ -1641,5 +1634,4 @@ void __bgdexport( mod_sound, module_finalize )()
     if ( SDL_WasInit( SDL_INIT_AUDIO ) ) SDL_QuitSubSystem( SDL_INIT_AUDIO );
 }
 #endif
-
 /* --------------------------------------------------------------------------- */

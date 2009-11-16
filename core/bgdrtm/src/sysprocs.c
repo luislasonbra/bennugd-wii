@@ -162,6 +162,17 @@ extern int modjoy_hats_specific( INSTANCE * my, int * params );
 extern int modjoy_balls_specific( INSTANCE * my, int * params );
 extern int modjoy_get_hat_specific( INSTANCE * my, int * params );
 extern int modjoy_get_ball_specific( INSTANCE * my, int * params );
+/* mod_proc */
+extern 
+extern 
+extern 
+extern 
+extern 
+extern 
+extern 
+extern 
+extern 
+extern 
 #endif
 
 #include "sysprocs.h"

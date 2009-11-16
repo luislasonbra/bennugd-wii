@@ -114,7 +114,7 @@ DLCONSTANT __bgdexport( mod_proc, constants_def )[] =
 
     { NULL                  , 0       , 0                   }
 } ;
-#endif
+
 /* ----------------------------------------------------------------- */
 
 char * __bgdexport( mod_proc, locals_def ) =
@@ -150,7 +150,7 @@ void __bgdexport( mod_proc, process_exec_hook )( INSTANCE * r )
     LOCDWORD( mod_proc, r, ID_SCAN ) = 0;
     LOCDWORD( mod_proc, r, CONTEXT ) = 0;
 }
-
+#endif
 /* ----------------------------------------------------------------- */
 /* Interacción entre procesos */
 
@@ -578,7 +578,7 @@ static int modproc_get_status( INSTANCE * my, int * params )
 }
 
 /* ---------------------------------------------------------------------- */
-
+#ifndef __STATIC__
 DLSYSFUNCS __bgdexport( mod_proc, functions_exports )[] =
 {
     /* Interacción entre procesos */
@@ -594,5 +594,5 @@ DLSYSFUNCS __bgdexport( mod_proc, functions_exports )[] =
     { "EXISTS"          , "I"   , TYPE_INT , modproc_running         },
     { 0                 , 0     , 0        , 0                       }
 };
-
+#endif
 /* ----------------------------------------------------------------- */

@@ -23,7 +23,7 @@
 
 /* --------------------------------------------------------------------------- */
 
-#ifdef TARGET_MAC
+#if defined(TARGET_MAC) || defined(TARGET_WII)
 #include <SDL/SDL.h>
 #else
 #include <SDL.h>
@@ -358,7 +358,7 @@ static void mouse_draw( INSTANCE * i, REGION * clip )
 }
 
 /* --------------------------------------------------------------------------- */
-
+#ifndef __STATIC__
 /* Bigest priority first execute
    Lowest priority last execute */
 
@@ -386,5 +386,5 @@ void __bgdexport( libmouse, module_initialize )()
 {
     gr_new_object( GLOINT32( libmouse, MOUSEZ ), mouse_info, mouse_draw, 0 );
 }
-
+#endif
 /* --------------------------------------------------------------------------- */

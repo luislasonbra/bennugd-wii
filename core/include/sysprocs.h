@@ -185,6 +185,17 @@ SYSPROC sysprocs[MAX_SYSPROCS] =
     { 0xBC, "GET_JOY_BUTTON", "II" , TYPE_INT    , 2, SYSMACRO(modjoy_get_button_specific)  },
     { 0xBD, "GET_JOY_POSITION", "I", TYPE_INT    , 1, SYSMACRO(modjoy_get_position)         },
     { 0xBE, "GET_JOY_POSITION","II", TYPE_INT    , 2, SYSMACRO(modjoy_get_position_specific)},
+    /* mod_proc */
+    { 0xC0, "GET_ID"     , "I"   , TYPE_INT   , 1, SYSMACRO(modproc_get_id)          },
+    { 0xC1, "GET_STATUS" , "I"   , TYPE_INT   , 1, SYSMACRO(modproc_get_status)      },
+    { 0xC2, "SIGNAL"     , "II"  , TYPE_INT   , 2, SYSMACRO(modproc_signal)          },
+    { 0xC3, "SIGNAL_ACTION", "II", TYPE_INT   , 2, SYSMACRO(modproc_signal_action)   },
+    { 0xC4, "SIGNAL_ACTION", "III",TYPE_INT   , 3, SYSMACRO(modproc_signal_action3)  },
+    { 0xC5, "LET_ME_ALONE", ""   , TYPE_INT   , 0, SYSMACRO(modproc_let_me_alone)    },
+    { 0xC6, "EXIT"       , "SI"  , TYPE_INT   , 2, SYSMACRO(modproc_exit)            },
+    { 0xC7, "EXIT"       , "S"   , TYPE_INT   , 1, SYSMACRO(modproc_exit_1)          },
+    { 0xC8, "EXIT"       , ""    , TYPE_INT   , 0, SYSMACRO(modproc_exit_0)          },
+    { 0xC9, "EXISTS"     , "I"   , TYPE_INT   , 1, SYSMACRO(modproc_running)         },
 
     { 0   , 0           , ""      , TYPE_UNDEFINED  , 0, 0                        }
 } ;

@@ -120,7 +120,8 @@ static void _modproc_kill_all()
     INSTANCE * i = first_instance ;
     while ( i )
     {
-        LOCDWORD( mod_proc, i, STATUS ) = STATUS_KILLED ;
+        //LOCDWORD( mod_proc, i, STATUS ) = STATUS_KILLED ;
+        i.STATUS = STATUS_KILLED;
         i = i->next ;
     }
 }

@@ -65,7 +65,8 @@ CFILES		:=	dcbr.c sysprocs.c strings.c dirs.c copy.c misc.c instance.c \
               ../../../modules/mod_sound/mod_sound.c \
               ../../../modules/libsdlhandler/libsdlhandler.c \
               ../../../modules/libjoy/libjoy.c \
-              ../../../modules/mod_joy/mod_joy.c
+              ../../../modules/mod_joy/mod_joy.c \
+              ../../../modules/mod_proc/mod_proc.c
 
 #---------------------------------------------------------------------------------
 # use CXX for linking C++ projects, CC for standard C

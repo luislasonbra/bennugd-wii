@@ -31,6 +31,7 @@
 #ifdef TARGET_WII
 #include <SDL/SDL.h>
 #endif
+#include "../../../modules/mod_proc/mod_proc.h"
 #endif
 
 /* ----------------------------------------------------------------------- */
@@ -115,6 +116,26 @@ constants_def[] =
     { "JOY_HAT_RIGHTDOWN"   , TYPE_DWORD, SDL_HAT_RIGHTDOWN },
     { "JOY_HAT_LEFTUP"      , TYPE_DWORD, SDL_HAT_LEFTUP    },
     { "JOY_HAT_LEFTDOWN"    , TYPE_DWORD, SDL_HAT_LEFTDOWN  },
+    /* mod_proc */
+    { "S_KILL"              , TYPE_INT, S_KILL              },
+    { "S_WAKEUP"            , TYPE_INT, S_WAKEUP            },
+    { "S_SLEEP"             , TYPE_INT, S_SLEEP             },
+    { "S_FREEZE"            , TYPE_INT, S_FREEZE            },
+    { "S_KILL_TREE"         , TYPE_INT, S_KILL_TREE         },
+    { "S_WAKEUP_TREE"       , TYPE_INT, S_WAKEUP_TREE       },
+    { "S_SLEEP_TREE"        , TYPE_INT, S_SLEEP_TREE        },
+    { "S_FREEZE_TREE"       , TYPE_INT, S_FREEZE_TREE       },
+    { "S_KILL_FORCE"        , TYPE_INT, S_KILL_FORCE        },
+    { "S_WAKEUP_FORCE"      , TYPE_INT, S_WAKEUP_FORCE      },
+    { "S_SLEEP_FORCE"       , TYPE_INT, S_SLEEP_FORCE       },
+    { "S_FREEZE_FORCE"      , TYPE_INT, S_FREEZE_FORCE      },
+    { "S_KILL_TREE_FORCE"   , TYPE_INT, S_KILL_TREE_FORCE   },
+    { "S_WAKEUP_TREE_FORCE" , TYPE_INT, S_WAKEUP_TREE_FORCE },
+    { "S_SLEEP_TREE_FORCE"  , TYPE_INT, S_SLEEP_TREE_FORCE  },
+    { "S_FREEZE_TREE_FORCE" , TYPE_INT, S_FREEZE_TREE_FORCE },
+    { "S_DFL"               , TYPE_INT, S_DFL               },
+    { "S_IGN"               , TYPE_INT, S_IGN               },
+    { "ALL_PROCESS"         , TYPE_INT, ALL_PROCESS         },
 #endif
 
     { NULL              , 0         , 0                   }

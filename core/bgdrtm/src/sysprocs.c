@@ -162,17 +162,18 @@ extern int modjoy_hats_specific( INSTANCE * my, int * params );
 extern int modjoy_balls_specific( INSTANCE * my, int * params );
 extern int modjoy_get_hat_specific( INSTANCE * my, int * params );
 extern int modjoy_get_ball_specific( INSTANCE * my, int * params );
+
 /* mod_proc */
-extern 
-extern 
-extern 
-extern 
-extern 
-extern 
-extern 
-extern 
-extern 
-extern 
+extern int modproc_get_status( INSTANCE * my, int * params );
+extern int modproc_get_id( INSTANCE * my, int * params );
+extern int modproc_let_me_alone( INSTANCE * my, int * params );
+extern int modproc_signal_action3( INSTANCE * my, int * params );
+extern int modproc_signal_action( INSTANCE * my, int * params );
+extern int modproc_signal( INSTANCE * my, int * params );
+extern int modproc_running( INSTANCE * my, int * params );
+extern int modproc_exit( INSTANCE * my, int * params );
+extern int modproc_exit_1( INSTANCE * my, int * params );
+extern int modproc_exit_0( INSTANCE * my, int * params );
 #endif
 
 #include "sysprocs.h"

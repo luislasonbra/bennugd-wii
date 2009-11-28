@@ -196,6 +196,9 @@ SYSPROC sysprocs[MAX_SYSPROCS] =
     { 0xC7, "EXIT"       , "S"   , TYPE_INT   , 1, SYSMACRO(modproc_exit_1)          },
     { 0xC8, "EXIT"       , ""    , TYPE_INT   , 0, SYSMACRO(modproc_exit_0)          },
     { 0xC9, "EXISTS"     , "I"   , TYPE_INT   , 1, SYSMACRO(modproc_running)         },
+    /* mod_rand */
+    { 0xD0, "RAND_SEED"  , "I"   , TYPE_INT   , 1, SYSMACRO(rand_seed)     },
+    { 0xD1, "RAND"       , "II"  , TYPE_INT   , 2, SYSMACRO(rand_std)      },
 
     { 0   , 0           , ""      , TYPE_UNDEFINED  , 0, 0                        }
 } ;

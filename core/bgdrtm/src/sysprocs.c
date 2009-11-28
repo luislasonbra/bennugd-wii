@@ -174,6 +174,10 @@ extern int modproc_running( INSTANCE * my, int * params );
 extern int modproc_exit( INSTANCE * my, int * params );
 extern int modproc_exit_1( INSTANCE * my, int * params );
 extern int modproc_exit_0( INSTANCE * my, int * params );
+
+/* mod_rand */
+extern int rand_seed( INSTANCE * my, int * params );
+extern int rand_std( INSTANCE * my, int * params );
 #endif
 
 #include "sysprocs.h"

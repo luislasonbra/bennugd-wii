@@ -28,7 +28,7 @@
 
 /* ---------------------------------------------------------------------- */
 
-static int rand_seed( INSTANCE * my, int * params )
+int rand_seed( INSTANCE * my, int * params )
 {
     srand( params[0] ) ;
     return 1 ;
@@ -36,7 +36,7 @@ static int rand_seed( INSTANCE * my, int * params )
 
 /* ---------------------------------------------------------------------- */
 
-static int rand_std( INSTANCE * my, int * params )
+int rand_std( INSTANCE * my, int * params )
 {
     int num1 = MIN( params[0], params[1] ) ;
     int num2 = MAX( params[0], params[1] ) ;
@@ -50,12 +50,12 @@ static int rand_std( INSTANCE * my, int * params )
 
 /* ---------------------------------------------------------------------- */
 /* Declaracion de funciones                                               */
-
+#ifndef __STATIC__
 DLSYSFUNCS  __bgdexport( mod_rand, functions_exports )[] =
 {
     { "RAND_SEED"   , "I"   , TYPE_INT  , rand_seed     },
     { "RAND"        , "II"  , TYPE_INT  , rand_std      },
     { 0             , 0     , 0         , 0             }
 };
-
+#endif
 /* ---------------------------------------------------------------------- */

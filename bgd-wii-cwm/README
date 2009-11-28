@@ -1,0 +1,23 @@
+README for bennugd-wii version "Comes with music"
+=================================================
+
+by Joseba García Etxebarria (josebita)
+
+This package includes a binary version of the current snapshot of the
+bennugd-wii interpreter source code that can be fetched from:
+http://code.google.com/p/bennugd-wii/
+
+It includes all the functionality found in the following Bennu modules:
+mod_say
+mod_string
+mod_math
+mod_time
+mod_file
+mod_sound
+mod_joy
+
+To run the example code, copy the folder named "bgd-wii-cwm" to the APPS
+folder in the root of your SD card, insert it into your WII and load
+the Homebrew Channel, then click on the entry with the Bennu logo on it.
+
+Have fun!

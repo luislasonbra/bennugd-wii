@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<app version="1">
+  <name>Bennugd-wii</name>
+  <coder>josebita</coder>
+  <version>20091001</version>
+  <release_date>20091001</release_date>
+  <short_description>Bennugd-wii "Comes With Music" edition.</short_description> 
+  <long_description>This release includes all the functionality included in the standard mod_say, mod_string mod_math, mod_time, mod_file and mod_joy modules distributed with the official ennu version 1.0 in one single binary file.
+
+The version used, however, lacks some minor improvements that are recent in the BennuGD SVN repo.</long_description> 
+</app>

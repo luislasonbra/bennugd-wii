@@ -178,6 +178,17 @@ extern int modproc_exit_0( INSTANCE * my, int * params );
 /* mod_rand */
 extern int rand_seed( INSTANCE * my, int * params );
 extern int rand_std( INSTANCE * my, int * params );
+
+/* mod_dir */
+extern int moddir_cd( INSTANCE * my, int * params );
+extern int moddir_chdir( INSTANCE * my, int * params );
+extern int moddir_mkdir( INSTANCE * my, int * params );
+extern int moddir_rmdir( INSTANCE * my, int * params );
+extern int moddir_rm( INSTANCE * my, int * params );
+extern int moddir_glob( INSTANCE * my, int * params );
+extern int moddir_open( INSTANCE * my, int * params );
+extern int moddir_close( INSTANCE * my, int * params );
+extern int moddir_read( INSTANCE * my, int * params );
 #endif
 
 #include "sysprocs.h"
@@ -239,12 +250,11 @@ int module_finalize_count = 0 ;
 static SYSPROC ** sysproc_tab = NULL ;
 
 /* ---------------------------------------------------------------------- */
-
+#ifndef __STATIC__
 static int tsize( DCB_TYPEDEF orig );
 static DCB_TYPEDEF treduce( DCB_TYPEDEF orig );
 
 /* ---------------------------------------------------------------------- */
-
 /* Tipos de token */
 static struct
 {
@@ -256,7 +266,6 @@ static struct
 static const char * token_ptr = NULL;
 
 /* ---------------------------------------------------------------------- */
-#ifndef __STATIC__
 /* Very simple tokenizer */
 static void get_token()
 {
@@ -305,7 +314,6 @@ static void get_token()
 
     token.type = NOTOKEN ;
 }
-#endif
 
 /* ---------------------------------------------------------------------- */
 
@@ -321,7 +329,6 @@ static DCB_TYPEDEF treduce( DCB_TYPEDEF orig )
 }
 
 /* ---------------------------------------------------------------------- */
-
 static int tsize( DCB_TYPEDEF orig )
 {
     unsigned int n, total ;
@@ -359,7 +366,6 @@ static int tsize( DCB_TYPEDEF orig )
 }
 
 /* ---------------------------------------------------------------------- */
-#ifndef __STATIC__
 static void get_var_info( DLVARFIXUP * varfixup, DCB_VAR * basevar, int nvars, char * basedata )
 {
     unsigned int n ;
@@ -522,10 +528,10 @@ void sysproc_init()
 {
     SYSPROC       * proc = sysprocs ;
     int             maxcode = 0 ;
-    unsigned int    n ;
     HOOK          * handler_hooks = NULL ;
 
 #ifndef __STATIC__
+    unsigned int    n ;
     void          * library ;
     const char    * filename ;
 
@@ -678,14 +684,22 @@ void sysproc_init()
     /* libsdlhandler */
     if ( !SDL_WasInit( SDL_INIT_EVENTTHREAD ) )
         SDL_InitSubSystem( SDL_INIT_EVENTTHREAD );
-    handler_hooks = libsdlhandler_hook;
+        handler_hooks = libsdlhandler_hook;
+        while ( handler_hooks && handler_hooks->hook )
+        {
+            hook_add( *handler_hooks, handler_hook_list, handler_hook_allocated, handler_hook_count ) ;
+            handler_hooks++;
+        }
+    /* libjoy */
+    libjoy_init();
+    /* libmouse */
+    // TODO: register the mouse hook
+/*    handler_hooks = libmouse_hook;
     while ( handler_hooks && handler_hooks->hook )
     {
         hook_add( *handler_hooks, handler_hook_list, handler_hook_allocated, handler_hook_count ) ;
         handler_hooks++;
-    }
-    /* libjoy */
-    libjoy_init();
+    }*/
 #endif
 }
 

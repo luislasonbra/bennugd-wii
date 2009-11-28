@@ -199,6 +199,17 @@ SYSPROC sysprocs[MAX_SYSPROCS] =
     /* mod_rand */
     { 0xD0, "RAND_SEED"  , "I"   , TYPE_INT   , 1, SYSMACRO(rand_seed)     },
     { 0xD1, "RAND"       , "II"  , TYPE_INT   , 2, SYSMACRO(rand_std)      },
+    /* mod_dir */
+    { 0xD5, "CD"      , ""  , TYPE_STRING , 0, SYSMACRO(moddir_cd)     },
+    { 0xD6, "CHDIR"   , "S" , TYPE_INT    , 1, SYSMACRO(moddir_chdir)  },
+    { 0xD7, "MKDIR"   , "S" , TYPE_INT    , 1, SYSMACRO(moddir_mkdir)  },
+    { 0xD8, "RMDIR"   , "S" , TYPE_INT    , 1, SYSMACRO(moddir_rmdir)  },
+    { 0xD9, "GLOB"    , "S" , TYPE_STRING , 1, SYSMACRO(moddir_glob)   },
+    { 0xDA, "CD"      , "S" , TYPE_STRING , 1, SYSMACRO(moddir_chdir)  },
+    { 0xDB, "RM"      , "S" , TYPE_INT    , 1, SYSMACRO(moddir_rm)     },
+    { 0xDC, "DIROPEN" , "S" , TYPE_INT    , 1, SYSMACRO(moddir_open)   },
+    { 0xDE, "DIRCLOSE", "I" , TYPE_INT    , 1, SYSMACRO(moddir_close)  },
+    { 0xDF, "DIRREAD" , "I" , TYPE_STRING , 1, SYSMACRO(moddir_read)   },
 
     { 0   , 0           , ""      , TYPE_UNDEFINED  , 0, 0                        }
 } ;

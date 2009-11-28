@@ -747,7 +747,11 @@ int file_remove( const char * filename )
 
 int file_move( const char * source_file, const char * target_file )
 {
+#ifndef TARGET_WII
     return ( rename( source_file, target_file ) );
+#else
+    return -1;      /* Wii's filesystem usage is very limited... */
+#endif
 }
 
 /* Check for file exists */

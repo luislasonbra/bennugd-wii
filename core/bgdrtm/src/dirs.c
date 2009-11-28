@@ -155,7 +155,7 @@ int dir_create( const char * dir )
 int dir_delete( const char * dir )
 {
     char *c = dir_path_convert( dir ) ;
-    int r = rmdir( c ) ;
+    int r = remove( c ) ;
     free( c ) ;
     return r ;
 }

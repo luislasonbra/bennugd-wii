@@ -136,6 +136,8 @@ constants_def[] =
     { "S_DFL"               , TYPE_INT, S_DFL               },
     { "S_IGN"               , TYPE_INT, S_IGN               },
     { "ALL_PROCESS"         , TYPE_INT, ALL_PROCESS         },
+    /* mod_dir */
+    
 #endif
 
     { NULL              , 0         , 0                   }
@@ -144,7 +146,34 @@ constants_def[] =
 static char * globals_def =
     "argc;\n"
     "string argv[32];\n"
-    "os_id = -1;\n";
+    "os_id = -1;\n"
+#ifdef __STATIC__
+/* libmouse */
+    "STRUCT mouse\n"
+    "x = 99999, y = 99999;\n"
+    "z = -512;\n"
+    "file;\n"
+    "graph;\n"
+    "angle;\n"
+    "size = 100;\n"
+    "flags;\n"
+    "region;\n"
+    "left, middle, right;\n"
+    "wheelup, wheeldown;\n"
+    "END\n"
+/* mod_dir */
+    "STRUCT fileinfo\n"
+    "    STRING path;\n"
+    "    STRING name;\n"
+    "    directory;\n"
+    "    hidden;\n"
+    "    readonly;\n"
+    "    size;\n"
+    "    STRING created;\n"
+    "    STRING modified;\n"
+    "END\n"
+#endif
+;
 
 static char * locals_def =
     "id;\n"

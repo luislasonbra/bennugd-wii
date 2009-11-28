@@ -107,9 +107,9 @@ DLVARFIXUP __bgdexport( mod_proc, locals_fixup )[]  =
 
 void __bgdexport( mod_proc, process_exec_hook )( INSTANCE * r )
 {
-    LOCDWORD( mod_proc, r, TYPE_SCAN ) = 0;
-    LOCDWORD( mod_proc, r, ID_SCAN ) = 0;
-    LOCDWORD( mod_proc, r, CONTEXT ) = 0;
+    LOCDWORD(r, TYPE_SCAN ) = 0;
+    LOCDWORD(r, ID_SCAN ) = 0;
+    LOCDWORD(r, CONTEXT ) = 0;
 }
 #endif
 /* ----------------------------------------------------------------- */
@@ -120,8 +120,7 @@ static void _modproc_kill_all()
     INSTANCE * i = first_instance ;
     while ( i )
     {
-        //LOCDWORD( mod_proc, i, STATUS ) = STATUS_KILLED ;
-        i.STATUS = STATUS_KILLED;
+        LOCDWORD(i, STATUS ) = STATUS_KILLED ;
         i = i->next ;
     }
 }
@@ -184,14 +183,14 @@ int modproc_running( INSTANCE * my, int * params )
     if ( params[0] >= FIRST_INSTANCE_ID )
     {
         i = instance_get( params[0] ) ;
-        if ( i && ( LOCDWORD( mod_proc, i, STATUS ) & ~STATUS_WAITING_MASK ) >= STATUS_RUNNING ) return 1;
+        if ( i && ( LOCDWORD(i, STATUS ) & ~STATUS_WAITING_MASK ) >= STATUS_RUNNING ) return 1;
         return 0;
     }
 
     ctx = NULL;
     while ( ( i = instance_get_by_type( params[0], &ctx ) ) )
     {
-        if ( ( LOCDWORD( mod_proc, i, STATUS ) & ~STATUS_WAITING_MASK ) >= STATUS_RUNNING ) return 1;
+        if ( ( LOCDWORD(i, STATUS ) & ~STATUS_WAITING_MASK ) >= STATUS_RUNNING ) return 1;
     }
 
     return 0;
@@ -211,9 +210,9 @@ int modproc_signal( INSTANCE * my, int * params )
         i = first_instance ;
         while ( i )
         {
-            if ( LOCDWORD( mod_proc, i, PROCESS_ID ) != LOCDWORD( mod_proc, my, PROCESS_ID ) )
+            if ( LOCDWORD(i, PROCESS_ID ) != LOCDWORD(my, PROCESS_ID ) )
             {
-                fake_params[0] = LOCDWORD( mod_proc, i, PROCESS_ID ) ;
+                fake_params[0] = LOCDWORD(i, PROCESS_ID ) ;
                 modproc_signal( my, fake_params ) ;
             }
             i = i->next ;
@@ -228,7 +227,7 @@ int modproc_signal( INSTANCE * my, int * params )
         ctx = NULL;
         while ( ( i = instance_get_by_type( params[0], &ctx ) ) )
         {
-            fake_params[0] = LOCDWORD( mod_proc, i, PROCESS_ID ) ;
+            fake_params[0] = LOCDWORD(i, PROCESS_ID ) ;
             modproc_signal( my, fake_params ) ;
         }
         return 0 ;
@@ -237,56 +236,56 @@ int modproc_signal( INSTANCE * my, int * params )
     i = instance_get( params[0] ) ;
     if ( i )
     {
-        if (( LOCDWORD( mod_proc, i, STATUS ) & ~STATUS_WAITING_MASK ) != STATUS_DEAD )
+        if (( LOCDWORD(i, STATUS ) & ~STATUS_WAITING_MASK ) != STATUS_DEAD )
         {
             switch ( params[1] )
             {
                 case S_KILL:
                 case S_KILL_FORCE:
-                    if ( params[1] == S_KILL_FORCE || !( LOCDWORD( mod_proc, i, SIGNAL_ACTION ) & SMASK_KILL ) )
-                        LOCDWORD( mod_proc, i, STATUS ) = STATUS_KILLED ;
+                    if ( params[1] == S_KILL_FORCE || !( LOCDWORD(i, SIGNAL_ACTION ) & SMASK_KILL ) )
+                        LOCDWORD(i, STATUS ) = STATUS_KILLED ;
                     break ;
 
                 case S_WAKEUP:
                 case S_WAKEUP_FORCE:
-                    if ( params[1] == S_WAKEUP_FORCE || !( LOCDWORD( mod_proc, i, SIGNAL_ACTION ) & SMASK_WAKEUP ) )
-                        LOCDWORD( mod_proc, i, STATUS ) = ( LOCDWORD( mod_proc, i, STATUS ) & STATUS_WAITING_MASK ) | STATUS_RUNNING ;
+                    if ( params[1] == S_WAKEUP_FORCE || !( LOCDWORD(i, SIGNAL_ACTION ) & SMASK_WAKEUP ) )
+                        LOCDWORD(i, STATUS ) = ( LOCDWORD(i, STATUS ) & STATUS_WAITING_MASK ) | STATUS_RUNNING ;
                     break ;
 
                 case S_SLEEP:
                 case S_SLEEP_FORCE:
-                    if ( params[1] == S_SLEEP_FORCE || !( LOCDWORD( mod_proc, i, SIGNAL_ACTION ) & SMASK_SLEEP ) )
-                        LOCDWORD( mod_proc, i, STATUS ) = ( LOCDWORD( mod_proc, i, STATUS ) & STATUS_WAITING_MASK ) | STATUS_SLEEPING ;
+                    if ( params[1] == S_SLEEP_FORCE || !( LOCDWORD(i, SIGNAL_ACTION ) & SMASK_SLEEP ) )
+                        LOCDWORD(i, STATUS ) = ( LOCDWORD(i, STATUS ) & STATUS_WAITING_MASK ) | STATUS_SLEEPING ;
                     break ;
 
                 case S_FREEZE:
                 case S_FREEZE_FORCE:
-                    if ( params[1] == S_FREEZE_FORCE || !( LOCDWORD( mod_proc, i, SIGNAL_ACTION ) & SMASK_FREEZE ) )
-                        LOCDWORD( mod_proc, i, STATUS ) = ( LOCDWORD( mod_proc, i, STATUS ) & STATUS_WAITING_MASK ) | STATUS_FROZEN ;
+                    if ( params[1] == S_FREEZE_FORCE || !( LOCDWORD(i, SIGNAL_ACTION ) & SMASK_FREEZE ) )
+                        LOCDWORD(i, STATUS ) = ( LOCDWORD(i, STATUS ) & STATUS_WAITING_MASK ) | STATUS_FROZEN ;
                     break ;
 
                 case S_KILL_TREE:
                 case S_KILL_TREE_FORCE:
-                    if ( params[1] == S_KILL_TREE_FORCE || !( LOCDWORD( mod_proc, i, SIGNAL_ACTION ) & SMASK_KILL_TREE ) )
-                        LOCDWORD( mod_proc, i, STATUS ) = ( LOCDWORD( mod_proc, i, STATUS ) & STATUS_WAITING_MASK ) | STATUS_KILLED ;
+                    if ( params[1] == S_KILL_TREE_FORCE || !( LOCDWORD(i, SIGNAL_ACTION ) & SMASK_KILL_TREE ) )
+                        LOCDWORD(i, STATUS ) = ( LOCDWORD(i, STATUS ) & STATUS_WAITING_MASK ) | STATUS_KILLED ;
                     break ;
 
                 case S_WAKEUP_TREE:
                 case S_WAKEUP_TREE_FORCE:
-                    if ( params[1] == S_WAKEUP_TREE_FORCE || !( LOCDWORD( mod_proc, i, SIGNAL_ACTION ) & SMASK_WAKEUP_TREE ) )
-                        LOCDWORD( mod_proc, i, STATUS ) = ( LOCDWORD( mod_proc, i, STATUS ) & STATUS_WAITING_MASK ) | STATUS_RUNNING ;
+                    if ( params[1] == S_WAKEUP_TREE_FORCE || !( LOCDWORD(i, SIGNAL_ACTION ) & SMASK_WAKEUP_TREE ) )
+                        LOCDWORD(i, STATUS ) = ( LOCDWORD(i, STATUS ) & STATUS_WAITING_MASK ) | STATUS_RUNNING ;
                     break ;
 
                 case S_SLEEP_TREE:
                 case S_SLEEP_TREE_FORCE:
-                    if ( params[1] == S_SLEEP_TREE_FORCE || !( LOCDWORD( mod_proc, i, SIGNAL_ACTION ) & SMASK_SLEEP_TREE ) )
-                        LOCDWORD( mod_proc, i, STATUS ) = ( LOCDWORD( mod_proc, i, STATUS ) & STATUS_WAITING_MASK ) | STATUS_SLEEPING ;
+                    if ( params[1] == S_SLEEP_TREE_FORCE || !( LOCDWORD(i, SIGNAL_ACTION ) & SMASK_SLEEP_TREE ) )
+                        LOCDWORD(i, STATUS ) = ( LOCDWORD(i, STATUS ) & STATUS_WAITING_MASK ) | STATUS_SLEEPING ;
                     break ;
 
                 case S_FREEZE_TREE:
                 case S_FREEZE_TREE_FORCE:
-                    if ( params[1] == S_FREEZE_TREE_FORCE || !( LOCDWORD( mod_proc, i, SIGNAL_ACTION ) & SMASK_FREEZE_TREE ) )
-                        LOCDWORD( mod_proc, i, STATUS ) = ( LOCDWORD( mod_proc, i, STATUS ) & STATUS_WAITING_MASK ) | STATUS_FROZEN ;
+                    if ( params[1] == S_FREEZE_TREE_FORCE || !( LOCDWORD(i, SIGNAL_ACTION ) & SMASK_FREEZE_TREE ) )
+                        LOCDWORD(i, STATUS ) = ( LOCDWORD(i, STATUS ) & STATUS_WAITING_MASK ) | STATUS_FROZEN ;
                     break ;
 
                 default:
@@ -300,7 +299,7 @@ int modproc_signal( INSTANCE * my, int * params )
             i = instance_getson( i ) ;
             while ( i )
             {
-                fake_params[0] = LOCDWORD( mod_proc, i, PROCESS_ID ) ;
+                fake_params[0] = LOCDWORD(i, PROCESS_ID ) ;
                 modproc_signal( my, fake_params ) ;
                 i = instance_getbigbro( i )  ;
             }
@@ -323,11 +322,11 @@ int modproc_signal_action( INSTANCE * my, int * params )
                 switch ( action )
                 {
                     case S_IGN:
-                        LOCDWORD( mod_proc, my, SIGNAL_ACTION ) |=  SMASK_KILL;
+                        LOCDWORD(my, SIGNAL_ACTION ) |=  SMASK_KILL;
                         break;
 
                     case S_DFL:
-                        LOCDWORD( mod_proc, my, SIGNAL_ACTION ) &= ~SMASK_KILL;
+                        LOCDWORD(my, SIGNAL_ACTION ) &= ~SMASK_KILL;
                         break;
                 }
                 break ;
@@ -336,11 +335,11 @@ int modproc_signal_action( INSTANCE * my, int * params )
                 switch ( action )
                 {
                     case S_IGN:
-                        LOCDWORD( mod_proc, my, SIGNAL_ACTION ) |=  SMASK_WAKEUP;
+                        LOCDWORD(my, SIGNAL_ACTION ) |=  SMASK_WAKEUP;
                         break;
 
                     case S_DFL:
-                        LOCDWORD( mod_proc, my, SIGNAL_ACTION ) &= ~SMASK_WAKEUP;
+                        LOCDWORD(my, SIGNAL_ACTION ) &= ~SMASK_WAKEUP;
                         break;
                 }
                 break ;
@@ -349,11 +348,11 @@ int modproc_signal_action( INSTANCE * my, int * params )
                 switch ( action )
                 {
                     case S_IGN:
-                        LOCDWORD( mod_proc, my, SIGNAL_ACTION ) |=  SMASK_SLEEP;
+                        LOCDWORD(my, SIGNAL_ACTION ) |=  SMASK_SLEEP;
                         break;
 
                     case S_DFL:
-                        LOCDWORD( mod_proc, my, SIGNAL_ACTION ) &= ~SMASK_SLEEP;
+                        LOCDWORD(my, SIGNAL_ACTION ) &= ~SMASK_SLEEP;
                         break;
                 }
                 break ;
@@ -362,11 +361,11 @@ int modproc_signal_action( INSTANCE * my, int * params )
                 switch ( action )
                 {
                     case S_IGN:
-                        LOCDWORD( mod_proc, my, SIGNAL_ACTION ) |=  SMASK_FREEZE;
+                        LOCDWORD(my, SIGNAL_ACTION ) |=  SMASK_FREEZE;
                         break;
 
                     case S_DFL:
-                        LOCDWORD( mod_proc, my, SIGNAL_ACTION ) &= ~SMASK_FREEZE;
+                        LOCDWORD(my, SIGNAL_ACTION ) &= ~SMASK_FREEZE;
                         break;
                 }
                 break ;
@@ -375,11 +374,11 @@ int modproc_signal_action( INSTANCE * my, int * params )
                 switch ( action )
                 {
                     case S_IGN:
-                        LOCDWORD( mod_proc, my, SIGNAL_ACTION ) |=  SMASK_KILL_TREE;
+                        LOCDWORD(my, SIGNAL_ACTION ) |=  SMASK_KILL_TREE;
                         break;
 
                     case S_DFL:
-                        LOCDWORD( mod_proc, my, SIGNAL_ACTION ) &= ~SMASK_KILL_TREE;
+                        LOCDWORD(my, SIGNAL_ACTION ) &= ~SMASK_KILL_TREE;
                         break;
                 }
                 break ;
@@ -388,11 +387,11 @@ int modproc_signal_action( INSTANCE * my, int * params )
                 switch ( action )
                 {
                     case S_IGN:
-                        LOCDWORD( mod_proc, my, SIGNAL_ACTION ) |=  SMASK_WAKEUP_TREE;
+                        LOCDWORD(my, SIGNAL_ACTION ) |=  SMASK_WAKEUP_TREE;
                         break;
 
                     case S_DFL:
-                        LOCDWORD( mod_proc, my, SIGNAL_ACTION ) &= ~SMASK_WAKEUP_TREE;
+                        LOCDWORD(my, SIGNAL_ACTION ) &= ~SMASK_WAKEUP_TREE;
                         break;
                 }
                 break ;
@@ -401,11 +400,11 @@ int modproc_signal_action( INSTANCE * my, int * params )
                 switch ( action )
                 {
                     case S_IGN:
-                        LOCDWORD( mod_proc, my, SIGNAL_ACTION ) |=  SMASK_SLEEP_TREE;
+                        LOCDWORD(my, SIGNAL_ACTION ) |=  SMASK_SLEEP_TREE;
                         break;
 
                     case S_DFL:
-                        LOCDWORD( mod_proc, my, SIGNAL_ACTION ) &= ~SMASK_SLEEP_TREE;
+                        LOCDWORD(my, SIGNAL_ACTION ) &= ~SMASK_SLEEP_TREE;
                         break;
                 }
                 break ;
@@ -414,11 +413,11 @@ int modproc_signal_action( INSTANCE * my, int * params )
                 switch ( action )
                 {
                     case S_IGN:
-                        LOCDWORD( mod_proc, my, SIGNAL_ACTION ) |=  SMASK_FREEZE_TREE;
+                        LOCDWORD(my, SIGNAL_ACTION ) |=  SMASK_FREEZE_TREE;
                         break;
 
                     case S_DFL:
-                        LOCDWORD( mod_proc, my, SIGNAL_ACTION ) &= ~SMASK_FREEZE_TREE;
+                        LOCDWORD(my, SIGNAL_ACTION ) &= ~SMASK_FREEZE_TREE;
                         break;
                 }
                 break ;
@@ -467,11 +466,11 @@ int modproc_let_me_alone( INSTANCE * my, int * params )
 
     while ( i )
     {
-        if ( i != my && ( LOCDWORD( mod_proc, i, STATUS ) & ~STATUS_WAITING_MASK ) != STATUS_DEAD )
-            LOCDWORD( mod_proc, i, STATUS ) = ( LOCDWORD( mod_proc, i, STATUS ) & STATUS_WAITING_MASK ) | STATUS_KILLED ;
+        if ( i != my && ( LOCDWORD(i, STATUS ) & ~STATUS_WAITING_MASK ) != STATUS_DEAD )
+            LOCDWORD(i, STATUS ) = ( LOCDWORD(i, STATUS ) & STATUS_WAITING_MASK ) | STATUS_KILLED ;
         i = i->next ;
     }
-    if ( LOCDWORD( mod_proc, my, STATUS ) > STATUS_KILLED ) LOCDWORD( mod_proc, my, STATUS ) = STATUS_RUNNING;
+    if ( LOCDWORD(my, STATUS ) > STATUS_KILLED ) LOCDWORD(my, STATUS ) = STATUS_RUNNING;
     return 1 ;
 }
 
@@ -483,47 +482,47 @@ int modproc_get_id( INSTANCE * my, int * params )
 
     if ( !params[0] )
     {
-        LOCDWORD( mod_proc, my, TYPE_SCAN ) = 0 ;
-        if ( LOCDWORD( mod_proc, my, ID_SCAN ) )
+        LOCDWORD(my, TYPE_SCAN ) = 0 ;
+        if ( LOCDWORD(my, ID_SCAN ) )
         {
-            ptr = instance_get( LOCDWORD( mod_proc, my, ID_SCAN ) ) ;
+            ptr = instance_get( LOCDWORD(my, ID_SCAN ) ) ;
             if ( ptr ) ptr = ptr->next ;
         }
 
         while ( ptr )
         {
-            if (( LOCDWORD( mod_proc, ptr, STATUS ) & ~STATUS_WAITING_MASK ) >= STATUS_RUNNING )
+            if (( LOCDWORD(ptr, STATUS ) & ~STATUS_WAITING_MASK ) >= STATUS_RUNNING )
             {
-                LOCDWORD( mod_proc, my, ID_SCAN ) = LOCDWORD( mod_proc, ptr, PROCESS_ID ) ;
-                return LOCDWORD( mod_proc, ptr, PROCESS_ID ) ;
+                LOCDWORD(my, ID_SCAN ) = LOCDWORD(ptr, PROCESS_ID ) ;
+                return LOCDWORD(ptr, PROCESS_ID ) ;
             }
             ptr = ptr->next ;
         }
         return 0 ;
     }
 
-    LOCDWORD( mod_proc, my, ID_SCAN ) = 0 ;
+    LOCDWORD(my, ID_SCAN ) = 0 ;
     /* Check if already in scan by type and we reach limit */
-    ctx = ( INSTANCE ** ) LOCADDR( mod_proc, my, CONTEXT );
+    /*ctx = ( INSTANCE ** ) LOCADDR( my, CONTEXT );*/
 /*
-    if ( !*ctx && LOCDWORD( mod_proc, my, TYPE_SCAN ) )
+    if ( !*ctx && LOCDWORD(my, TYPE_SCAN ) )
     {
-        LOCDWORD( mod_proc, my, TYPE_SCAN ) = 0;
+        LOCDWORD(my, TYPE_SCAN ) = 0;
         return 0;
     }
 */
     /* Check if type change from last call */
-    if ( LOCDWORD( mod_proc, my, TYPE_SCAN ) != params[0] )
+    if ( LOCDWORD(my, TYPE_SCAN ) != params[0] )
     {
         *ctx = NULL;
-        LOCDWORD( mod_proc, my, TYPE_SCAN ) = params[0];
+        LOCDWORD(my, TYPE_SCAN ) = params[0];
     }
 
     while ( ( ptr = instance_get_by_type( params[0], ctx ) ) )
     {
-        if ( /*ptr != my &&*/ ( LOCDWORD( mod_proc, ptr, STATUS ) & ~STATUS_WAITING_MASK ) >= STATUS_RUNNING )
+        if ( /*ptr != my &&*/ ( LOCDWORD(ptr, STATUS ) & ~STATUS_WAITING_MASK ) >= STATUS_RUNNING )
         {
-            return LOCDWORD( mod_proc, ptr, PROCESS_ID ) ;
+            return LOCDWORD(ptr, PROCESS_ID ) ;
         }
     }
 
@@ -536,7 +535,7 @@ int modproc_get_status( INSTANCE * my, int * params )
 {
     INSTANCE * i ;
     if ( !params[0] || !( i = instance_get( params[0] ) ) ) return 0;
-    return LOCDWORD( mod_proc, i, STATUS ) ;
+    return LOCDWORD(i, STATUS ) ;
 }
 
 /* ---------------------------------------------------------------------- */

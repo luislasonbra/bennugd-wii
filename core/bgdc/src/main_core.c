@@ -154,6 +154,13 @@ static char * locals_def =
     "status = STATUS_RUNNING;\n"
     "saved_status = STATUS_RUNNING;\n"
     "saved_priority;\n"
+#ifdef __STATIC__
+/* mod_proc */
+    "type_scan;\n"
+    "id_scan;\n"
+    "context;\n"
+    "signal_action;\n"
+#endif
     "END\n"
 
     "father;\n"

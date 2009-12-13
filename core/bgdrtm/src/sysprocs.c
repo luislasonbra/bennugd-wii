@@ -35,8 +35,9 @@
 #include <bgddl.h>
 
 #ifdef __STATIC__
-#include <libsdlhandler.h>
-#include <libjoy.h>
+#include "../../../modules/libsdlhandler/libsdlhandler.h"
+#include "../../../modules/libjoy/libjoy.h"
+#include "../../../modules/mod_sound/mod_sound.h"
 #ifdef TARGET_WII
 #include <SDL/SDL.h>
 #endif
@@ -250,7 +251,7 @@ int module_finalize_count = 0 ;
 static SYSPROC ** sysproc_tab = NULL ;
 
 /* ---------------------------------------------------------------------- */
-#ifndef __STATIC__
+
 static int tsize( DCB_TYPEDEF orig );
 static DCB_TYPEDEF treduce( DCB_TYPEDEF orig );
 
@@ -453,7 +454,7 @@ static void get_var_info( DLVARFIXUP * varfixup, DCB_VAR * basevar, int nvars, c
         break ;
     }
 }
-#endif
+
 /* ---------------------------------------------------------------------- */
 
 int compare_priority( const HOOK * a1, const HOOK * a2 )
@@ -528,6 +529,8 @@ void sysproc_init()
 {
     SYSPROC       * proc = sysprocs ;
     int             maxcode = 0 ;
+    DLVARFIXUP    * globals_fixup = NULL ;
+    DLVARFIXUP    * locals_fixup = NULL ;
     HOOK          * handler_hooks = NULL ;
 
 #ifndef __STATIC__
@@ -535,8 +538,6 @@ void sysproc_init()
     void          * library ;
     const char    * filename ;
 
-    DLVARFIXUP    * globals_fixup = NULL ;
-    DLVARFIXUP    * locals_fixup = NULL ;
     DLSYSFUNCS    * functions_exports = NULL ;
     FN_HOOK         module_initialize ;
     FN_HOOK         module_finalize ;
@@ -681,9 +682,16 @@ void sysproc_init()
     if ( !SDL_WasInit( SDL_INIT_TIMER ) ) SDL_InitSubSystem( SDL_INIT_TIMER );
     /* mod_sound */
     if ( !SDL_WasInit( SDL_INIT_AUDIO ) ) SDL_InitSubSystem( SDL_INIT_AUDIO );
+    // Assign the var values defined in the module globals_fixup structure
+    globals_fixup = mod_sound_globals_fixup;
+    while ( globals_fixup->var ) {
+            get_var_info( globals_fixup, dcb.glovar, dcb.data.NGloVars, globaldata );
+            globals_fixup++;
+        }
     /* libsdlhandler */
     if ( !SDL_WasInit( SDL_INIT_EVENTTHREAD ) )
         SDL_InitSubSystem( SDL_INIT_EVENTTHREAD );
+        /* Register the hook that'll be run every FRAME */
         handler_hooks = libsdlhandler_hook;
         while ( handler_hooks && handler_hooks->hook )
         {

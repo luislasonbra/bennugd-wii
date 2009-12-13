@@ -18,8 +18,7 @@ include $(DEVKITPPC)/wii_rules
 TARGET		:=	bgdrtm
 BUILD     :=	build
 SOURCES		:=	src
-INCLUDES	:=	include ../include ../../modules/libsdlhandler/ \
-                ../../modules/libjoy/ ../../modules/mod_proc/
+INCLUDES	:=	include ../include ../../modules/mod_proc/
 
 #---------------------------------------------------------------------------------
 # options for code generation

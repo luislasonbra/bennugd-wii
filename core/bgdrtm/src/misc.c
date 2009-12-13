@@ -37,7 +37,7 @@
 #include "xstrings.h"
 #ifdef __STATIC__
 #include <SDL/SDL.h>
-#include <libjoy.h>
+#include "../../../modules/libjoy/libjoy.h"
 #endif
 
 /* --------------------------------------------------------------------------- */

@@ -1,6 +1,7 @@
 #ifdef NOWII
 import "mod_say";
 import "mod_sound";
+import "mod_joy";
 #endif
 
 Process main()
@@ -12,6 +13,7 @@ Begin
 	say("Press (A) in you Wiimote to quit.");
 	song = load_song(fname);
 	play_song(song, 0);
+	say("Playing sound @ "+SOUND_FREQ+"Hz");
 	while(is_playing_song() && !joy_getbutton(0, 0))
 		FRAME;
 	end;

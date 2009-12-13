@@ -78,7 +78,7 @@ char * __bgdexport( mod_sound, globals_def ) =
 
 DLVARFIXUP  __bgdexport( mod_sound, globals_fixup )[] =
 {
-    /* Nombre de variable global, puntero al dato, tamaño del elemento, cantidad de elementos */
+    /* Name of the global var, data pointer, element size, element number */
     { "sound_freq", NULL, -1, -1 },
     { "sound_mode", NULL, -1, -1 },
     { "sound_channels", NULL, -1, -1 },

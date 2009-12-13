@@ -73,7 +73,7 @@ static GRAPH * mouse_map = NULL;
 #define MOUSEWHEELDOWN      13
 
 /* --------------------------------------------------------------------------- */
-
+#ifndef __STATIC__
 char * __bgdexport( libmouse, globals_def ) =
     "STRUCT mouse\n"
     "x = 99999, y = 99999;\n"
@@ -111,7 +111,7 @@ DLVARFIXUP __bgdexport( libmouse, globals_fixup )[] =
 
     { NULL              , NULL, -1, -1 }
 };
-
+#endif
 /* --------------------------------------------------------------------------- */
 
 /*
@@ -128,7 +128,7 @@ DLVARFIXUP __bgdexport( libmouse, globals_fixup )[] =
  *      None
  */
 
-static void do_mouse_events()
+void do_mouse_events()
 {
     SDL_Event e ;
     static int last_mouse_x = -1, last_mouse_y = -1 ;

@@ -73,6 +73,7 @@ __FBSDID("$FreeBSD: src/lib/libc/gen/glob.c,v 1.27 2008/06/26 07:12:35 mtm Exp $
 
 #include <sys/param.h>
 #include <sys/stat.h>
+#include <sys/iosupport.h>
 
 #include <ctype.h>
 #include <dirent.h>
@@ -153,8 +154,6 @@ static int	 glob1(Char *, glob_t *, size_t *);
 static int	 glob2(Char *, Char *, Char *, Char *, glob_t *, size_t *);
 static int	 glob3(Char *, Char *, Char *, Char *, Char *, glob_t *, size_t *);
 static int	 globextend(const Char *, glob_t *, size_t *);
-static const Char *	
-		 globtilde(const Char *, Char *, size_t, glob_t *);
 static int	 globexp1(const Char *, glob_t *, size_t *);
 static int	 globexp2(const Char *, const Char *, glob_t *, int *, size_t *);
 static int	 match(Char *, Char *, Char *);
@@ -361,69 +360,6 @@ globexp2(const Char *ptr, const Char *pattern, glob_t *pglob, int *rv, size_t *l
 
 
 /*
- * expand tilde from the passwd file.
- */
-static const Char *
-globtilde(const Char *pattern, Char *patbuf, size_t patbuf_len, glob_t *pglob)
-{
-	struct passwd *pwd;
-	char *h;
-	const Char *p;
-	Char *b, *eb;
-
-	if (*pattern != TILDE || !(pglob->gl_flags & GLOB_TILDE))
-		return pattern;
-
-	/* 
-	 * Copy up to the end of the string or / 
-	 */
-	eb = &patbuf[patbuf_len - 1];
-	for (p = pattern + 1, h = (char *) patbuf;
-	    h < (char *)eb && *p && *p != SLASH; *h++ = *p++)
-		continue;
-
-	*h = EOS;
-
-	if (((char *) patbuf)[0] == EOS) {
-		/*
-		 * handle a plain ~ or ~/ by expanding $HOME first (iff
-		 * we're not running setuid or setgid) and then trying
-		 * the password file
-		 */
-		if (issetugid() != 0 ||
-		    (h = getenv("HOME")) == NULL) {
-			if (((h = getlogin()) != NULL &&
-			     (pwd = getpwnam(h)) != NULL) ||
-			    (pwd = getpwuid(getuid())) != NULL)
-				h = pwd->pw_dir;
-			else
-				return pattern;
-		}
-	}
-	else {
-		/*
-		 * Expand a ~user
-		 */
-		if ((pwd = getpwnam((char*) patbuf)) == NULL)
-			return pattern;
-		else
-			h = pwd->pw_dir;
-	}
-
-	/* Copy the home directory */
-	for (b = patbuf; b < eb && *h; *b++ = *h++)
-		continue;
-
-	/* Append the rest of the pattern */
-	while (b < eb && (*b++ = *p++) != EOS)
-		continue;
-	*b = EOS;
-
-	return patbuf;
-}
-
-
-/*
  * The main glob() routine: compiles the pattern (optionally processing
  * quotes), calls glob1() to do the real pattern matching, and finally
  * sorts the list (unless unsorted operation is requested).  Returns 0
@@ -432,62 +368,13 @@ globtilde(const Char *pattern, Char *patbuf, size_t patbuf_len, glob_t *pglob)
 static int
 glob0(const Char *pattern, glob_t *pglob, size_t *limit)
 {
-	const Char *qpatnext;
 	int c, err;
 	size_t oldpathc;
 	Char *bufnext, patbuf[MAXPATHLEN];
 
-	qpatnext = globtilde(pattern, patbuf, MAXPATHLEN, pglob);
 	oldpathc = pglob->gl_pathc;
 	bufnext = patbuf;
 
-	/* We don't need to check for buffer overflow any more. */
-	while ((c = *qpatnext++) != EOS) {
-		switch (c) {
-		case LBRACKET:
-			c = *qpatnext;
-			if (c == NOT)
-				++qpatnext;
-			if (*qpatnext == EOS ||
-			    g_strchr(qpatnext+1, RBRACKET) == NULL) {
-				*bufnext++ = LBRACKET;
-				if (c == NOT)
-					--qpatnext;
-				break;
-			}
-			*bufnext++ = M_SET;
-			if (c == NOT)
-				*bufnext++ = M_NOT;
-			c = *qpatnext++;
-			do {
-				*bufnext++ = CHAR(c);
-				if (*qpatnext == RANGE &&
-				    (c = qpatnext[1]) != RBRACKET) {
-					*bufnext++ = M_RNG;
-					*bufnext++ = CHAR(c);
-					qpatnext += 2;
-				}
-			} while ((c = *qpatnext++) != RBRACKET);
-			pglob->gl_flags |= GLOB_MAGCHAR;
-			*bufnext++ = M_END;
-			break;
-		case QUESTION:
-			pglob->gl_flags |= GLOB_MAGCHAR;
-			*bufnext++ = M_ONE;
-			break;
-		case STAR:
-			pglob->gl_flags |= GLOB_MAGCHAR;
-			/* collapse adjacent stars to one,
-			 * to avoid exponential behavior
-			 */
-			if (bufnext == patbuf || bufnext[-1] != M_ALL)
-			    *bufnext++ = M_ALL;
-			break;
-		default:
-			*bufnext++ = CHAR(c);
-			break;
-		}
-	}
 	*bufnext = EOS;
 #ifdef DEBUG
 	qprintf("glob0:", patbuf);

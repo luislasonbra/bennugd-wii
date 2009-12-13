@@ -36,7 +36,7 @@
 #include <windef.h>
 #else
 #include <unistd.h>
-#include <sys/utsname.h>
+
 /* BeOS INCLUDES */
 #ifdef TARGET_BEOS
 #include <sys/types.h>
@@ -66,7 +66,7 @@ enum
 
 /* ----------------------------------------------------------------- */
 /* Definicion de variables globales (usada en tiempo de compilacion) */
-
+#ifndef __STATIC__
 char * __bgdexport( mod_dir, globals_def )=
     "STRUCT fileinfo\n"
     "    STRING path;\n"
@@ -97,11 +97,11 @@ DLVARFIXUP __bgdexport( mod_dir, globals_fixup)[] =
         { "fileinfo.modified" , NULL, -1, -1 },
         { NULL, NULL, -1, -1 }
     };
-
+#endif
 /* ----------------------------------------------------------------- */
 /* DIRECTORY FUNCTIONS */
 
-static int moddir_cd( INSTANCE * my, int * params )
+int moddir_cd( INSTANCE * my, int * params )
 {
     char * d = dir_current() ;
     int r = string_new( d ) ;
@@ -110,7 +110,7 @@ static int moddir_cd( INSTANCE * my, int * params )
     return r ;
 }
 
-static int moddir_chdir( INSTANCE * my, int * params )
+int moddir_chdir( INSTANCE * my, int * params )
 {
     const char * d = string_get( params[ 0 ] ) ;
     int ret = dir_change( d ) ;
@@ -118,7 +118,7 @@ static int moddir_chdir( INSTANCE * my, int * params )
     return ( ret ) ;
 }
 
-static int moddir_mkdir( INSTANCE * my, int * params )
+int moddir_mkdir( INSTANCE * my, int * params )
 {
     const char * d = string_get( params[ 0 ] ) ;
     int ret = dir_create( d ) ;
@@ -126,7 +126,7 @@ static int moddir_mkdir( INSTANCE * my, int * params )
     return ( ret ) ;
 }
 
-static int moddir_rmdir( INSTANCE * my, int * params )
+int moddir_rmdir( INSTANCE * my, int * params )
 {
     const char * d = string_get( params[ 0 ] ) ;
     int ret = dir_delete( d );
@@ -134,7 +134,7 @@ static int moddir_rmdir( INSTANCE * my, int * params )
     return ( ret ) ;
 }
 
-static int moddir_rm( INSTANCE * my, int * params )
+int moddir_rm( INSTANCE * my, int * params )
 {
     const char * d = string_get( params[ 0 ] ) ;
     int ret = dir_deletefile( d );
@@ -157,28 +157,28 @@ static int __moddir_read(__DIR_ST * dh )
     }
 
     /* discard previous strings values */
-    string_discard( GLODWORD( mod_dir, FILE_NAME ) );
-    string_discard( GLODWORD( mod_dir, FILE_PATH ) );
-    string_discard( GLODWORD( mod_dir, FILE_CREATED ) );
-    string_discard( GLODWORD( mod_dir, FILE_MODIFIED ) );
+    string_discard( GLODWORD( FILE_NAME ) );
+    string_discard( GLODWORD( FILE_PATH ) );
+    string_discard( GLODWORD( FILE_CREATED ) );
+    string_discard( GLODWORD( FILE_MODIFIED ) );
 
-    GLODWORD( mod_dir, FILE_NAME        ) = string_new( dif->filename ); string_use( GLODWORD( mod_dir, FILE_NAME ) );
-    GLODWORD( mod_dir, FILE_PATH        ) = string_new( dif->fullpath ); string_use( GLODWORD( mod_dir, FILE_PATH ) );
+    GLODWORD( FILE_NAME ) = string_new( dif->filename ); string_use( GLODWORD( FILE_NAME ) );
+    GLODWORD( FILE_PATH ) = string_new( dif->fullpath ); string_use( GLODWORD( FILE_PATH ) );
 
-    GLODWORD( mod_dir, FILE_DIRECTORY   ) = dif->attributes & DIR_FI_ATTR_DIRECTORY ? 1 : 0;
-    GLODWORD( mod_dir, FILE_HIDDEN      ) = dif->attributes & DIR_FI_ATTR_HIDDEN    ? 1 : 0;
-    GLODWORD( mod_dir, FILE_READONLY    ) = dif->attributes & DIR_FI_ATTR_READONLY  ? 1 : 0;
-    GLODWORD( mod_dir, FILE_SIZE        ) = dif->size;
+    GLODWORD( FILE_DIRECTORY ) = dif->attributes & DIR_FI_ATTR_DIRECTORY ? 1 : 0;
+    GLODWORD( FILE_HIDDEN ) = dif->attributes & DIR_FI_ATTR_HIDDEN    ? 1 : 0;
+    GLODWORD( FILE_READONLY ) = dif->attributes & DIR_FI_ATTR_READONLY  ? 1 : 0;
+    GLODWORD( FILE_SIZE ) = dif->size;
 
     /* Store file times */
     strftime( buffer, 20, "%d/%m/%Y %H:%M:S", &dif->modified_time );
-    GLODWORD( mod_dir, FILE_CREATED     ) = string_new( buffer ); string_use( GLODWORD( mod_dir, FILE_CREATED  ) );
+    GLODWORD( FILE_CREATED     ) = string_new( buffer ); string_use( GLODWORD( FILE_CREATED  ) );
 
     strftime( buffer, 20, "%d/%m/%Y %H:%M:S", &dif->creation_time );
-    GLODWORD( mod_dir, FILE_MODIFIED    ) = string_new( buffer ); string_use( GLODWORD( mod_dir, FILE_MODIFIED ) );
+    GLODWORD( FILE_MODIFIED    ) = string_new( buffer ); string_use( GLODWORD( FILE_MODIFIED ) );
 
     /* Return */
-    result = GLODWORD( mod_dir, FILE_NAME );
+    result = GLODWORD( FILE_NAME );
     string_use( result );
     return result;
 }
@@ -190,7 +190,7 @@ static int __moddir_read(__DIR_ST * dh )
  *  until no more files exists. It then returns NIL.
  */
 
-static int moddir_glob( INSTANCE * my, int * params )
+int moddir_glob( INSTANCE * my, int * params )
 {
     const char * path = string_get( params[ 0 ] );
     static __DIR_ST * dh = NULL;
@@ -222,7 +222,7 @@ static int moddir_glob( INSTANCE * my, int * params )
  *  return 0 if fail.
  */
 
-static int moddir_open( INSTANCE * my, int * params )
+int moddir_open( INSTANCE * my, int * params )
 {
     int result = ( int ) dir_open( string_get( params[ 0 ] ) );
     string_discard( params[ 0 ] );
@@ -232,7 +232,7 @@ static int moddir_open( INSTANCE * my, int * params )
 /*  int DIRCLOSE (INT handle)
  */
 
-static int moddir_close( INSTANCE * my, int * params )
+int moddir_close( INSTANCE * my, int * params )
 {
     if ( params[ 0 ] ) dir_close ( ( __DIR_ST * ) params[ 0 ] ) ;
     return 1;
@@ -245,16 +245,16 @@ static int moddir_close( INSTANCE * my, int * params )
  *  until no more files exists. It then returns NIL.
  */
 
-static int moddir_read( INSTANCE * my, int * params )
+int moddir_read( INSTANCE * my, int * params )
 {
     return ( __moddir_read((__DIR_ST *) params[ 0 ] ) ) ;
 }
 
 /* ---------------------------------------------------------------------- */
-
+#ifndef __STATIC__
 DLSYSFUNCS __bgdexport( mod_dir, functions_exports)[] =
     {
-        /* Archivos y directorios */
+        /* Files and folders */
         { "CD"      , ""  , TYPE_STRING , moddir_cd     },
         { "CHDIR"   , "S" , TYPE_INT    , moddir_chdir  },
         { "MKDIR"   , "S" , TYPE_INT    , moddir_mkdir  },
@@ -269,5 +269,5 @@ DLSYSFUNCS __bgdexport( mod_dir, functions_exports)[] =
 
         { 0         , 0   , 0           , 0             }
     };
-
+#endif
 /* ---------------------------------------------------------------------- */

@@ -172,6 +172,10 @@ static char * globals_def =
     "    STRING created;\n"
     "    STRING modified;\n"
     "END\n"
+/* mod_sound */
+    "sound_freq = 22050 ;\n"
+    "sound_mode = MODE_STEREO ;\n"
+    "sound_channels = 8 ;\n"
 #endif
 ;
 

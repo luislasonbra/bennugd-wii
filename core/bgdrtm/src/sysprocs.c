@@ -38,6 +38,7 @@
 #include "../../../modules/libsdlhandler/libsdlhandler.h"
 #include "../../../modules/libjoy/libjoy.h"
 #include "../../../modules/mod_sound/mod_sound.h"
+#include "../../../modules/mod_proc/mod_proc.h"
 #ifdef TARGET_WII
 #include <SDL/SDL.h>
 #endif
@@ -708,6 +709,13 @@ void sysproc_init()
         hook_add( *handler_hooks, handler_hook_list, handler_hook_allocated, handler_hook_count ) ;
         handler_hooks++;
     }*/
+    /* mod_proc */
+    locals_fixup = mod_proc_locals_fixup;
+    while ( locals_fixup->var )
+            {
+                get_var_info( locals_fixup, dcb.locvar, dcb.data.NLocVars, NULL );
+                locals_fixup++;
+            }
 #endif
 }
 

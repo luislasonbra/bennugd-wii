@@ -24,44 +24,17 @@
 #ifndef __MOD_PROC_H
 #define __MOD_PROC_H
 
-/* ----------------------------------------------------------------- */
+#include <bgddl.h>
 
-#define ALL_PROCESS         0
-
-#define S_KILL              0
-#define S_WAKEUP            1
-#define S_SLEEP             2
-#define S_FREEZE            3
-
-#define S_FORCE             50
-#define S_TREE              100
-
-#define S_KILL_TREE         (S_TREE + S_KILL  )
-#define S_WAKEUP_TREE       (S_TREE + S_WAKEUP)
-#define S_SLEEP_TREE        (S_TREE + S_SLEEP )
-#define S_FREEZE_TREE       (S_TREE + S_FREEZE)
-
-#define S_KILL_FORCE        (S_FORCE + S_KILL  )
-#define S_WAKEUP_FORCE      (S_FORCE + S_WAKEUP)
-#define S_SLEEP_FORCE       (S_FORCE + S_SLEEP )
-#define S_FREEZE_FORCE      (S_FORCE + S_FREEZE)
-#define S_KILL_TREE_FORCE   (S_FORCE + S_KILL_TREE  )
-#define S_WAKEUP_TREE_FORCE (S_FORCE + S_WAKEUP_TREE)
-#define S_SLEEP_TREE_FORCE  (S_FORCE + S_SLEEP_TREE )
-#define S_FREEZE_TREE_FORCE (S_FORCE + S_FREEZE_TREE)
-
-#define S_DFL               0
-#define S_IGN               1
-
-#define SMASK_KILL          0x0001
-#define SMASK_WAKEUP        0x0002
-#define SMASK_SLEEP         0x0004
-#define SMASK_FREEZE        0x0008
-#define SMASK_KILL_TREE     0x0100
-#define SMASK_WAKEUP_TREE   0x0200
-#define SMASK_SLEEP_TREE    0x0400
-#define SMASK_FREEZE_TREE   0x0800
-
-/* ----------------------------------------------------------------- */
-
+DLVARFIXUP mod_proc_locals_fixup[] =
+{
+    { "id", NULL, -1, -1 },
+    { "reserved.process_type", NULL, -1, -1 },
+    { "reserved.status", NULL, -1, -1 },
+    { "reserved.id_scan", NULL, -1, -1 },
+    { "reserved.type_scan", NULL, -1, -1 },
+    { "reserved.context", NULL, -1, -1 },
+    { "reserved.signal_action", NULL, -1, -1 },
+    { NULL, NULL, -1, -1 }
+};
 #endif

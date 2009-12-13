@@ -31,7 +31,7 @@
 #include "instance.h"
 
 #include "xstrings.h"
-#include "mod_proc.h"
+#include "mod_proc_constants.h"
 
 enum
 {
@@ -92,7 +92,7 @@ char * __bgdexport( mod_proc, locals_def ) =
 /* (usada en tiempo de ejecucion)                                    */
 DLVARFIXUP __bgdexport( mod_proc, locals_fixup )[]  =
 {
-    /* Nombre de variable local, offset al dato, tamaño del elemento, cantidad de elementos */
+    /* Name of the global var, data pointer, element size, element number */
     { "id", NULL, -1, -1 },
     { "reserved.process_type", NULL, -1, -1 },
     { "reserved.status", NULL, -1, -1 },

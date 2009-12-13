@@ -36,7 +36,7 @@
 #include "bgddl.h"
 #include "bgdrtm.h"
 
-#include "libjoy.h"
+#include "../libjoy/libjoy.h"
 
 /* --------------------------------------------------------------------------- */
 /**

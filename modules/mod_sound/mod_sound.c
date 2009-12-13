@@ -183,7 +183,7 @@ static void sound_init()
         /* Open the audio device */
         if ( Mix_OpenAudio( audio_rate, audio_format, audio_channels, audio_buffers ) < 0 )
         {
-            fprintf( stderr, "[SOUND] No se pudo inicializar el audio: %s\n", SDL_GetError() ) ;
+            fprintf( stderr, "[SOUND] Couldn't initialize audio: %s\n", SDL_GetError() ) ;
             sound_active = 0;
             return;
         }

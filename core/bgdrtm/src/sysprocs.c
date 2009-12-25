@@ -259,6 +259,7 @@ static int tsize( DCB_TYPEDEF orig );
 static DCB_TYPEDEF treduce( DCB_TYPEDEF orig );
 
 /* ---------------------------------------------------------------------- */
+
 /* Tipos de token */
 static struct
 {
@@ -270,7 +271,9 @@ static struct
 static const char * token_ptr = NULL;
 
 /* ---------------------------------------------------------------------- */
+
 /* Very simple tokenizer */
+
 static void get_token()
 {
     char * ptr ;
@@ -333,6 +336,7 @@ static DCB_TYPEDEF treduce( DCB_TYPEDEF orig )
 }
 
 /* ---------------------------------------------------------------------- */
+
 static int tsize( DCB_TYPEDEF orig )
 {
     unsigned int n, total ;
@@ -370,6 +374,7 @@ static int tsize( DCB_TYPEDEF orig )
 }
 
 /* ---------------------------------------------------------------------- */
+
 static void get_var_info( DLVARFIXUP * varfixup, DCB_VAR * basevar, int nvars, char * basedata )
 {
     unsigned int n ;
@@ -525,7 +530,6 @@ void sysproc_add_tab( DLSYSFUNCS * functions_exports )
     }
 }
 #endif
-
 /* ---------------------------------------------------------------------- */
 
 void sysproc_init()
@@ -537,10 +541,6 @@ void sysproc_init()
     HOOK          * handler_hooks = NULL ;
 
 #ifndef __STATIC__
-    unsigned int    n ;
-    void          * library ;
-    const char    * filename ;
-
     DLSYSFUNCS    * functions_exports = NULL ;
     FN_HOOK         module_initialize ;
     FN_HOOK         module_finalize ;
@@ -549,8 +549,6 @@ void sysproc_init()
     INSTANCE_HOOK   instance_pre_execute_hook ;
     INSTANCE_HOOK   instance_pos_execute_hook ;
     INSTANCE_HOOK   process_exec_hook ;
-
-    int             maxcode = 0 ;
 
     char soname[__MAX_PATH] ;
 
@@ -673,7 +671,6 @@ void sysproc_init()
     /* Sort handler_hooks */
     if ( handler_hook_list )
         qsort( handler_hook_list, handler_hook_count, sizeof( handler_hook_list[0] ), ( int ( * )( const void *, const void * ) ) compare_priority ) ;
-
 #ifndef __STATIC__
     /* Initialize all modules */
     if ( module_initialize_count )

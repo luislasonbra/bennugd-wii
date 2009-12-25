@@ -452,7 +452,7 @@ INSTANCE * instance_new( PROCDEF * proc, INSTANCE * father )
     if ( proc->public_size > 0 ) memcpy( r->pubdata, proc->pubdata, proc->public_size ) ;
     if ( local_size > 0 ) memcpy( r->locdata, localdata, local_size ) ;
 
-    /* Inicializa datos de jerarquia */
+    /* Initialize jerarchy data */
 
     LOCDWORD( r, PROCESS_TYPE ) = proc->type ;
     LOCDWORD( r, PROCESS_ID )   = pid ;

@@ -41,6 +41,8 @@
 #include "../../../modules/mod_proc/mod_proc.h"
 #ifdef TARGET_WII
 #include <SDL/SDL.h>
+#elif defined(TARGET_LINUX)
+#include <SDL.h>
 #endif
 #endif
 

@@ -34,6 +34,7 @@
 #include <SDL/SDL_mixer.h>
 #else
 #include <SDL.h>
+#include <SDL_mixer.h>
 #endif
 
 #include "files.h"

@@ -211,6 +211,10 @@ int instance_go_all()
 
 }
 
+static void pepito(void){
+    fprintf(stderr, "breakpoint!!\n");
+}
+
 /* ---------------------------------------------------------------------- */
 
 int instance_go( INSTANCE * r )
@@ -499,7 +503,7 @@ int instance_go( INSTANCE * r )
                 i = instance_get( r->stack_ptr[-1] ) ;
                 if ( !i )
                 {
-                    fprintf( stderr, "ERROR: Runtime error in %s(%d) - Process %d not active\n", r->proc->name, LOCDWORD( r, PROCESS_ID ), r->stack_ptr[-1] ) ;
+                    fprintf( stderr, "ERROR: Runtime error in %s(%d) - Process %d i not active\n", r->proc->name, LOCDWORD( r, PROCESS_ID ), r->stack_ptr[-1] ) ;
                     exit( 0 );
                 }
                 else
@@ -518,7 +522,7 @@ int instance_go( INSTANCE * r )
                 i = instance_get( r->stack_ptr[-1] ) ;
                 if ( !i )
                 {
-                    fprintf( stderr, "ERROR: Runtime error in %s(%d) - Process %d not active\n", r->proc->name, LOCDWORD( r, PROCESS_ID ), r->stack_ptr[-1] ) ;
+                    fprintf( stderr, "ERROR: Runtime error in %s(%d) - Process %d j not active\n", r->proc->name, LOCDWORD( r, PROCESS_ID ), r->stack_ptr[-1] ) ;
                     exit( 0 );
                 }
                 else
@@ -562,7 +566,9 @@ int instance_go( INSTANCE * r )
                 i = instance_get( r->stack_ptr[-1] ) ;
                 if ( !i )
                 {
-                    fprintf( stderr, "ERROR: Runtime error in %s(%d) - Process %d not active\n", r->proc->name, LOCDWORD( r, PROCESS_ID ), r->stack_ptr[-1] ) ;
+                    fprintf( stderr, "ERROR: Runtime error in %s(%d) - Process %d k not active\n", r->proc->name, LOCDWORD( r, PROCESS_ID ), r->stack_ptr[-1] ) ;
+                    fprintf(stderr, "cosa cosa\n");
+                    pepito();
                     exit( 0 );
                 }
                 else
@@ -576,7 +582,7 @@ int instance_go( INSTANCE * r )
                 i = instance_get( r->stack_ptr[-1] ) ;
                 if ( !i )
                 {
-                    fprintf( stderr, "ERROR: Runtime error in %s(%d) - Process %d not active\n", r->proc->name, LOCDWORD( r, PROCESS_ID ), r->stack_ptr[-1] ) ;
+                    fprintf( stderr, "ERROR: Runtime error in %s(%d) - Process %d l not active\n", r->proc->name, LOCDWORD( r, PROCESS_ID ), r->stack_ptr[-1] ) ;
                     exit( 0 );
                 }
                 else
@@ -627,7 +633,7 @@ int instance_go( INSTANCE * r )
                 i = instance_get( r->stack_ptr[-1] ) ;
                 if ( !i )
                 {
-                    fprintf( stderr, "ERROR: Runtime error in %s(%d) - Process %d not active\n", r->proc->name, LOCDWORD( r, PROCESS_ID ), r->stack_ptr[-1] ) ;
+                    fprintf( stderr, "ERROR: Runtime error in %s(%d) - Process %d m not active\n", r->proc->name, LOCDWORD( r, PROCESS_ID ), r->stack_ptr[-1] ) ;
                     exit( 0 );
                 }
                 else
@@ -640,7 +646,7 @@ int instance_go( INSTANCE * r )
                 i = instance_get( r->stack_ptr[-1] );
                 if ( !i )
                 {
-                    fprintf( stderr, "ERROR: Runtime error in %s(%d) - Process %d not active\n", r->proc->name, LOCDWORD( r, PROCESS_ID ), r->stack_ptr[-1] ) ;
+                    fprintf( stderr, "ERROR: Runtime error in %s(%d) - Process %d n not active\n", r->proc->name, LOCDWORD( r, PROCESS_ID ), r->stack_ptr[-1] ) ;
                     exit( 0 );
                 }
                 else
@@ -707,7 +713,7 @@ int instance_go( INSTANCE * r )
                 i = instance_get( r->stack_ptr[-1] ) ;
                 if ( !i )
                 {
-                    fprintf( stderr, "ERROR: Runtime error in %s(%d) - Process %d not active\n", r->proc->name, LOCDWORD( r, PROCESS_ID ), r->stack_ptr[-1] ) ;
+                    fprintf( stderr, "ERROR: Runtime error in %s(%d) - Process %d a not active\n", r->proc->name, LOCDWORD( r, PROCESS_ID ), r->stack_ptr[-1] ) ;
                     exit( 0 );
                 }
                 else
@@ -719,7 +725,7 @@ int instance_go( INSTANCE * r )
                 i = instance_get( r->stack_ptr[-1] ) ;
                 if ( !i )
                 {
-                    fprintf( stderr, "ERROR: Runtime error in %s(%d) - Process %d not active\n", r->proc->name, LOCDWORD( r, PROCESS_ID ), r->stack_ptr[-1] ) ;
+                    fprintf( stderr, "ERROR: Runtime error in %s(%d) - Process %d b not active\n", r->proc->name, LOCDWORD( r, PROCESS_ID ), r->stack_ptr[-1] ) ;
                     exit( 0 );
                 }
                 else
@@ -731,7 +737,7 @@ int instance_go( INSTANCE * r )
                 i = instance_get( r->stack_ptr[-1] ) ;
                 if ( !i )
                 {
-                    fprintf( stderr, "ERROR: Runtime error in %s(%d) - Process %d not active\n", r->proc->name, LOCDWORD( r, PROCESS_ID ), r->stack_ptr[-1] ) ;
+                    fprintf( stderr, "ERROR: Runtime error in %s(%d) - Process %d c not active\n", r->proc->name, LOCDWORD( r, PROCESS_ID ), r->stack_ptr[-1] ) ;
                     exit( 0 );
                 }
                 else
@@ -743,7 +749,7 @@ int instance_go( INSTANCE * r )
                 i = instance_get( r->stack_ptr[-1] ) ;
                 if ( !i )
                 {
-                    fprintf( stderr, "ERROR: Runtime error in %s(%d) - Process %d not active\n", r->proc->name, LOCDWORD( r, PROCESS_ID ), r->stack_ptr[-1] ) ;
+                    fprintf( stderr, "ERROR: Runtime error in %s(%d) - Process %d d not active\n", r->proc->name, LOCDWORD( r, PROCESS_ID ), r->stack_ptr[-1] ) ;
                     exit( 0 );
                 }
                 else
@@ -807,7 +813,7 @@ int instance_go( INSTANCE * r )
                 i = instance_get( r->stack_ptr[-1] ) ;
                 if ( !i )
                 {
-                    fprintf( stderr, "ERROR: Runtime error in %s(%d) - Process %d not active\n", r->proc->name, LOCDWORD( r, PROCESS_ID ), r->stack_ptr[-1] ) ;
+                    fprintf( stderr, "ERROR: Runtime error in %s(%d) - Process %d e not active\n", r->proc->name, LOCDWORD( r, PROCESS_ID ), r->stack_ptr[-1] ) ;
                     exit( 0 );
                 }
                 else
@@ -819,7 +825,7 @@ int instance_go( INSTANCE * r )
                 i = instance_get( r->stack_ptr[-1] ) ;
                 if ( !i )
                 {
-                    fprintf( stderr, "ERROR: Runtime error in %s(%d) - Process %d not active\n", r->proc->name, LOCDWORD( r, PROCESS_ID ), r->stack_ptr[-1] ) ;
+                    fprintf( stderr, "ERROR: Runtime error in %s(%d) - Process %d f not active\n", r->proc->name, LOCDWORD( r, PROCESS_ID ), r->stack_ptr[-1] ) ;
                     exit( 0 );
                 }
                 else
@@ -831,7 +837,7 @@ int instance_go( INSTANCE * r )
                 i = instance_get( r->stack_ptr[-1] ) ;
                 if ( !i )
                 {
-                    fprintf( stderr, "ERROR: Runtime error in %s(%d) - Process %d not active\n", r->proc->name, LOCDWORD( r, PROCESS_ID ), r->stack_ptr[-1] ) ;
+                    fprintf( stderr, "ERROR: Runtime error in %s(%d) - Process %d g not active\n", r->proc->name, LOCDWORD( r, PROCESS_ID ), r->stack_ptr[-1] ) ;
                     exit( 0 );
                 }
                 else
@@ -843,7 +849,7 @@ int instance_go( INSTANCE * r )
                 i = instance_get( r->stack_ptr[-1] ) ;
                 if ( !i )
                 {
-                    fprintf( stderr, "ERROR: Runtime error in %s(%d) - Process %d not active\n", r->proc->name, LOCDWORD( r, PROCESS_ID ), r->stack_ptr[-1] ) ;
+                    fprintf( stderr, "ERROR: Runtime error in %s(%d) - Process %d h not active\n", r->proc->name, LOCDWORD( r, PROCESS_ID ), r->stack_ptr[-1] ) ;
                     exit( 0 );
                 }
                 else

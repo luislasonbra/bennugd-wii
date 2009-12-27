@@ -11,7 +11,7 @@ Private
     string formatted="", old="";
 
 Begin
-    say("My father is "+father);
+    say("My father is "+father.id);
     then = time();
     while(1)
         now = time();

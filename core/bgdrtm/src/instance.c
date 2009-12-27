@@ -452,7 +452,7 @@ INSTANCE * instance_new( PROCDEF * proc, INSTANCE * father )
     if ( proc->public_size > 0 ) memcpy( r->pubdata, proc->pubdata, proc->public_size ) ;
     if ( local_size > 0 ) memcpy( r->locdata, localdata, local_size ) ;
 
-    /* Initialize jerarchy data */
+    /* Initialize hierarchy data */
 
     LOCDWORD( r, PROCESS_TYPE ) = proc->type ;
     LOCDWORD( r, PROCESS_ID )   = pid ;
@@ -462,6 +462,7 @@ INSTANCE * instance_new( PROCDEF * proc, INSTANCE * father )
     if ( father )
     {
         LOCDWORD( r, FATHER )     = LOCDWORD( father, PROCESS_ID ) ;
+        printf("My father is %d\n", LOCDWORD( father, PROCESS_ID ));
         brother = instance_get( LOCDWORD( father, SON ) ) ;
         if ( brother )
         {

@@ -39,7 +39,15 @@
 #define STATUS                  FRAME_PERCENT       + 4
 #define SAVED_STATUS            STATUS              + 4
 #define SAVED_PRIORITY          SAVED_STATUS        + 4
+#ifdef __STATIC__
+#define TYPE_SCAN               SAVED_PRIORITY      + 4
+#define ID_SCAN                 TYPE_SCAN           + 4
+#define CONTEXT                 ID_SCAN             + 4
+#define SIGNAL_ACTION           CONTEXT             + 4
+#define FATHER                  SIGNAL_ACTION       + 4
+#else
 #define FATHER                  SAVED_PRIORITY      + 4
+#endif
 #define SON                     FATHER              + 4
 #define SMALLBRO                SON                 + 4
 #define BIGBRO                  SMALLBRO            + 4

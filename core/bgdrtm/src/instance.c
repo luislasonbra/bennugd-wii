@@ -462,7 +462,6 @@ INSTANCE * instance_new( PROCDEF * proc, INSTANCE * father )
     if ( father )
     {
         LOCDWORD( r, FATHER )     = LOCDWORD( father, PROCESS_ID ) ;
-        printf("My father is %d\n", LOCDWORD( father, PROCESS_ID ));
         brother = instance_get( LOCDWORD( father, SON ) ) ;
         if ( brother )
         {

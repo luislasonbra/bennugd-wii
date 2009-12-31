@@ -1,4 +1,4 @@
-#ifdef NOWII
+#ifndef OS_WII
 import "mod_say";
 import "mod_sound";
 import "mod_joy";

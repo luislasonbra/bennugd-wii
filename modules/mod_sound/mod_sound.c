@@ -37,6 +37,8 @@
 #include <SDL_mixer.h>
 #endif
 
+#include "SDL_mixer.h"
+
 #include "files.h"
 #include "xstrings.h"
 
@@ -44,7 +46,6 @@
 
 /* --------------------------------------------------------------------------- */
 
-static int sound_active = 0;     //variable para comprobar si el sonido está activado.
 static int audio_initialized = 0 ;
 
 /* --------------------------------------------------------------------------- */
@@ -79,7 +80,7 @@ char * __bgdexport( mod_sound, globals_def ) =
 
 DLVARFIXUP  __bgdexport( mod_sound, globals_fixup )[] =
 {
-    /* Name of the global var, data pointer, element size, element number */
+    /* Nombre de variable global, puntero al dato, tamaño del elemento, cantidad de elementos */
     { "sound_freq", NULL, -1, -1 },
     { "sound_mode", NULL, -1, -1 },
     { "sound_channels", NULL, -1, -1 },
@@ -90,27 +91,27 @@ DLVARFIXUP  __bgdexport( mod_sound, globals_fixup )[] =
 /* Interfaz SDL_RWops Bennu              */
 /* ------------------------------------- */
 
-static int SDLCALL modsound_seek( SDL_RWops *context, int offset, int whence )
+static int SDLCALL __modsound_seek_cb( SDL_RWops *context, int offset, int whence )
 {
     if ( file_seek( context->hidden.unknown.data1, offset, whence ) < 0 ) return ( -1 );
     return( file_pos( context->hidden.unknown.data1 ) );
 }
 
-static int SDLCALL modsound_read( SDL_RWops *context, void *ptr, int size, int maxnum )
+static int SDLCALL __modsound_read_cb( SDL_RWops *context, void *ptr, int size, int maxnum )
 {
     int ret = file_read( context->hidden.unknown.data1, ptr, size * maxnum );
     if ( ret > 0 ) ret /= size;
     return( ret );
 }
 
-static int SDLCALL modsound_write( SDL_RWops *context, const void *ptr, int size, int num )
+static int SDLCALL __modsound_write_cb( SDL_RWops *context, const void *ptr, int size, int num )
 {
     int ret = file_write( context->hidden.unknown.data1, ( void * )ptr, size * num );
     if ( ret > 0 ) ret /= size;
     return( ret );
 }
 
-static int SDLCALL modsound_close( SDL_RWops *context )
+static int SDLCALL __modsound_close_cb( SDL_RWops *context )
 {
     if ( context )
     {
@@ -122,21 +123,19 @@ static int SDLCALL modsound_close( SDL_RWops *context )
 
 static SDL_RWops *SDL_RWFromBGDFP( file *fp )
 {
-    SDL_RWops *rwops = NULL;
-
-    rwops = SDL_AllocRW();
-
+    SDL_RWops *rwops = SDL_AllocRW();
     if ( rwops != NULL )
     {
-        rwops->seek = modsound_seek;
-        rwops->read = modsound_read;
-        rwops->write = modsound_write;
-        rwops->close = modsound_close;
+        rwops->seek = __modsound_seek_cb;
+        rwops->read = __modsound_read_cb;
+        rwops->write = __modsound_write_cb;
+        rwops->close = __modsound_close_cb;
         rwops->hidden.unknown.data1 = fp;
     }
     return( rwops );
 }
 
+/* --------------------------------------------------------------------------- */
 
 /*
  *  FUNCTION : sound_init
@@ -149,23 +148,22 @@ static SDL_RWops *SDL_RWFromBGDFP( file *fp )
  *  RETURN VALUE:
  *
  *  no return
+ *
  */
 
-
-static void sound_init()
+static int sound_init()
 {
     int audio_rate;
     Uint16 audio_format;
     int audio_channels;
     int audio_buffers;
-    int audio_mix_channels ;
+    int audio_mix_channels;
 
     if ( !audio_initialized )
     {
-        audio_initialized = 1;
-
         /* Initialize variables: but limit quality to some fixed options */
-        audio_rate = SOUND_FREQ;
+
+        audio_rate = GLODWORD( SOUND_FREQ );
 
         if ( audio_rate > 22050 )
             audio_rate = 44100;
@@ -173,41 +171,37 @@ static void sound_init()
             audio_rate = 22050;
         else
             audio_rate = 11025;
+
 #ifdef TARGET_WII
+        /* WII uses a powerpc architecture, which is big-endian */
         audio_format = AUDIO_S16MSB;
 #else
         audio_format = AUDIO_S16;
 #endif
-        audio_channels = SOUND_MODE + 1;
+
+        audio_channels = GLODWORD( SOUND_MODE ) + 1;
         audio_buffers = 1024 * audio_rate / 22050;
 
         /* Open the audio device */
-        if ( Mix_OpenAudio( audio_rate, audio_format, audio_channels, audio_buffers ) < 0 )
+        if ( Mix_OpenAudio( audio_rate, audio_format, audio_channels, audio_buffers ) >= 0 )
         {
-            fprintf( stderr, "[SOUND] Couldn't initialize audio: %s\n", SDL_GetError() ) ;
-            sound_active = 0;
-            return;
-        }
-        else
-        {
-            SOUND_CHANNELS <= 32 ? Mix_AllocateChannels( SOUND_CHANNELS ) : Mix_AllocateChannels( 32 ) ;
+            GLODWORD( SOUND_CHANNELS ) <= 32 ? Mix_AllocateChannels( GLODWORD( SOUND_CHANNELS ) ) : Mix_AllocateChannels( 32 ) ;
             Mix_QuerySpec( &audio_rate, &audio_format, &audio_channels );
             audio_mix_channels = Mix_AllocateChannels( -1 ) ;
-            /*
-                  gr_con_printf ("Opened audio at %d Hz %d bit %s, %d bytes audio buffer\n", audio_rate,
-                               (audio_format&0xFF),
-                               (audio_channels > 1) ? "stereo" : "mono",
-                               audio_buffers );
-                  gr_con_printf ("Allocated %i audio mixing channels\n", audio_mix_channels) ;
-            */
-            // Set mixing channels
+            GLODWORD( SOUND_CHANNELS ) = audio_mix_channels ;
 
-            sound_active = 1;
-            return;
+            audio_initialized = 1;
+            return 0;
         }
     }
+
+    fprintf( stderr, "[SOUND] Couldn't initialize audio: %s\n", SDL_GetError() ) ;
+    audio_initialized = 0;
+    return -1 ;
+
 }
 
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : sound_close
  *
@@ -219,19 +213,18 @@ static void sound_init()
  *  RETURN VALUE:
  *
  *  no return
+ *
  */
 
-
-void sound_close()
+static void sound_close()
 {
-    if ( audio_initialized == 0 ) sound_init();
-    if ( sound_active == 0 ) return;
+    if ( !audio_initialized ) return;
 
     //falta por comprobar que todo esté descargado
 
     Mix_CloseAudio();
 
-    sound_active = 0;
+    audio_initialized = 0;
 }
 
 
@@ -239,8 +232,7 @@ void sound_close()
 /* Sonido MOD y OGG   */
 /* ------------------ */
 
-
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : load_song
  *
@@ -255,14 +247,12 @@ void sound_close()
  *
  */
 
-
 static int load_song( const char * filename )
 {
     Mix_Music *music = NULL;
     file      *fp;
 
-    if ( audio_initialized == 0 ) sound_init();
-    if ( sound_active == 0 ) return( -1 );
+    if ( !audio_initialized && sound_init() ) return ( -1 );
 
     fp = file_open( filename, "rb0" );
     if ( !fp )
@@ -280,7 +270,7 @@ static int load_song( const char * filename )
 
 }
 
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : play_song
  *
@@ -296,12 +286,9 @@ static int load_song( const char * filename )
  *
  */
 
-
-
 static int play_song( int id, int loops )
 {
-    if ( audio_initialized == 0 ) sound_init();
-    if ( sound_active == 0 )return ( -1 );
+    if ( !audio_initialized ) return ( -1 );
 
     if ((( Mix_Music * )id != NULL ) )
     {
@@ -315,7 +302,7 @@ static int play_song( int id, int loops )
 
 }
 
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : fade_music_in
  *
@@ -332,12 +319,9 @@ static int play_song( int id, int loops )
  *
  */
 
-
-
 static int fade_music_in( int id, int loops, int ms )
 {
-    if ( audio_initialized == 0 ) sound_init();
-    if ( sound_active == 0 ) return ( -1 );
+    if ( !audio_initialized ) return ( -1 );
 
     if ((( Mix_Music * )id != NULL ) )
     {
@@ -347,7 +331,7 @@ static int fade_music_in( int id, int loops, int ms )
 
 }
 
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : fade_music_off
  *
@@ -365,12 +349,11 @@ static int fade_music_in( int id, int loops, int ms )
 
 static int fade_music_off( int ms )
 {
-    if ( audio_initialized == 0 ) sound_init();
-    if ( sound_active == 0 ) return ( -1 );
+    if ( !audio_initialized ) return ( -1 );
     return ( Mix_FadeOutMusic( ms ) );
 }
 
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : unload_song
  *
@@ -386,11 +369,9 @@ static int fade_music_off( int ms )
  *
  */
 
-
 static int unload_song( int id )
 {
-    if ( audio_initialized == 0 ) sound_init();
-    if ( sound_active == 0 ) return ( -1 );
+    if ( !audio_initialized ) return ( -1 );
 
     if (( Mix_Music * )id != NULL )
     {
@@ -401,8 +382,7 @@ static int unload_song( int id )
 
 }
 
-
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : stop_song
  *
@@ -420,13 +400,11 @@ static int unload_song( int id )
 
 static int stop_song( void )
 {
-    if ( audio_initialized == 0 ) sound_init();
-    if ( sound_active == 0 ) return ( -1 );
+    if ( !audio_initialized ) return ( -1 );
     return ( Mix_HaltMusic() );
 }
 
-
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : pause_song
  *
@@ -442,16 +420,14 @@ static int stop_song( void )
  *
  */
 
-
 static int pause_song( void )
 {
-    if ( audio_initialized == 0 ) sound_init();
-    if ( sound_active == 0 ) return ( -1 );
+    if ( !audio_initialized ) return ( -1 );
     Mix_PauseMusic();
     return ( 0 ) ;
 }
 
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : resume_song
  *
@@ -467,16 +443,14 @@ static int pause_song( void )
  *
  */
 
-
 static int resume_song( void )
 {
-    if ( audio_initialized == 0 ) sound_init();
-    if ( sound_active == 0 ) return ( -1 );
+    if ( !audio_initialized ) return ( -1 );
     Mix_ResumeMusic();
     return( 0 ) ;
 }
 
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : is_playing_song
  *
@@ -490,43 +464,16 @@ static int resume_song( void )
  *
  * -1 if there is any error
  *  TRUE OR FALSE if there is no error
+ *
  */
-
 
 static int is_playing_song( void )
 {
-    if ( audio_initialized == 0 ) sound_init();
-    if ( sound_active == 0 ) return ( -1 );
+    if ( !audio_initialized ) return ( -1 );
     return Mix_PlayingMusic();
 }
 
-
-/*
- *  FUNCTION : is_paused_song
- *  THIS FUNCTION IS INTENDED FOR BENNU INTERNAL USAGE ONLY
- *
- *  Check if there is a paused song
- *
- *  PARAMS:
- *
- *  no params
- *
- *  RETURN VALUE:
- *
- * -1 if there is any error
- *  TRUE OR FALSE if there is no error
- */
-
-
-int is_paused_song( void )
-{
-    if ( audio_initialized == 0 ) sound_init();
-    if ( sound_active == 0 ) return ( -1 );
-    return Mix_PlayingMusic();
-}
-
-
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : set_song_volume
  *
@@ -540,13 +487,12 @@ int is_paused_song( void )
  *
  * -1 if there is any error
  *  0 if there is no error
+ *
  */
-
 
 static int set_song_volume( int volume )
 {
-    if ( audio_initialized == 0 ) sound_init();
-    if ( sound_active == 0 ) return ( -1 );
+    if ( !audio_initialized && sound_init() ) return ( -1 );
 
     if ( volume < 0 ) volume = 0;
     if ( volume > 128 ) volume = 128;
@@ -555,13 +501,11 @@ static int set_song_volume( int volume )
     return 0;
 }
 
-
-
 /* ------------ */
 /* Sonido WAV   */
 /* ------------ */
 
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : load_wav
  *
@@ -576,20 +520,17 @@ static int set_song_volume( int volume )
  *
  */
 
-
 static int load_wav( const char * filename )
 {
     Mix_Chunk *music = NULL;
     file      *fp;
 
-    if ( audio_initialized == 0 ) sound_init();
-    if ( sound_active == 0 ) return( -1 );
+    if ( !audio_initialized && sound_init() ) return ( -1 );
 
     fp = file_open( filename, "rb0" );
     if ( !fp ) return ( -1 );
 
     music = Mix_LoadWAV_RW( SDL_RWFromBGDFP( fp ), 1 );
-
     if ( music == NULL )
     {
         fprintf( stderr, "Couldn't load %s: %s\n", filename, SDL_GetError() );
@@ -599,8 +540,7 @@ static int load_wav( const char * filename )
     return (( int )music );
 }
 
-
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : play_wav
  *
@@ -615,15 +555,14 @@ static int load_wav( const char * filename )
  *
  * -1 if there is any error
  *  else channel where the music plays
+ *
  */
-
 
 static int play_wav( int id, int loops, int channel )
 {
     int canal;
 
-    if ( audio_initialized == 0 ) sound_init();
-    if ( sound_active == 0 ) return ( -1 );
+    if ( !audio_initialized ) return ( -1 );
 
     if (( Mix_Chunk * )id != NULL )
     {
@@ -635,10 +574,7 @@ static int play_wav( int id, int loops, int channel )
 
 }
 
-
-
-
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : unload_wav
  *
@@ -654,11 +590,9 @@ static int play_wav( int id, int loops, int channel )
  *
  */
 
-
 static int unload_wav( int id )
 {
-    if ( audio_initialized == 0 ) sound_init();
-    if ( sound_active == 0 ) return ( -1 );
+    if ( !audio_initialized ) return ( -1 );
 
     if (( Mix_Chunk * )id != NULL )
     {
@@ -669,7 +603,7 @@ static int unload_wav( int id )
     return ( -1 );
 }
 
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : stop_wav
  *
@@ -687,15 +621,13 @@ static int unload_wav( int id )
 
 static int stop_wav( int canal )
 {
-    if ( audio_initialized == 0 ) sound_init();
-    if ( sound_active == 0 ) return ( -1 );
+    if ( !audio_initialized ) return ( -1 );
 
-    if ( Mix_Playing( canal ) )
-        return( Mix_HaltChannel( canal ) );
+    if ( Mix_Playing( canal ) ) return( Mix_HaltChannel( canal ) );
     return ( -1 ) ;
 }
 
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : pause_wav
  *
@@ -711,11 +643,9 @@ static int stop_wav( int canal )
  *
  */
 
-
 static int pause_wav( int canal )
 {
-    if ( audio_initialized == 0 ) sound_init();
-    if ( sound_active == 0 ) return ( -1 );
+    if ( !audio_initialized ) return ( -1 );
 
     if ( Mix_Playing( canal ) )
     {
@@ -725,9 +655,7 @@ static int pause_wav( int canal )
     return ( -1 ) ;
 }
 
-
-
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : resume_wav
  *
@@ -743,11 +671,9 @@ static int pause_wav( int canal )
  *
  */
 
-
 static int resume_wav( int canal )
 {
-    if ( audio_initialized == 0 ) sound_init();
-    if ( sound_active == 0 ) return ( -1 );
+    if ( !audio_initialized ) return ( -1 );
 
     if ( Mix_Playing( canal ) )
     {
@@ -758,7 +684,7 @@ static int resume_wav( int canal )
     return ( -1 ) ;
 }
 
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : is_playing_wav
  *
@@ -772,18 +698,16 @@ static int resume_wav( int canal )
  *
  * -1 if there is any error
  *  TRUE OR FALSE if there is no error
+ *
  */
-
 
 static int is_playing_wav( int canal )
 {
-    if ( audio_initialized == 0 ) sound_init();
-
-    if ( sound_active == 0 ) return ( -1 );
+    if ( !audio_initialized ) return ( -1 );
     return( Mix_Playing( canal ) );
 }
 
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : set_wav_volume
  *
@@ -800,22 +724,19 @@ static int is_playing_wav( int canal )
  *
  */
 
-
 static int  set_wav_volume( int sample, int volume )
 {
-    if ( audio_initialized == 0 ) sound_init();
-    if ( sound_active == 0 ) return ( -1 );
+    if ( !audio_initialized ) return ( -1 );
 
     if ( volume < 0 ) volume = 0;
     if ( volume > 128 ) volume = 128;
 
-    if (( Mix_Chunk * )sample != NULL )
-        return( Mix_VolumeChunk(( Mix_Chunk * )sample, volume ) );
+    if (( Mix_Chunk * )sample ) return( Mix_VolumeChunk(( Mix_Chunk * )sample, volume ) );
 
     return -1 ;
 }
 
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : set_channel_volume
  *
@@ -834,8 +755,7 @@ static int  set_wav_volume( int sample, int volume )
 
 static int  set_channel_volume( int canal, int volume )
 {
-    if ( audio_initialized == 0 ) sound_init();
-    if ( sound_active == 0 ) return ( -1 );
+    if ( !audio_initialized && sound_init() ) return ( -1 );
 
     if ( volume < 0 ) volume = 0;
     if ( volume > 128 ) volume = 128;
@@ -843,7 +763,7 @@ static int  set_channel_volume( int canal, int volume )
     return( Mix_Volume( canal, volume ) );
 }
 
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : reserve_channels
  *
@@ -861,12 +781,12 @@ static int  set_channel_volume( int canal, int volume )
 
 static int reserve_channels( int canales )
 {
-    if ( audio_initialized == 0 ) sound_init();
-    if ( sound_active == 0 ) return ( -1 );
+    if ( !audio_initialized && sound_init() ) return ( -1 );
 
     return Mix_ReserveChannels( canales );
 }
 
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : set_panning
  *
@@ -877,13 +797,12 @@ static int reserve_channels( int canales )
  *  channel
  *  left volume (0-255)
  *  right volume (0-255)
+ *
  */
-
 
 static int set_panning( int canal, int left, int right )
 {
-    if ( audio_initialized == 0 ) sound_init();
-    if ( sound_active == 0 ) return ( -1 );
+    if ( !audio_initialized && sound_init() ) return ( -1 );
 
     if ( Mix_Playing( canal ) )
     {
@@ -894,6 +813,7 @@ static int set_panning( int canal, int left, int right )
     return ( -1 ) ;
 }
 
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : set_position
  *
@@ -905,16 +825,11 @@ static int set_panning( int canal, int left, int right )
  *  angle (0-360)
  *  distance (0-255)
  *
- *
- *
- *
  */
-
 
 static int set_position( int canal, int angle, int dist )
 {
-    if ( audio_initialized == 0 ) sound_init();
-    if ( sound_active == 0 ) return ( -1 );
+    if ( !audio_initialized && sound_init() ) return ( -1 );
 
     if ( Mix_Playing( canal ) )
     {
@@ -926,7 +841,7 @@ static int set_position( int canal, int angle, int dist )
 
 }
 
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : set_distance
  *
@@ -939,16 +854,11 @@ static int set_position( int canal, int angle, int dist )
  *
  *  distance (0-255)
  *
- *
- *
- *
  */
-
 
 static int set_distance( int canal, int dist )
 {
-    if ( audio_initialized == 0 ) sound_init();
-    if ( sound_active == 0 ) return ( -1 );
+    if ( !audio_initialized && sound_init() ) return ( -1 );
 
     if ( Mix_Playing( canal ) )
     {
@@ -959,8 +869,7 @@ static int set_distance( int canal, int dist )
     return ( -1 ) ;
 }
 
-
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : reverse_stereo
  *
@@ -971,16 +880,11 @@ static int set_distance( int canal, int dist )
  *  channel
  *  flip  0 normal  != reverse
  *
- *
- *
- *
- *
  */
 
 static int reverse_stereo( int canal, int flip )
 {
-    if ( audio_initialized == 0 ) sound_init();
-    if ( sound_active == 0 ) return ( -1 );
+    if ( !audio_initialized && sound_init() ) return ( -1 );
 
     if ( Mix_Playing( canal ) )
     {
@@ -991,8 +895,11 @@ static int reverse_stereo( int canal, int flip )
     return ( -1 ) ;
 }
 
-/* Sonido */
+/* --------------------------------------------------------------------------- */
+/* Sonido                                                                      */
+/* --------------------------------------------------------------------------- */
 
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : modsound_load_song
  *
@@ -1009,7 +916,6 @@ static int reverse_stereo( int canal, int flip )
 
 int modsound_load_song( INSTANCE * my, int * params )
 {
-
     int var;
 
     const char * filename ;
@@ -1019,10 +925,11 @@ int modsound_load_song( INSTANCE * my, int * params )
 
     var = ( load_song( filename ) );
     string_discard( params[0] );
+
     return ( var );
 }
 
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : modsound_play_song
  *
@@ -1036,17 +943,16 @@ int modsound_load_song( INSTANCE * my, int * params )
  *
  *  -1 if there is any error
  *  0 if all goes ok
+ *
  */
-
 
 int modsound_play_song( INSTANCE * my, int * params )
 {
-    if ( params[0] == -1 )
-        return -1;
+    if ( params[0] == -1 ) return -1;
     return( play_song( params[0], params[1] ) );
 }
 
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : modsound_unload_song
  *
@@ -1059,18 +965,16 @@ int modsound_play_song( INSTANCE * my, int * params )
  *
  *  -1 if there is any error
  *  0 if all goes ok
+ *
  */
-
 
 int modsound_unload_song( INSTANCE * my, int * params )
 {
     if ( params[0] < 0 ) return ( -1 );
     return( unload_song( params[0] ) );
-
 }
 
-
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : modsound_stop_song
  *
@@ -1084,6 +988,7 @@ int modsound_unload_song( INSTANCE * my, int * params )
  *
  *  -1 if there is any error
  *  0 if all goes ok
+ *
  */
 
 int modsound_stop_song( INSTANCE * my, int * params )
@@ -1091,8 +996,7 @@ int modsound_stop_song( INSTANCE * my, int * params )
     return( stop_song() );
 }
 
-
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : modsound_pause_song
  *
@@ -1106,15 +1010,15 @@ int modsound_stop_song( INSTANCE * my, int * params )
  *
  *  -1 if there is any error
  *  0 if all goes ok
+ *
  */
-
 
 int modsound_pause_song( INSTANCE * my, int * params )
 {
     return( pause_song() );
 }
 
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : modsound_resume_song
  *
@@ -1128,16 +1032,15 @@ int modsound_pause_song( INSTANCE * my, int * params )
  *
  *  -1 if there is any error
  *  0 if all goes ok
+ *
  */
-
 
 int modsound_resume_song( INSTANCE * my, int * params )
 {
     return( resume_song() );
 }
 
-
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : modsound_is_playing_song
  *
@@ -1151,16 +1054,15 @@ int modsound_resume_song( INSTANCE * my, int * params )
  *
  *  -1 if there is any error
  *  TRUE OR FALSE if there is no error
+ *
  */
-
 
 int modsound_is_playing_song( INSTANCE * my, int * params )
 {
     return ( is_playing_song() );
 }
 
-
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : modsound_set_song_volume
  *
@@ -1174,17 +1076,15 @@ int modsound_is_playing_song( INSTANCE * my, int * params )
  *
  *  -1 if there is any error
  *  0 if there is no error
+ *
  */
-
 
 int modsound_set_song_volume( INSTANCE * my, int * params )
 {
     return ( set_song_volume( params[0] ) );
 }
 
-
-
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : modsound_fade_music_in
  *
@@ -1201,16 +1101,13 @@ int modsound_set_song_volume( INSTANCE * my, int * params )
  *
  */
 
-
-
 int modsound_fade_music_in( INSTANCE * my, int * params )
 {
-    if ( params[0] == -1 )
-        return -1;
+    if ( params[0] == -1 ) return -1;
     return ( fade_music_in( params[0], params[1], params[2] ) );
 }
 
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : modsound_fade_music_off
  *
@@ -1231,7 +1128,7 @@ int modsound_fade_music_off( INSTANCE * my, int * params )
     return ( fade_music_off( params[0] ) );
 }
 
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : modsound_load_wav
  *
@@ -1246,9 +1143,6 @@ int modsound_fade_music_off( INSTANCE * my, int * params )
  *
  */
 
-
-
-
 int modsound_load_wav( INSTANCE * my, int * params )
 {
     int var;
@@ -1260,11 +1154,12 @@ int modsound_load_wav( INSTANCE * my, int * params )
 
     var = ( load_wav( filename ) );
     string_discard( params[0] );
+
     return ( var );
 
 }
 
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : modsound_play_wav
  *
@@ -1278,17 +1173,16 @@ int modsound_load_wav( INSTANCE * my, int * params )
  *
  *  -1 if there is any error
  *  0 if all goes ok
+ *
  */
-
 
 int modsound_play_wav( INSTANCE * my, int * params )
 {
-    if ( params[0] == -1 )
-        return -1;
+    if ( params[0] == -1 ) return -1;
     return( play_wav( params[0], params[1], -1 ) );
 }
 
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : modsound_play_wav_channel
  *
@@ -1303,18 +1197,16 @@ int modsound_play_wav( INSTANCE * my, int * params )
  *
  *  -1 if there is any error
  *  0 if all goes ok
+ *
  */
-
 
 int modsound_play_wav_channel( INSTANCE * my, int * params )
 {
-    if ( params[0] == -1 )
-        return -1;
+    if ( params[0] == -1 ) return -1;
     return( play_wav( params[0], params[1], params[2] ) );
 }
 
-
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : modsound_unload_wav
  *
@@ -1328,17 +1220,16 @@ int modsound_play_wav_channel( INSTANCE * my, int * params )
  *
  *  -1 if there is any error
  *  0 if all goes ok
+ *
  */
-
 
 int modsound_unload_wav( INSTANCE * my, int * params )
 {
-    if ( params[0] == -1 )
-        return -1;
+    if ( params[0] == -1 ) return -1;
     return( unload_wav( params[0] ) );
 }
 
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : modsound_stop_wav
  *
@@ -1352,17 +1243,15 @@ int modsound_unload_wav( INSTANCE * my, int * params )
  *
  *  -1 if there is any error
  *  0 if all goes ok
+ *
  */
-
-
 
 int modsound_stop_wav( INSTANCE * my, int * params )
 {
     return( stop_wav( params[0] ) );
 }
 
-
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : modsound_pause_wav
  *
@@ -1376,15 +1265,15 @@ int modsound_stop_wav( INSTANCE * my, int * params )
  *
  *  -1 if there is any error
  *  0 if all goes ok
+ *
  */
-
 
 int modsound_pause_wav( INSTANCE * my, int * params )
 {
     return ( pause_wav( params[0] ) );
 }
 
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : resume_wav
  *
@@ -1398,6 +1287,7 @@ int modsound_pause_wav( INSTANCE * my, int * params )
  *
  *  -1 if there is any error
  *  0 if all goes ok
+ *
  */
 
 int modsound_resume_wav( INSTANCE * my, int * params )
@@ -1405,8 +1295,7 @@ int modsound_resume_wav( INSTANCE * my, int * params )
     return ( resume_wav( params[0] ) );
 }
 
-
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : is_playing_wav
  *
@@ -1420,6 +1309,7 @@ int modsound_resume_wav( INSTANCE * my, int * params )
  *
  *  -1 if there is any error
  *  TRUE OR FALSE if there is no error
+ *
  */
 
 
@@ -1428,7 +1318,7 @@ int modsound_is_playing_wav( INSTANCE * my, int * params )
     return ( is_playing_wav( params[0] ) );
 }
 
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : modsound_set_channel_volume
  *
@@ -1443,15 +1333,15 @@ int modsound_is_playing_wav( INSTANCE * my, int * params )
  *
  *  -1 if there is any error
  *  0 if there is no error
+ *
  */
-
 
 int modsound_set_channel_volume( INSTANCE * my, int * params )
 {
     return( set_channel_volume( params[0], params[1] ) );
 }
 
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : modsound_reserve_channels
  *
@@ -1472,8 +1362,7 @@ int modsound_reserve_channels( INSTANCE * my, int * params )
     return ( reserve_channels( params[0] ) );
 }
 
-
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : modsound_set_wav_volume
  *
@@ -1488,14 +1377,15 @@ int modsound_reserve_channels( INSTANCE * my, int * params )
  *
  *  -1 if there is any error
  *  0 if there is no error
+ *
  */
-
 
 int modsound_set_wav_volume( INSTANCE * my, int * params )
 {
     return( set_wav_volume( params[0], params[1] ) );
 }
 
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : modsound_set_panning
  *
@@ -1507,17 +1397,14 @@ int modsound_set_wav_volume( INSTANCE * my, int * params )
  *  left volume (0-255)
  *  right volume (0-255)
  *
- *
- *
- *
  */
-
 
 int modsound_set_panning( INSTANCE * my, int * params )
 {
     return( set_panning( params[0], params[1], params[2] ) );
 }
 
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : modsound_set_position
  *
@@ -1529,18 +1416,14 @@ int modsound_set_panning( INSTANCE * my, int * params )
  *  angle (0-360)
  *  distance (0-255)
  *
- *
- *
- *
  */
-
 
 int modsound_set_position( INSTANCE * my, int * params )
 {
     return( set_position( params[0], params[1], params[2] ) );
 }
 
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : modsound_set_distance
  *
@@ -1553,23 +1436,18 @@ int modsound_set_position( INSTANCE * my, int * params )
  *
  *  distance (0-255)
  *
- *
- *
- *
  */
-
 
 int modsound_set_distance( INSTANCE * my, int * params )
 {
     return( set_distance( params[0], params[1] ) );
 }
 
-
+/* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : modsound_reverse_stereo
  *
  *  Causes a channel to reverse its stereo.
- *
  *
  *  PARAMS:
  *
@@ -1577,11 +1455,7 @@ int modsound_set_distance( INSTANCE * my, int * params )
  *
  *  flip 0 normal != reverse
  *
- *
- *
- *
  */
-
 
 int modsound_reverse_stereo( INSTANCE * my, int * params )
 {
@@ -1589,9 +1463,26 @@ int modsound_reverse_stereo( INSTANCE * my, int * params )
 }
 
 /* --------------------------------------------------------------------------- */
+
+int modsound_init( INSTANCE * my, int * params )
+{
+    return( sound_init() );
+}
+
+/* --------------------------------------------------------------------------- */
+
+int modsound_close( INSTANCE * my, int * params )
+{
+    sound_close();
+    return( 0 );
+}
+
+/* --------------------------------------------------------------------------- */
 #ifndef __STATIC__
 DLSYSFUNCS  __bgdexport( mod_sound, functions_exports )[] =
 {
+    { "SOUND_INIT"          , ""     , TYPE_INT , modsound_init               },
+    { "SOUND_CLOSE"         , ""     , TYPE_INT , modsound_close              },
     { "LOAD_SONG"           , "S"    , TYPE_INT , modsound_load_song          },
     { "PLAY_SONG"           , "II"   , TYPE_INT , modsound_play_song          },
     { "UNLOAD_SONG"         , "I"    , TYPE_INT , modsound_unload_song        },

@@ -1,3 +1,6 @@
+/* MOD_SORT example from:
+   http://wiki.bennugd.org/index.php?title=Sort#Example */
+
 import "mod_sort";
 import "mod_key";
 import "mod_say";

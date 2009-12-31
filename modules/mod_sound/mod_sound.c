@@ -37,8 +37,6 @@
 #include <SDL_mixer.h>
 #endif
 
-#include "SDL_mixer.h"
-
 #include "files.h"
 #include "xstrings.h"
 
@@ -50,13 +48,15 @@ static int audio_initialized = 0 ;
 
 /* --------------------------------------------------------------------------- */
 
+#ifdef __STATIC__
+#include "offsets.h"
+#else
 #define SOUND_FREQ              0
 #define SOUND_MODE              1
 #define SOUND_CHANNELS          2
 
 /* --------------------------------------------------------------------------- */
 /* Definicion de constantes (usada en tiempo de compilacion)                   */
-#ifndef __STATIC__
 DLCONSTANT  __bgdexport( mod_sound, constants_def )[] =
 {
     { "MODE_MONO"   , TYPE_INT, 0  },

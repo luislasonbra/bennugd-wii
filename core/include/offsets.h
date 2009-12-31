@@ -29,7 +29,8 @@
 #define ARGV_TABLE              ARGC                    + 4     /* 32+1 cadenas */
 #define OS_ID                   ARGV_TABLE              + 33*4
 #ifdef __STATIC__
-#define MOUSEX                  OS_ID               + 4
+#define TIMER                   OS_ID               + 4
+#define MOUSEX                  TIMER               + 4*10
 #define MOUSEY                  MOUSEX              + 4
 #define MOUSEZ                  MOUSEY              + 4
 #define MOUSEFILE               MOUSEZ              + 4

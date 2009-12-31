@@ -150,6 +150,8 @@ static char * globals_def =
     "string argv[32];\n"
     "os_id = -1;\n"
 #ifdef __STATIC__
+/* mod_timers */
+    "timer[9];\n"
 /* libmouse */
     "STRUCT mouse\n"
     "x = 99999, y = 99999;\n"

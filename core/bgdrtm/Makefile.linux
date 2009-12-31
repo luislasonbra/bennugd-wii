@@ -70,7 +70,8 @@ CFILES		:=	dcbr.c sysprocs.c strings.c dirs.c copy.c misc.c instance.c \
               ../../../modules/mod_rand/mod_rand.c \
               ../../../modules/mod_dir/mod_dir.c \
               ../../../modules/mod_sort/mod_sort.c \
-              ../../../modules/mod_mem/mod_mem.c
+              ../../../modules/mod_mem/mod_mem.c \
+              ../../../modules/mod_timers/mod_timers.c
 
 #---------------------------------------------------------------------------------
 # use CXX for linking C++ projects, CC for standard C

@@ -27,22 +27,20 @@
 #include <time.h>
 
 #include "bgddl.h"
+#include "dlvaracc.h"
+#ifdef __STATIC__
+#include "offsets.h"
+#endif
 
-#ifdef TARGET_MAC
+#if defined(TARGET_MAC) || defined(TARGET_WII)
 #include <SDL/SDL.h>
 #else
 #include <SDL.h>
 #endif
 
-#include "dlvaracc.h"
-
-/* ----------------------------------------------------------------- */
-
-#define    TIMER   0
-
 /* ----------------------------------------------------------------- */
 /* Definicion de variables globales (usada en tiempo de compilacion) */
-
+#ifndef __STATIC__
 char * __bgdexport( mod_timers, globals_def ) = "timer[9];\n";
 
 /* ----------------------------------------------------------------- */
@@ -56,7 +54,7 @@ DLVARFIXUP __bgdexport( mod_timers, globals_fixup )[] =
     { "timer"   , NULL, -1, -1 },
     { NULL, NULL, -1, -1 }
 };
-
+#endif
 /* ----------------------------------------------------------------- */
 /*
  *  FUNCTION : _advance_timers
@@ -70,18 +68,21 @@ DLVARFIXUP __bgdexport( mod_timers, globals_fixup )[] =
  *      None
  */
 
-static void _advance_timers( void )
+static int initial_ticktimer[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0} ;
+static int ltimer[10] = { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1} ; // -1 to force initial_ticktimer update
+
+
+void _advance_timers( void )
 {
     int * timer, i ;
     int curr_ticktimer = SDL_GetTicks() ;
-    static int initial_ticktimer[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0} ;
-    static int ltimer[10] = { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1} ; // -1 to force initial_ticktimer update
 
     /* TODO: Here add checking for console_mode, don't advance in this mode */
-    timer = ( int * ) ( &GLODWORD( mod_timers, TIMER ) );
+    timer = ( int * ) ( &GLODWORD( TIMER ) );
     for ( i = 0 ; i < 10 ; i++ )
     {
-        if ( timer[i] != ltimer[i] ) initial_ticktimer[i] = curr_ticktimer - ( timer[i] * 10 ) ;
+        if ( timer[i] != ltimer[i] )
+            initial_ticktimer[i] = curr_ticktimer - ( timer[i] * 10 ) ;
         ltimer[i] = timer[i] = ( curr_ticktimer - initial_ticktimer[i] ) / 10 ;
     }
 }
@@ -90,10 +91,10 @@ static void _advance_timers( void )
 
 /* Bigest priority first execute
    Lowest priority last execute */
-
+#ifndef __STATIC__
 HOOK __bgdexport( mod_timers, handler_hooks )[] =
 {
     { 100, _advance_timers },
     {   0, NULL            }
 } ;
-
+#endif

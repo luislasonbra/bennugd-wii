@@ -39,6 +39,7 @@
 #include "../../../modules/libjoy/libjoy.h"
 #include "../../../modules/mod_sound/mod_sound.h"
 #include "../../../modules/mod_proc/mod_proc.h"
+#include "../../../modules/mod_timers/mod_timers.h"
 #ifdef TARGET_WII
 #include <SDL/SDL.h>
 #elif defined(TARGET_LINUX)
@@ -698,9 +699,11 @@ void sysproc_init()
         for ( n = 0; n < module_initialize_count; n++ )
             module_initialize_list[n]();
 #else
-    /* Initialize all the modules */
+    /* Initialize all the modules, hooks, globals, locals... */
+
     /* mod_time */
     if ( !SDL_WasInit( SDL_INIT_TIMER ) ) SDL_InitSubSystem( SDL_INIT_TIMER );
+
     /* mod_sound */
     if ( !SDL_WasInit( SDL_INIT_AUDIO ) ) SDL_InitSubSystem( SDL_INIT_AUDIO );
     // Assign the var values defined in the module globals_fixup structure
@@ -708,7 +711,8 @@ void sysproc_init()
     while ( globals_fixup->var ) {
             get_var_info( globals_fixup, dcb.glovar, dcb.data.NGloVars, globaldata );
             globals_fixup++;
-        }
+    }
+
     /* libsdlhandler */
     if ( !SDL_WasInit( SDL_INIT_EVENTTHREAD ) )
         SDL_InitSubSystem( SDL_INIT_EVENTTHREAD );
@@ -719,8 +723,10 @@ void sysproc_init()
             hook_add( *handler_hooks, handler_hook_list, handler_hook_allocated, handler_hook_count ) ;
             handler_hooks++;
         }
+
     /* libjoy */
     libjoy_init();
+
     /* libmouse */
     // TODO: register the mouse hook
 /*    handler_hooks = libmouse_hook;
@@ -729,13 +735,27 @@ void sysproc_init()
         hook_add( *handler_hooks, handler_hook_list, handler_hook_allocated, handler_hook_count ) ;
         handler_hooks++;
     }*/
+
     /* mod_proc */
     locals_fixup = mod_proc_locals_fixup;
-    while ( locals_fixup->var )
-            {
+    while ( locals_fixup->var ) {
                 get_var_info( locals_fixup, dcb.locvar, dcb.data.NLocVars, NULL );
                 locals_fixup++;
-            }
+    }
+
+    /* mod_timers */
+    globals_fixup = mod_timers_globals_fixup;
+    while ( globals_fixup->var ) {
+            get_var_info( globals_fixup, dcb.glovar, dcb.data.NGloVars, globaldata );
+            globals_fixup++;
+    }
+    handler_hooks = mod_timers_hooks;
+    while ( handler_hooks && handler_hooks->hook )
+    {
+        hook_add( *handler_hooks, handler_hook_list, handler_hook_allocated, handler_hook_count ) ;
+        handler_hooks++;
+    }
+    
 #endif
 }
 

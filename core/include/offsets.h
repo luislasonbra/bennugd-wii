@@ -28,6 +28,33 @@
 #define ARGC                    0
 #define ARGV_TABLE              ARGC                    + 4     /* 32+1 cadenas */
 #define OS_ID                   ARGV_TABLE              + 33*4
+#ifdef __STATIX__
+#define MOUSEX                  OS_ID               + 4
+#define MOUSEY                  MOUSEX              + 4
+#define MOUSEZ                  MOUSEY              + 4
+#define MOUSEFILE               MOUSEZ              + 4
+#define MOUSEGRAPH              MOUSEFILE           + 4
+#define MOUSEANGLE              MOUSEGRAPH          + 4
+#define MOUSESIZE               MOUSEANGLE          + 4
+#define MOUSEFLAGS              MOUSESIZE           + 4
+#define MOUSEREGION             MOUSEFLAGS          + 4
+#define MOUSELEFT               MOUSEREGION         + 4
+#define MOUSEMIDDLE             MOUSELEFT           + 4
+#define MOUSERIGHT              MOUSEMIDDLE         + 4
+#define MOUSEWHEELUP            MOUSERIGHT          + 4
+#define MOUSEWHEELDOWN          MOUSEWHEELUP        + 4
+#define FILE_PATH		        MOUSEWHEELDOWN      + 4
+#define FILE_NAME		        FILE_PATH           + 4
+#define FILE_DIRECTORY	        FILE_NAME           + 4
+#define FILE_HIDDEN		        FILE_DIRECTORY      + 4
+#define FILE_READONLY	        FILE_HIDDEN         + 4
+#define FILE_SIZE		        FILE_READONLY       + 4
+#define FILE_CREATED	        FILE_SIZE           + 4
+#define FILE_MODIFIED	        FILE_CREATED        + 4
+#define SOUND_FREQ              FILE_MODIFIED       + 4
+#define SOUND_MODE              SOUND_FREQ          + 4
+#define SOUND_CHANNELS          SOUND_MODE          + 4
+#endif
 
 /* ----------------------------------------- */
 /* Offsets de los datos locales predefinidos */

@@ -210,6 +210,12 @@ SYSPROC sysprocs[MAX_SYSPROCS] =
     { 0xDC, "DIROPEN" , "S" , TYPE_INT    , 1, SYSMACRO(moddir_open)   },
     { 0xDE, "DIRCLOSE", "I" , TYPE_INT    , 1, SYSMACRO(moddir_close)  },
     { 0xDF, "DIRREAD" , "I" , TYPE_STRING , 1, SYSMACRO(moddir_read)   },
+    /* mod_sort */
+    { 0xE0, "QUICKSORT", "PIIIBB", TYPE_INT , 6 , SYSMACRO(modsort_quicksort) },
+    { 0xE1, "KSORT"   , "V++V++" , TYPE_INT , 6 , SYSMACRO(modsort_ksort)     },
+    { 0xE2, "KSORT"   , "V++V++I", TYPE_INT , 7 , SYSMACRO(modsort_ksort_n)   },
+    { 0xE3, "SORT"    , "V++I"   , TYPE_INT , 4 , SYSMACRO(modsort_sort_n)    },
+    { 0xE4, "SORT"    , "V++"    , TYPE_INT , 3 , SYSMACRO(modsort_sort)      },
 
     { 0   , 0           , ""      , TYPE_UNDEFINED  , 0, 0                        }
 } ;

@@ -193,6 +193,13 @@ extern int moddir_glob( INSTANCE * my, int * params );
 extern int moddir_open( INSTANCE * my, int * params );
 extern int moddir_close( INSTANCE * my, int * params );
 extern int moddir_read( INSTANCE * my, int * params );
+
+/* mod_sort */
+extern int modsort_quicksort( INSTANCE *my, int *params );
+extern int modsort_ksort( INSTANCE *my, int *params );
+extern int modsort_ksort_n( INSTANCE *my, int *params );
+extern int modsort_sort_n( INSTANCE *my, int *params );
+extern int modsort_sort( INSTANCE *my, int *params );
 #endif
 
 #include "sysprocs.h"

@@ -200,6 +200,20 @@ extern int modsort_ksort( INSTANCE *my, int *params );
 extern int modsort_ksort_n( INSTANCE *my, int *params );
 extern int modsort_sort_n( INSTANCE *my, int *params );
 extern int modsort_sort( INSTANCE *my, int *params );
+
+/* mod_mem */
+extern int modmem_memory_free( INSTANCE * my, int * params );
+extern int modmem_memory_total( INSTANCE * my, int * params );
+extern int modmem_memcmp( INSTANCE * my, int * params );
+extern int modmem_memmove( INSTANCE * my, int * params );
+extern int modmem_memcopy( INSTANCE * my, int * params );
+extern int modmem_memset( INSTANCE * my, int * params );
+extern int modmem_memsetw( INSTANCE * my, int * params );
+extern int modmem_memseti( INSTANCE * my, int * params );
+extern int modmem_calloc( INSTANCE * my, int * params );
+extern int modmem_alloc( INSTANCE * my, int * params );
+extern int modmem_realloc( INSTANCE * my, int * params );
+extern int modmem_free( INSTANCE * my, int * params );
 #endif
 
 #include "sysprocs.h"

@@ -216,6 +216,32 @@ SYSPROC sysprocs[MAX_SYSPROCS] =
     { 0xE2, "KSORT"   , "V++V++I", TYPE_INT , 7 , SYSMACRO(modsort_ksort_n)   },
     { 0xE3, "SORT"    , "V++I"   , TYPE_INT , 4 , SYSMACRO(modsort_sort_n)    },
     { 0xE4, "SORT"    , "V++"    , TYPE_INT , 3 , SYSMACRO(modsort_sort)      },
+    /* mod_mem */
+    { 0xF0, "MEM_CALLOC"      , "II"    , 2, TYPE_POINTER, SYSMACRO(modmem_calloc)         },
+    { 0xF1, "MEM_ALLOC"       , "I"     , 1, TYPE_POINTER, SYSMACRO(modmem_alloc)          },
+    { 0xF2, "MEM_FREE"        , "P"     , 1, TYPE_INT    , SYSMACRO(modmem_free)           },
+    { 0xF3, "MEM_REALLOC"     , "PI"    , 2, TYPE_POINTER, SYSMACRO(modmem_realloc)        },
+    { 0xF4, "MEM_CMP"         , "PPI"   , 3, TYPE_INT    , SYSMACRO(modmem_memcmp)         },
+    { 0xF5, "MEM_SET"         , "PBI"   , 3, TYPE_INT    , SYSMACRO(modmem_memset)         },
+    { 0xF6, "MEM_SETW"        , "PWI"   , 3, TYPE_INT    , SYSMACRO(modmem_memsetw)        },
+    { 0xF7, "MEM_SETI"        , "PII"   , 3, TYPE_INT    , SYSMACRO(modmem_memseti)        },
+    { 0xF8, "MEM_COPY"        , "PPI"   , 3, TYPE_INT    , SYSMACRO(modmem_memcopy)        },
+    { 0xF9, "MEM_MOVE"        , "PPI"   , 3, TYPE_INT    , SYSMACRO(modmem_memmove)        },
+    { 0xFA, "MEM_AVAILABLE"   , ""      , 0, TYPE_INT    , SYSMACRO(modmem_memory_free)    },
+    { 0xFB, "MEM_TOTAL"       , ""      , 0, TYPE_INT    , SYSMACRO(modmem_memory_total)   },
+    { 0xFC, "CALLOC"          , "II"    , 2, TYPE_POINTER, SYSMACRO(modmem_calloc)         },
+    { 0xFD, "ALLOC"           , "I"     , 1, TYPE_POINTER, SYSMACRO(modmem_alloc)          },
+    { 0xFE, "FREE"            , "P"     , 1, TYPE_INT    , SYSMACRO(modmem_free)           },
+    { 0xFF, "REALLOC"         , "PI"    , 2, TYPE_POINTER, SYSMACRO(modmem_realloc)        },
+    { 0x100, "MEMCMP"         , "PPI"   , 3, TYPE_INT    , SYSMACRO(modmem_memcmp)         },
+    { 0x101, "MEMSET"         , "PBI"   , 3, TYPE_INT    , SYSMACRO(modmem_memset)         },
+    { 0x102, "MEMSETW"        , "PWI"   , 3, TYPE_INT    , SYSMACRO(modmem_memsetw)        },
+    { 0x103, "MEMSETI"        , "PII"   , 3, TYPE_INT    , SYSMACRO(modmem_memseti)        },
+    { 0x104, "MEMCOPY"        , "PPI"   , 3, TYPE_INT    , SYSMACRO(modmem_memcopy)        },
+    { 0x105, "MEMMOVE"        , "PPI"   , 3, TYPE_INT    , SYSMACRO(modmem_memmove)        },
+    { 0x106, "MEMORY_FREE"    , ""      , 0, TYPE_INT    , SYSMACRO(modmem_memory_free)    },
+    { 0x107, "MEMORY_TOTAL"   , ""      , 0, TYPE_INT    , SYSMACRO(modmem_memory_total)   },
+
 
     { 0   , 0           , ""      , TYPE_UNDEFINED  , 0, 0                        }
 } ;

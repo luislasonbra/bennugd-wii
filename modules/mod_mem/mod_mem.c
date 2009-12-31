@@ -68,6 +68,12 @@
 #include <ctype.h>
 #endif
 
+/* WII includes */
+#ifdef TARGET_WII
+#include <unistd.h>
+#include <ctype.h>
+#endif
+
 #include "bgddl.h"
 
 /*
@@ -116,7 +122,7 @@ static int kernel_version_type( void )
  *  and may or may not be an approximation.
  */
 
-static int modmem_memory_free( INSTANCE * my, int * params )
+int modmem_memory_free( INSTANCE * my, int * params )
 {
 #ifdef WIN32
     MEMORYSTATUS mem ;
@@ -128,7 +134,7 @@ static int modmem_memory_free( INSTANCE * my, int * params )
     get_system_info( &info );
     return B_PAGE_SIZE * ( info.max_pages - info.used_pages );
 
-#elif !defined(TARGET_MAC)
+#elif ! (defined(TARGET_MAC) || defined (TARGET_WII))
     /* Linux and other Unix (?) */
     struct sysinfo meminf;
     int fv;
@@ -154,7 +160,7 @@ static int modmem_memory_free( INSTANCE * my, int * params )
  *  Return total number of bytes of physical memory
  */
 
-static int modmem_memory_total( INSTANCE * my, int * params )
+int modmem_memory_total( INSTANCE * my, int * params )
 {
 #ifdef WIN32
     MEMORYSTATUS mem ;
@@ -166,7 +172,7 @@ static int modmem_memory_total( INSTANCE * my, int * params )
     get_system_info( &info );
     return  B_PAGE_SIZE * ( info.max_pages );
 
-#elif !defined(TARGET_MAC)
+#elif ! (defined(TARGET_MAC) || defined (TARGET_WII))
     /* Linux and other Unix (?) */
     struct sysinfo meminf;
     int fv;
@@ -188,30 +194,30 @@ static int modmem_memory_total( INSTANCE * my, int * params )
 #endif
 }
 
-static int modmem_memcmp( INSTANCE * my, int * params )
+int modmem_memcmp( INSTANCE * my, int * params )
 {
     return ( memcmp(( void * )params[0], ( void * )params[1], params[2] ) ) ;
 }
 
-static int modmem_memmove( INSTANCE * my, int * params )
+int modmem_memmove( INSTANCE * my, int * params )
 {
     memmove(( void * )params[0], ( void * )params[1], params[2] ) ;
     return 1 ;
 }
 
-static int modmem_memcopy( INSTANCE * my, int * params )
+int modmem_memcopy( INSTANCE * my, int * params )
 {
     memcpy(( void * )params[0], ( void * )params[1], params[2] ) ;
     return 1 ;
 }
 
-static int modmem_memset( INSTANCE * my, int * params )
+int modmem_memset( INSTANCE * my, int * params )
 {
     memset(( void * )params[0], params[1], params[2] ) ;
     return 1 ;
 }
 
-static int modmem_memsetw( INSTANCE * my, int * params )
+int modmem_memsetw( INSTANCE * my, int * params )
 {
     uint16_t * ptr = ( uint16_t * )params[0] ;
     const uint16_t b = params[1] ;
@@ -221,7 +227,7 @@ static int modmem_memsetw( INSTANCE * my, int * params )
     return 1 ;
 }
 
-static int modmem_memseti( INSTANCE * my, int * params )
+int modmem_memseti( INSTANCE * my, int * params )
 {
     uint32_t * ptr = ( uint32_t * )params[0] ;
     const uint32_t b = params[1] ;
@@ -231,32 +237,32 @@ static int modmem_memseti( INSTANCE * my, int * params )
     return 1 ;
 }
 
-static int modmem_calloc( INSTANCE * my, int * params )
+int modmem_calloc( INSTANCE * my, int * params )
 {
     return (( int ) calloc( params[0], params[1] ) ) ;
 }
 
-static int modmem_alloc( INSTANCE * my, int * params )
+int modmem_alloc( INSTANCE * my, int * params )
 {
     return (( int ) malloc( params[0] ) ) ;
 }
 
-static int modmem_realloc( INSTANCE * my, int * params )
+int modmem_realloc( INSTANCE * my, int * params )
 {
     return (( int )realloc(( void * )params[0], params[1] ) ) ;
 }
 
-static int modmem_free( INSTANCE * my, int * params )
+int modmem_free( INSTANCE * my, int * params )
 {
     free(( void * )params[0] ) ;
     return 1 ;
 }
 
 /* ---------------------------------------------------------------------- */
-
+#ifndef __STATIC__
 DLSYSFUNCS __bgdexport( mod_mem, functions_exports )[] =
 {
-    /* Manipulacion de Memoria */
+    /* Memory work */
     { "MEM_CALLOC"      , "II"    , TYPE_POINTER, modmem_calloc         },
     { "MEM_ALLOC"       , "I"     , TYPE_POINTER, modmem_alloc          },
     { "MEM_FREE"        , "P"     , TYPE_INT    , modmem_free           },
@@ -283,4 +289,4 @@ DLSYSFUNCS __bgdexport( mod_mem, functions_exports )[] =
     { "MEMORY_FREE"     , ""      , TYPE_INT    , modmem_memory_free    },
     { "MEMORY_TOTAL"    , ""      , TYPE_INT    , modmem_memory_total   },
     { 0                 , 0       , 0           , 0                     }
-};
+};#endif

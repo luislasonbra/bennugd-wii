@@ -33,6 +33,10 @@
 
 #include "libvideo.h"
 
+#ifdef __STATIC__
+#include <offsets.h>
+#endif
+
 #ifdef _WIN32
 #include <initguid.h>
 #include "ddraw.h"
@@ -65,7 +69,7 @@ int scale_mode = SCALE_NONE ;
 int waitvsync = 0 ;
 
 /* --------------------------------------------------------------------------- */
-
+#ifndef __STATIC__
 DLCONSTANT  __bgdexport( libvideo, constants_def )[] =
 {
     { "M320X200",           TYPE_DWORD, 3200200             },
@@ -117,7 +121,7 @@ DLCONSTANT  __bgdexport( libvideo, constants_def )[] =
 #define SCALE_RESOLUTION    3
 
 /* --------------------------------------------------------------------------- */
-/* Definicion de variables globales (usada en tiempo de compilacion) */
+/* Global var definition (used in compilation-time)                  */
 
 char * __bgdexport( libvideo, globals_def ) =
     "graph_mode = 0;\n"
@@ -127,20 +131,20 @@ char * __bgdexport( libvideo, globals_def ) =
     ;
 
 /* --------------------------------------------------------------------------- */
-/* Son las variables que se desea acceder.                           */
-/* El interprete completa esta estructura, si la variable existe.    */
-/* (usada en tiempo de ejecucion)                                    */
+/* These are the vars you want to have access to.                    */
+/* The interpreter will fill this structure, if the var exists.      */
+/* (used at runtime)                                                 */
 
 DLVARFIXUP __bgdexport( libvideo, globals_fixup )[] =
 {
-    /* Nombre de variable global, puntero al dato, tamaño del elemento, cantidad de elementos */
+    /* Global var name, data pointer, element size, element num */
     { "graph_mode" , NULL, -1, -1 },
     { "scale_mode" , NULL, -1, -1 },
     { "full_screen" , NULL, -1, -1 },
     { "scale_resolution", NULL, -1, -1 },
     { NULL , NULL, -1, -1 }
 };
-
+#endif
 /* --------------------------------------------------------------------------- */
 
 #ifdef _WIN32
@@ -247,6 +251,28 @@ int gr_set_mode( int width, int height, int depth )
     int surface_width = width;
     int surface_height = height;
 
+#ifdef __STATIC__
+    enable_scale = ( GLODWORD( GRAPH_MODE ) & MODE_2XSCALE ) ? 1 : 0 ;
+    full_screen = ( GLODWORD( GRAPH_MODE ) & MODE_FULLSCREEN ) ? 1 : 0 ;
+    double_buffer = ( GLODWORD( GRAPH_MODE ) & MODE_DOUBLEBUFFER ) ? 1 : 0 ;
+    hardware_scr = ( GLODWORD( GRAPH_MODE ) & MODE_HARDWARE ) ? 1 : 0 ;
+    grab_input = ( GLODWORD( GRAPH_MODE ) & MODE_MODAL ) ? 1 : 0 ;
+    frameless = ( GLODWORD( GRAPH_MODE ) & MODE_FRAMELESS ) ? 1 : 0 ;
+    waitvsync = ( GLODWORD( GRAPH_MODE ) & MODE_WAITVSYNC ) ? 1 : 0 ;
+    scale_mode = GLODWORD( SCALE_MODE );
+    full_screen |= GLODWORD( FULL_SCREEN );
+    scale_resolution = GLODWORD( SCALE_RESOLUTION );
+
+    if ( !depth )
+    {
+        enable_32bits = ( GLODWORD( GRAPH_MODE ) & MODE_32BITS ) ? 1 : 0 ;
+        if ( !enable_32bits )
+            enable_16bits = ( GLODWORD( GRAPH_MODE ) & MODE_16BITS ) ? 1 : 0 ;
+        else
+            enable_16bits = 0;
+        depth = enable_32bits ? 32 : ( enable_16bits ? 16 : 8 );
+    }
+#else
     enable_scale = ( GLODWORD( libvideo, GRAPH_MODE ) & MODE_2XSCALE ) ? 1 : 0 ;
     full_screen = ( GLODWORD( libvideo, GRAPH_MODE ) & MODE_FULLSCREEN ) ? 1 : 0 ;
     double_buffer = ( GLODWORD( libvideo, GRAPH_MODE ) & MODE_DOUBLEBUFFER ) ? 1 : 0 ;
@@ -267,6 +293,7 @@ int gr_set_mode( int width, int height, int depth )
             enable_16bits = 0;
         depth = enable_32bits ? 32 : ( enable_16bits ? 16 : 8 );
     }
+#endif
     else if ( depth == 16 )
     {
         enable_16bits = 1;
@@ -303,7 +330,7 @@ int gr_set_mode( int width, int height, int depth )
         }
     }
 
-    /* Inicializa el modo gráfico */
+    /* Initialize graphic mode    */
 
     if ( scrbitmap )
     {
@@ -388,7 +415,7 @@ int gr_set_mode( int width, int height, int depth )
 
 //    gr_make_trans_table();
 
-    /* Bitmaps de fondo */
+    /* Background bitmaps */
 
     /* Only allow background with same properties that video mode */
     if (
@@ -413,8 +440,8 @@ int gr_set_mode( int width, int height, int depth )
     regions[0].x2 = width - 1 ;
     regions[0].y2 = height - 1 ;
 
-    // Finalmente seteamos icono de aplicacion
-    // Necesitamos crear una surface a partir de un MAP generico de 16x16...
+    // Finally, set the app icon              
+    // We need to create a surface from a generic 16x16 MAP...
     gr_set_icon( icon );
 
     if ( background ) background->modified = 1;
@@ -432,8 +459,11 @@ int gr_init( int width, int height )
 }
 
 /* --------------------------------------------------------------------------- */
-
+#ifdef __STATIC__
+void libvideo_init()
+#else
 void __bgdexport( libvideo, module_initialize )()
+#endif
 {
     char * e;
 
@@ -452,10 +482,18 @@ void __bgdexport( libvideo, module_initialize )()
 
     e = getenv("VIDEO_DEPTH");
     if ( e )
+#ifdef __STATIC__
+        GLODWORD( GRAPH_MODE ) = atoi(e);
+#else
         GLODWORD( libvideo, GRAPH_MODE ) = atoi(e);
+#endif
     else
 /*#ifdef TARGET_GP2X_WIZ*/
+#ifdef __STATIC__
+        GLODWORD( GRAPH_MODE ) = MODE_16BITS;
+#else
         GLODWORD( libvideo, GRAPH_MODE ) = MODE_16BITS;
+#endif
 /*#else
         GLODWORD( libvideo, GRAPH_MODE ) = MODE_32BITS;
 #endif*/
@@ -464,8 +502,11 @@ void __bgdexport( libvideo, module_initialize )()
 }
 
 /* --------------------------------------------------------------------------- */
-
+#ifdef __STATIC__
+void libvideo_finalize()
+#else
 void __bgdexport( libvideo, module_finalize )()
+#endif
 {
 #ifdef _WIN32
     if ( directdraw )
@@ -483,11 +524,11 @@ void __bgdexport( libvideo, module_finalize )()
 }
 
 /* --------------------------------------------------------------------------- */
-
+#ifndef __STATIC__
 char * __bgdexport( libvideo, modules_dependency )[] =
 {
     "libgrbase",
     NULL
 };
-
+#endif
 /* --------------------------------------------------------------------------- */

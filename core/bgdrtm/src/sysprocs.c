@@ -35,11 +35,14 @@
 #include <bgddl.h>
 
 #ifdef __STATIC__
-#include "../../../modules/libsdlhandler/libsdlhandler.h"
-#include "../../../modules/libjoy/libjoy.h"
-#include "../../../modules/mod_sound/mod_sound.h"
-#include "../../../modules/mod_proc/mod_proc.h"
-#include "../../../modules/mod_timers/mod_timers.h"
+#include "../../../modules/libsdlhandler/libsdlhandler.h" //libsdlhandler
+#include "../../../modules/libjoy/libjoy.h"               //libjoy
+#include "../../../modules/mod_sound/mod_sound.h"         //mod_sound
+#include "../../../modules/mod_proc/mod_proc.h"           //mod_proc
+#include "../../../modules/mod_timers/mod_timers.h"       //mod_timers
+#include "../../../modules/libgrbase/libgrbase_definitions.h"    //libgrbase
+#include "../../../modules/libvideo/libvideo.h"           //libvideo.h
+#include "../../../modules/libvideo/libvideo_fixups.h"
 #ifdef TARGET_WII
 #include <SDL/SDL.h>
 #elif defined(TARGET_LINUX)
@@ -755,7 +758,15 @@ void sysproc_init()
         hook_add( *handler_hooks, handler_hook_list, handler_hook_allocated, handler_hook_count ) ;
         handler_hooks++;
     }
-    
+    /* libgrbase */
+    libgrbase_init();
+    globals_fixup = libgrbase_globals_fixup;
+    while ( globals_fixup->var ) {
+            get_var_info( globals_fixup, dcb.glovar, dcb.data.NGloVars, globaldata );
+            globals_fixup++;
+    }
+    /* libvideo */
+    libvideo_init();
 #endif
 }
 

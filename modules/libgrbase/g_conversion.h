@@ -24,7 +24,7 @@
 #ifndef __CONVERSION_H
 #define __CONVERSION_H
 
-/* Rutinas de conversión entre formatos */
+/* Format conversion routines */
 
 extern void gr_convert16_ScreenTo565( uint16_t * ptr, int len );
 extern void gr_convert16_565ToScreen( uint16_t * ptr, int len );

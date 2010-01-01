@@ -163,6 +163,8 @@ void bgdrtm_exit( int exit_value )
 	if ( SDL_WasInit( SDL_INIT_EVENTTHREAD ) ) SDL_QuitSubSystem( SDL_INIT_EVENTTHREAD );
 	/* libjoy */
     libjoy_finalize();
+    /* libvideo */
+    if ( SDL_WasInit( SDL_INIT_VIDEO ) ) SDL_QuitSubSystem( SDL_INIT_VIDEO );
 #endif
 
     exit( exit_value ) ;

@@ -40,8 +40,11 @@ GRAPH * scrbitmap = NULL ;
 
 /* --------------------------------------------------------------------------- */
 /* Module initialization                                                       */
-
+#ifndef __STATIC__
 void __bgdexport( libgrbase, module_initialize )()
+#else
+void libgrbase_init()
+#endif
 {
     std_pixel_format8  = bitmap_create_format( 8 ) ;
     std_pixel_format16 = bitmap_create_format( 16 ) ;
@@ -49,5 +52,4 @@ void __bgdexport( libgrbase, module_initialize )()
 
     grlib_init() ;
 }
-
 /* --------------------------------------------------------------------------- */

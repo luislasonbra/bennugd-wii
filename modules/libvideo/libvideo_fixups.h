@@ -1,7 +1,7 @@
 /*
- *  Copyright © 2006-2009 SplinterGU (Fenix/Bennugd)
- *  Copyright © 2002-2006 Fenix Team (Fenix)
- *  Copyright © 1999-2002 José Luis Cebrián Pagüe (Fenix)
+ *  Copyright Â© 2006-2009 SplinterGU (Fenix/Bennugd)
+ *  Copyright Â© 2002-2006 Fenix Team (Fenix)
+ *  Copyright Â© 1999-2002 JosÃ© Luis CebriÃ¡n PagÃ¼e (Fenix)
  *
  *  This file is part of Bennu - Game Development
  *
@@ -21,15 +21,21 @@
  *
  */
 
-#ifndef __VIDEO_H
-#define __VIDEO_H
-
-#include "libgrbase.h"
-#include "g_video.h"
-#include "g_regions.h"
+#ifndef __LIBVIDEO_FIXUPS_H
+#define __LIBVIDEO_FIXUPS_H
 
 #ifdef __STATIC__
-extern void libvideo_init();
+#include <bgddl.h>
+
+DLVARFIXUP libvideo_globals_fixup[] =
+{
+    /* Global var name, data pointer, element size, element num */
+    { "graph_mode" , NULL, -1, -1 },
+    { "scale_mode" , NULL, -1, -1 },
+    { "full_screen" , NULL, -1, -1 },
+    { "scale_resolution", NULL, -1, -1 },
+    { NULL , NULL, -1, -1 }
+};
 #endif
 
 #endif

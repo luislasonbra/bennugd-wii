@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="21cm" height="15cm" viewBox="283 59 402 282" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <rect style="fill: #ffffff" x="419.4" y="60" width="81.2" height="38"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="419.4" y="60" width="81.2" height="38"/>
+    <text style="fill: #000000;text-anchor:middle;font-size:12.7998;font-family:sanserif;font-style:normal;font-weight:normal" x="460" y="82.9">
+      <tspan x="460" y="82.9">libgrbase</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="413.05" y="302" width="91.9" height="38"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="413.05" y="302" width="91.9" height="38"/>
+    <text style="fill: #000000;text-anchor:middle;font-size:12.7998;font-family:sanserif;font-style:normal;font-weight:normal" x="459" y="324.9">
+      <tspan x="459" y="324.9">mod_video</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="470.25" y="195" width="79.5" height="38"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="470.25" y="195" width="79.5" height="38"/>
+    <text style="fill: #000000;text-anchor:middle;font-size:12.7998;font-family:sanserif;font-style:normal;font-weight:normal" x="510" y="217.9">
+      <tspan x="510" y="217.9">librender</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="611.85" y="196" width="72.3" height="38"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="611.85" y="196" width="72.3" height="38"/>
+    <text style="fill: #000000;text-anchor:middle;font-size:12.7998;font-family:sanserif;font-style:normal;font-weight:normal" x="648" y="218.9">
+      <tspan x="648" y="218.9">libvideo</tspan>
+    </text>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 459 302 C 406,276 384,191 453.839,105.539"/>
+    <polygon style="fill: #000000" points="458.585,99.7315 456.129,110.639 453.839,105.539 448.386,104.311 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="458.585,99.7315 456.129,110.639 453.839,105.539 448.386,104.311 "/>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 459 302 C 475.932,302 500,261 506.725,242.169"/>
+    <polygon style="fill: #000000" points="509.248,235.106 510.593,246.205 506.725,242.169 501.176,242.842 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="509.248,235.106 510.593,246.205 506.725,242.169 501.176,242.842 "/>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 459 302 C 521.748,302 627,276 643.646,242.708"/>
+    <polygon style="fill: #000000" points="647,236 647,247.18 643.646,242.708 638.056,242.708 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="647,236 647,247.18 643.646,242.708 638.056,242.708 "/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="575.75" y="62" width="104.5" height="38"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="575.75" y="62" width="104.5" height="38"/>
+    <text style="fill: #000000;text-anchor:middle;font-size:12.7998;font-family:sanserif;font-style:normal;font-weight:normal" x="628" y="84.9">
+      <tspan x="628" y="84.9">libsdlhandler</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="284.25" y="193" width="57.5" height="38"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="284.25" y="193" width="57.5" height="38"/>
+    <text style="fill: #000000;text-anchor:middle;font-size:12.7998;font-family:sanserif;font-style:normal;font-weight:normal" x="313" y="215.9">
+      <tspan x="313" y="215.9">libblit</tspan>
+    </text>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 510 195 C 477,162 403.75,182 350.514,207.759"/>
+    <polygon style="fill: #000000" points="343.763,211.026 350.587,202.17 350.514,207.759 354.942,211.171 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="343.763,211.026 350.587,202.17 350.514,207.759 354.942,211.171 "/>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 313 193 C 340,149 374.4,121 410.731,102.431"/>
+    <polygon style="fill: #000000" points="417.409,99.0177 410.78,108.021 410.731,102.431 406.229,99.1166 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="417.409,99.0177 410.78,108.021 410.731,102.431 406.229,99.1166 "/>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 510 195 C 549.176,195 620,143 626.219,109.572"/>
+    <polygon style="fill: #000000" points="627.591,102.198 630.678,112.944 626.219,109.572 620.846,111.115 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="627.591,102.198 630.678,112.944 626.219,109.572 620.846,111.115 "/>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 510 195 C 506,167 510,138 467.603,104.082"/>
+    <polygon style="fill: #000000" points="461.746,99.3969 472.678,101.739 467.603,104.082 466.431,109.548 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="461.746,99.3969 472.678,101.739 467.603,104.082 466.431,109.548 "/>
+  </g>
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 648 196 C 599.063,196 529,125 507.656,104.708"/>
+    <polygon style="fill: #000000" points="502.221,99.5407 512.913,102.807 507.656,104.708 506.023,110.055 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="502.221,99.5407 512.913,102.807 507.656,104.708 506.023,110.055 "/>
+  </g>
+</svg>

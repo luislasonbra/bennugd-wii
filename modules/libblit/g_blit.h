@@ -27,22 +27,7 @@
 /* --------------------------------------------------------------------------- */
 
 #include "libgrbase.h"
-
-/* --------------------------------------------------------------------------- */
-/* Flags para gr_blit                                                          */
-
-#define B_HMIRROR       0x0001
-#define B_VMIRROR       0x0002
-#define B_TRANSLUCENT   0x0004
-#define B_ALPHA         0x0008
-#define B_ABLEND        0x0010
-#define B_SBLEND        0x0020
-#define B_NOCOLORKEY    0x0080
-
-#define B_ALPHA_MASK    0xFF00
-#define B_ALPHA_SHIFT   8
-
-/* --------------------------------------------------------------------------- */
+#include "libblit_constants.h"
 
 extern void gr_blit( GRAPH * dest, REGION * clip, int x, int y, int flags, GRAPH * gr ) ;
 extern void gr_get_bbox( REGION * dest, REGION * clip, int x, int y, int flags, int angle, int scalex, int scaley, GRAPH * gr ) ;

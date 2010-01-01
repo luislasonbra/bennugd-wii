@@ -22,7 +22,7 @@
  */
 
 /* ------------------------------------------ */
-/* Offsets de los datos globales predefinidos */
+/* Offsets for the global predefined data     */
 /* ------------------------------------------ */
 
 #define ARGC                    0
@@ -55,10 +55,15 @@
 #define SOUND_FREQ              FILE_MODIFIED       + 4
 #define SOUND_MODE              SOUND_FREQ          + 4
 #define SOUND_CHANNELS          SOUND_MODE          + 4
+#define ALPHA_STEPS             SOUND_CHANNELS      + 4
+#define GRAPH_MODE              ALPHA_STEPS         + 4
+#define SCALE_MODE              GRAPH_MODE          + 4
+#define FULL_SCREEN             SCALE_MODE          + 4
+#define SCALE_RESOLUTION        FULL_SCREEN         + 4
 #endif
 
 /* ----------------------------------------- */
-/* Offsets de los datos locales predefinidos */
+/* Offsets for the predefined local data     */
 /* ----------------------------------------- */
 
 #define PROCESS_ID              0

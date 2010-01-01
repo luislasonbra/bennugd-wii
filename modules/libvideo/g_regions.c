@@ -26,7 +26,7 @@
 #include "libvideo.h"
 
 /* --------------------------------------------------------------------------- */
-/* Gestión de regiones                                                         */
+/* Region managing                                                             */
 
 REGION regions[ 32 ] ;
 

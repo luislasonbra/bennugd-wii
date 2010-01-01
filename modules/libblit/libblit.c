@@ -32,10 +32,10 @@
 #include "libblit.h"
 
 /* --------------------------------------------------------------------------- */
-
+#ifndef __STATIC__
 DLCONSTANT __bgdexport( libblit, constants_def )[] =
 {
-    /* Flags para gr_blit */
+    /* Flags for gr_blit */
     { "B_HMIRROR"           , TYPE_DWORD, B_HMIRROR     },
     { "B_VMIRROR"           , TYPE_DWORD, B_VMIRROR     },
     { "B_TRANSLUCENT"       , TYPE_DWORD, B_TRANSLUCENT },
@@ -46,5 +46,5 @@ DLCONSTANT __bgdexport( libblit, constants_def )[] =
 
     { NULL                  , 0         ,  0            }
 } ;
-
+#endif
 /* --------------------------------------------------------------------------- */

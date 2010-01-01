@@ -34,6 +34,8 @@
 #include <SDL.h>
 #endif
 #include "../../../modules/mod_proc/mod_proc_constants.h"
+#include "../../../modules/libblit/libblit_constants.h"
+#include "../../../modules/libvideo/libvideo_constants.h"
 #endif
 
 /* ----------------------------------------------------------------------- */
@@ -138,10 +140,53 @@ constants_def[] =
     { "S_DFL"               , TYPE_INT, S_DFL               },
     { "S_IGN"               , TYPE_INT, S_IGN               },
     { "ALL_PROCESS"         , TYPE_INT, ALL_PROCESS         },
-    /* mod_dir */
-    
-#endif
+    /* libblit */
+    { "B_HMIRROR"           , TYPE_DWORD, B_HMIRROR         },
+    { "B_VMIRROR"           , TYPE_DWORD, B_VMIRROR         },
+    { "B_TRANSLUCENT"       , TYPE_DWORD, B_TRANSLUCENT     },
+    { "B_ALPHA"             , TYPE_DWORD, B_ALPHA           },
+    { "B_ABLEND"            , TYPE_DWORD, B_ABLEND          },
+    { "B_SBLEND"            , TYPE_DWORD, B_SBLEND          },
+    { "B_NOCOLORKEY"        , TYPE_DWORD, B_NOCOLORKEY      },
+    /* libvideo */
+    { "M320X200",           TYPE_DWORD, 3200200             },
+    { "M320X240",           TYPE_DWORD, 3200240             },
+    { "M320X400",           TYPE_DWORD, 3200400             },
+    { "M360X240",           TYPE_DWORD, 3600240             },
+    { "M376X282",           TYPE_DWORD, 3760282             },
+    { "M400X300",           TYPE_DWORD, 4000300             },
+    { "M512X384",           TYPE_DWORD, 5120384             },
+    { "M640X400",           TYPE_DWORD, 6400400             },
+    { "M640X480",           TYPE_DWORD, 6400480             },
+    { "M800X600",           TYPE_DWORD, 8000600             },
+    { "M1024X768",          TYPE_DWORD, 10240768            },
+    { "M1280X1024",         TYPE_DWORD, 12801024            },
 
+    { "MODE_WINDOW",        TYPE_DWORD, MODE_WINDOW         },
+    { "MODE_2XSCALE",       TYPE_DWORD, MODE_2XSCALE        },
+    { "MODE_FULLSCREEN",    TYPE_DWORD, MODE_FULLSCREEN     },
+    { "MODE_DOUBLEBUFFER",  TYPE_DWORD, MODE_DOUBLEBUFFER   },
+    { "MODE_HARDWARE",      TYPE_DWORD, MODE_HARDWARE       },
+
+    { "MODE_WAITVSYNC",     TYPE_DWORD, MODE_WAITVSYNC      },
+    { "WAITVSYNC",          TYPE_DWORD, MODE_WAITVSYNC      },
+
+    { "DOUBLE_BUFFER",      TYPE_DWORD, MODE_DOUBLEBUFFER   },  /* Obsolete */
+    { "HW_SURFACE",         TYPE_DWORD, MODE_HARDWARE       },  /* Obsolete */
+
+    { "MODE_8BITS",         TYPE_DWORD, 8                   },
+    { "MODE_16BITS",        TYPE_DWORD, 16                  },
+    { "MODE_32BITS",        TYPE_DWORD, 32                  },
+
+    { "MODE_8BPP",          TYPE_DWORD, 8                   },
+    { "MODE_16BPP",         TYPE_DWORD, 16                  },
+    { "MODE_32BPP",         TYPE_DWORD, 32                  },
+
+    { "MODE_MODAL",         TYPE_DWORD, MODE_MODAL          },  /* GRAB INPU */
+    { "MODE_FRAMELESS",     TYPE_DWORD, MODE_FRAMELESS      },  /* FRAMELESS window */
+
+    { "SCALE_NONE",         TYPE_DWORD, SCALE_NONE          },
+#endif
     { NULL              , 0         , 0                   }
 } ;
 
@@ -180,6 +225,13 @@ static char * globals_def =
     "sound_freq = 22050 ;\n"
     "sound_mode = MODE_STEREO ;\n"
     "sound_channels = 8 ;\n"
+/* libgrbase */
+    "alpha_steps = 16;\n"
+/* libvideo */
+    "graph_mode = 0;\n"
+    "scale_mode = 0;\n"
+    "full_screen = 0;\n"
+    "scale_resolution = 0;\n"
 #endif
 ;
 

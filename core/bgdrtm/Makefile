@@ -18,7 +18,8 @@ include $(DEVKITPPC)/wii_rules
 TARGET		:=	bgdrtm
 BUILD     :=	build
 SOURCES		:=	src
-INCLUDES	:=	include ../include ../../modules/libgrbase/
+INCLUDES	:=	include ../include ../../modules/libgrbase/ ../../modules/libblit/ \
+                ../../modules/libvideo
 
 #---------------------------------------------------------------------------------
 # options for code generation
@@ -83,7 +84,18 @@ CFILES		:=	dcbr.c sysprocs.c strings.c dirs.c copy.c misc.c instance.c \
               ../../../modules/libblit/g_blit.c \
               ../../../modules/libblit/g_pixel.c \
               ../../../modules/libvideo/g_video.c \
-              ../../../modules/libvideo/g_regions.c
+              ../../../modules/libvideo/g_regions.c \
+              ../../../modules/librender/librender.c \
+              ../../../modules/librender/g_fade.c \
+              ../../../modules/librender/g_frame.c \
+              ../../../modules/librender/g_instance.c \
+              ../../../modules/librender/g_object.c \
+              ../../../modules/librender/g_rects.c \
+              ../../../modules/librender/g_screen.c \
+              ../../../modules/librender/scaler_hq2x.c \
+              ../../../modules/librender/scaler_normal.c \
+              ../../../modules/librender/scaler_scale2x.c \
+              ../../../modules/librender/scaler_scanline.c
 
 #---------------------------------------------------------------------------------
 # use CXX for linking C++ projects, CC for standard C

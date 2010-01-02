@@ -56,7 +56,7 @@
 /* --------------------------------------------------------------------------- */
 
 #ifdef __LIB_RENDER
-
+#ifndef __STATIC__
 /* Globals */
 
 #define FPS                 0
@@ -119,7 +119,11 @@
 
 extern DLVARFIXUP __bgdexport( librender, globals_fixup )[];
 extern DLVARFIXUP __bgdexport( librender, locals_fixup )[];
-
+#else
+extern DLVARFIXUP librender_globals_fixup[];
+extern FLVARFIXUP librender_locals_fixup[];
+extern HOOK librender_hooks[];
+#endif /* __STATIC__ */
 /* --------------------------------------------------------------------------- */
 #endif
 

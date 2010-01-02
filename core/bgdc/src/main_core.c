@@ -36,6 +36,8 @@
 #include "../../../modules/mod_proc/mod_proc_constants.h"
 #include "../../../modules/libblit/libblit_constants.h"
 #include "../../../modules/libvideo/libvideo_constants.h"
+#include "../../../modules/librender/librender.h"
+#include "../../../modules/librender/librender.h"
 #endif
 
 /* ----------------------------------------------------------------------- */
@@ -182,10 +184,27 @@ constants_def[] =
     { "MODE_16BPP",         TYPE_DWORD, 16                  },
     { "MODE_32BPP",         TYPE_DWORD, 32                  },
 
-    { "MODE_MODAL",         TYPE_DWORD, MODE_MODAL          },  /* GRAB INPU */
+    { "MODE_MODAL",         TYPE_DWORD, MODE_MODAL          },  /* GRAB INPUT */
     { "MODE_FRAMELESS",     TYPE_DWORD, MODE_FRAMELESS      },  /* FRAMELESS window */
 
     { "SCALE_NONE",         TYPE_DWORD, SCALE_NONE          },
+    /* librender */
+    { "C_SCREEN",           TYPE_DWORD, C_SCREEN            },
+
+    { "PARTIAL_DUMP",       TYPE_DWORD, 0                   },
+    { "COMPLETE_DUMP",      TYPE_DWORD, 1                   },
+    { "NO_RESTORE",         TYPE_DWORD, -1                  },
+    { "PARTIAL_RESTORE",    TYPE_DWORD, 0                   },
+    { "COMPLETE_RESTORE",   TYPE_DWORD, 1                   },
+
+    { "BACKGROUND",         TYPE_DWORD, 0                   },
+    { "SCREEN",             TYPE_DWORD, -1                  },
+
+    { "SCALE_SCALE2X",      TYPE_DWORD, SCALE_SCALE2X       },
+    { "SCALE_HQ2X",         TYPE_DWORD, SCALE_HQ2X          },
+    { "SCALE_SCANLINE2X",   TYPE_DWORD, SCALE_SCANLINE2X    },
+    { "SCALE_NORMAL2X",     TYPE_DWORD, SCALE_NOFILTER      },
+    { "SCALE_NOFILTER",     TYPE_DWORD, SCALE_NOFILTER      },
 #endif
     { NULL              , 0         , 0                   }
 } ;
@@ -232,23 +251,51 @@ static char * globals_def =
     "scale_mode = 0;\n"
     "full_screen = 0;\n"
     "scale_resolution = 0;\n"
+/* librender */
+    "fps;\n"
+    "speed_gauge = 0;\n"
+    "FLOAT frame_time = 0;\n"
+    "restore_type;\n"
+    "dump_type;\n"
+    "fading;\n"
 #endif
 ;
 
 static char * locals_def =
     "id;\n"
     "STRUCT reserved\n"
-    "process_type;\n"
-    "frame_percent;\n"
-    "status = STATUS_RUNNING;\n"
-    "saved_status = STATUS_RUNNING;\n"
-    "saved_priority;\n"
+    "   process_type;\n"
+    "   frame_percent;\n"
+    "   status = STATUS_RUNNING;\n"
+    "   saved_status = STATUS_RUNNING;\n"
+    "   saved_priority;\n"
 #ifdef __STATIC__
 /* mod_proc */
-    "type_scan;\n"
-    "id_scan;\n"
-    "context;\n"
-    "signal_action;\n"
+    "   type_scan;\n"
+    "   id_scan;\n"
+    "   context;\n"
+    "   signal_action;\n"
+    "   object_id=0;\n"
+    "   graph_ptr=0;\n"
+    "   xgraph_flags;\n"
+    "   STRUCT _saved_\n"
+    "       x;\n"
+    "       y;\n"
+    "       z;\n"
+    "       file;\n"
+    "       graph;\n"
+    "       size;\n"
+    "       angle;\n"
+    "       flags;\n"
+    "       alpha;\n"
+    "       palette;\n"
+    "       size_x;\n"
+    "       size_y;\n"
+    "       blendop;\n"
+    "       pointer xgraph;\n"
+    "       centerx;\n"
+    "       centery;\n"
+    "   END\n"
 #endif
     "END\n"
 
@@ -256,7 +303,26 @@ static char * locals_def =
     "son;\n"
     "smallbro;\n"
     "bigbro;\n"
-    "priority;\n";
+    "priority;\n"
+    /* librender */
+    "ctype;\n"
+    "cnumber;\n"
+    "x;\n"
+    "y;\n"
+    "z;\n"
+    "file;\n"
+    "graph;\n"
+    "size=100;\n"
+    "angle;\n"
+    "flags;\n"
+    "alpha=255;\n"
+    "palette=0;\n"
+    "region;\n"
+    "resolution;\n"
+    "size_x=100;\n"
+    "size_y=100;\n"
+    "blendop=0;\n"
+    "pointer xgraph;\n";
 
 void core_init()
 {

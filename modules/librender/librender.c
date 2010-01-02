@@ -34,7 +34,7 @@
 #include "librender.h"
 
 /* --------------------------------------------------------------------------- */
-
+#ifndef __STATIC__
 DLCONSTANT __bgdexport( librender, constants_def )[] =
 {
     { "C_SCREEN",           TYPE_DWORD, C_SCREEN },
@@ -58,7 +58,7 @@ DLCONSTANT __bgdexport( librender, constants_def )[] =
 } ;
 
 /* --------------------------------------------------------------------------- */
-/* Definicion de variables globales (usada en tiempo de compilacion) */
+/* Global var definition (used in compilation-time)                  */
 
 char * __bgdexport( librender, globals_def ) =
 
@@ -129,13 +129,16 @@ char * __bgdexport( librender, locals_def ) =
     "END\n"
     "END\n"
     ;
-
+#endif
 /* --------------------------------------------------------------------------- */
 /* Son las variables que se desea acceder.                           */
 /* El interprete completa esta estructura, si la variable existe.    */
 /* (usada en tiempo de ejecucion)                                    */
-
+#ifdef __STATIC__
+DLVARFIXUP librender_globals_fixup[] =
+#else
 DLVARFIXUP __bgdexport( librender, globals_fixup )[] =
+#endif
 {
     /* Nombre de variable global, puntero al dato, tamaño del elemento, cantidad de elementos */
     { "fps" , NULL, -1, -1 },
@@ -151,8 +154,11 @@ DLVARFIXUP __bgdexport( librender, globals_fixup )[] =
 
     { NULL , NULL, -1, -1 }
 };
-
+#ifdef __STATIC__
+DLVARFIXUP librender_locals_fixup[] =
+#else
 DLVARFIXUP __bgdexport( librender, locals_fixup )[] =
+#endif
 {
     { "ctype" , NULL, -1, -1 },                                             // 0            CTYPE               0
     { "cnumber" , NULL, -1, -1 },                                           // 1            CNUMBER             1
@@ -204,8 +210,11 @@ DLVARFIXUP __bgdexport( librender, locals_fixup )[] =
 
 /* Bigest priority first execute
    Lowest priority last execute */
-
+#ifdef __STATIC__
+HOOK librender_hooks[] =
+#else
 HOOK __bgdexport( librender, handler_hooks )[] =
+#endif
 {
     { 9500, gr_wait_frame },
     { 9000, gr_draw_frame },
@@ -213,7 +222,7 @@ HOOK __bgdexport( librender, handler_hooks )[] =
 } ;
 
 /* --------------------------------------------------------------------------- */
-
+#ifndef __STATIC__
 char * __bgdexport( librender, modules_dependency )[] =
 {
     "libgrbase",
@@ -221,5 +230,5 @@ char * __bgdexport( librender, modules_dependency )[] =
     "libblit",
     NULL
 };
-
+#endif
 /* --------------------------------------------------------------------------- */

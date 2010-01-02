@@ -41,7 +41,7 @@
 #include "../../../modules/mod_proc/mod_proc.h"           //mod_proc
 #include "../../../modules/mod_timers/mod_timers.h"       //mod_timers
 #include "../../../modules/libgrbase/libgrbase_definitions.h"    //libgrbase
-#include "../../../modules/libvideo/libvideo.h"           //libvideo.h
+#include "../../../modules/libvideo/libvideo.h"            //libvideo.h
 #include "../../../modules/libvideo/libvideo_fixups.h"
 #ifdef TARGET_WII
 #include <SDL/SDL.h>

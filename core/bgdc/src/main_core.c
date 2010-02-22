@@ -295,14 +295,7 @@ static char * locals_def =
     "       centerx;\n"
     "       centery;\n"
     "   END\n"
-#endif
     "END\n"
-
-    "father;\n"
-    "son;\n"
-    "smallbro;\n"
-    "bigbro;\n"
-    "priority;\n"
     /* librender */
     "ctype;\n"
     "cnumber;\n"
@@ -321,7 +314,15 @@ static char * locals_def =
     "size_x=100;\n"
     "size_y=100;\n"
     "blendop=0;\n"
-    "pointer xgraph;\n";
+    "pointer xgraph;\n"
+#else
+    "END\n"
+#endif
+    "father;\n"
+    "son;\n"
+    "smallbro;\n"
+    "bigbro;\n"
+    "priority;\n";
 
 void core_init()
 {

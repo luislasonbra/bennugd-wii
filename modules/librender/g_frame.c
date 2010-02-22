@@ -27,6 +27,7 @@
 
 #define __LIB_RENDER
 #include "librender.h"
+#include "offsets.h"
 
 /* --------------------------------------------------------------------------- */
 
@@ -120,7 +121,7 @@ void gr_wait_frame()
     }
 
     /* Tiempo transcurrido total del ejecucion del ultimo frame (Frame time en ms) */
-    * ( float * ) &GLODWORD( librender, FRAME_TIME ) = ( frame_ticks - last_frame_ticks ) / 1000.0f ;
+    * ( float * ) &GLODWORD( FRAME_TIME ) = ( frame_ticks - last_frame_ticks ) / 1000.0f ;
 
     /* -------------- */
 
@@ -176,14 +177,14 @@ void gr_wait_frame()
     {
         if ( fps_value )
         {
-            GLODWORD( librender, SPEED_GAUGE ) = FPS_count /*fps_partial*/ * 100.0 / fps_value ;
+            GLODWORD( SPEED_GAUGE ) = FPS_count /*fps_partial*/ * 100.0 / fps_value ;
         }
         else
         {
-            GLODWORD( librender, SPEED_GAUGE ) = 100 ;
+            GLODWORD( SPEED_GAUGE ) = 100 ;
         }
 
-        GLODWORD( librender, FPS ) = FPS_count ;
+        GLODWORD( FPS ) = FPS_count ;
 
         FPS_init = frame_ticks ;
         FPS_count = 0 ;
@@ -266,7 +267,7 @@ void gr_draw_frame()
 
     /* Dibuja la pantalla */
 
-    gr_draw_screen( scrbitmap, GLODWORD( librender, RESTORETYPE ), GLODWORD( librender, DUMPTYPE ) );
+    gr_draw_screen( scrbitmap, GLODWORD( RESTORETYPE ), GLODWORD( DUMPTYPE ) );
 
     /* Fading */
 

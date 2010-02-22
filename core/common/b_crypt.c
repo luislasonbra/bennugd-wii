@@ -25,7 +25,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "crypt.h"
+#include "b_crypt.h"
 
 /* ------------------------------------------------------------------------- */
 
@@ -39,13 +39,13 @@ crypt_handle * crypt_create( int method, char * key )
     switch ( method )
     {
         case    CRYPT_DES  :
-                if ( !key_sched( ( des_cblock * ) key, ch->ks[KEY0] ) ) return ch;
+                if ( !DES_key_sched( ( DES_cblock * ) key, &ch->ks[KEY0] ) ) return ch;
                 break;
 
         case    CRYPT_3DES :
-                if (  key_sched( ( des_cblock * )          key, ch->ks[KEY0] ) ) { free( ch ); return NULL; }
-                if (  key_sched( ( des_cblock * ) ( 8  + key ), ch->ks[KEY1] ) ) { free( ch ); return NULL; }
-                if ( !key_sched( ( des_cblock * ) ( 16 + key ), ch->ks[KEY2] ) ) return ch;
+                if (  DES_key_sched( ( DES_cblock * )          key, &ch->ks[KEY0] ) ) { free( ch ); return NULL; }
+                if (  DES_key_sched( ( DES_cblock * ) ( 8  + key ), &ch->ks[KEY1] ) ) { free( ch ); return NULL; }
+                if ( !DES_key_sched( ( DES_cblock * ) ( 16 + key ), &ch->ks[KEY2] ) ) return ch;
                 break;
     }
 
@@ -64,7 +64,7 @@ void crypt_destroy( crypt_handle * ch )
 
 int crypt_data( crypt_handle * ch, char * in, char * out, int size, int enc )
 {
-    des_cblock aux;
+    DES_cblock aux;
 
     if ( !ch || ( size < 1 || size > 8 ) ) return -1;
 
@@ -74,23 +74,23 @@ int crypt_data( crypt_handle * ch, char * in, char * out, int size, int enc )
     {
         case    CRYPT_DES   :
                 if ( enc )
-                    des_ecb_encrypt( ( des_cblock * ) in, ( des_cblock * ) out, ch->ks[KEY0], DES_ENCRYPT );
+                    DES_ecb_encrypt( ( DES_cblock * ) in, ( DES_cblock * ) out, &ch->ks[KEY0], DES_ENCRYPT );
                 else
-                    des_ecb_encrypt( ( des_cblock * ) in, ( des_cblock * ) out, ch->ks[KEY0], DES_DECRYPT );
+                    DES_ecb_encrypt( ( DES_cblock * ) in, ( DES_cblock * ) out, &ch->ks[KEY0], DES_DECRYPT );
                 break;
 
         case    CRYPT_3DES  :
                 if ( enc )
                 {
-                    des_ecb_encrypt( ( des_cblock * )   in, ( des_cblock * )  out, ch->ks[KEY0], DES_ENCRYPT );
-                    des_ecb_encrypt( ( des_cblock * )  out, ( des_cblock * ) &aux, ch->ks[KEY1], DES_DECRYPT );
-                    des_ecb_encrypt( ( des_cblock * ) &aux, ( des_cblock * )  out, ch->ks[KEY2], DES_ENCRYPT );
+                    DES_ecb_encrypt( ( DES_cblock * )   in, ( DES_cblock * )  out, &ch->ks[KEY0], DES_ENCRYPT );
+                    DES_ecb_encrypt( ( DES_cblock * )  out, ( DES_cblock * ) &aux, &ch->ks[KEY1], DES_DECRYPT );
+                    DES_ecb_encrypt( ( DES_cblock * ) &aux, ( DES_cblock * )  out, &ch->ks[KEY2], DES_ENCRYPT );
                 }
                 else
                 {
-                    des_ecb_encrypt( ( des_cblock * )   in, ( des_cblock * )  out, ch->ks[KEY2], DES_DECRYPT );
-                    des_ecb_encrypt( ( des_cblock * )  out, ( des_cblock * ) &aux, ch->ks[KEY1], DES_ENCRYPT );
-                    des_ecb_encrypt( ( des_cblock * ) &aux, ( des_cblock * )  out, ch->ks[KEY0], DES_DECRYPT );
+                    DES_ecb_encrypt( ( DES_cblock * )   in, ( DES_cblock * )  out, &ch->ks[KEY2], DES_DECRYPT );
+                    DES_ecb_encrypt( ( DES_cblock * )  out, ( DES_cblock * ) &aux, &ch->ks[KEY1], DES_ENCRYPT );
+                    DES_ecb_encrypt( ( DES_cblock * ) &aux, ( DES_cblock * )  out, &ch->ks[KEY0], DES_DECRYPT );
                 }
                 break;
     }

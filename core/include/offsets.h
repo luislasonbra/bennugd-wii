@@ -25,107 +25,105 @@
 /* Offsets for the global predefined data     */
 /* ------------------------------------------ */
 #define ARGC                    0
-#define ARGV_TABLE              ARGC                    + 4     /* 32+1 cadenas */
-#define OS_ID                   ARGV_TABLE              + 33*4
+#define ARGV_TABLE              4*1     /* 32+1 cadenas */
+#define OS_ID                   4*2
 #ifdef __STATIC__
-#define TIMER                   OS_ID               + 4
-#define MOUSEX                  TIMER               + 4*10
-#define MOUSEY                  MOUSEX              + 4
-#define MOUSEZ                  MOUSEY              + 4
-#define MOUSEFILE               MOUSEZ              + 4
-#define MOUSEGRAPH              MOUSEFILE           + 4
-#define MOUSEANGLE              MOUSEGRAPH          + 4
-#define MOUSESIZE               MOUSEANGLE          + 4
-#define MOUSEFLAGS              MOUSESIZE           + 4
-#define MOUSEREGION             MOUSEFLAGS          + 4
-#define MOUSELEFT               MOUSEREGION         + 4
-#define MOUSEMIDDLE             MOUSELEFT           + 4
-#define MOUSERIGHT              MOUSEMIDDLE         + 4
-#define MOUSEWHEELUP            MOUSERIGHT          + 4
-#define MOUSEWHEELDOWN          MOUSEWHEELUP        + 4
-#define FILE_PATH		        MOUSEWHEELDOWN      + 4
-#define FILE_NAME		        FILE_PATH           + 4
-#define FILE_DIRECTORY	        FILE_NAME           + 4
-#define FILE_HIDDEN		        FILE_DIRECTORY      + 4
-#define FILE_READONLY	        FILE_HIDDEN         + 4
-#define FILE_SIZE		        FILE_READONLY       + 4
-#define FILE_CREATED	        FILE_SIZE           + 4
-#define FILE_MODIFIED	        FILE_CREATED        + 4
-#define SOUND_FREQ              FILE_MODIFIED       + 4
-#define SOUND_MODE              SOUND_FREQ          + 4
-#define SOUND_CHANNELS          SOUND_MODE          + 4
-#define ALPHA_STEPS             SOUND_CHANNELS      + 4
-#define GRAPH_MODE              ALPHA_STEPS         + 4
-#define SCALE_MODE              GRAPH_MODE          + 4
-#define FULL_SCREEN             SCALE_MODE          + 4
-#define SCALE_RESOLUTION        FULL_SCREEN         + 4
-#define FPS                     SCALE_RESOLUTION    + 4
-#define SPEED_GAUGE             FPS                 + 4
-#define FRAME_TIME              SPEED_GAUGE         + 4
-#define RESTORETYPE             FRAME_TYPE          + 4
-#define DUMPTYPE                RESTORETYPE         + 4
-#define FADING                  DUMPTYPE            + 4
+#define TIMER                   4*3
+#define MOUSEX                  4*13
+#define MOUSEY                  4*14
+#define MOUSEZ                  4*15
+#define MOUSEFILE               4*16
+#define MOUSEGRAPH              4*17
+#define MOUSEANGLE              4*18
+#define MOUSESIZE               4*19
+#define MOUSEFLAGS              4*20
+#define MOUSEREGION             4*21
+#define MOUSELEFT               4*22
+#define MOUSEMIDDLE             4*23
+#define MOUSERIGHT              4*24
+#define MOUSEWHEELUP            4*25
+#define MOUSEWHEELDOWN          4*26
+#define FILE_PATH		        4*27
+#define FILE_NAME		        4*28
+#define FILE_DIRECTORY	        4*29
+#define FILE_HIDDEN		        4*30
+#define FILE_READONLY	        4*31
+#define FILE_SIZE		        4*32
+#define FILE_CREATED	        4*33
+#define FILE_MODIFIED	        4*34
+#define SOUND_FREQ              4*35
+#define SOUND_MODE              4*36
+#define SOUND_CHANNELS          4*37
+#define ALPHA_STEPS             4*38
+#define GRAPH_MODE              4*39
+#define SCALE_MODE              4*40
+#define FULL_SCREEN             4*41
+#define SCALE_RESOLUTION        4*42
+#define FPS                     4*43
+#define SPEED_GAUGE             4*44
+#define FRAME_TIME              4*45
+#define RESTORETYPE             4*46
+#define DUMPTYPE                4*47
+#define FADING                  4*48
 #endif
 
 /* ----------------------------------------- */
 /* Offsets for the predefined local data     */
 /* ----------------------------------------- */
 
-#define PROCESS_ID              0
-#define PROCESS_TYPE            PROCESS_ID          + 4
-#define FRAME_PERCENT           PROCESS_TYPE        + 4
-#define STATUS                  FRAME_PERCENT       + 4
-#define SAVED_STATUS            STATUS              + 4
-#define SAVED_PRIORITY          SAVED_STATUS        + 4
+#define PROCESS_ID              4*0
+#define PROCESS_TYPE            4*1
+#define FRAME_PERCENT           4*2
+#define STATUS                  4*3
+#define SAVED_STATUS            4*4
+#define SAVED_PRIORITY          4*5
 #ifdef __STATIC__
-#define TYPE_SCAN               SAVED_PRIORITY      + 4
-#define ID_SCAN                 TYPE_SCAN           + 4
-#define CONTEXT                 ID_SCAN             + 4
-#define SIGNAL_ACTION           CONTEXT             + 4
-#define OBJECTID                XGRAPH              + 4
-#define GRAPHPTR                OBJECTID            + 4
-#define XGRAPH_FLAGS            GRAPHPTR            + 4
-#define SAVED_COORDX            XGRAPH_FLAGS        + 4
-#define SAVED_COORDY            SAVED_COORDX        + 4
-#define SAVED_COORDZ            SAVED_COORDY        + 4
-#define SAVED_FILEID            SAVED_COORDZ        + 4
-#define SAVED_GRAPHID           SAVED_FILEID        + 4
-#define SAVED_GRAPHSIZE         SAVED_GRAPHID       + 4
-#define SAVED_ANGLE             SAVED_GRAPHSIZE     + 4
-#define SAVED_FLAGS             SAVED_ANGLE         + 4
-#define SAVED_ALPHA             SAVED_FLAGS         + 4
-#define SAVED_PALETTE           SAVED_ALPHA         + 4
-#define SAVED_GRAPHSIZEX        SAVED_PALETTE       + 4
-#define SAVED_GRAPHSIZEY        SAVED_GRAPHSIZEX    + 4
-#define SAVED_BLENDOP           SAVED_GRAPHSIZEY    + 4
-#define SAVED_XGRAPH            SAVED_BLENDOP       + 4
-#define SAVED_CENTERX           SAVED_XGRAPH        + 4
-#define SAVED_CENTERY           SAVED_CENTERX       + 4
-#define FATHER                  SAVED_CENTERY       + 4
+#define TYPE_SCAN               4*6
+#define ID_SCAN                 4*7
+#define CONTEXT                 4*8
+#define SIGNAL_ACTION           4*9
+#define OBJECTID                4*10
+#define GRAPHPTR                4*11
+#define XGRAPH_FLAGS            4*12
+#define SAVED_COORDX            4*13
+#define SAVED_COORDY            4*14
+#define SAVED_COORDZ            4*15
+#define SAVED_FILEID            4*16
+#define SAVED_GRAPHID           4*17
+#define SAVED_GRAPHSIZE         4*18
+#define SAVED_ANGLE             4*19
+#define SAVED_FLAGS             4*20
+#define SAVED_ALPHA             4*21
+#define SAVED_PALETTE           4*22
+#define SAVED_GRAPHSIZEX        4*23
+#define SAVED_GRAPHSIZEY        4*24
+#define SAVED_BLENDOP           4*25
+#define SAVED_XGRAPH            4*26
+#define SAVED_CENTERX           4*27
+#define SAVED_CENTERY           4*28
+#define CTYPE                   4*29
+#define CNUMBER                 4*30
+#define COORDX                  4*31
+#define COORDY                  4*32
+#define COORDZ                  4*33
+#define FILEID                  4*34
+#define GRAPHID                 4*35
+#define GRAPHSIZE               4*36
+#define ANGLE                   4*37
+#define FLAGS                   4*38
+#define ALPHA                   4*39
+#define PALETTEID               4*40
+#define REGIONID                4*41
+#define RESOLUTION              4*42
+#define GRAPHSIZEX              4*43
+#define GRAPHSIZEY              4*44
+#define BLENDOP                 4*45
+#define XGRAPH                  4*46
+#define FATHER                  4*47
 #else
-#define FATHER                  SAVED_PRIORITY      + 4
+#define FATHER                  4*6
 #endif
 #define SON                     FATHER              + 4
 #define SMALLBRO                SON                 + 4
 #define BIGBRO                  SMALLBRO            + 4
 #define PRIORITY                BIGBRO              + 4
-#ifdef __STATIC__
-#define CTYPE                   PRIORITY            + 4
-#define CNUMBER                 CTYPE               + 4
-#define COORDX                  CNUMBER             + 4
-#define COORDY                  COORDX              + 4
-#define COORDZ                  COORDY              + 4
-#define FILEID                  COORDZ              + 4
-#define GRAPHID                 FILEID              + 4
-#define GRAPHSIZE               GRAPHID             + 4
-#define ANGLE                   GRAPHSIZE           + 4
-#define FLAGS                   ANGLE               + 4
-#define ALPHA                   FLAGS               + 4
-#define PALETTEID               ALPHA               + 4
-#define REGIONID                PALETTEID           + 4
-#define RESOLUTION              REGIONID            + 4
-#define GRAPHSIZEX              RESOLUTION          + 4
-#define GRAPHSIZEY              GRAPHSIZEX          + 4
-#define BLENDOP                 GRAPHSIZEY          + 4
-#define XGRAPH                  BLENDOP             + 4
-#endif

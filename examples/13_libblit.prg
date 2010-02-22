@@ -5,11 +5,13 @@ import "mod_say";
 
 Process main()
 Begin
-	say(B_ABLEND);
-	say(B_ALPHA);
-	say(B_HMIRROR);
-	say(B_NOCOLORKEY);
-	say(B_SBLEND);
-	say(B_TRANSLUCENT);
-	say(B_VMIRROR);
+    say("Should display all 1's");
+    say("======================");
+	say(B_ABLEND==16);
+	say(B_ALPHA==8);
+	say(B_HMIRROR==1);
+	say(B_NOCOLORKEY==128);
+	say(B_SBLEND==32);
+	say(B_TRANSLUCENT==4);
+	say(B_VMIRROR==2);
 End;

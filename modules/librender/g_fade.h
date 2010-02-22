@@ -24,7 +24,7 @@
 #ifndef __FADE_H
 #define __FADE_H
 
-#ifdef TARGET_MAC
+#if defined(TARGET_MAC) || defined(TARGET_WII)
 #include <SDL/SDL.h>
 #else
 #include <SDL.h>

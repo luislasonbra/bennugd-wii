@@ -30,6 +30,7 @@
 
 #ifdef __STATIC__
 extern void libvideo_init();
+extern void libvideo_finalize();
 #endif
 
 #endif

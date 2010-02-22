@@ -25,12 +25,12 @@
 #define __RESOLUTION_H
 
 /* -------------------------------------------------------------------- */
-/* Librería gráfica                                                     */
+/* Graphics library                                                     */
 /* -------------------------------------------------------------------- */
 #ifdef __STATIC__
 #define RESOLXY(m,r,x,y) \
     {                                           \
-        int res = LOCINT32(r, RESOLUTION)       \
+        int res = LOCINT32(r, RESOLUTION) ;     \
         if ( res > 0 )                          \
         {                                       \
             ( x ) /= res ;                      \

@@ -19,12 +19,12 @@
  *
  */
 
-#ifndef __CRYPT_H
-#define __CRYPT_H
+#ifndef __B_CRYPT_H
+#define __B_CRYPT_H
 
 /* ------------------------------------------------------------------------- */
 
-#include <des.h>
+#include <openssl/des.h>
 
 /* ------------------------------------------------------------------------- */
 
@@ -46,7 +46,7 @@ enum {
 typedef struct
 {
     int method;
-    des_key_schedule ks[MAX_KEYS];
+    DES_key_schedule ks[MAX_KEYS];
 } crypt_handle;
 
 /* ------------------------------------------------------------------------- */

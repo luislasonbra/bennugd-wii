@@ -41,8 +41,9 @@
 #include "../../../modules/mod_proc/mod_proc.h"           //mod_proc
 #include "../../../modules/mod_timers/mod_timers.h"       //mod_timers
 #include "../../../modules/libgrbase/libgrbase_definitions.h"    //libgrbase
-#include "../../../modules/libvideo/libvideo.h"            //libvideo.h
+#include "../../../modules/libvideo/libvideo.h"            //libvideo
 #include "../../../modules/libvideo/libvideo_fixups.h"
+#include "../../../modules/libmouse/libmouse.h"            //libmouse
 #ifdef TARGET_WII
 #include <SDL/SDL.h>
 #elif defined(TARGET_LINUX)
@@ -740,13 +741,19 @@ void sysproc_init()
     libjoy_init();
 
     /* libmouse */
-    // TODO: register the mouse hook
-/*    handler_hooks = libmouse_hook;
+    libmouse_init();    
+    handler_hooks = libmouse_hook;
     while ( handler_hooks && handler_hooks->hook )
     {
         hook_add( *handler_hooks, handler_hook_list, handler_hook_allocated, handler_hook_count ) ;
         handler_hooks++;
-    }*/
+    }
+    // Assign the var values defined in the module globals_fixup structure
+    globals_fixup = libmouse_globals_fixup;
+    while ( globals_fixup->var ) {
+            get_var_info( globals_fixup, dcb.glovar, dcb.data.NGloVars, globaldata );
+            globals_fixup++;
+    }
 
     /* mod_proc */
     locals_fixup = mod_proc_locals_fixup;
@@ -764,7 +771,8 @@ void sysproc_init()
     handler_hooks = mod_timers_hooks;
     while ( handler_hooks && handler_hooks->hook )
     {
-        hook_add( *handler_hooks, handler_hook_list, handler_hook_allocated, handler_hook_count ) ;
+        hook_add( *handler_hooks, handler_hook_list, handler_hook_allocated,
+                   handler_hook_count ) ;
         handler_hooks++;
     }
     /* libgrbase */

@@ -96,7 +96,8 @@ CFILES		:=	dcbr.c sysprocs.c strings.c dirs.c copy.c misc.c instance.c \
               ../../../modules/librender/scaler_normal.c \
               ../../../modules/librender/scaler_scale2x.c \
               ../../../modules/librender/scaler_scanline.c \
-              ../../../modules/mod_video/mod_video.c
+              ../../../modules/mod_video/mod_video.c \
+              ../../../modules/libmouse/libmouse.c
 
 #---------------------------------------------------------------------------------
 # use CXX for linking C++ projects, CC for standard C

@@ -24,9 +24,28 @@
 #ifndef __LIBMOUSE_H
 #define __LIBMOUSE_H
 extern void do_mouse_events();
+extern void libmouse_init();
 HOOK libmouse_hook[] =
 {
     { 4800, do_mouse_events },
     { 0, NULL }
 } ;
+DLVARFIXUP libmouse_globals_fixup[] =
+{
+    { "mouse.x"         , NULL, -1, -1 },
+    { "mouse.y"         , NULL, -1, -1 },
+    { "mouse.z"         , NULL, -1, -1 },
+    { "mouse.file"      , NULL, -1, -1 },
+    { "mouse.graph"     , NULL, -1, -1 },
+    { "mouse.angle"     , NULL, -1, -1 },
+    { "mouse.size"      , NULL, -1, -1 },
+    { "mouse.flags"     , NULL, -1, -1 },
+    { "mouse.region"    , NULL, -1, -1 },
+    { "mouse.left"      , NULL, -1, -1 },
+    { "mouse.middle"    , NULL, -1, -1 },
+    { "mouse.right"     , NULL, -1, -1 },
+    { "mouse.wheelup"   , NULL, -1, -1 },
+    { "mouse.wheeldown" , NULL, -1, -1 },
+    { NULL              , NULL, -1, -1 }
+};
 #endif

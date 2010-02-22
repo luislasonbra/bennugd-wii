@@ -36,8 +36,7 @@
 #include "../../../modules/mod_proc/mod_proc_constants.h"
 #include "../../../modules/libblit/libblit_constants.h"
 #include "../../../modules/libvideo/libvideo_constants.h"
-#include "../../../modules/librender/librender.h"
-#include "../../../modules/librender/librender.h"
+#include "../../../modules/librender/librender_constants.h"
 #endif
 
 /* ----------------------------------------------------------------------- */

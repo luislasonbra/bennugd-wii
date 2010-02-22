@@ -116,7 +116,6 @@
 #define STATUS              37
 
 /* --------------------------------------------------------------------------- */
-
 extern DLVARFIXUP __bgdexport( librender, globals_fixup )[];
 extern DLVARFIXUP __bgdexport( librender, locals_fixup )[];
 #else

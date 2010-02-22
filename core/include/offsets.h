@@ -24,7 +24,6 @@
 /* ------------------------------------------ */
 /* Offsets for the global predefined data     */
 /* ------------------------------------------ */
-
 #define ARGC                    0
 #define ARGV_TABLE              ARGC                    + 4     /* 32+1 cadenas */
 #define OS_ID                   ARGV_TABLE              + 33*4
@@ -110,6 +109,7 @@
 #define SMALLBRO                SON                 + 4
 #define BIGBRO                  SMALLBRO            + 4
 #define PRIORITY                BIGBRO              + 4
+#ifdef __STATIC__
 #define CTYPE                   PRIORITY            + 4
 #define CNUMBER                 CTYPE               + 4
 #define COORDX                  CNUMBER             + 4
@@ -128,4 +128,4 @@
 #define GRAPHSIZEY              GRAPHSIZEX          + 4
 #define BLENDOP                 GRAPHSIZEY          + 4
 #define XGRAPH                  BLENDOP             + 4
-
+#endif

@@ -56,7 +56,7 @@
 #undef GLOUINT8
 
 /* --------------------------------------------------------------------------- */
-/* Macros para acceder a datos locales de una instancia */
+/* Macros to access an instance's local data */
 
 #define LOCEXISTS(m,a)    (m##_locals_fixup[a].size != -1)
 #define GLOEXISTS(m,a)    (m##_globals_fixup[a].data_offset)

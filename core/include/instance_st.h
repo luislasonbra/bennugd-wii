@@ -31,8 +31,8 @@
 #define STACK_SIZE_MASK     0x7FFF
 #define STACK_SIZE          2048
 
-/* Instancias. Una instancia se crea a partir de un proceso, pero en
- * realidad es independiente del proceso original */
+/* Instances. An instance is created from a process, but it's really *
+ * from the original one. */
 
 typedef struct _instance
 {
@@ -97,7 +97,7 @@ typedef struct _instance
 }
 INSTANCE ;
 
-/* Macros para acceder a datos locales o privados de una instancia */
+/* Macros to acess local or private data for an instance */
 
 #define LOCDWORD(a,b)   ( *(uint32_t *) ((uint8_t *)(a->locdata)+b) )
 #define LOCWORD(a,b)    ( *(uint16_t *) ((uint8_t *)(a->locdata)+b) )

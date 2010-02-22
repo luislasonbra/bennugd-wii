@@ -218,6 +218,15 @@ extern int modmem_calloc( INSTANCE * my, int * params );
 extern int modmem_alloc( INSTANCE * my, int * params );
 extern int modmem_realloc( INSTANCE * my, int * params );
 extern int modmem_free( INSTANCE * my, int * params );
+
+/* mod_video */
+extern int modvideo_set_mode( INSTANCE * my, int * params );
+extern int modvideo_set_mode_2( INSTANCE * my, int * params );
+extern int modvideo_set_mode_3( INSTANCE * my, int * params );
+extern int modvideo_set_mode_4( INSTANCE * my, int * params );
+extern int modvideo_set_fps( INSTANCE * my, int * params );
+extern int modvideo_list_modes( INSTANCE * my, int * params );
+extern int modvideo_mode_is_ok( INSTANCE * my, int * params );
 #endif
 
 #include "sysprocs.h"

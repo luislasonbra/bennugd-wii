@@ -451,8 +451,8 @@ int gr_set_mode( int width, int height, int depth )
     regions[0].x2 = width - 1 ;
     regions[0].y2 = height - 1 ;
 
-    // Finalmente seteamos icono de aplicacion
-    // Necesitamos crear una surface a partir de un MAP generico de 16x16...
+    // Set the app icon
+    // We need to create a map from a generic 16x16 bitmap...
     gr_set_icon( icon );
 
     if ( background ) background->modified = 1;
@@ -497,7 +497,7 @@ void __bgdexport( libvideo, module_initialize )()
         GLODWORD( GRAPH_MODE ) = atoi(e);
     else
 /*#ifdef TARGET_GP2X_WIZ*/
-        GLODWORD( GRAPH_MODE ) = MODE_16BITS;
+        GLODWORD( GRAPH_MODE ) = MODE_16BITS;   // Should be default for WII too
 /*#else
         GLODWORD( GRAPH_MODE ) = MODE_32BITS;
 #endif*/

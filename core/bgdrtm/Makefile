@@ -19,7 +19,7 @@ TARGET		:=	bgdrtm
 BUILD     :=	build
 SOURCES		:=	src
 INCLUDES	:=	include ../include ../../modules/libgrbase/ ../../modules/libblit/ \
-                ../../modules/libvideo
+                ../../modules/libvideo ../../modules/librender
 
 #---------------------------------------------------------------------------------
 # options for code generation
@@ -95,7 +95,8 @@ CFILES		:=	dcbr.c sysprocs.c strings.c dirs.c copy.c misc.c instance.c \
               ../../../modules/librender/scaler_hq2x.c \
               ../../../modules/librender/scaler_normal.c \
               ../../../modules/librender/scaler_scale2x.c \
-              ../../../modules/librender/scaler_scanline.c
+              ../../../modules/librender/scaler_scanline.c \
+              ../../../modules/mod_video/mod_video.c
 
 #---------------------------------------------------------------------------------
 # use CXX for linking C++ projects, CC for standard C

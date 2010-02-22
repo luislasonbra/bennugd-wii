@@ -23,7 +23,7 @@
 
 /* --------------------------------------------------------------------------- */
 
-#ifdef TARGET_MAC
+#if defined(TARGET_MAC) || defined(TARGET_WII)
 #include <SDL/SDL.h>
 #else
 #include <SDL.h>
@@ -39,9 +39,10 @@
 
 #include "bgddl.h"
 #include "dlvaracc.h"
+#include "offsets.h"
 
 /* --------------------------------------------------------------------------- */
-
+#ifndef __STATIC__
 #define GRAPH_MODE  0
 
 /* --------------------------------------------------------------------------- */
@@ -52,12 +53,12 @@ DLVARFIXUP __bgdexport( mod_video, globals_fixup )[] =
     { "graph_mode" , NULL, -1, -1 },
     { NULL , NULL, -1, -1 }
 };
-
+#endif
 /* --------------------------------------------------------------------------- */
 
 /* Funciones de inicialización y carga */
 
-static int modvideo_set_mode( INSTANCE * my, int * params )
+int modvideo_set_mode( INSTANCE * my, int * params )
 {
     gr_set_mode( params[0] / 10000, params[0] % 10000, 0 ) ;
     return 1 ;
@@ -65,7 +66,7 @@ static int modvideo_set_mode( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modvideo_set_mode_2( INSTANCE * my, int * params )
+int modvideo_set_mode_2( INSTANCE * my, int * params )
 {
     gr_set_mode( params[0], params[1], 0 ) ;
     return 1 ;
@@ -73,25 +74,25 @@ static int modvideo_set_mode_2( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modvideo_set_mode_3( INSTANCE * my, int * params )
+int modvideo_set_mode_3( INSTANCE * my, int * params )
 {
-    GLODWORD( mod_video, GRAPH_MODE ) = (( GLODWORD( mod_video, GRAPH_MODE ) & 0xFF00 ) | params[2] );
+    GLODWORD( GRAPH_MODE ) = (( GLODWORD( GRAPH_MODE ) & 0xFF00 ) | params[2] );
     gr_set_mode( params[0], params[1], 0 ) ;
     return 1 ;
 }
 
 /* --------------------------------------------------------------------------- */
 
-static int modvideo_set_mode_4( INSTANCE * my, int * params )
+int modvideo_set_mode_4( INSTANCE * my, int * params )
 {
-    GLODWORD( mod_video, GRAPH_MODE ) = ( params[2] | params[3] );
+    GLODWORD( GRAPH_MODE ) = ( params[2] | params[3] );
     gr_set_mode( params[0], params[1], 0 ) ;
     return 1 ;
 }
 
 /* --------------------------------------------------------------------------- */
 
-static int modvideo_set_fps( INSTANCE * my, int * params )
+int modvideo_set_fps( INSTANCE * my, int * params )
 {
     gr_set_fps( params[0], params[1] ) ;
     return params[0];
@@ -120,7 +121,7 @@ Returns NULL if there are no dimensions available for a particular format,
 or -1 if any dimension is okay for the given format.
 */
 
-static int modvideo_list_modes( INSTANCE * my, int * params )
+int modvideo_list_modes( INSTANCE * my, int * params )
 {
     SDL_Rect **modes;
     SDL_PixelFormat vfmt;
@@ -164,7 +165,7 @@ static int modvideo_list_modes( INSTANCE * my, int * params )
    mode with the given width, height and requested flags
 */
 
-static int modvideo_mode_is_ok( INSTANCE * my, int * params )
+int modvideo_mode_is_ok( INSTANCE * my, int * params )
 {
     int sdl_flags = get_sdl_flags( params[1] );
     int depth = params[2];
@@ -175,7 +176,7 @@ static int modvideo_mode_is_ok( INSTANCE * my, int * params )
 }
 
 /* --------------------------------------------------------------------------- */
-
+#ifndef __STATIC__
 DLSYSFUNCS  __bgdexport( mod_video, functions_exports )[] =
 {
 
@@ -201,5 +202,5 @@ char * __bgdexport( mod_video, modules_dependency )[] =
     "librender",
     NULL
 };
-
+#endif
 /* --------------------------------------------------------------------------- */

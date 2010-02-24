@@ -769,7 +769,7 @@ void sysproc_init()
     }
 
     /* libgrbase */
-   libgrbase_init();
+    libgrbase_init();
     globals_fixup = libgrbase_globals_fixup;
     while ( globals_fixup->var ) {
             get_var_info( globals_fixup, dcb.glovar, dcb.data.NGloVars, globaldata );

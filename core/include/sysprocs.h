@@ -362,7 +362,6 @@ SYSPROC sysprocs[MAX_SYSPROCS] =
     { 0x18C, "LOAD_PCX"       , "S"           , TYPE_INT      , 1, SYSMACRO(modmap_load_pcx)           },
     { 0x18D, "SAVE_PNG"       , "IIS"         , TYPE_INT      , 3, SYSMACRO(modmap_save_png)           },
 
-
     { 0    , 0                , ""      , TYPE_UNDEFINED , 0, 0                        }
 } ;
 #endif

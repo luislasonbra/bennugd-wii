@@ -2,6 +2,7 @@ import "mod_mouse"
 import "mod_video"
 import "mod_say"
 import "mod_timers"
+import "mod_map"
 
 Process main()
 Private
@@ -13,9 +14,11 @@ Begin
         return -1;
     end;
     set_mode(640, 480, 16, MODE_WINDOW);
-    set_fps(4,0);
+    mouse.graph = load_png("mouse.png");
     while(! mouse.left)
-        say("X: "+mouse.x+" Y:"+mouse.y);
+        x=mouse.x;
+        y=mouse.y;
         FRAME;
     end;
+    unload_map(0, mouse.graph);
 End;

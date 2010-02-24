@@ -19,7 +19,7 @@ TARGET		:=	bgdrtm
 BUILD     :=	build
 SOURCES		:=	src
 INCLUDES	:=	include ../include ../../modules/libgrbase/ ../../modules/libblit/ \
-                ../../modules/libvideo ../../modules/librender
+                ../../modules/libvideo ../../modules/librender ../../modules/libfont/
 
 #---------------------------------------------------------------------------------
 # options for code generation

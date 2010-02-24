@@ -5,9 +5,6 @@ import "mod_timers"
 import "mod_map"
 
 Process main()
-Private
-    int i=0;
-
 Begin
     // Check that we can set the video mode before actually setting it
     if(!mode_is_ok(640, 480, 16, MODE_WINDOW))

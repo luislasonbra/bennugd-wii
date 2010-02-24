@@ -98,7 +98,14 @@ CFILES		:=	dcbr.c sysprocs.c strings.c dirs.c copy.c misc.c instance.c \
               ../../../modules/librender/scaler_scanline.c \
               ../../../modules/mod_video/mod_video.c \
               ../../../modules/libmouse/libmouse.c \
-              ../../../modules/libfont/libfont.c
+              ../../../modules/libfont/libfont.c \
+              ../../../modules/mod_map/file_pcx.c \
+              ../../../modules/mod_map/file_png.c \
+              ../../../modules/mod_map/file_map.c \
+              ../../../modules/mod_map/file_pal.c \
+              ../../../modules/mod_map/file_fpg.c \
+              ../../../modules/mod_map/file_fnt.c \
+              ../../../modules/mod_map/mod_map.c
 
 #---------------------------------------------------------------------------------
 # use CXX for linking C++ projects, CC for standard C

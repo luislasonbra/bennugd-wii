@@ -32,25 +32,11 @@
 
 #include "xstrings.h"
 #include "mod_map.h"
+#include "mod_map_constants.h"
 
 #include "librender.h"
 
-/* --------------------------------------------------------------------------- */
-
-#define G_WIDE          0
-#define G_WIDTH         0
-#define G_HEIGHT        1
-#define G_CENTER_X      2
-#define G_X_CENTER      2
-#define G_CENTER_Y      3
-#define G_Y_CENTER      3
-#define G_PITCH         4
-#define G_DEPTH         5
-
-#define B_CLEAR         0x00000001
-
-/* --------------------------------------------------------------------------- */
-
+#ifndef __STATIC__
 DLCONSTANT __bgdexport( mod_map, constants_def )[] =
 {
     { "G_WIDE",         TYPE_INT,   G_WIDE      },    /* Obsolete */
@@ -67,10 +53,10 @@ DLCONSTANT __bgdexport( mod_map, constants_def )[] =
 
     { NULL              , 0       , 0           }
 } ;
-
+#endif
 /* --------------------------------------------------------------------------- */
 
-static int modmap_graphic_set( INSTANCE * my, int * params )
+int modmap_graphic_set( INSTANCE * my, int * params )
 {
     GRAPH * map ;
 
@@ -90,7 +76,7 @@ static int modmap_graphic_set( INSTANCE * my, int * params )
     return 1 ;
 }
 
-static int modmap_graphic_info( INSTANCE * my, int * params )
+int modmap_graphic_info( INSTANCE * my, int * params )
 {
     GRAPH * map ;
 
@@ -127,7 +113,7 @@ static int modmap_graphic_info( INSTANCE * my, int * params )
     return 1 ;
 }
 
-static int modmap_set_point( INSTANCE * my, int * params )
+int modmap_set_point( INSTANCE * my, int * params )
 {
     GRAPH * bmp = bitmap_get( params[0], params[1] ) ;
     if ( !bmp || params[2] < 0 || params[2] > 999 ) return -1 ;
@@ -135,7 +121,7 @@ static int modmap_set_point( INSTANCE * my, int * params )
     return 1 ;
 }
 
-static int modmap_set_center( INSTANCE * my, int * params )
+int modmap_set_center( INSTANCE * my, int * params )
 {
     GRAPH * bmp = bitmap_get( params[0], params[1] ) ;
     if ( !bmp ) return -1 ;
@@ -143,7 +129,7 @@ static int modmap_set_center( INSTANCE * my, int * params )
     return 1 ;
 }
 
-static int modmap_get_point( INSTANCE * my, int * params )
+int modmap_get_point( INSTANCE * my, int * params )
 {
     GRAPH * bmp ;
 
@@ -170,14 +156,14 @@ static int modmap_get_point( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_load_png( INSTANCE * my, int * params )
+int modmap_load_png( INSTANCE * my, int * params )
 {
     int r = gr_load_png( string_get( params[0] ) ) ;
     string_discard( params[0] ) ;
     return r ;
 }
 
-static int modmap_load_pcx( INSTANCE * my, int * params )
+int modmap_load_pcx( INSTANCE * my, int * params )
 {
     int r = ( int ) gr_load_pcx( string_get( params[0] ) ) ;
     string_discard( params[0] ) ;
@@ -186,7 +172,7 @@ static int modmap_load_pcx( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_save_png( INSTANCE * my, int * params )
+int modmap_save_png( INSTANCE * my, int * params )
 {
     int r = ( int ) gr_save_png( bitmap_get( params[0], params[1] ), string_get( params[2] ) ) ;
     string_discard( params[2] ) ;
@@ -195,7 +181,7 @@ static int modmap_save_png( INSTANCE * my, int * params )
 
 /* ---------------------------------------------------------------------- */
 
-static int modmap_map_buffer( INSTANCE * my, int * params )
+int modmap_map_buffer( INSTANCE * my, int * params )
 {
     GRAPH * map ;
 
@@ -209,7 +195,7 @@ static int modmap_map_buffer( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_map_clear( INSTANCE * my, int * params )
+int modmap_map_clear( INSTANCE * my, int * params )
 {
     GRAPH *map = bitmap_get( params[0], params[1] ) ;
     if ( map ) gr_clear_as( map, params[2] ) ;
@@ -218,7 +204,7 @@ static int modmap_map_clear( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_new_map( INSTANCE * my, int * params )
+int modmap_new_map( INSTANCE * my, int * params )
 {
     GRAPH * map ;
     map = bitmap_new_syslib( params[0], params[1], params[2] ) ;
@@ -228,7 +214,7 @@ static int modmap_new_map( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_new_map_extend( INSTANCE * my, int * params )
+int modmap_new_map_extend( INSTANCE * my, int * params )
 {
     GRAPH * map ;
     map = bitmap_new_syslib( params[0], params[1], params[2] ) ;
@@ -238,7 +224,7 @@ static int modmap_new_map_extend( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_map_clone( INSTANCE * my, int * params )
+int modmap_map_clone( INSTANCE * my, int * params )
 {
     GRAPH * origin, * map = NULL ;
     origin = bitmap_get( params[0], params[1] ) ;
@@ -251,7 +237,7 @@ static int modmap_map_clone( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_map_put( INSTANCE * my, int * params )
+int modmap_map_put( INSTANCE * my, int * params )
 {
     GRAPH * dest = bitmap_get( params[0], params[1] ) ;
     GRAPH * orig = bitmap_get( params[0], params[2] ) ;
@@ -267,7 +253,7 @@ static int modmap_map_put( INSTANCE * my, int * params )
  *  Draws a map into another one, with most blitter options including flags and alpha
  */
 
-static int modmap_map_xput( INSTANCE * my, int * params )
+int modmap_map_xput( INSTANCE * my, int * params )
 {
     GRAPH * dest = bitmap_get( params[0], params[1] ) ;
     GRAPH * orig = bitmap_get( params[0], params[2] ) ;
@@ -286,7 +272,7 @@ static int modmap_map_xput( INSTANCE * my, int * params )
  *  Enhanced MAP_XPUT with all parametes and different FPG file and non-proportional scale
  */
 
-static int modmap_map_xputnp( INSTANCE * my, int * params )
+int modmap_map_xputnp( INSTANCE * my, int * params )
 {
     GRAPH * dest = bitmap_get( params[0], params[1] ) ;
     GRAPH * orig = bitmap_get( params[2], params[3] ) ;
@@ -300,7 +286,7 @@ static int modmap_map_xputnp( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_map_name( INSTANCE * my, int * params )
+int modmap_map_name( INSTANCE * my, int * params )
 {
     GRAPH * map = bitmap_get( params[0], params[1] );
     int result;
@@ -313,7 +299,7 @@ static int modmap_map_name( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_map_set_name( INSTANCE * my, int * params )
+int modmap_map_set_name( INSTANCE * my, int * params )
 {
     GRAPH * map = bitmap_get( params[0], params[1] );
     const char * ptr = string_get( params[2] ) ;
@@ -328,7 +314,7 @@ static int modmap_map_set_name( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_map_exists( INSTANCE * my, int * params )
+int modmap_map_exists( INSTANCE * my, int * params )
 {
     GRAPH * map = bitmap_get( params[0], params[1] );
     return map == NULL ? 0 : 1 ;
@@ -336,7 +322,7 @@ static int modmap_map_exists( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_map_block_copy( INSTANCE * my, int * params )
+int modmap_map_block_copy( INSTANCE * my, int * params )
 {
     GRAPH * dest = bitmap_get( params[0], params[1] ) ;
     GRAPH * orig = bitmap_get( params[0], params[4] ) ;
@@ -425,7 +411,7 @@ static int modmap_map_block_copy( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_load_map( INSTANCE * my, int * params )
+int modmap_load_map( INSTANCE * my, int * params )
 {
     int r = gr_load_map( string_get( params[0] ) ) ;
     string_discard( params[0] ) ;
@@ -434,14 +420,14 @@ static int modmap_load_map( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_unload_map( INSTANCE * my, int * params )
+int modmap_unload_map( INSTANCE * my, int * params )
 {
     return grlib_unload_map( params[0], params[1] ) ;
 }
 
 /* ---------------------------------------------------------------------- */
 
-static int modmap_save_map( INSTANCE * my, int * params )
+int modmap_save_map( INSTANCE * my, int * params )
 {
     int r = ( int ) gr_save_map( bitmap_get( params[0], params[1] ), ( char * )string_get( params[2] ) ) ;
     string_discard( params[2] ) ;
@@ -450,7 +436,7 @@ static int modmap_save_map( INSTANCE * my, int * params )
 
 /* ---------------------------------------------------------------------- */
 
-static int modmap_load_pal( INSTANCE * my, int * params )
+int modmap_load_pal( INSTANCE * my, int * params )
 {
     const char * palname = string_get( params[0] ) ;
     int r = palname ? gr_load_pal( palname ) : 0 ;
@@ -460,7 +446,7 @@ static int modmap_load_pal( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_save_pal( INSTANCE * my, int * params )
+int modmap_save_pal( INSTANCE * my, int * params )
 {
     const char * palname = string_get( params[0] );
     int r = palname ? gr_save_pal( palname, ( PALETTE * )params[1] ) : 0;
@@ -470,7 +456,7 @@ static int modmap_save_pal( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_save_system_pal( INSTANCE * my, int * params )
+int modmap_save_system_pal( INSTANCE * my, int * params )
 {
     const char * palname = string_get( params[0] );
     int r = palname ? gr_save_system_pal( palname ) : 0;
@@ -480,7 +466,7 @@ static int modmap_save_system_pal( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_convert_palette( INSTANCE * my, int * params )
+int modmap_convert_palette( INSTANCE * my, int * params )
 {
     GRAPH * map = bitmap_get( params[0], params[1] ) ;
     int * newpal = ( int * ) params[2];
@@ -504,7 +490,7 @@ static int modmap_convert_palette( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_set_colors( INSTANCE * my, int * params )
+int modmap_set_colors( INSTANCE * my, int * params )
 {
     gr_set_colors( params[0], params[1], ( uint8_t * )params[2] ) ;
     return 1 ;
@@ -512,7 +498,7 @@ static int modmap_set_colors( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_get_colors( INSTANCE * my, int * params )
+int modmap_get_colors( INSTANCE * my, int * params )
 {
     gr_get_colors( params[0], params[1], ( uint8_t * )params[2] ) ;
     return 1 ;
@@ -520,7 +506,7 @@ static int modmap_get_colors( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_roll_palette( INSTANCE * my, int * params )
+int modmap_roll_palette( INSTANCE * my, int * params )
 {
     gr_roll_palette( params[0], params[1], params[2] ) ;
     return 1 ;
@@ -528,14 +514,14 @@ static int modmap_roll_palette( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_find_color( INSTANCE * my, int * params )
+int modmap_find_color( INSTANCE * my, int * params )
 {
     return gr_find_nearest_color( params[0], params[1], params[2] ) ;
 }
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_get_rgb( INSTANCE * my, int * params )
+int modmap_get_rgb( INSTANCE * my, int * params )
 {
     gr_get_rgb( params[0], ( int * )params[1], ( int * )params[2], ( int * )params[3] ) ;
     return 1 ;
@@ -543,7 +529,7 @@ static int modmap_get_rgb( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_get_rgba( INSTANCE * my, int * params )
+int modmap_get_rgba( INSTANCE * my, int * params )
 {
     gr_get_rgba( params[0], ( int * )params[1], ( int * )params[2], ( int * )params[3], ( int * )params[4] ) ;
     return 1 ;
@@ -551,7 +537,7 @@ static int modmap_get_rgba( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_rgb( INSTANCE * my, int * params )
+int modmap_rgb( INSTANCE * my, int * params )
 {
     return sys_pixel_format->depth > 8 ?
             gr_rgb( params[0], params[1], params[2] ) :
@@ -560,7 +546,7 @@ static int modmap_rgb( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_rgba( INSTANCE * my, int * params )
+int modmap_rgba( INSTANCE * my, int * params )
 {
     return sys_pixel_format->depth > 8 ?
             gr_rgba( params[0], params[1], params[2], params[3] ) :
@@ -569,7 +555,7 @@ static int modmap_rgba( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_fade( INSTANCE * my, int * params )
+int modmap_fade( INSTANCE * my, int * params )
 {
     gr_fade_init( params[0], params[1], params[2], params[3] );
     return 1 ;
@@ -577,7 +563,7 @@ static int modmap_fade( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_fade_on( INSTANCE * my, int * params )
+int modmap_fade_on( INSTANCE * my, int * params )
 {
     gr_fade_init( 100, 100, 100, 16 ) ;
     return 1 ;
@@ -585,7 +571,7 @@ static int modmap_fade_on( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_fade_off( INSTANCE * my, int * params )
+int modmap_fade_off( INSTANCE * my, int * params )
 {
     gr_fade_init( 0, 0, 0, 16 ) ;
     return 1;
@@ -594,21 +580,21 @@ static int modmap_fade_off( INSTANCE * my, int * params )
 /* --------------------------------------------------------------------------- */
 /* Palette */
 
-static int modmap_pal_create( INSTANCE * my, int * params )
+int modmap_pal_create( INSTANCE * my, int * params )
 {
     return ( int ) pal_new(( PALETTE * )NULL ) ;
 }
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_pal_clone( INSTANCE * my, int * params )
+int modmap_pal_clone( INSTANCE * my, int * params )
 {
     return ( int ) pal_new(( PALETTE * )( params[0] ) ) ;
 }
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_pal_unload( INSTANCE * my, int * params )
+int modmap_pal_unload( INSTANCE * my, int * params )
 {
     pal_destroy(( PALETTE * )( params[0] ) ) ;
     return 1;
@@ -616,7 +602,7 @@ static int modmap_pal_unload( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_pal_refresh( INSTANCE * my, int * params )
+int modmap_pal_refresh( INSTANCE * my, int * params )
 {
     pal_refresh( NULL ) ;
     return 1;
@@ -624,7 +610,7 @@ static int modmap_pal_refresh( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_pal_refresh_2( INSTANCE * my, int * params )
+int modmap_pal_refresh_2( INSTANCE * my, int * params )
 {
     pal_refresh(( PALETTE * )( params[0] ) );
     return 1;
@@ -632,21 +618,21 @@ static int modmap_pal_refresh_2( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_pal_map_assign( INSTANCE * my, int * params )
+int modmap_pal_map_assign( INSTANCE * my, int * params )
 {
     return pal_map_assign( params[0], params[1], ( PALETTE * )( params[2] ) );
 }
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_pal_map_remove( INSTANCE * my, int * params )
+int modmap_pal_map_remove( INSTANCE * my, int * params )
 {
     return pal_map_remove( params[0], params[1] );
 }
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_pal_map_getid( INSTANCE * my, int * params )
+int modmap_pal_map_getid( INSTANCE * my, int * params )
 {
     GRAPH * bmp = bitmap_get( params[0], params[1] ) ;
     if ( !bmp || bmp->format->depth != 8 ) return 0 ;
@@ -655,7 +641,7 @@ static int modmap_pal_map_getid( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_set_system_pal( INSTANCE * my, int * params )
+int modmap_set_system_pal( INSTANCE * my, int * params )
 {
     if ( pal_set(( PALETTE * )NULL, 0, 256, ( uint8_t * )(( PALETTE * )params[3])->rgb ) )
     {
@@ -667,7 +653,7 @@ static int modmap_set_system_pal( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_set_system_pal_raw( INSTANCE * my, int * params )
+int modmap_set_system_pal_raw( INSTANCE * my, int * params )
 {
     if ( pal_set(( PALETTE * )NULL, 0, 256, ( uint8_t * )params[3] ) )
     {
@@ -680,7 +666,7 @@ static int modmap_set_system_pal_raw( INSTANCE * my, int * params )
 /* ---------------------------------------------------------------------- */
 
 
-static int modmap_pal_set( INSTANCE * my, int * params )
+int modmap_pal_set( INSTANCE * my, int * params )
 {
     int ret = pal_set(( PALETTE * )( params[0] ), params[1], params[2], ( uint8_t * )params[3] ) ;
     if ( ret && !params[0] ) pal_refresh( sys_pixel_format->palette );
@@ -689,7 +675,7 @@ static int modmap_pal_set( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_pal_get( INSTANCE * my, int * params )
+int modmap_pal_get( INSTANCE * my, int * params )
 {
     return ( pal_get(( PALETTE * )( params[0] ), params[1], params[2], ( uint8_t * )params[3] ) ) ;
 }
@@ -698,7 +684,7 @@ static int modmap_pal_get( INSTANCE * my, int * params )
 
 /* Funciones de FPG */
 
-static int modmap_load_fpg( INSTANCE * my, int * params )
+int modmap_load_fpg( INSTANCE * my, int * params )
 {
     int r;
 
@@ -709,7 +695,7 @@ static int modmap_load_fpg( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_save_fpg( INSTANCE * my, int * params )
+int modmap_save_fpg( INSTANCE * my, int * params )
 {
     int r;
     r = gr_save_fpg( params[0], string_get( params[1] ) ) ;
@@ -719,7 +705,7 @@ static int modmap_save_fpg( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_unload_fpg( INSTANCE * my, int * params )
+int modmap_unload_fpg( INSTANCE * my, int * params )
 {
     grlib_destroy( params[0] ) ;
     return 1 ;
@@ -727,7 +713,7 @@ static int modmap_unload_fpg( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_fpg_exists( INSTANCE * my, int * params )
+int modmap_fpg_exists( INSTANCE * my, int * params )
 {
     GRLIB * lib = grlib_get( params[0] );
     return lib == NULL ? 0 : 1;
@@ -735,7 +721,7 @@ static int modmap_fpg_exists( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_fpg_add( INSTANCE * my, int * params )
+int modmap_fpg_add( INSTANCE * my, int * params )
 {
     GRAPH * orig = bitmap_get( params[2], params[3] );
     GRAPH * dest ;
@@ -749,7 +735,7 @@ static int modmap_fpg_add( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modmap_fpg_new( INSTANCE * my, int * params )
+int modmap_fpg_new( INSTANCE * my, int * params )
 {
     return grlib_new();
 }
@@ -815,7 +801,7 @@ int modmap_bgload_fpg( INSTANCE * my, int * params )
  *  Load a .FNT font from disk (returns the font ID)
  */
 
-static int modmap_load_fnt( INSTANCE * my, int * params )
+int modmap_load_fnt( INSTANCE * my, int * params )
 {
     char * text ;
     int r ;
@@ -835,7 +821,7 @@ static int modmap_load_fnt( INSTANCE * my, int * params )
  *  Load a .BDF font from disk (returns the font ID)
  */
 
-static int modmap_load_bdf( INSTANCE * my, int * params )
+int modmap_load_bdf( INSTANCE * my, int * params )
 {
     char * text = ( char * )string_get( params[0] ) ;
     int r = text ? gr_load_bdf( text ) : 0 ;
@@ -848,7 +834,7 @@ static int modmap_load_bdf( INSTANCE * my, int * params )
  *  Destroys a font in memory
  */
 
-static int modmap_unload_fnt( INSTANCE * my, int * params )
+int modmap_unload_fnt( INSTANCE * my, int * params )
 {
     if ( params[0] > 0 ) gr_font_destroy( params[0] );
     return 0;
@@ -859,7 +845,7 @@ static int modmap_unload_fnt( INSTANCE * my, int * params )
  *  Create a new font in memory (returns the font ID)
  */
 
-static int modmap_fnt_new( INSTANCE * my, int * params )
+int modmap_fnt_new( INSTANCE * my, int * params )
 {
     int result = gr_font_new();
     FONT * font = gr_font_get( result );
@@ -872,7 +858,7 @@ static int modmap_fnt_new( INSTANCE * my, int * params )
  *  Create a system map as a copy of one of the font glyphs (returns the map ID)
  */
 
-static int modmap_get_glyph( INSTANCE * my, int * params )
+int modmap_get_glyph( INSTANCE * my, int * params )
 {
     FONT  * font = gr_font_get( params[0] );
     GRAPH * map ;
@@ -901,7 +887,7 @@ static int modmap_get_glyph( INSTANCE * my, int * params )
  *  Change one of the font's glyphs
  */
 
-static int modmap_set_glyph( INSTANCE * my, int * params )
+int modmap_set_glyph( INSTANCE * my, int * params )
 {
     FONT  * font = gr_font_get( params[0] );
     GRAPH * map  = bitmap_get( params[2], params[3] );
@@ -940,7 +926,7 @@ static int modmap_set_glyph( INSTANCE * my, int * params )
  *  Saves a font to disk
  */
 
-static int modmap_save_fnt( INSTANCE * my, int * params )
+int modmap_save_fnt( INSTANCE * my, int * params )
 {
     char * text ;
     int r ;
@@ -952,7 +938,7 @@ static int modmap_save_fnt( INSTANCE * my, int * params )
 }
 
 /* --------------------------------------------------------------------------- */
-
+#ifdef __STATIC__
 DLSYSFUNCS  __bgdexport( mod_map, functions_exports )[] =
 {
     /* Bitmaps */
@@ -1119,5 +1105,5 @@ char * __bgdexport( mod_map, modules_dependency )[] =
     "libfont",
     NULL
 };
-
+#endif
 /* --------------------------------------------------------------------------- */

@@ -37,6 +37,7 @@
 #include "../../../modules/libblit/libblit_constants.h"
 #include "../../../modules/libvideo/libvideo_constants.h"
 #include "../../../modules/librender/librender_constants.h"
+#include "../../../modules/mod_map/mod_map_constants.h"
 #endif
 
 /* ----------------------------------------------------------------------- */
@@ -204,6 +205,18 @@ constants_def[] =
     { "SCALE_SCANLINE2X",   TYPE_DWORD, SCALE_SCANLINE2X    },
     { "SCALE_NORMAL2X",     TYPE_DWORD, SCALE_NOFILTER      },
     { "SCALE_NOFILTER",     TYPE_DWORD, SCALE_NOFILTER      },
+    /* mod_map */
+    { "G_WIDE",             TYPE_INT,   G_WIDE              },    /* Obsolete */
+    { "G_WIDTH",            TYPE_INT,   G_WIDTH             },
+    { "G_HEIGHT",           TYPE_INT,   G_HEIGHT            },
+    { "G_CENTER_X",         TYPE_INT,   G_CENTER_X          },
+    { "G_X_CENTER",         TYPE_INT,   G_X_CENTER          },
+    { "G_CENTER_Y",         TYPE_INT,   G_CENTER_Y          },
+    { "G_Y_CENTER",         TYPE_INT,   G_Y_CENTER          },
+    { "G_PITCH",            TYPE_INT,   G_PITCH             },
+    { "G_DEPTH",            TYPE_INT,   G_DEPTH             },
+    { "B_CLEAR",            TYPE_INT,   B_CLEAR             },
+
 #endif
     { NULL              , 0         , 0                   }
 } ;

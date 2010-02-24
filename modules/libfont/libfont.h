@@ -78,7 +78,9 @@ extern FONT * gr_font_get( int id );
 extern int gr_font_new() ;
 extern int gr_font_newfrombitmap( char * chardata, int width, int height, int options ) ;
 extern int gr_font_systemfont( char * chardata ) ;
-
+#ifdef __STATIC__
+extern void libfont_init();
+#endif
 /* -------------------------------------------------------------------------- */
 
 #endif

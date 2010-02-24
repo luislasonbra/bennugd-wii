@@ -551,18 +551,21 @@ FONT * gr_font_get( int id )
 }
 
 /* --------------------------------------------------------------------------- */
-
+#ifdef __STATIC__
+void libfont_init()
+#else
 void __bgdexport( libfont, module_initialize )()
+#endif
 {
     gr_font_systemfont( ( char * ) default_font );
 }
 
 /* --------------------------------------------------------------------------- */
-
+#ifndef __STATIC__
 char * __bgdexport( libfont, modules_dependency )[] =
 {
     "libgrbase",
     NULL
 };
-
+#endif
 /* --------------------------------------------------------------------------- */

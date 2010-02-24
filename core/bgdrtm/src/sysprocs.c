@@ -44,6 +44,7 @@
 #include "../../../modules/libvideo/libvideo.h"            //libvideo
 #include "../../../modules/libvideo/libvideo_fixups.h"
 #include "../../../modules/libmouse/libmouse.h"            //libmouse
+#include "../../../modules/libfont/libfont.h"              //libfont
 #ifdef TARGET_WII
 #include <SDL/SDL.h>
 #elif defined(TARGET_LINUX)
@@ -777,6 +778,7 @@ void sysproc_init()
     }
     /* libvideo */
     libvideo_init();
+    
     /* libmouse */
     libmouse_init();    
     handler_hooks = libmouse_hook;
@@ -786,6 +788,9 @@ void sysproc_init()
                    handler_hook_count ) ;
         handler_hooks++;
     }
+    
+    /* libfont */
+    libfont_init();
 #endif
 }
 

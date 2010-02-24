@@ -740,26 +740,11 @@ void sysproc_init()
     /* libjoy */
     libjoy_init();
 
-    /* libmouse */
-    libmouse_init();    
-    handler_hooks = libmouse_hook;
-    while ( handler_hooks && handler_hooks->hook )
-    {
-        hook_add( *handler_hooks, handler_hook_list, handler_hook_allocated, handler_hook_count ) ;
-        handler_hooks++;
-    }
     // Assign the var values defined in the module globals_fixup structure
     globals_fixup = libmouse_globals_fixup;
     while ( globals_fixup->var ) {
             get_var_info( globals_fixup, dcb.glovar, dcb.data.NGloVars, globaldata );
             globals_fixup++;
-    }
-
-    /* mod_proc */
-    locals_fixup = mod_proc_locals_fixup;
-    while ( locals_fixup->var ) {
-                get_var_info( locals_fixup, dcb.locvar, dcb.data.NLocVars, NULL );
-                locals_fixup++;
     }
 
     /* mod_timers */
@@ -775,8 +760,16 @@ void sysproc_init()
                    handler_hook_count ) ;
         handler_hooks++;
     }
+
+    /* mod_proc */
+    locals_fixup = mod_proc_locals_fixup;
+    while ( locals_fixup->var ) {
+                get_var_info( locals_fixup, dcb.locvar, dcb.data.NLocVars, NULL );
+                locals_fixup++;
+    }
+
     /* libgrbase */
-    libgrbase_init();
+   libgrbase_init();
     globals_fixup = libgrbase_globals_fixup;
     while ( globals_fixup->var ) {
             get_var_info( globals_fixup, dcb.glovar, dcb.data.NGloVars, globaldata );
@@ -784,6 +777,15 @@ void sysproc_init()
     }
     /* libvideo */
     libvideo_init();
+    /* libmouse */
+    libmouse_init();    
+    handler_hooks = libmouse_hook;
+    while ( handler_hooks && handler_hooks->hook )
+    {
+        hook_add( *handler_hooks, handler_hook_list, handler_hook_allocated,
+                   handler_hook_count ) ;
+        handler_hooks++;
+    }
 #endif
 }
 

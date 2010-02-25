@@ -37,7 +37,7 @@
 #include "libtext.h"
 
 /* --------------------------------------------------------------------------- */
-
+#ifndef __STATIC__
 DLCONSTANT __bgdexport( mod_text, constants_def)[] =
 {
     { "ALL_TEXT"            , TYPE_INT  , 0                     },
@@ -55,11 +55,11 @@ DLCONSTANT __bgdexport( mod_text, constants_def)[] =
 
     { NULL                  , 0         , 0                     }
 } ;
-
+#endif
 /* --------------------------------------------------------------------------- */
 /* Funciones de visualización de textos */
 
-static int modtext_write (INSTANCE * my, int * params)
+int modtext_write (INSTANCE * my, int * params)
 {
     const char * text = string_get (params[4]) ;
     int r = text ? gr_text_new (params[0], params[1], params[2], params[3], text) : 0 ;
@@ -69,7 +69,7 @@ static int modtext_write (INSTANCE * my, int * params)
 
 /* --------------------------------------------------------------------------- */
 
-static int modtext_write_in_map (INSTANCE * my, int * params)
+int modtext_write_in_map (INSTANCE * my, int * params)
 {
     const char * text = string_get (params[1]) ;
     GRAPH * gr ;
@@ -99,7 +99,7 @@ static int modtext_write_in_map (INSTANCE * my, int * params)
  *
  */
 
-static int modtext_write_var (INSTANCE * my, int * params)
+int modtext_write_var (INSTANCE * my, int * params)
 {
     DCB_TYPEDEF * var = (DCB_TYPEDEF *)params[5] ;
     int t = 0 ;
@@ -167,7 +167,7 @@ static int modtext_write_var (INSTANCE * my, int * params)
  *  Same as modtext_write_var, but param[5] not given and always set to VAR_STRING
  */
 
-static int modtext_write_string (INSTANCE * my, int * params)
+int modtext_write_string (INSTANCE * my, int * params)
 {
     return gr_text_new_var (params[0], params[1], params[2], params[3], (void *)params[4], TEXT_STRING) ;
 }
@@ -177,7 +177,7 @@ static int modtext_write_string (INSTANCE * my, int * params)
  *  Same as modtext_write_var, but param[5] not given and always set to VAR_INT
  */
 
-static int modtext_write_int (INSTANCE * my, int * params)
+int modtext_write_int (INSTANCE * my, int * params)
 {
     return gr_text_new_var (params[0], params[1], params[2], params[3], (void *)params[4], TEXT_INT) ;
 }
@@ -187,14 +187,14 @@ static int modtext_write_int (INSTANCE * my, int * params)
  *  Same as modtext_write_var, but param[5] not given and always set to VAR_FLOAT
  */
 
-static int modtext_write_float (INSTANCE * my, int * params)
+int modtext_write_float (INSTANCE * my, int * params)
 {
     return gr_text_new_var (params[0], params[1], params[2], params[3], (void *)params[4], TEXT_FLOAT) ;
 }
 
 /* --------------------------------------------------------------------------- */
 
-static int modtext_move_text (INSTANCE * my, int * params)
+int modtext_move_text (INSTANCE * my, int * params)
 {
     gr_text_move (params[0], params[1], params[2]) ;
     return 1;
@@ -202,7 +202,7 @@ static int modtext_move_text (INSTANCE * my, int * params)
 
 /* --------------------------------------------------------------------------- */
 
-static int modtext_delete_text (INSTANCE * my, int * params)
+int modtext_delete_text (INSTANCE * my, int * params)
 {
     gr_text_destroy (params[0]) ;
     return 1;
@@ -210,7 +210,7 @@ static int modtext_delete_text (INSTANCE * my, int * params)
 
 /* --------------------------------------------------------------------------- */
 
-static int modtext_text_height (INSTANCE * my, int * params)
+int modtext_text_height (INSTANCE * my, int * params)
 {
     const char * str = string_get (params[1]) ;
     int result = gr_text_height (params[0], ( const unsigned char * ) str) ;
@@ -220,7 +220,7 @@ static int modtext_text_height (INSTANCE * my, int * params)
 
 /* --------------------------------------------------------------------------- */
 
-static int modtext_text_width (INSTANCE * my, int * params)
+int modtext_text_width (INSTANCE * my, int * params)
 {
     const char * str = string_get (params[1]) ;
     int result = gr_text_width (params[0], ( const unsigned char * ) str) ;
@@ -230,7 +230,7 @@ static int modtext_text_width (INSTANCE * my, int * params)
 
 /* --------------------------------------------------------------------------- */
 
-static int modtext_set_text_color (INSTANCE * my, int * params)
+int modtext_set_text_color (INSTANCE * my, int * params)
 {
     gr_text_setcolor (params[0]) ;
     return 1 ;
@@ -238,16 +238,16 @@ static int modtext_set_text_color (INSTANCE * my, int * params)
 
 /* --------------------------------------------------------------------------- */
 
-static int modtext_get_text_color (INSTANCE * my, int * params)
+int modtext_get_text_color (INSTANCE * my, int * params)
 {
     return (gr_text_getcolor()) ;
 }
 
 /* --------------------------------------------------------------------------- */
-
+#ifndef __STATIC__
 DLSYSFUNCS  __bgdexport( mod_text, functions_exports)[] = {
 
-    /* Textos */
+    /* Texts */
     { "WRITE"               , "IIIIS"   , TYPE_INT  , modtext_write             },
     { "WRITE_INT"           , "IIIIP"   , TYPE_INT  , modtext_write_int         },
     { "MOVE_TEXT"           , "III"     , TYPE_INT  , modtext_move_text         },
@@ -276,5 +276,5 @@ char * __bgdexport( mod_text, modules_dependency)[] =
     "libfont",
     NULL
 };
-
+#endif
 /* --------------------------------------------------------------------------- */

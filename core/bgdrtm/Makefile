@@ -19,7 +19,8 @@ TARGET		:=	bgdrtm
 BUILD     :=	build
 SOURCES		:=	src
 INCLUDES	:=	include ../include ../../modules/libgrbase/ ../../modules/libblit/ \
-                ../../modules/libvideo ../../modules/librender ../../modules/libfont/
+                ../../modules/libvideo ../../modules/librender ../../modules/libfont/ \
+                ../../modules/libtext
 
 #---------------------------------------------------------------------------------
 # options for code generation
@@ -106,7 +107,8 @@ CFILES		:=	dcbr.c sysprocs.c strings.c dirs.c copy.c misc.c instance.c \
               ../../../modules/mod_map/file_fpg.c \
               ../../../modules/mod_map/file_fnt.c \
               ../../../modules/mod_map/mod_map.c \
-              ../../../modules/libtext/libtext.c
+              ../../../modules/libtext/libtext.c \
+              ../../../modules/mod_text/mod_text.c
 
 #---------------------------------------------------------------------------------
 # use CXX for linking C++ projects, CC for standard C

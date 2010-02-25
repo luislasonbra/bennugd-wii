@@ -25,10 +25,10 @@
 #define __TEXT_H
 
 /* --------------------------------------------------------------------------- */
-
+#ifdef __BGDRTM__
 #include "libgrbase.h"
 #include "libfont.h"
-
+#endif
 /* --------------------------------------------------------------------------- */
 
 #define MAX_TEXTS           512
@@ -60,7 +60,7 @@
 #define ALIGN_BOTTOM_RIGHT  8
 
 /* --------------------------------------------------------------------------- */
-
+#ifdef __BGDRTM__
 extern int fntcolor ;          /* Color for drawing bitmap text    */
 
 /* --------------------------------------------------------------------------- */
@@ -77,7 +77,7 @@ extern int gr_text_widthn( int fontid, const unsigned char * text, int n ) ;
 extern int gr_text_height( int fontid, const unsigned char * text ) ;
 extern int gr_text_put( GRAPH * dest, REGION * region, int fontid, int x, int y, const unsigned char * text ) ;
 extern GRAPH * gr_text_bitmap( int fontid, const char * text, int centered ) ;
-
+#endif
 /* --------------------------------------------------------------------------- */
 
 #endif

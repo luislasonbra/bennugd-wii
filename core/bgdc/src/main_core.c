@@ -38,6 +38,7 @@
 #include "../../../modules/libvideo/libvideo_constants.h"
 #include "../../../modules/librender/librender_constants.h"
 #include "../../../modules/mod_map/mod_map_constants.h"
+#include "../../../modules/libtext/libtext.h"
 #endif
 
 /* ----------------------------------------------------------------------- */
@@ -216,7 +217,17 @@ constants_def[] =
     { "G_PITCH",            TYPE_INT,   G_PITCH             },
     { "G_DEPTH",            TYPE_INT,   G_DEPTH             },
     { "B_CLEAR",            TYPE_INT,   B_CLEAR             },
-
+    /* mod_text */
+    { "ALL_TEXT"            , TYPE_INT  , 0                     },
+    { "ALIGN_TOP_LEFT"      , TYPE_INT  , ALIGN_TOP_LEFT        },
+    { "ALIGN_TOP"           , TYPE_INT  , ALIGN_TOP             },
+    { "ALIGN_TOP_RIGHT"     , TYPE_INT  , ALIGN_TOP_RIGHT       },
+    { "ALIGN_CENTER_LEFT"   , TYPE_INT  , ALIGN_CENTER_LEFT     },
+    { "ALIGN_CENTER"        , TYPE_INT  , ALIGN_CENTER          },
+    { "ALIGN_CENTER_RIGHT"  , TYPE_INT  , ALIGN_CENTER_RIGHT    },
+    { "ALIGN_BOTTOM_LEFT"   , TYPE_INT  , ALIGN_BOTTOM_LEFT     },
+    { "ALIGN_BOTTOM"        , TYPE_INT  , ALIGN_BOTTOM          },
+    { "ALIGN_BOTTOM_RIGHT"  , TYPE_INT  , ALIGN_BOTTOM_RIGHT    },
 #endif
     { NULL              , 0         , 0                   }
 } ;

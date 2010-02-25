@@ -296,6 +296,20 @@ extern int modmap_fnt_new( INSTANCE * my, int * params );
 extern int modmap_get_glyph( INSTANCE * my, int * params );
 extern int modmap_set_glyph( INSTANCE * my, int * params );
 extern int modmap_save_fnt( INSTANCE * my, int * params );
+
+/* mod_text */
+extern int modtext_write (INSTANCE * my, int * params);
+extern int modtext_write_in_map (INSTANCE * my, int * params);
+extern int modtext_write_var (INSTANCE * my, int * params);
+extern int modtext_write_string (INSTANCE * my, int * params);
+extern int modtext_write_int (INSTANCE * my, int * params);
+extern int modtext_write_float (INSTANCE * my, int * params);
+extern int modtext_move_text (INSTANCE * my, int * params);
+extern int modtext_delete_text (INSTANCE * my, int * params);
+extern int modtext_text_height (INSTANCE * my, int * params);
+extern int modtext_text_width (INSTANCE * my, int * params);
+extern int modtext_set_text_color (INSTANCE * my, int * params);
+extern int modtext_get_text_color (INSTANCE * my, int * params);
 #endif
 
 #include "sysprocs.h"

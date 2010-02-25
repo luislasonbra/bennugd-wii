@@ -2,8 +2,7 @@ import "mod_map"
 import "mod_math"
 import "mod_mouse"
 import "mod_video"
-import "mod_proc"
-import "mod_say"
+import "mod_rand"
 import "mod_text"
 
 Global
@@ -11,14 +10,28 @@ Global
 End;
 
 Process main()
+Private
+    int textid=0;
+
 Begin
     // Check that we can set the video mode before actually setting it
     if(!mode_is_ok(scr_width, scr_height, 16, MODE_WINDOW))
         return -1;
     end;
     set_mode(scr_width, scr_height, 16, MODE_WINDOW);
-    write(0, scr_width/2, scr_height/2, ALIGN_CENTER, "Hello, world!");
+    
+    // Set the text color and write a "Hello, World!" message
+    // Should appear in red colour
+    set_text_color(rgb(255, 0, 0));
+    textid = write(0, scr_width/2, scr_height/2, ALIGN_CENTER, "Hello, world!");
     while(! mouse.left)
+        // When pressing the right button in the mouse, move the text down
+        if(mouse.right)
+            move_text(textid, rand(0, scr_width), rand(0, scr_height));
+        end;
         FRAME;
     end;
+    
+    // Delete the text
+    delete_text(ALL_TEXT);
 End;

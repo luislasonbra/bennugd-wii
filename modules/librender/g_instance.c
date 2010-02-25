@@ -108,7 +108,7 @@ void instance_get_bbox( INSTANCE * i, GRAPH * gr, REGION * dest )
     x = LOCINT32( i, COORDX ) ;
     y = LOCINT32( i, COORDY ) ;
 
-    RESOLXY( librender, i, x, y );
+    RESOLXY(i, x, y );
 
     scalex = LOCINT32( i, GRAPHSIZEX );
     scaley = LOCINT32( i, GRAPHSIZEY );
@@ -181,7 +181,6 @@ void draw_instance_at( INSTANCE * i, REGION * region, int x, int y )
 
     if ( paletteid ) map->format->palette = palette;
     if ( blendop ) map->blend_table = blend_table;
-
 }
 
 /* --------------------------------------------------------------------------- */
@@ -244,7 +243,7 @@ void draw_instance( INSTANCE * i, REGION * clip )
     x = LOCINT32( i, COORDX ) ;
     y = LOCINT32( i, COORDY ) ;
 
-    RESOLXY( librender, i, x, y );
+    RESOLXY( i, x, y );
 
     r = LOCINT32( i, REGIONID ) ;
     if ( r > 0 && r < 32 )
@@ -316,7 +315,7 @@ int draw_instance_info( INSTANCE * i, REGION * region, int * z, int * drawme )
     coordx = LOCINT32( i, COORDX );
     coordy = LOCINT32( i, COORDY );
 
-    RESOLXY( librender, i, coordx, coordy );
+    RESOLXY(i, coordx, coordy );
 
     changed =
         graph->modified                                                                           ||
@@ -393,11 +392,14 @@ int draw_instance_info( INSTANCE * i, REGION * region, int * z, int * drawme )
  *  RETURN VALUE :
  *      None
  */
-
+#ifdef __STATIC__
+void librender_instance_create_hook(INSTANCE *r)
+#else
 void __bgdexport( librender, instance_create_hook )( INSTANCE * r )
+#endif
 {
     /* COORZ is 0 when a new instance is created */
-    LOCDWORD( r, OBJECTID ) = gr_new_object( /* LOCINT32( r, COORDZ ) */ 0, draw_instance_info, draw_instance, r );
+    LOCDWORD( r, OBJECTID ) = gr_new_object( 0, draw_instance_info, draw_instance, r );
 }
 
 /*
@@ -409,8 +411,11 @@ void __bgdexport( librender, instance_create_hook )( INSTANCE * r )
  *  RETURN VALUE :
  *      None
  */
-
+#ifdef __STATIC__
+void librender_instance_destroy_hook(INSTANCE *r)
+#else
 void __bgdexport( librender, instance_destroy_hook )( INSTANCE * r )
+#endif
 {
     if ( LOCDWORD( r, OBJECTID ) ) gr_destroy_object( LOCDWORD( r, OBJECTID ) );
 }

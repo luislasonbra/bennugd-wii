@@ -210,11 +210,8 @@ DLVARFIXUP __bgdexport( librender, locals_fixup )[] =
 
 /* Bigest priority first execute
    Lowest priority last execute */
-#ifdef __STATIC__
-HOOK librender_hooks[] =
-#else
+#ifndef __STATIC__
 HOOK __bgdexport( librender, handler_hooks )[] =
-#endif
 {
     { 9500, gr_wait_frame },
     { 9000, gr_draw_frame },
@@ -222,7 +219,6 @@ HOOK __bgdexport( librender, handler_hooks )[] =
 } ;
 
 /* --------------------------------------------------------------------------- */
-#ifndef __STATIC__
 char * __bgdexport( librender, modules_dependency )[] =
 {
     "libgrbase",

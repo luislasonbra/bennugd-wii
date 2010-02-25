@@ -284,15 +284,21 @@ void gr_draw_frame()
 }
 
 /* --------------------------------------------------------------------------- */
-
+#ifdef __STATIC__
+void librender_init()
+#else
 void __bgdexport( librender, module_initialize )()
+#endif
 {
     if ( !SDL_WasInit( SDL_INIT_TIMER ) ) SDL_InitSubSystem( SDL_INIT_TIMER );
 }
 
 /* --------------------------------------------------------------------------- */
-
+#ifdef __STATIC__
+void librender_finalize()
+#else
 void __bgdexport( librender, module_finalize )()
+#endif
 {
     if ( SDL_WasInit( SDL_INIT_TIMER ) ) SDL_QuitSubSystem( SDL_INIT_TIMER );
 }

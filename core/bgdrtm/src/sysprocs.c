@@ -41,6 +41,7 @@
 #include "../../../modules/mod_proc/mod_proc.h"           //mod_proc
 #include "../../../modules/mod_timers/mod_timers.h"       //mod_timers
 #include "../../../modules/libgrbase/libgrbase_definitions.h"    //libgrbase
+#include "../../../modules/librender/librender_constants.h"//librender
 #include "../../../modules/libvideo/libvideo.h"            //libvideo
 #include "../../../modules/libvideo/libvideo_fixups.h"
 #include "../../../modules/libmouse/libmouse.h"            //libmouse
@@ -641,13 +642,13 @@ void sysproc_init()
     DLVARFIXUP    * globals_fixup = NULL ;
     DLVARFIXUP    * locals_fixup = NULL ;
     HOOK          * handler_hooks = NULL ;
+    INSTANCE_HOOK   instance_create_hook ;
+    INSTANCE_HOOK   instance_destroy_hook ;
 
 #ifndef __STATIC__
     DLSYSFUNCS    * functions_exports = NULL ;
     FN_HOOK         module_initialize ;
     FN_HOOK         module_finalize ;
-    INSTANCE_HOOK   instance_create_hook ;
-    INSTANCE_HOOK   instance_destroy_hook ;
     INSTANCE_HOOK   instance_pre_execute_hook ;
     INSTANCE_HOOK   instance_pos_execute_hook ;
     INSTANCE_HOOK   process_exec_hook ;
@@ -807,13 +808,6 @@ void sysproc_init()
     /* libjoy */
     libjoy_init();
 
-    // Assign the var values defined in the module globals_fixup structure
-    globals_fixup = libmouse_globals_fixup;
-    while ( globals_fixup->var ) {
-            get_var_info( globals_fixup, dcb.glovar, dcb.data.NGloVars, globaldata );
-            globals_fixup++;
-    }
-
     /* mod_timers */
     globals_fixup = mod_timers_globals_fixup;
     while ( globals_fixup->var ) {
@@ -835,6 +829,9 @@ void sysproc_init()
                 locals_fixup++;
     }
 
+    /* libvideo */
+    libvideo_init();
+
     /* libgrbase */
     libgrbase_init();
     globals_fixup = libgrbase_globals_fixup;
@@ -842,9 +839,24 @@ void sysproc_init()
             get_var_info( globals_fixup, dcb.glovar, dcb.data.NGloVars, globaldata );
             globals_fixup++;
     }
-    /* libvideo */
-    libvideo_init();
-    
+
+    /* librender */
+    librender_init();
+    handler_hooks = librender_hooks;
+    while ( handler_hooks && handler_hooks->hook )
+    {
+        hook_add( *handler_hooks, handler_hook_list, handler_hook_allocated,
+                   handler_hook_count ) ;
+        handler_hooks++;
+    }
+    instance_create_hook = (INSTANCE_HOOK) librender_instance_create_hook;
+    hook_add( instance_create_hook, instance_create_hook_list, instance_create_hook_allocated, instance_create_hook_count ) ;
+    instance_destroy_hook = (INSTANCE_HOOK) librender_instance_destroy_hook;
+    hook_add( instance_destroy_hook, instance_destroy_hook_list, instance_destroy_hook_allocated, instance_destroy_hook_count ) ;
+
+    /* libfont */
+    libfont_init();
+
     /* libmouse */
     libmouse_init();    
     handler_hooks = libmouse_hook;
@@ -854,9 +866,6 @@ void sysproc_init()
                    handler_hook_count ) ;
         handler_hooks++;
     }
-    
-    /* libfont */
-    libfont_init();
 #endif
 }
 

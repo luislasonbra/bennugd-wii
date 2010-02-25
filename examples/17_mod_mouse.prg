@@ -11,10 +11,14 @@ Begin
         return -1;
     end;
     set_mode(640, 480, 16, MODE_WINDOW);
-    mouse.graph = load_png("mouse.png");
+    mouse.graph = png_load("mouse.png");
+    /*say("mouse.graph: "+mouse.graph);
+    say("mouse.width: "+graphic_info(0, mouse.graph, G_WIDTH));
+    say("mouse.height: "+graphic_info(0, mouse.graph, G_HEIGHT));
+    say("mouse.flags: "+mouse.flags);
+    say("mouse.region: "+mouse.region);*/
+    //map_save(0, mouse.graph, "mouse.map");
     while(! mouse.left)
-        x=mouse.x;
-        y=mouse.y;
         FRAME;
     end;
     unload_map(0, mouse.graph);

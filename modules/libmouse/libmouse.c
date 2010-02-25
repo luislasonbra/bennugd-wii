@@ -58,6 +58,7 @@ static GRAPH * mouse_map = NULL;
 
 /* --------------------------------------------------------------------------- */
 #ifndef __STATIC__
+
 #define MOUSEX              0
 #define MOUSEY              1
 #define MOUSEZ              2
@@ -218,7 +219,7 @@ void do_mouse_events()
  *      1 if the mouse has changed since last call
  */
 
-static int mouse_info( INSTANCE * i, REGION * clip, int * z, int * drawme )
+int mouse_info( INSTANCE * i, REGION * clip, int * z, int * drawme )
 {
     int mousex ;
     int mousey ;
@@ -328,7 +329,7 @@ static int mouse_info( INSTANCE * i, REGION * clip, int * z, int * drawme )
  *      None
  */
 
-static void mouse_draw( INSTANCE * i, REGION * clip )
+void mouse_draw( INSTANCE * i, REGION * clip )
 {
     int r ;
     REGION region;

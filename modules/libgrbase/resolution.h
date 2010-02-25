@@ -28,7 +28,7 @@
 /* Graphics library                                                     */
 /* -------------------------------------------------------------------- */
 #ifdef __STATIC__
-#define RESOLXY(m,r,x,y) \
+#define RESOLXY(r,x,y) \
     {                                           \
         int res = LOCINT32(r, RESOLUTION) ;     \
         if ( res > 0 )                          \
@@ -43,7 +43,7 @@
         }                                       \
     }
 
-#define RESOLXYZ(m,r,x,y,z) \
+#define RESOLXYZ(r,x,y,z) \
     {                                           \
         int res = LOCINT32(r, RESOLUTION ) ;    \
         if (res>0)                              \
@@ -62,7 +62,7 @@
 
 #else
 
-#define RESOLXY(m,r,x,y) \
+#define RESOLXY(r,x,y) \
     {                                           \
         int res = LOCINT32(m, r, RESOLUTION ) ; \
         if ( res > 0 )                          \
@@ -77,7 +77,7 @@
         }                                       \
     }
 
-#define RESOLXYZ(m,r,x,y,z) \
+#define RESOLXYZ(r,x,y,z) \
     {                                           \
         int res = LOCINT32(m, r, RESOLUTION ) ;   \
         if (res>0)                              \

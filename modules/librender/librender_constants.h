@@ -24,7 +24,7 @@
 #ifndef __RENDER_CONSTANTS_H
 #define __RENDER_CONSTANTS_H
 
-#include <bgddl.h>
+#include <instance_st.h>
 
 #define C_SCREEN            0
 
@@ -34,6 +34,8 @@
 #define SCALE_NOFILTER      0x0004
 /* -------------------------------------------------------------------------- */
 
+#ifdef __BGDRTM__
+// Needed for the runtime
 extern void librender_init();
 extern void librender_finalize();
 extern void librender_instance_create_hook(INSTANCE *r);
@@ -46,5 +48,6 @@ HOOK librender_hooks[] =
     { 9500, gr_wait_frame },
     { 9000, gr_draw_frame },
     {    0, NULL          }
-} ;
+};
+#endif
 #endif

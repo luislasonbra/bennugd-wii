@@ -270,6 +270,9 @@ static char * globals_def =
     "restore_type;\n"
     "dump_type;\n"
     "fading;\n"
+/* libtext */
+    "text_z = -256;\n"
+    "text_flags;\n"
 #endif
 ;
 
@@ -328,14 +331,13 @@ static char * locals_def =
     "size_y=100;\n"
     "blendop=0;\n"
     "pointer xgraph;\n"
-#else
-    "END\n"
 #endif
     "father;\n"
     "son;\n"
     "smallbro;\n"
     "bigbro;\n"
-    "priority;\n";
+    "priority;\n"
+    "END\n";
 
 void core_init()
 {

@@ -65,6 +65,8 @@
 #define RESTORETYPE             4*78
 #define DUMPTYPE                4*79
 #define FADING                  4*80
+#define TEXTZ                   4*81
+#define TEXT_FLAGS              4*82
 #endif
 
 /* ----------------------------------------- */

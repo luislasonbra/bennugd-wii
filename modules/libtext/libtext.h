@@ -33,7 +33,7 @@
 
 #define MAX_TEXTS           512
 
-// Tipos para gr_text_new_var
+// Types for gr_text_new_var
 
 #define TEXT_TEXT           1
 #define TEXT_STRING         2

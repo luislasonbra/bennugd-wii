@@ -105,7 +105,8 @@ CFILES		:=	dcbr.c sysprocs.c strings.c dirs.c copy.c misc.c instance.c \
               ../../../modules/mod_map/file_pal.c \
               ../../../modules/mod_map/file_fpg.c \
               ../../../modules/mod_map/file_fnt.c \
-              ../../../modules/mod_map/mod_map.c
+              ../../../modules/mod_map/mod_map.c \
+              ../../../modules/libtext/libtext.c
 
 #---------------------------------------------------------------------------------
 # use CXX for linking C++ projects, CC for standard C

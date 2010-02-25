@@ -3,6 +3,7 @@ import "mod_math"
 import "mod_mouse"
 import "mod_video"
 import "mod_proc"
+import "mod_say"
 
 Global
     scr_width=640, scr_height=480;
@@ -43,6 +44,6 @@ Begin
     while(!mouse.left)
         FRAME;
     End;
-    signal(pid1, S_KILL);
+    let_me_alone();
     map_unload(0, map);
 End;

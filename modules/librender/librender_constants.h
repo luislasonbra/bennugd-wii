@@ -35,7 +35,8 @@
 /* -------------------------------------------------------------------------- */
 
 #ifdef __BGDRTM__
-// Needed for the runtime
+// The things defined below are needed while compiling the runtime
+// but will cause bgdc compilation to fail
 extern void librender_init();
 extern void librender_finalize();
 extern void librender_instance_create_hook(INSTANCE *r);

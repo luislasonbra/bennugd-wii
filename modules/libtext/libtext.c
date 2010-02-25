@@ -37,6 +37,7 @@
 #include "librender.h"
 
 #include "libtext.h"
+#include "offsets.h"
 
 /* --------------------------------------------------------------------------- */
 
@@ -80,7 +81,7 @@ int gr_text_height_no_margin( int fontid, const unsigned char * text );
 int gr_text_widthn( int fontid, const unsigned char * text, int n );
 
 /* --------------------------------------------------------------------------- */
-
+#ifndef __STATIC__
 #define TEXTZ           0
 #define TEXT_FLAGS      1
 
@@ -104,7 +105,7 @@ DLVARFIXUP __bgdexport( libtext, globals_fixup )[] =
     { "text_flags"  , NULL, -1, -1 },
     { NULL          , NULL, -1, -1 }
 };
-
+#endif
 /* --------------------------------------------------------------------------- */
 /*
  *  FUNCTION : get_text
@@ -412,7 +413,7 @@ int gr_text_new( int fontid, int x, int y, int alignment, const char * text )
     texts[textid].fontid = fontid ;
     texts[textid].x = x ;
     texts[textid].y = y ;
-    texts[textid].z = GLOINT32( libtext, TEXTZ ) ;
+    texts[textid].z = GLOINT32( TEXTZ ) ;
     texts[textid].alignment = alignment ;
     texts[textid].text = text ? strdup( text ) : 0 ;
     texts[textid].color8 = fntcolor8 ;
@@ -611,7 +612,7 @@ int gr_text_put( GRAPH * dest, REGION * clip, int fontid, int x, int y, const un
 
     f = fonts[fontid] ;
 
-    flags = GLODWORD( libtext, TEXT_FLAGS );
+    flags = GLODWORD( TEXT_FLAGS );
 
     save8 = pixel_color8;
     save16 = pixel_color16;
@@ -799,7 +800,7 @@ int gr_text_getcolor()
 }
 
 /* --------------------------------------------------------------------------- */
-
+#ifndef __STATIC__
 char * __bgdexport( libtext, modules_dependency )[] =
 {
     "libgrbase",
@@ -808,5 +809,5 @@ char * __bgdexport( libtext, modules_dependency )[] =
     "libfont",
     NULL
 };
-
+#endif
 /* --------------------------------------------------------------------------- */

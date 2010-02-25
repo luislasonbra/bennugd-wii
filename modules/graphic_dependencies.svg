@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
-<svg width="28cm" height="15cm" viewBox="128 60 557 281" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="29cm" height="15cm" viewBox="121 60 565 281" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #ffa500" d="M 215.95 299.9 C 293,283 311,164 338.076,107.772"/>
+    <polygon style="fill: #ffa500" points="341.33,101.015 341.496,112.194 338.076,107.772 332.486,107.855 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #ffa500" points="341.33,101.015 341.496,112.194 338.076,107.772 332.486,107.855 "/>
+  </g>
   <g>
     <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #ffa500" d="M 215.95 299.9 C 336,271 573,256 638.658,236.74"/>
     <polygon style="fill: #ffa500" points="645.854,234.629 637.666,242.242 638.658,236.74 634.851,232.646 "/>
     <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #ffa500" points="645.854,234.629 637.666,242.242 638.658,236.74 634.851,232.646 "/>
   </g>
   <g>
-    <rect style="fill: #ffffff" x="268" y="61" width="294.6" height="38"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="268" y="61" width="294.6" height="38"/>
-    <text style="fill: #000000;text-anchor:middle;font-size:12.8;font-family:sanserif;font-style:normal;font-weight:normal" x="415.3" y="83.9">
-      <tspan x="415.3" y="83.9">libgrbase</tspan>
+    <rect style="fill: #ffffff" x="122" y="61" width="440.6" height="38"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="122" y="61" width="440.6" height="38"/>
+    <text style="fill: #000000;text-anchor:middle;font-size:12.8;font-family:sanserif;font-style:normal;font-weight:normal" x="342.3" y="83.9">
+      <tspan x="342.3" y="83.9">libgrbase</tspan>
     </text>
   </g>
   <g>
@@ -28,9 +33,9 @@
     </text>
   </g>
   <g>
-    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #00ff00" d="M 495 301 C 442,275 402,191 413.907,108.636"/>
-    <polygon style="fill: #00ff00" points="414.98,101.213 418.498,111.826 413.907,108.636 408.601,110.395 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #00ff00" points="414.98,101.213 418.498,111.826 413.907,108.636 408.601,110.395 "/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #00ff00" d="M 495 301 C 442,275 329,191 340.907,108.636"/>
+    <polygon style="fill: #00ff00" points="341.98,101.213 345.498,111.826 340.907,108.636 335.601,110.395 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #00ff00" points="341.98,101.213 345.498,111.826 340.907,108.636 335.601,110.395 "/>
   </g>
   <g>
     <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #00ff00" d="M 495 301 C 511.932,301 500,261 506.725,242.169"/>
@@ -62,9 +67,9 @@
     <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #0000ff" points="287.763,192.026 294.587,183.17 294.514,188.759 298.942,192.171 "/>
   </g>
   <g>
-    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 257 193 C 284,149 303,124 333.475,104.288"/>
-    <polygon style="fill: #000000" points="339.772,100.214 334.091,109.844 333.475,104.288 328.66,101.447 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="339.772,100.214 334.091,109.844 333.475,104.288 328.66,101.447 "/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 257 193 C 249,161 234,143 232.559,108.727"/>
+    <polygon style="fill: #000000" points="232.244,101.234 237.66,111.015 232.559,108.727 227.668,111.435 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="232.244,101.234 237.66,111.015 232.559,108.727 227.668,111.435 "/>
   </g>
   <g>
     <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #0000ff" d="M 510 195 C 549.176,195 620,143 626.219,109.572"/>
@@ -72,14 +77,14 @@
     <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #0000ff" points="627.591,102.198 630.678,112.944 626.219,109.572 620.846,111.115 "/>
   </g>
   <g>
-    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #0000ff" d="M 510 195 C 506,167 465.3,139 422.903,105.082"/>
-    <polygon style="fill: #0000ff" points="417.046,100.397 427.978,102.739 422.903,105.082 421.731,110.548 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #0000ff" points="417.046,100.397 427.978,102.739 422.903,105.082 421.731,110.548 "/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #0000ff" d="M 510 195 C 506,167 392.3,139 349.903,105.082"/>
+    <polygon style="fill: #0000ff" points="344.046,100.397 354.978,102.739 349.903,105.082 348.731,110.548 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #0000ff" points="344.046,100.397 354.978,102.739 349.903,105.082 348.731,110.548 "/>
   </g>
   <g>
-    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 648 196 C 599.064,196 591,126 569.656,105.708"/>
-    <polygon style="fill: #000000" points="564.221,100.541 574.913,103.807 569.656,105.708 568.023,111.055 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="564.221,100.541 574.913,103.807 569.656,105.708 568.023,111.055 "/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 648 196 C 597,166 480.85,126 459.506,105.708"/>
+    <polygon style="fill: #000000" points="454.071,100.541 464.763,103.807 459.506,105.708 457.873,111.055 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="454.071,100.541 464.763,103.807 459.506,105.708 457.873,111.055 "/>
   </g>
   <g>
     <rect style="fill: #ffffff" x="323.9" y="195" width="80.2" height="38"/>
@@ -89,9 +94,9 @@
     </text>
   </g>
   <g>
-    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #ff0000" d="M 364 195 C 356,161 350,138 343.688,108.52"/>
-    <polygon style="fill: #ff0000" points="342.118,101.187 349.101,109.918 343.688,108.52 339.323,112.012 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #ff0000" points="342.118,101.187 349.101,109.918 343.688,108.52 339.323,112.012 "/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #ff0000" d="M 364 195 C 356,161 264,133 238.806,106.105"/>
+    <polygon style="fill: #ff0000" points="233.679,100.632 244.164,104.512 238.806,106.105 236.866,111.348 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #ff0000" points="233.679,100.632 244.164,104.512 238.806,106.105 236.866,111.348 "/>
   </g>
   <g>
     <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #ff0000" d="M 364 195 C 360.68,195 321,161 265.708,188.646"/>
@@ -135,9 +140,9 @@
     </text>
   </g>
   <g>
-    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #1e90ff" d="M 161.05 191.9 C 206,165 284,110 332.086,100.825"/>
-    <polygon style="fill: #1e90ff" points="339.454,99.4191 330.568,106.205 332.086,100.825 328.694,96.382 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #1e90ff" points="339.454,99.4191 330.568,106.205 332.086,100.825 328.694,96.382 "/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #1e90ff" d="M 161.05 191.9 C 206,165 192,128 224.257,104.701"/>
+    <polygon style="fill: #1e90ff" points="230.337,100.309 225.158,110.218 224.257,104.701 219.303,102.111 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #1e90ff" points="230.337,100.309 225.158,110.218 224.257,104.701 219.303,102.111 "/>
   </g>
   <g>
     <rect style="fill: #ffffff" x="173.3" y="299.9" width="85.3" height="38"/>
@@ -150,11 +155,6 @@
     <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #ffa500" d="M 215.95 299.9 C 197,279 184,257 167.342,237.33"/>
     <polygon style="fill: #ffa500" points="162.495,231.606 172.773,236.006 167.342,237.33 165.142,242.469 "/>
     <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #ffa500" points="162.495,231.606 172.773,236.006 167.342,237.33 165.142,242.469 "/>
-  </g>
-  <g>
-    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #ffa500" d="M 215.95 299.9 C 302,241 322,155 406.952,104.01"/>
-    <polygon style="fill: #ffa500" points="413.383,100.151 407.382,109.584 406.952,104.01 402.235,101.01 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #ffa500" points="413.383,100.151 407.382,109.584 406.952,104.01 402.235,101.01 "/>
   </g>
   <g>
     <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #ffa500" d="M 215.95 299.9 C 224,275 229,257 249.865,237.625"/>

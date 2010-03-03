@@ -84,7 +84,7 @@ int main( int argc, char **argv )
 
     dcb_signature dcb_signature;
 
-#ifdef TARGET_WII
+#if 0
     /* Now initialize the console, needed by printf */
     static void *xfb = NULL;
     static GXRModeObj *rmode = NULL;
@@ -120,7 +120,8 @@ int main( int argc, char **argv )
     // Wait for Video setup to complete
     VIDEO_WaitVSync();
     if(rmode->viTVMode&VI_NON_INTERLACE) VIDEO_WaitVSync();
-
+#endif
+#ifdef TARGET_WII
     // Initialize the Wii FAT filesystem, check stuff
     if (!fatInitDefault()) {
         printf("Sorry, I cannot access the FAT filesystem on your card :(\n");

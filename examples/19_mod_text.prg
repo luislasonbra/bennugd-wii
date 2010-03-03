@@ -4,6 +4,7 @@ import "mod_mouse"
 import "mod_video"
 import "mod_rand"
 import "mod_text"
+import "mod_sound"
 
 Global
     scr_width=640, scr_height=480;
@@ -11,7 +12,7 @@ End;
 
 Process main()
 Private
-    int textid=0;
+    int textid=0, song=0;
 
 Begin
     // Check that we can set the video mode before actually setting it
@@ -20,6 +21,10 @@ Begin
     end;
     set_mode(scr_width, scr_height, 16, MODE_WINDOW);
     
+    // Load the song and play it
+    song = load_song("game.s3m");
+    play_song(song, 0);
+
     // Set the text color and write a "Hello, World!" message
     // Should appear in red colour
     set_text_color(rgb(255, 0, 0));
@@ -34,4 +39,8 @@ Begin
     
     // Delete the text
     delete_text(ALL_TEXT);
+
+    // Unload the song
+    stop_song();
+    unload_song(song);
 End;

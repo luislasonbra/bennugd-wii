@@ -46,6 +46,7 @@
 #include "../../../modules/libvideo/libvideo_fixups.h"
 #include "../../../modules/libmouse/libmouse.h"            //libmouse
 #include "../../../modules/libfont/libfont.h"              //libfont
+#include "../../../modules/mod_grproc/mod_grproc.h"
 #ifdef TARGET_WII
 #include <SDL/SDL.h>
 #elif defined(TARGET_LINUX)
@@ -310,6 +311,13 @@ extern int modtext_text_height (INSTANCE * my, int * params);
 extern int modtext_text_width (INSTANCE * my, int * params);
 extern int modtext_set_text_color (INSTANCE * my, int * params);
 extern int modtext_get_text_color (INSTANCE * my, int * params);
+/* mod_grproc */
+extern int grproc_advance( INSTANCE * my, int * params );
+extern int grproc_xadvance( INSTANCE * my, int * params );
+extern int grproc_get_angle( INSTANCE * my, int * params );
+extern int grproc_get_dist( INSTANCE * a, int * params );
+extern int grproc_get_real_point( INSTANCE * my, int * params );
+extern int grproc_collision( INSTANCE * my, int * params );
 #endif
 
 #include "sysprocs.h"
@@ -880,6 +888,9 @@ void sysproc_init()
                    handler_hook_count ) ;
         handler_hooks++;
     }
+    
+    /* mod_grproc */
+    grproc_init();
 #endif
 }
 

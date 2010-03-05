@@ -67,6 +67,7 @@
 #define FADING                  4*80
 #define TEXTZ                   4*81
 #define TEXT_FLAGS              4*82
+#define SCROLLS                 4*83
 #endif
 
 /* ----------------------------------------- */

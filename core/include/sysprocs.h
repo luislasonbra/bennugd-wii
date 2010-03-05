@@ -374,6 +374,13 @@ SYSPROC sysprocs[MAX_SYSPROCS] =
     { 0x199, "WRITE_VAR"      , "IIIIV++" , TYPE_INT  , 7, SYSMACRO(modtext_write_var)      },
     { 0x19A, "WRITE_FLOAT"    , "IIIIP"   , TYPE_INT  , 5, SYSMACRO(modtext_write_float)    },
     { 0x19B, "WRITE_STRING"   , "IIIIP"   , TYPE_INT  , 5, SYSMACRO(modtext_write_string)   },
+    /* mod_grproc */
+    { 0x200, "ADVANCE"        , "I"       , TYPE_INT  , 1, SYSMACRO(grproc_advance)         },
+    { 0x201, "XADVANCE"       , "II"      , TYPE_INT  , 2, SYSMACRO(grproc_xadvance)        },
+    { 0x202, "GET_ANGLE"      , "I"       , TYPE_INT  , 1, SYSMACRO(grproc_get_angle)       },
+    { 0x203, "GET_DIST"       , "I"       , TYPE_INT  , 1, SYSMACRO(grproc_get_dist)        },
+    { 0x204, "COLLISION"      , "I"       , TYPE_INT  , 1, SYSMACRO(grproc_collision)       },
+    { 0x205, "GET_REAL_POINT" , "IPP"     , TYPE_INT  , 3, SYSMACRO(grproc_get_real_point)  },
 
     { 0    , 0                , ""      , TYPE_UNDEFINED , 0, 0                        }
 } ;

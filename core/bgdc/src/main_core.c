@@ -284,6 +284,8 @@ static char * globals_def =
 /* libtext */
     "text_z = -256;\n"
     "text_flags;\n"
+/* mod_grproc */
+    "scroll;\n"
 #endif
 ;
 

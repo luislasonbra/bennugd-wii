@@ -286,6 +286,8 @@ static char * globals_def =
     "text_flags;\n"
 /* mod_grproc */
     "scroll;\n"
+/* mod_regex */
+    "STRING regex_reg[15];;\n"
 #endif
 ;
 

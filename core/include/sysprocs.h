@@ -381,6 +381,12 @@ SYSPROC sysprocs[MAX_SYSPROCS] =
     { 0x203, "GET_DIST"       , "I"       , TYPE_INT  , 1, SYSMACRO(grproc_get_dist)        },
     { 0x204, "COLLISION"      , "I"       , TYPE_INT  , 1, SYSMACRO(grproc_collision)       },
     { 0x205, "GET_REAL_POINT" , "IPP"     , TYPE_INT  , 3, SYSMACRO(grproc_get_real_point)  },
+    /* mod_regex */
+    { 0x20A, "REGEX"          , "SS"    , TYPE_INT    , 2, SYSMACRO(modregex_regex)         },
+    { 0x20B, "REGEX_REPLACE"  , "SSS"   , TYPE_STRING , 3, SYSMACRO(modregex_regex_replace) },
+    { 0x20C, "SPLIT"          , "SSPI"  , TYPE_INT    , 4, SYSMACRO(modregex_split)         },
+    { 0x20D, "JOIN"           , "SPI"   , TYPE_STRING , 3, SYSMACRO(modregex_join)          },
+
 
     { 0    , 0                , ""      , TYPE_UNDEFINED , 0, 0                        }
 } ;

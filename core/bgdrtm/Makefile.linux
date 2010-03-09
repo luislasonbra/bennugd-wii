@@ -20,7 +20,7 @@ BUILD     :=	build
 SOURCES		:=	src
 INCLUDES	:=	include ../include ../../modules/libgrbase/ ../../modules/libblit/ \
                 ../../modules/libvideo ../../modules/librender ../../modules/libfont/ \
-                ../../modules/libtext ../../modules/libscroll
+                ../../modules/libtext ../../modules/libscroll ../../modules/mod_regex
 
 #---------------------------------------------------------------------------------
 # options for code generation
@@ -109,7 +109,9 @@ CFILES		:=	dcbr.c sysprocs.c strings.c dirs.c copy.c misc.c instance.c \
               ../../../modules/mod_map/mod_map.c \
               ../../../modules/libtext/libtext.c \
               ../../../modules/mod_text/mod_text.c \
-              ../../../modules/mod_grproc/mod_grproc.c
+              ../../../modules/mod_grproc/mod_grproc.c \
+              ../../../modules/mod_regex/regex.c \
+              ../../../modules/mod_regex/mod_regex.c
 
 #---------------------------------------------------------------------------------
 # use CXX for linking C++ projects, CC for standard C

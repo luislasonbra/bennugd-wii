@@ -68,6 +68,7 @@
 #define TEXTZ                   4*81
 #define TEXT_FLAGS              4*82
 #define SCROLLS                 4*83
+#define REGEX_REG               4*84    /* 15 strings */
 #endif
 
 /* ----------------------------------------- */

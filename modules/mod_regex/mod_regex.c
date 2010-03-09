@@ -34,9 +34,10 @@
 
 #include "dlvaracc.h"
 #include "regex.h"
+#include "offsets.h"
 
 /* ----------------------------------------------------------------- */
-
+#ifndef __STATIC__
 #define REGEX_REG   0
 
 /* ----------------------------------------------------------------- */
@@ -54,7 +55,7 @@ DLVARFIXUP __bgdexport( mod_regex, globals_fixup) [] =   {
                                 { "regex_reg", NULL, -1, -1 },
                                 { NULL, NULL, -1, -1 }
                                 };
-
+#endif
 /* ----------------------------------------------------------------- */
 
 /** REGEX (STRING pattern, STRING string)
@@ -63,7 +64,7 @@ DLVARFIXUP __bgdexport( mod_regex, globals_fixup) [] =   {
  *  of the match or -1 if none found.
  */
 
-static int modregex_regex (INSTANCE * my, int * params)
+int modregex_regex (INSTANCE * my, int * params)
 {
     const char * reg = string_get(params[0]);
     const char * str = string_get(params[1]);
@@ -99,7 +100,7 @@ static int modregex_regex (INSTANCE * my, int * params)
         if (result != -1)
         {
             /* Fill the regex_reg global variables */
-            regex_reg = (int *) &GLODWORD( mod_regex, REGEX_REG);
+            regex_reg = (int *) &GLODWORD( REGEX_REG );
             for (n = 0 ; n < 16 && n <= pb.re_nsub ; n++)
             {
                 string_discard (regex_reg[n]);
@@ -126,7 +127,7 @@ static int modregex_regex (INSTANCE * my, int * params)
  *  filled with information about the first match.
  */
 
-static int modregex_regex_replace (INSTANCE * my, int * params)
+int modregex_regex_replace (INSTANCE * my, int * params)
 {
     const char * reg = string_get(params[0]);
     const char * rep = string_get(params[1]);
@@ -194,7 +195,7 @@ static int modregex_regex_replace (INSTANCE * my, int * params)
             if (regex_filled == 0)
             {
                 regex_filled = 1;
-                regex_reg = (int *)&GLODWORD( mod_regex, REGEX_REG);
+                regex_reg = (int *)&GLODWORD( REGEX_REG );
                 for (n = 0 ; n < 16 && n <= pb.re_nsub ; n++)
                 {
                     string_discard (regex_reg[n]);
@@ -302,7 +303,7 @@ static int modregex_regex_replace (INSTANCE * my, int * params)
  *
  */
 
-static int modregex_split (INSTANCE * my, int * params)
+int modregex_split (INSTANCE * my, int * params)
 {
     const char * reg = string_get(params[0]);
     const char * str = string_get(params[1]);
@@ -370,7 +371,7 @@ static int modregex_split (INSTANCE * my, int * params)
  *  resulting string.
  */
 
-static int modregex_join (INSTANCE * my, int * params)
+int modregex_join (INSTANCE * my, int * params)
 {
     const char * sep = string_get(params[0]);
     int * string_array = (int *)params[1];
@@ -409,7 +410,7 @@ static int modregex_join (INSTANCE * my, int * params)
 }
 
 /* ---------------------------------------------------------------------- */
-
+#ifndef __STATIC__
 DLSYSFUNCS __bgdexport( mod_regex, functions_exports) [] = {
     /* Regex */
     { "REGEX"                , "SS"    , TYPE_INT    , modregex_regex           },
@@ -418,3 +419,4 @@ DLSYSFUNCS __bgdexport( mod_regex, functions_exports) [] = {
     { "JOIN"                 , "SPI"   , TYPE_STRING , modregex_join            },
     { 0                      , 0       , 0           , 0                        }
 };
+#endif

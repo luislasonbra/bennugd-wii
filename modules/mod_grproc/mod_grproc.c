@@ -692,7 +692,7 @@ int grproc_collision( INSTANCE * my, int * params )
 
     LOCDWORD( my, ID_SCAN ) = 0 ;
     /* Check if already in scan by type and we reach limit */
-//    ctx = ( INSTANCE ** ) LOCADDR( my, CONTEXT );
+    ctx = ( INSTANCE ** ) LOCADDR( my, CONTEXT );
 /*
     if ( !*ctx && LOCDWORD( my, GRPROC_TYPE_SCAN ) )
     {

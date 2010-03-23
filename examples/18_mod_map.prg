@@ -44,6 +44,6 @@ Begin
     while(!mouse.left)
         FRAME;
     End;
-    let_me_alone();
+    signal(son, S_KILL);
     map_unload(0, map);
 End;

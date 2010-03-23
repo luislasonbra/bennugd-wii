@@ -111,7 +111,8 @@ CFILES		:=	dcbr.c sysprocs.c strings.c dirs.c copy.c misc.c instance.c \
               ../../../modules/mod_text/mod_text.c \
               ../../../modules/mod_grproc/mod_grproc.c \
               ../../../modules/mod_regex/regex.c \
-              ../../../modules/mod_regex/mod_regex.c
+              ../../../modules/mod_regex/mod_regex.c \
+              ../../../modules/libdraw/libdraw.c
 
 #---------------------------------------------------------------------------------
 # use CXX for linking C++ projects, CC for standard C

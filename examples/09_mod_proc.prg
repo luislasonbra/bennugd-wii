@@ -79,7 +79,7 @@ Begin
     while(!joy_getbutton(0, 1))
         FRAME;
     End;
-    signal(procid, S_KILL); // Kill it
+    let_me_alone(); // Kill it
     if(exists(TYPE dummie))  // Shouldn't happen
         say("Process NOT killed, this is bad");
     else

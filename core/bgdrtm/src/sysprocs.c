@@ -325,6 +325,25 @@ extern int modregex_regex (INSTANCE * my, int * params);
 extern int modregex_regex_replace (INSTANCE * my, int * params);
 extern int modregex_split (INSTANCE * my, int * params);
 extern int modregex_join (INSTANCE * my, int * params);
+
+/* mod_draw */
+extern int moddraw_drawing_map( INSTANCE * my, int * params );
+extern int moddraw_drawing_at( INSTANCE * my, int * params );
+extern int moddraw_drawing_stipple( INSTANCE * my, int * params );
+extern int moddraw_delete_drawing( INSTANCE * my, int * params );
+extern int moddraw_move_drawing( INSTANCE * my, int * params );
+extern int moddraw_drawing_color( INSTANCE * my, int * params );
+extern int moddraw_drawing_alpha( INSTANCE * my, int * params );
+extern int moddraw_box( INSTANCE * my, int * params );
+extern int moddraw_rect( INSTANCE * my, int * params );
+extern int moddraw_line( INSTANCE * my, int * params );
+extern int moddraw_circle( INSTANCE * my, int * params );
+extern int moddraw_fcircle( INSTANCE * my, int * params );
+extern int moddraw_bezier( INSTANCE * my, int * params );
+extern int moddraw_get_pixel( INSTANCE * my, int * params );
+extern int moddraw_put_pixel( INSTANCE * my, int * params );
+extern int moddraw_map_get_pixel( INSTANCE * my, int * params );
+extern int moddraw_map_put_pixel( INSTANCE * my, int * params );
 #endif
 
 #include "sysprocs.h"

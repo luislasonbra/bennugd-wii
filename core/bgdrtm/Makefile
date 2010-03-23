@@ -18,9 +18,10 @@ include $(DEVKITPPC)/wii_rules
 TARGET		:=	bgdrtm
 BUILD     :=	build
 SOURCES		:=	src
-INCLUDES	:=	include ../include ../../modules/libgrbase/ ../../modules/libblit/ \
-                ../../modules/libvideo ../../modules/librender ../../modules/libfont/ \
-                ../../modules/libtext ../../modules/libscroll ../../modules/mod_regex
+INCLUDES	:=	include ../include ../../modules/libgrbase ../../modules/libblit \
+                ../../modules/libvideo ../../modules/librender ../../modules/libfont \
+                ../../modules/libtext ../../modules/libscroll ../../modules/mod_regex \
+                ../../modules/libdraw
 
 #---------------------------------------------------------------------------------
 # options for code generation
@@ -112,7 +113,8 @@ CFILES		:=	dcbr.c sysprocs.c strings.c dirs.c copy.c misc.c instance.c \
               ../../../modules/mod_grproc/mod_grproc.c \
               ../../../modules/mod_regex/regex.c \
               ../../../modules/mod_regex/mod_regex.c \
-              ../../../modules/libdraw/libdraw.c
+              ../../../modules/libdraw/libdraw.c \
+              ../../../modules/mod_draw/mod_draw.c
 
 #---------------------------------------------------------------------------------
 # use CXX for linking C++ projects, CC for standard C

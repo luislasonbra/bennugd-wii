@@ -386,7 +386,24 @@ SYSPROC sysprocs[MAX_SYSPROCS] =
     { 0x20B, "REGEX_REPLACE"  , "SSS"   , TYPE_STRING , 3, SYSMACRO(modregex_regex_replace) },
     { 0x20C, "SPLIT"          , "SSPI"  , TYPE_INT    , 4, SYSMACRO(modregex_split)         },
     { 0x20D, "JOIN"           , "SPI"   , TYPE_STRING , 3, SYSMACRO(modregex_join)          },
-
+    /* mod_draw */
+    { 0x210, "DRAWING_MAP"     , "II"       , TYPE_INT , 2 , SYSMACRO(moddraw_drawing_map)    },
+    { 0x211, "DRAWING_COLOR"   , "I"        , TYPE_INT , 1 , SYSMACRO(moddraw_drawing_color)  },
+    { 0x212, "DRAW_LINE"       , "IIII"     , TYPE_INT , 4 , SYSMACRO(moddraw_line)           },
+    { 0x213, "DRAW_RECT"       , "IIII"     , TYPE_INT , 4 , SYSMACRO(moddraw_rect)           },
+    { 0x214, "DRAW_BOX"        , "IIII"     , TYPE_INT , 4 , SYSMACRO(moddraw_box)            },
+    { 0x215, "DRAW_CIRCLE"     , "III"      , TYPE_INT , 3 , SYSMACRO(moddraw_circle)         },
+    { 0x216, "DRAW_FCIRCLE"    , "III"      , TYPE_INT , 3 , SYSMACRO(moddraw_fcircle)        },
+    { 0x217, "DRAW_CURVE"      , "IIIIIIIII", TYPE_INT , 9 , SYSMACRO(moddraw_bezier)         },
+    { 0x218, "DRAWING_Z"       , "I"        , TYPE_INT , 1 , SYSMACRO(moddraw_drawing_at)     },
+    { 0x219, "DELETE_DRAW"     , "I"        , TYPE_INT , 1 , SYSMACRO(moddraw_delete_drawing) },
+    { 0x21A, "MOVE_DRAW"       , "III"      , TYPE_INT , 3 , SYSMACRO(moddraw_move_drawing)   },
+    { 0x21B, "DRAWING_ALPHA"   , "I"        , TYPE_INT , 1 , SYSMACRO(moddraw_drawing_alpha)  },
+    { 0x21C, "DRAWING_STIPPLE" , "I"        , TYPE_INT , 1 , SYSMACRO(moddraw_drawing_stipple)},
+    { 0x21D, "PUT_PIXEL"       , "III"      , TYPE_INT , 3 , SYSMACRO(moddraw_put_pixel)      },
+    { 0x21E, "GET_PIXEL"       , "II"       , TYPE_INT , 2 , SYSMACRO(moddraw_get_pixel)      },
+    { 0x21F, "MAP_GET_PIXEL"   , "IIII"     , TYPE_INT , 4 , SYSMACRO(moddraw_map_get_pixel)  },
+    { 0x22A, "MAP_PUT_PIXEL"   , "IIIII"    , TYPE_INT , 5 , SYSMACRO(moddraw_map_put_pixel)  },
 
     { 0    , 0                , ""      , TYPE_UNDEFINED , 0, 0                        }
 } ;

@@ -344,6 +344,14 @@ extern int moddraw_get_pixel( INSTANCE * my, int * params );
 extern int moddraw_put_pixel( INSTANCE * my, int * params );
 extern int moddraw_map_get_pixel( INSTANCE * my, int * params );
 extern int moddraw_map_put_pixel( INSTANCE * my, int * params );
+/* mod_screen */
+extern int modscreen_define_region( INSTANCE * my, int * params );
+extern int modscreen_out_region( INSTANCE * my, int * params );
+extern int modscreen_put( INSTANCE * my, int * params );
+extern int modscreen_xput( INSTANCE * my, int * params );
+extern int modscreen_put_screen( INSTANCE * my, int * params );
+extern int modscreen_clear_screen( INSTANCE * my, int * params );
+extern int modscreen_get_screen( INSTANCE * my, int * params );
 #endif
 
 #include "sysprocs.h"

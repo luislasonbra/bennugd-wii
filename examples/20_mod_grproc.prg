@@ -1,3 +1,4 @@
+import "mod_proc"
 import "mod_grproc"
 import "mod_map"
 import "mod_mouse"
@@ -17,7 +18,7 @@ Private
 Begin
     myw=graphic_info(0, graph, G_WIDTH)/2;
     myh=graphic_info(0, graph, G_HEIGHT)/2;
-    while(! mouse.left)
+    LOOP
         if(x > scr_width-(myw+abs(vx)) || x < (myw+abs(vx)))
             vx = -vx;
         end;
@@ -47,4 +48,8 @@ Begin
     robot(rand(scr_width/6, 5*scr_width/6), rand(scr_height/6, 5*scr_height/6),
           png_load("logo.png"));
     set_text_color(rgb(255, 0, 0));
+    while(! mouse.left)
+        FRAME;
+    end;
+    let_me_alone();
 End;

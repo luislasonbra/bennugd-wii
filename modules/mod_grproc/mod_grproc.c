@@ -458,9 +458,10 @@ static int check_collision_with_mouse( INSTANCE * proc1 )
         SCROLL_EXTRA_DATA * data;
         scrolldata  * scroll;
         int i;
-#if 0
+#ifndef __STATIC__
         if ( GLOEXISTS( SCROLLS ) )
         {
+#endif
             int cnumber = LOCDWORD( proc1, CNUMBER );
             if ( !cnumber ) cnumber = 0xffffffff ;
 
@@ -491,6 +492,7 @@ static int check_collision_with_mouse( INSTANCE * proc1 )
                     }
                 }
             }
+#ifndef __STATIC__
         }
 #endif
 

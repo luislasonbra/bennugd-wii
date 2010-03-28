@@ -37,8 +37,10 @@
 
 #include "libscroll.h"
 
-/* --------------------------------------------------------------------------- */
+#include "offsets.h"
 
+/* --------------------------------------------------------------------------- */
+#ifndef __STATIC__
 #define CTYPE           0
 #define CNUMBER         1
 
@@ -62,10 +64,10 @@ DLVARFIXUP __bgdexport( mod_screen, globals_fixup )[] =
 
     { NULL          , NULL, -1, -1 }
 };
-
+#endif
 /* --------------------------------------------------------------------------- */
 
-static int modscreen_define_region( INSTANCE * my, int * params )
+int modscreen_define_region( INSTANCE * my, int * params )
 {
     REGION * orig = region_get( params[0] );
 
@@ -77,7 +79,7 @@ static int modscreen_define_region( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modscreen_out_region( INSTANCE * my, int * params )
+int modscreen_out_region( INSTANCE * my, int * params )
 {
     INSTANCE * proc = instance_get( params[0] ) ;
     int region = params[1] ;
@@ -91,20 +93,21 @@ static int modscreen_out_region( INSTANCE * my, int * params )
 
     instance_get_bbox( proc, gr, &bbox );
 
-    if ( LOCDWORD( mod_screen, proc, CTYPE ) == C_SCROLL )
+    if ( LOCDWORD( proc, CTYPE ) == C_SCROLL )
     {
         SCROLL_EXTRA_DATA * data;
         scrolldata  * scroll;
         int i;
-
-        if ( GLOEXISTS( mod_screen, SCROLLS ) )
+#ifndef __STATIC__
+        if ( GLOEXISTS( SCROLLS ) )
         {
-            int cnumber = LOCDWORD( mod_screen, proc, CNUMBER );
+#endif
+            int cnumber = LOCDWORD( proc, CNUMBER );
             if ( !cnumber ) cnumber = 0xFFFFFFFF ;
 
             for ( i = 0 ; i < 10 ; i++ )
             {
-                data = &(( SCROLL_EXTRA_DATA * ) & GLODWORD( mod_screen, SCROLLS ) )[i] ;
+                data = &(( SCROLL_EXTRA_DATA * ) & GLODWORD( SCROLLS ) )[i] ;
                 scroll = ( scrolldata  * ) data->reserved[0];
 
                 if ( scroll && scroll->active && ( cnumber & ( 1 << i ) ) )
@@ -116,7 +119,9 @@ static int modscreen_out_region( INSTANCE * my, int * params )
                     break;
                 }
             }
+#ifndef __STATIC__
         }
+#endif
     }
 
     return region_is_out( &regions[region], &bbox ) ;
@@ -125,7 +130,7 @@ static int modscreen_out_region( INSTANCE * my, int * params )
 /* --------------------------------------------------------------------------- */
 /* Funciones gráficas */
 
-static int modscreen_put( INSTANCE * my, int * params )
+int modscreen_put( INSTANCE * my, int * params )
 {
     GRAPH * map = bitmap_get( params[0], params[1] ) ;
 
@@ -138,7 +143,7 @@ static int modscreen_put( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modscreen_xput( INSTANCE * my, int * params )
+int modscreen_xput( INSTANCE * my, int * params )
 {
     int r ;
     GRAPH * map = bitmap_get( params[0], params[1] ) ;
@@ -157,7 +162,7 @@ static int modscreen_xput( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modscreen_put_screen( INSTANCE * my, int * params )
+int modscreen_put_screen( INSTANCE * my, int * params )
 {
     int     x, y ;
     GRAPH * map = bitmap_get( params[0], params[1] ) ;
@@ -181,7 +186,7 @@ static int modscreen_put_screen( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modscreen_clear_screen( INSTANCE * my, int * params )
+int modscreen_clear_screen( INSTANCE * my, int * params )
 {
     gr_clear( background ) ;
     return 1 ;
@@ -189,7 +194,7 @@ static int modscreen_clear_screen( INSTANCE * my, int * params )
 
 /* --------------------------------------------------------------------------- */
 
-static int modscreen_get_screen( INSTANCE * my, int * params )
+int modscreen_get_screen( INSTANCE * my, int * params )
 {
     GRAPH * map = bitmap_clone( bitmap_get( 0, -1 ) );
 
@@ -204,7 +209,7 @@ static int modscreen_get_screen( INSTANCE * my, int * params )
 }
 
 /* --------------------------------------------------------------------------- */
-
+#ifndef __STATIC__
 DLSYSFUNCS  __bgdexport( mod_screen, functions_exports )[] =
 {
     /* Regiones */
@@ -246,5 +251,5 @@ char * __bgdexport( mod_screen, modules_dependency )[] =
     "librender",
     NULL
 };
-
+#endif
 /* --------------------------------------------------------------------------- */

@@ -344,6 +344,7 @@ extern int moddraw_get_pixel( INSTANCE * my, int * params );
 extern int moddraw_put_pixel( INSTANCE * my, int * params );
 extern int moddraw_map_get_pixel( INSTANCE * my, int * params );
 extern int moddraw_map_put_pixel( INSTANCE * my, int * params );
+
 /* mod_screen */
 extern int modscreen_define_region( INSTANCE * my, int * params );
 extern int modscreen_out_region( INSTANCE * my, int * params );
@@ -700,6 +701,7 @@ void sysproc_init()
     HOOK          * handler_hooks = NULL ;
     INSTANCE_HOOK   instance_create_hook ;
     INSTANCE_HOOK   instance_destroy_hook ;
+    INSTANCE_HOOK   process_exec_hook ;
 
 #ifndef __STATIC__
     DLSYSFUNCS    * functions_exports = NULL ;
@@ -707,7 +709,6 @@ void sysproc_init()
     FN_HOOK         module_finalize ;
     INSTANCE_HOOK   instance_pre_execute_hook ;
     INSTANCE_HOOK   instance_pos_execute_hook ;
-    INSTANCE_HOOK   process_exec_hook ;
 
     char soname[__MAX_PATH] ;
 
@@ -925,6 +926,8 @@ void sysproc_init()
     
     /* mod_grproc */
     grproc_init();
+    process_exec_hook = grproc_instance_hook;
+    hook_add( process_exec_hook, process_exec_hook_list, process_exec_hook_allocated, process_exec_hook_count ) ;
 #endif
 }
 

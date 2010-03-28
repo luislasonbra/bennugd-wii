@@ -21,4 +21,16 @@
  *
  */
 
+#ifndef __MOD_GRPROC_H
+#define __MOD_GRPROC_H
+
+#include "offsets.h";
+
 extern void grpoc_init();
+INSTANCE_HOOK grproc_instance_hook(INSTANCE *r)
+{
+    LOCDWORD( r, ID_SCAN ) = 0;
+    LOCDWORD( r, TYPE_SCAN ) = 0;
+    LOCDWORD( r, CONTEXT ) = 0;
+};
+#endif

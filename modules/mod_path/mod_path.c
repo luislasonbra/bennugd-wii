@@ -59,7 +59,7 @@ static GRAPH * map ;
 static int block_if = 1 ;
 
 /* --------------------------------------------------------------------------- */
-
+#ifndef __STATIC__
 DLCONSTANT __bgdexport( mod_path, constants_def )[] =
 {
     { "PF_NODIAG"   , TYPE_INT, 1 }, /* Prohibit the pathfinding from using diagonal paths. */
@@ -67,7 +67,7 @@ DLCONSTANT __bgdexport( mod_path, constants_def )[] =
 
     { NULL          , 0       , 0 }
 } ;
-
+#endif
 /* --------------------------------------------------------------------------- */
 
 static double heuristic( int x, int y )
@@ -332,30 +332,30 @@ static int path_set_wall( int n )
 }
 
 /* --------------------------------------------------------------------------- */
-/* Funciones de búsqueda de caminos */
+/* PAthfinding functions */
 
-static int modpathfind_path_find( INSTANCE * my, int * params )
+int modpathfind_path_find( INSTANCE * my, int * params )
 {
     GRAPH * dest = bitmap_get( params[0], params[1] ) ;
     if ( !dest ) return 0;
     return path_find( dest, params[2], params[3], params[4], params[5], params[6] ) ;
 }
 
-static int modpathfind_path_getxy( INSTANCE * my, int * params )
+int modpathfind_path_getxy( INSTANCE * my, int * params )
 {
     return path_get(( int * )params[0], ( int * )params[1] ) ;
 }
 
-static int modpathfind_path_wall( INSTANCE * my, int * params )
+int modpathfind_path_wall( INSTANCE * my, int * params )
 {
     return path_set_wall( params[0] ) ;
 }
 
 /* --------------------------------------------------------------------------- */
-
+#ifndef __STATIC__
 DLSYSFUNCS __bgdexport( mod_path, functions_exports )[] =
 {
-    /* Búsqueda de caminos*/
+    /* Path finding */
     { "PATH_FIND"   , "IIIIIII", TYPE_INT   , modpathfind_path_find     },
     { "PATH_GETXY"  , "PP"     , TYPE_INT   , modpathfind_path_getxy    },
     { "PATH_WALL"   , "I"      , TYPE_INT   , modpathfind_path_wall     },
@@ -370,5 +370,5 @@ char * __bgdexport( mod_path, modules_dependency )[] =
     "libgrbase",
     NULL
 };
-
+#endif
 /* --------------------------------------------------------------------------- */

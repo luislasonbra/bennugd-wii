@@ -164,43 +164,33 @@ constants_def[] =
     { "M800X600",           TYPE_DWORD, 8000600             },
     { "M1024X768",          TYPE_DWORD, 10240768            },
     { "M1280X1024",         TYPE_DWORD, 12801024            },
-
     { "MODE_WINDOW",        TYPE_DWORD, MODE_WINDOW         },
     { "MODE_2XSCALE",       TYPE_DWORD, MODE_2XSCALE        },
     { "MODE_FULLSCREEN",    TYPE_DWORD, MODE_FULLSCREEN     },
     { "MODE_DOUBLEBUFFER",  TYPE_DWORD, MODE_DOUBLEBUFFER   },
     { "MODE_HARDWARE",      TYPE_DWORD, MODE_HARDWARE       },
-
     { "MODE_WAITVSYNC",     TYPE_DWORD, MODE_WAITVSYNC      },
     { "WAITVSYNC",          TYPE_DWORD, MODE_WAITVSYNC      },
-
     { "DOUBLE_BUFFER",      TYPE_DWORD, MODE_DOUBLEBUFFER   },  /* Obsolete */
     { "HW_SURFACE",         TYPE_DWORD, MODE_HARDWARE       },  /* Obsolete */
-
     { "MODE_8BITS",         TYPE_DWORD, 8                   },
     { "MODE_16BITS",        TYPE_DWORD, 16                  },
     { "MODE_32BITS",        TYPE_DWORD, 32                  },
-
     { "MODE_8BPP",          TYPE_DWORD, 8                   },
     { "MODE_16BPP",         TYPE_DWORD, 16                  },
     { "MODE_32BPP",         TYPE_DWORD, 32                  },
-
     { "MODE_MODAL",         TYPE_DWORD, MODE_MODAL          },  /* GRAB INPUT */
     { "MODE_FRAMELESS",     TYPE_DWORD, MODE_FRAMELESS      },  /* FRAMELESS window */
-
     { "SCALE_NONE",         TYPE_DWORD, SCALE_NONE          },
     /* librender */
     { "C_SCREEN",           TYPE_DWORD, C_SCREEN            },
-
     { "PARTIAL_DUMP",       TYPE_DWORD, 0                   },
     { "COMPLETE_DUMP",      TYPE_DWORD, 1                   },
     { "NO_RESTORE",         TYPE_DWORD, -1                  },
     { "PARTIAL_RESTORE",    TYPE_DWORD, 0                   },
     { "COMPLETE_RESTORE",   TYPE_DWORD, 1                   },
-
     { "BACKGROUND",         TYPE_DWORD, 0                   },
     { "SCREEN",             TYPE_DWORD, -1                  },
-
     { "SCALE_SCALE2X",      TYPE_DWORD, SCALE_SCALE2X       },
     { "SCALE_HQ2X",         TYPE_DWORD, SCALE_HQ2X          },
     { "SCALE_SCANLINE2X",   TYPE_DWORD, SCALE_SCANLINE2X    },
@@ -228,6 +218,9 @@ constants_def[] =
     { "ALIGN_BOTTOM_LEFT"   , TYPE_INT  , ALIGN_BOTTOM_LEFT     },
     { "ALIGN_BOTTOM"        , TYPE_INT  , ALIGN_BOTTOM          },
     { "ALIGN_BOTTOM_RIGHT"  , TYPE_INT  , ALIGN_BOTTOM_RIGHT    },
+    /* mod_path */
+    { "PF_NODIAG"   , TYPE_INT, 1 }, /* Prohibit the pathfinding from using diagonal paths. */
+    { "PF_REVERSE"  , TYPE_INT, 2 }, /* Return the path found in reverse order.             */
 #endif
     { NULL              , 0         , 0                   }
 } ;

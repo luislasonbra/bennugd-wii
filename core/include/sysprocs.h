@@ -417,6 +417,10 @@ SYSPROC sysprocs[MAX_SYSPROCS] =
     { 0x233, "PUT_SCREEN"    , "II"      , TYPE_INT , 2 , SYSMACRO(modscreen_put_screen)     },
     { 0x234, "CLEAR_SCREEN"  , ""        , TYPE_INT , 0 , SYSMACRO(modscreen_clear_screen)   },
     { 0x235, "GET_SCREEN"    , ""        , TYPE_INT , 0 , SYSMACRO(modscreen_get_screen)     },
+    /* mod_path */
+    { 0x23A, "PATH_FIND"   , "IIIIIII", TYPE_INT   , 7, SYSMACRO(modpathfind_path_find)     },
+    { 0x23B, "PATH_GETXY"  , "PP"     , TYPE_INT   , 2, SYSMACRO(modpathfind_path_getxy)    },
+    { 0x23C, "PATH_WALL"   , "I"      , TYPE_INT   , 1, SYSMACRO(modpathfind_path_wall)     },
 
     { 0    , 0                , ""      , TYPE_UNDEFINED , 0, 0                        }
 } ;

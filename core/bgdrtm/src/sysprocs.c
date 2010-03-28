@@ -353,6 +353,11 @@ extern int modscreen_xput( INSTANCE * my, int * params );
 extern int modscreen_put_screen( INSTANCE * my, int * params );
 extern int modscreen_clear_screen( INSTANCE * my, int * params );
 extern int modscreen_get_screen( INSTANCE * my, int * params );
+
+/* mod_path */
+extern int modpathfind_path_find( INSTANCE * my, int * params );
+extern int modpathfind_path_getxy( INSTANCE * my, int * params );
+extern int modpathfind_path_wall( INSTANCE * my, int * params );
 #endif
 
 #include "sysprocs.h"

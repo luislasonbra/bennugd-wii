@@ -32,24 +32,32 @@ Begin
         else
             delete_text(ALL_TEXT);
         end;
+
         FRAME;
     End;
 End;
 
 Process main()
+Private
+    int pid1=0, pid2=0;
+
 Begin
     // Check that we can set the video mode before actually setting it
     if(!mode_is_ok(scr_width, scr_height, 16, MODE_WINDOW))
         return -1;
     end;
     set_mode(scr_width, scr_height, 16, MODE_WINDOW);
-    robot(rand(scr_width/6, 5*scr_width/6), rand(scr_height/6, 5*scr_height/6),
+    pid1 = robot(rand(scr_width/6, 5*scr_width/6), rand(scr_height/6, 5*scr_height/6),
           png_load("mouse.png"));
-    robot(rand(scr_width/6, 5*scr_width/6), rand(scr_height/6, 5*scr_height/6),
+    pid2 = robot(rand(scr_width/6, 5*scr_width/6), rand(scr_height/6, 5*scr_height/6),
           png_load("logo.png"));
     set_text_color(rgb(255, 0, 0));
     while(! mouse.left)
         FRAME;
     end;
-    let_me_alone();
+    // Clear the processes' graphic
+    pid1.graph = 0; pid2.graph = 0;
+    // Kill the processes
+    signal (pid1, S_KILL);
+    signal (pid2, S_KILL);
 End;

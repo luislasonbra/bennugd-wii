@@ -33,7 +33,7 @@
 #elif defined(TARGET_LINUX)
 #include <SDL.h>
 #endif
-#include "../../../modules/mod_proc/mod_proc_constants.h"
+#include "../../../modules/mod_proc/mod_proc.h"
 #include "../../../modules/libblit/libblit_constants.h"
 #include "../../../modules/libvideo/libvideo_constants.h"
 #include "../../../modules/librender/librender_constants.h"
@@ -294,10 +294,10 @@ static char * locals_def =
     "   saved_priority;\n"
 #ifdef __STATIC__
 /* mod_proc */
-    "   type_scan;\n"
-    "   id_scan;\n"
-    "   context;\n"
-    "   signal_action;\n"
+    "   int type_scan;\n"
+    "   int id_scan;\n"
+    "   int context;\n"
+    "   dword signal_action;\n"
     "   object_id=0;\n"
     "   graph_ptr=0;\n"
     "   xgraph_flags;\n"

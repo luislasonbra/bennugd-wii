@@ -27,10 +27,8 @@
 #include "offsets.h";
 
 extern void grpoc_init();
-INSTANCE_HOOK grproc_instance_hook(INSTANCE *r)
-{
-    LOCDWORD( r, ID_SCAN ) = 0;
-    LOCDWORD( r, TYPE_SCAN ) = 0;
-    LOCDWORD( r, CONTEXT ) = 0;
-};
+
+extern INSTANCE_HOOK grproc_instance_hook(INSTANCE *r);
+extern DLVARFIXUP mod_grproc_locals_fixup[];
+extern DLVARFIXUP mod_grproc_globals_fixup[];
 #endif

@@ -14,7 +14,7 @@ Private
 Begin
     /* Flag this process as unkillable, by normal means */
     signal_action(id, S_KILL, S_IGN);
-    while(1)
+    LOOP
         now = time();
         formatted=ftime("%d-%m-%Y %H:%M:%S, std zombie time", now);
         if(formatted != old)
@@ -33,7 +33,7 @@ Private
 
 Begin
     say("My father is "+father);
-    while(1)
+    LOOP
         now = time();
         formatted=ftime("%d-%m-%Y %H:%M:%S", now);
         if(formatted != old)

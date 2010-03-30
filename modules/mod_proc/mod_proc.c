@@ -34,8 +34,10 @@
 
 #include "mod_proc.h"
 
-/* ----------------------------------------------------------------- */
+#include "offsets.h"
 
+/* ----------------------------------------------------------------- */
+#ifndef __STATIC__
 enum
 {
     PROCESS_ID = 0,
@@ -48,8 +50,6 @@ enum
     SIGNAL_ACTION
 } ;
 
-/* ----------------------------------------------------------------- */
-#ifndef __STATIC__
 /* ----------------------------------------------------------------- */
 /* Definicion de constantes (usada en tiempo de compilacion)         */
 
@@ -266,8 +266,9 @@ int modproc_signal( INSTANCE * my, int * params )
             {
                 case S_KILL:
                 case S_KILL_FORCE:
-                    if ( params[1] == S_KILL_FORCE || !( LOCDWORD( i, SIGNAL_ACTION ) & SMASK_KILL ) )
+                    if ( params[1] == S_KILL_FORCE || !( LOCDWORD( i, SIGNAL_ACTION ) & SMASK_KILL ) ) {
                         LOCDWORD( i, STATUS ) = STATUS_KILLED ;
+                    }
                     break ;
 
                 case S_WAKEUP:
@@ -563,7 +564,7 @@ int modproc_get_status( INSTANCE * my, int * params )
 }
 
 /* ---------------------------------------------------------------------- */
-
+#ifndef __STATIC__
 DLSYSFUNCS __bgdexport( mod_proc, functions_exports )[] =
 {
     /* Interacción entre procesos */
@@ -579,5 +580,5 @@ DLSYSFUNCS __bgdexport( mod_proc, functions_exports )[] =
     { "EXISTS"          , "I"   , TYPE_INT , modproc_running         },
     { 0                 , 0     , 0        , 0                       }
 };
-
+#endif
 /* ----------------------------------------------------------------- */

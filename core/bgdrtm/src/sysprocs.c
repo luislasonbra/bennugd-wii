@@ -932,7 +932,20 @@ void sysproc_init()
     /* mod_grproc */
     grproc_init();
     process_exec_hook = grproc_instance_hook;
-    hook_add( process_exec_hook, process_exec_hook_list, process_exec_hook_allocated, process_exec_hook_count ) ;
+    hook_add( process_exec_hook, process_exec_hook_list,
+        process_exec_hook_allocated, process_exec_hook_count ) ;
+    locals_fixup = mod_grproc_locals_fixup;
+    while ( locals_fixup->var ) {
+        get_var_info( locals_fixup, dcb.locvar, dcb.data.NLocVars, NULL );
+        locals_fixup++;
+    }
+    globals_fixup = mod_grproc_globals_fixup;
+    while ( globals_fixup->var )
+    {
+        get_var_info( globals_fixup, dcb.glovar, dcb.data.NGloVars, globaldata );
+        globals_fixup++;
+    }
+
 #endif
 }
 

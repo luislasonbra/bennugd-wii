@@ -11,10 +11,11 @@ GLOBAL
 scr_width = 640, scr_height=480;
 End;
 
-Process robot(x, y, graph)
+Process robot(int x, int y, int graph)
 Private
     int vx=5, vy=5;
     int myw=0, myh=0;
+
 Begin
     myw=graphic_info(0, graph, G_WIDTH)/2;
     myh=graphic_info(0, graph, G_HEIGHT)/2;
@@ -52,12 +53,15 @@ Begin
     pid2 = robot(rand(scr_width/6, 5*scr_width/6), rand(scr_height/6, 5*scr_height/6),
           png_load("logo.png"));
     set_text_color(rgb(255, 0, 0));
-    while(! mouse.left)
+
+    LOOP
+        if(mouse.left)
+            // Kill the processes
+            signal(pid1, S_KILL);
+            signal(pid2, S_KILL);
+            break;
+        end;
         FRAME;
     end;
-    // Clear the processes' graphic
-    pid1.graph = 0; pid2.graph = 0;
-    // Kill the processes
-    signal (pid1, S_KILL);
-    signal (pid2, S_KILL);
+
 End;

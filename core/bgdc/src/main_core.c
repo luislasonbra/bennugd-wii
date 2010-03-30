@@ -53,6 +53,7 @@ static struct
     int    type ;
     int    code ;
 }
+
 constants_def[] =
 {
     { "STATUS_DEAD"     , TYPE_DWORD, STATUS_DEAD         },

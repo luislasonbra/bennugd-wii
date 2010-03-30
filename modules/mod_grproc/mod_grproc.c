@@ -76,19 +76,15 @@ char * __bgdexport( mod_grproc, locals_def ) =
     "int id_scan;\n"
     "int context;\n"
     "END\n";
-
+#endif
 /* ----------------------------------------------------------------- */
-
+#ifdef __STATIC__
+DLVARFIXUP mod_grproc_locals_fixup[] =
+#else
 DLVARFIXUP __bgdexport( mod_grproc, locals_fixup )[]  =
+#endif
 {
     /* Nombre de variable local, offset al dato, tamaño del elemento, cantidad de elementos */
-    { "_mod_grproc_reserved.type_scan"  , NULL, -1, -1 },
-    { "_mod_grproc_reserved.id_scan"    , NULL, -1, -1 },
-    { "_mod_grproc_reserved.context"    , NULL, -1, -1 },
-
-    { "id"                              , NULL, -1, -1 },
-    { "reserved.process_type"           , NULL, -1, -1 },
-    { "reserved.status"                 , NULL, -1, -1 },
 
     { "ctype"                           , NULL, -1, -1 },
     { "cnumber"                         , NULL, -1, -1 },
@@ -110,8 +106,11 @@ DLVARFIXUP __bgdexport( mod_grproc, locals_fixup )[]  =
 };
 
 /* --------------------------------------------------------------------------- */
-
+#ifdef __STATIC__
+DLVARFIXUP mod_grproc_globals_fixup[] =
+#else
 DLVARFIXUP __bgdexport( mod_grproc, globals_fixup )[] =
+#endif
 {
     /* Nombre de variable global, puntero al dato, tamaño del elemento, cantidad de elementos */
 
@@ -121,7 +120,7 @@ DLVARFIXUP __bgdexport( mod_grproc, globals_fixup )[] =
 
     { NULL                              , NULL, -1, -1 }
 };
-#endif
+
 /* --------------------------------------------------------------------------- */
 /* Funciones del sistema                                                       */
 /* --------------------------------------------------------------------------- */
@@ -737,7 +736,16 @@ void __bgdexport( mod_grproc, module_initialize )()
 }
 
 /* ----------------------------------------------------------------- */
-#ifndef __STATIC__
+#ifdef __STATIC__
+INSTANCE_HOOK grproc_instance_hook(INSTANCE *r)
+{
+    LOCDWORD( r, ID_SCAN ) = 0;
+    LOCDWORD( r, TYPE_SCAN ) = 0;
+    LOCDWORD( r, CONTEXT ) = 0;
+
+    return NULL;
+};
+#else
 void __bgdexport( mod_grproc, process_exec_hook )( INSTANCE * r )
 {
     LOCDWORD( r, GRPROC_ID_SCAN ) = 0;

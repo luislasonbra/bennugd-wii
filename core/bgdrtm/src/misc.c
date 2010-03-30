@@ -38,6 +38,7 @@
 #ifdef __STATIC__
 #include <SDL/SDL.h>
 #include "../../../modules/libjoy/libjoy.h"
+#include "../../../modules/libvideo/libvideo.h"
 #endif
 
 /* --------------------------------------------------------------------------- */
@@ -164,7 +165,7 @@ void bgdrtm_exit( int exit_value )
 	/* libjoy */
     libjoy_finalize();
     /* libvideo */
-    if ( SDL_WasInit( SDL_INIT_VIDEO ) ) SDL_QuitSubSystem( SDL_INIT_VIDEO );
+    libvideo_finalize();
 #endif
 
     exit( exit_value ) ;

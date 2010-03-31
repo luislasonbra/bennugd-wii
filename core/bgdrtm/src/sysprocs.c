@@ -358,6 +358,11 @@ extern int modscreen_get_screen( INSTANCE * my, int * params );
 extern int modpathfind_path_find( INSTANCE * my, int * params );
 extern int modpathfind_path_getxy( INSTANCE * my, int * params );
 extern int modpathfind_path_wall( INSTANCE * my, int * params );
+
+/* mod_scroll */
+extern int mod_scroll_start( INSTANCE * my, int * params );
+extern int mod_scroll_stop( INSTANCE * my, int * params );
+extern int mod_scroll_move( INSTANCE * my, int * params );
 #endif
 
 #include "sysprocs.h"

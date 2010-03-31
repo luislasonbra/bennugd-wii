@@ -421,6 +421,14 @@ SYSPROC sysprocs[MAX_SYSPROCS] =
     { 0x23A, "PATH_FIND"   , "IIIIIII", TYPE_INT   , 7, SYSMACRO(modpathfind_path_find)     },
     { 0x23B, "PATH_GETXY"  , "PP"     , TYPE_INT   , 2, SYSMACRO(modpathfind_path_getxy)    },
     { 0x23C, "PATH_WALL"   , "I"      , TYPE_INT   , 1, SYSMACRO(modpathfind_path_wall)     },
+    /* mod_scroll */
+    { 0x240, "SCROLL_START", "IIIIII", TYPE_INT   , 6, SYSMACRO(mod_scroll_start)   },
+    { 0x241, "SCROLL_STOP" , "I"     , TYPE_INT   , 1, SYSMACRO(mod_scroll_stop)    },
+    { 0x242, "SCROLL_MOVE" , "I"     , TYPE_INT   , 1, SYSMACRO(mod_scroll_move)    },
+    { 0x243, "START_SCROLL", "IIIIII", TYPE_INT   , 6, SYSMACRO(mod_scroll_start)   },
+    { 0x244, "STOP_SCROLL" , "I"     , TYPE_INT   , 1, SYSMACRO(mod_scroll_stop)    },
+    { 0x245, "MOVE_SCROLL" , "I"     , TYPE_INT   , 1, SYSMACRO(mod_scroll_move)    },
+
 
     { 0    , 0                , ""      , TYPE_UNDEFINED , 0, 0                        }
 } ;

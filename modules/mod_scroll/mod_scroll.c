@@ -31,26 +31,26 @@
 
 /* --------------------------------------------------------------------------- */
 
-static int mod_scroll_start( INSTANCE * my, int * params )
+int mod_scroll_start( INSTANCE * my, int * params )
 {
     scroll_start( params[0], params[1], params[2], params[3], params[4], params[5] ) ;
     return 1 ;
 }
 
-static int mod_scroll_stop( INSTANCE * my, int * params )
+int mod_scroll_stop( INSTANCE * my, int * params )
 {
     scroll_stop( params[0] ) ;
     return 1 ;
 }
 
-static int mod_scroll_move( INSTANCE * my, int * params )
+int mod_scroll_move( INSTANCE * my, int * params )
 {
     scroll_update (params[0]) ;
     return 1 ;
 }
 
 /* ---------------------------------------------------------------------- */
-
+#ifndef __STATIC__
 DLSYSFUNCS __bgdexport( mod_scroll, functions_exports )[] =
 {
     { "SCROLL_START"    , "IIIIII", TYPE_INT   , mod_scroll_start   },
@@ -71,5 +71,5 @@ char * __bgdexport( mod_scroll, modules_dependency )[] =
     "libscroll",
     0
 };
-
+#endif
 /* --------------------------------------------------------------------------- */

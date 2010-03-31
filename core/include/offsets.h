@@ -67,8 +67,8 @@
 #define FADING                  4*80
 #define TEXTZ                   4*81
 #define TEXT_FLAGS              4*82
-#define SCROLLS                 4*83
-#define REGEX_REG               4*84    /* 15 strings */
+#define REGEX_REG               4*83    /* 15 strings */
+#define SCROLLS                 4*98    /* 10 structs of size 20*4 each */
 #endif
 
 /* ----------------------------------------- */

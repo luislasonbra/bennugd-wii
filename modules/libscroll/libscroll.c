@@ -1,5 +1,5 @@
 /*
- *  Copyright © 2006-2009 SplinterGU (Fenix/Bennugd)
+ *  Copyright © 2006-2010 SplinterGU (Fenix/Bennugd)
  *  Copyright © 2002-2006 Fenix Team (Fenix)
  *  Copyright © 1999-2002 José Luis Cebrián Pagüe (Fenix)
  *
@@ -37,6 +37,8 @@
 
 #include "libscroll.h"
 
+#include "offsets.h"
+
 /* --------------------------------------------------------------------------- */
 
 /* Indicadores de bloqueo */
@@ -52,7 +54,7 @@ int scrolls_objects[ 10 ] = { 0 };
 scrolldata scrolls[ 10 ] ;
 
 /* --------------------------------------------------------------------------- */
-
+#ifndef __STATIC__
 /* Locals */
 
 #define CTYPE           0
@@ -111,9 +113,9 @@ char * __bgdexport( libscroll, globals_def ) =
     "follow = -1;\n"
     "reserved[6];\n"  /* size: 20 dwords */
     "END \n";
-
+#endif
 /* --------------------------------------------------------------------------- */
-
+#ifndef __STATIC__
 DLVARFIXUP __bgdexport( libscroll, locals_fixup )[] =
 {
     /* Nombre de variable global, puntero al dato, tamaño del elemento, cantidad de elementos */
@@ -136,7 +138,7 @@ DLVARFIXUP __bgdexport( libscroll, globals_fixup )[] =
     { "scroll" , NULL, -1, -1 },
     { NULL , NULL, -1, -1 }
 };
-
+#endif
 /* --------------------------------------------------------------------------- */
 
 static void draw_scroll( int n, REGION * clip );
@@ -178,7 +180,7 @@ void scroll_start( int n, int fileid, int graphid, int backid, int region, int f
         scrolls[n].region  = &regions[region] ;
         scrolls[n].flags   = flags ;
 
-        data = &(( SCROLL_EXTRA_DATA * ) & GLODWORD( libscroll, SCROLLS ) )[n] ;
+        data = &(( SCROLL_EXTRA_DATA * ) & GLODWORD( SCROLLS ) )[n] ;
 
         data->reserved[0] = ( int32_t ) & scrolls[n]; /* First reserved dword point to internal scrolldata struct */
 
@@ -215,7 +217,7 @@ void scroll_update( int n )
 
     if ( n < 0 || n > 9 ) return ;
 
-    data = &(( SCROLL_EXTRA_DATA * ) & GLODWORD( libscroll, SCROLLS ) )[n] ;
+    data = &(( SCROLL_EXTRA_DATA * ) & GLODWORD( SCROLLS ) )[n] ;
 
     if ( !scrolls[n].active || !scrolls[n].region || !scrolls[n].graph ) return ;
 
@@ -297,10 +299,10 @@ void scroll_update( int n )
 
         /* Forzar a que esté en el centro de la ventana */
 
-        cx = LOCDWORD( libscroll, scrolls[n].camera, COORDX ) ;
-        cy = LOCDWORD( libscroll, scrolls[n].camera, COORDY ) ;
+        cx = LOCDWORD( scrolls[n].camera, COORDX ) ;
+        cy = LOCDWORD( scrolls[n].camera, COORDY ) ;
 
-        RESOLXY( libscroll, scrolls[n].camera, cx, cy );
+        RESOLXY( scrolls[n].camera, cx, cy );
 
         cx -= w / 2 ;
         cy -= h / 2 ;
@@ -357,9 +359,9 @@ static int compare_instances( const void * ptr1, const void * ptr2 )
     const INSTANCE * i1 = *( const INSTANCE ** )ptr1 ;
     const INSTANCE * i2 = *( const INSTANCE ** )ptr2 ;
 
-    int ret = LOCDWORD( libscroll, i2, COORDZ ) - LOCDWORD( libscroll, i1, COORDZ );
+    int ret = LOCDWORD( i2, COORDZ ) - LOCDWORD( i1, COORDZ );
 
-    return !ret ? LOCDWORD( libscroll, i1, PROCESS_ID ) - LOCDWORD( libscroll, i2, PROCESS_ID ) : ret;
+    return !ret ? LOCDWORD( i1, PROCESS_ID ) - LOCDWORD( i2, PROCESS_ID ) : ret;
 }
 
 /* --------------------------------------------------------------------------- */
@@ -379,7 +381,7 @@ void scroll_draw( int n, REGION * clipping )
 
     if ( n < 0 || n > 9 ) return ;
 
-    data = &(( SCROLL_EXTRA_DATA * ) & GLODWORD( libscroll, SCROLLS ) )[n] ;
+    data = &(( SCROLL_EXTRA_DATA * ) & GLODWORD( SCROLLS ) )[n] ;
 
     if ( !scrolls[n].active || !scrolls[n].region || !scrolls[n].graph ) return ;
 
@@ -446,14 +448,14 @@ void scroll_draw( int n, REGION * clipping )
     proclist_count = 0 ;
     while ( i )
     {
-        if ( LOCDWORD( libscroll, i, CTYPE ) == C_SCROLL &&
+        if ( LOCDWORD( i, CTYPE ) == C_SCROLL &&
                 (
-                    (( status = LOCDWORD( libscroll, i, STATUS ) ) & ~STATUS_WAITING_MASK ) == STATUS_RUNNING ||
+                    (( status = LOCDWORD( i, STATUS ) ) & ~STATUS_WAITING_MASK ) == STATUS_RUNNING ||
                     ( status & ~STATUS_WAITING_MASK ) == STATUS_FROZEN
                 )
            )
         {
-            if ( LOCDWORD( libscroll, i, CNUMBER ) && !( LOCDWORD( libscroll, i, CNUMBER ) & ( 1 << n ) ) )
+            if ( LOCDWORD( i, CNUMBER ) && !( LOCDWORD( i, CNUMBER ) & ( 1 << n ) ) )
             {
                 i = i->next ;
                 continue ;
@@ -480,10 +482,10 @@ void scroll_draw( int n, REGION * clipping )
 
         for ( nproc = 0 ; nproc < proclist_count ; nproc++ )
         {
-            x = LOCDWORD( libscroll, proclist[nproc], COORDX ) ;
-            y = LOCDWORD( libscroll, proclist[nproc], COORDY ) ;
+            x = LOCDWORD( proclist[nproc], COORDX ) ;
+            y = LOCDWORD( proclist[nproc], COORDY ) ;
 
-            RESOLXY( libscroll, proclist[nproc], x, y );
+            RESOLXY( proclist[nproc], x, y );
 
             draw_instance_at( proclist[nproc], &r, x - scrolls[n].posx0 + scrolls[n].region->x, y - scrolls[n].posy0 + scrolls[n].region->y ) ;
         }
@@ -509,7 +511,7 @@ static int info_scroll( int n, REGION * clip, int * z, int * drawme )
 }
 
 /* --------------------------------------------------------------------------- */
-
+#ifndef __STATIC__
 char * __bgdexport( libscroll, modules_dependency )[] =
 {
     "libgrbase",
@@ -518,5 +520,5 @@ char * __bgdexport( libscroll, modules_dependency )[] =
     "libvideo",
     NULL
 };
-
+#endif
 /* --------------------------------------------------------------------------- */

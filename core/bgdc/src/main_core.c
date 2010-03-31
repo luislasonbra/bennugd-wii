@@ -39,6 +39,7 @@
 #include "../../../modules/librender/librender_constants.h"
 #include "../../../modules/mod_map/mod_map_constants.h"
 #include "../../../modules/libtext/libtext.h"
+#include "../../../modules/libscroll/libscroll.h"
 #endif
 
 /* ----------------------------------------------------------------------- */
@@ -222,6 +223,19 @@ constants_def[] =
     /* mod_path */
     { "PF_NODIAG"   , TYPE_INT, 1 }, /* Prohibit the pathfinding from using diagonal paths. */
     { "PF_REVERSE"  , TYPE_INT, 2 }, /* Return the path found in reverse order.             */
+    /* libscroll */
+    { "C_SCROLL"            , TYPE_DWORD ,     C_SCROLL    },
+    { "C_0"                 , TYPE_DWORD ,     0x0001      },
+    { "C_1"                 , TYPE_DWORD ,     0x0002      },
+    { "C_2"                 , TYPE_DWORD ,     0x0004      },
+    { "C_3"                 , TYPE_DWORD ,     0x0008      },
+    { "C_4"                 , TYPE_DWORD ,     0x0010      },
+    { "C_5"                 , TYPE_DWORD ,     0x0020      },
+    { "C_6"                 , TYPE_DWORD ,     0x0040      },
+    { "C_7"                 , TYPE_DWORD ,     0x0080      },
+    { "C_8"                 , TYPE_DWORD ,     0x0100      },
+    { "C_9"                 , TYPE_DWORD ,     0x0200      },
+
 #endif
     { NULL              , 0         , 0                   }
 } ;
@@ -278,10 +292,23 @@ static char * globals_def =
 /* libtext */
     "text_z = -256;\n"
     "text_flags;\n"
-/* mod_grproc */
-    "scroll;\n"
 /* mod_regex */
-    "STRING regex_reg[15];;\n"
+    "STRING regex_reg[15];\n"
+/* libscroll */
+    "STRUCT scroll[9]\n"
+    "    x0, y0;\n"
+    "    x1, y1;\n"
+    "    z = 512;\n"
+    "    camera;\n"
+    "    ratio = 200;\n"
+    "    speed;\n"
+    "    region1 = -1;\n"
+    "    region2 = -1;\n"
+    "    flags1;\n"
+    "    flags2;\n"
+    "    follow = -1;\n"
+    "    reserved[6];\n"  /* size: 20 dwords */
+    "END \n";
 #endif
 ;
 

@@ -15,18 +15,22 @@ Begin
     end;
     set_mode(scr_width, scr_height, 16, MODE_WINDOW);
 
-    /* Draw a big red circle in the middle of the screen */
+    /* Draw three long bezier lines */
     drawing_map(0, 0);
     drawing_color(rgb(255, 0, 0));
-    draw_fcircle(scr_width/2, scr_height/2, scr_height/3);
-    /* Now, draw a smaller green box */
+    draw_curve(0, scr_height/4, scr_width/4, 0, 3*scr_width/4, 2*scr_height/4,
+               scr_width, scr_height/4, 1);
     drawing_color(rgb(0, 255, 0));
-    draw_box(scr_width/4, scr_height/4, 3*scr_width/4, 3*scr_height/4);
+    draw_curve(0, 2*scr_height/4, scr_width/4, scr_height/4, 3*scr_width/4,
+               3*scr_height/4, scr_width, 2*scr_height/4, 3);
+    drawing_color(rgb(0, 0, 255));
+    draw_curve(0, 3*scr_height/4, scr_width/4, 2*scr_height/4, 3*scr_width/4,
+               4*scr_height/4, scr_width, 3*scr_height/4, 15);
 
     while(! mouse.left)
         FRAME;
     end;
 
-    // Delete all the drawings
+    // Delete all the lines
     delete_draw(0);
 End;

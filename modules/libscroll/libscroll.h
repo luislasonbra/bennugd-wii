@@ -1,5 +1,5 @@
 /*
- *  Copyright © 2006-2009 SplinterGU (Fenix/Bennugd)
+ *  Copyright © 2006-2010 SplinterGU (Fenix/Bennugd)
  *  Copyright © 2002-2006 Fenix Team (Fenix)
  *  Copyright © 1999-2002 José Luis Cebrián Pagüe (Fenix)
  *
@@ -29,6 +29,8 @@
 #define C_SCROLL    1
 
 /* --------------------------------------------------------------------------- */
+
+#ifdef __BGDRTM__
 
 #ifndef __GNUC__
 #define __PACKED
@@ -108,5 +110,7 @@ extern void scroll_draw( int n, REGION * clipping ) ;
 extern void scroll_region( int n, REGION * r ) ;
 
 /* --------------------------------------------------------------------------- */
+
+#endif
 
 #endif

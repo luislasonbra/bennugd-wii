@@ -22,10 +22,16 @@
  */
 
 #ifndef _LIBKEY_H
-    #define _LIBKEY_H
-
+#define _LIBKEY_H
+    #include <bgddl.h>
     #include <SDL.h>
 
+    #define STAT_RSHIFT             0x0000001
+    #define STAT_LSHIFT             0x0000002
+    #define STAT_CTRL               0x0000004
+    #define STAT_ALT                0x0000008
+
+#ifdef __BGDRTM__
     typedef struct _keyequiv {
         int                 sdlk_equiv ;
         struct _keyequiv    * next ;
@@ -40,4 +46,8 @@
     extern DLLIMPORT unsigned char * keystate ;        /* Pointer to key states */
     #endif
 
+    extern HOOK libkey_hooks[];
+    extern void libkey_initialize();
+    extern void libkey_finalize();
+#endif
 #endif

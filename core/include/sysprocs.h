@@ -428,6 +428,8 @@ SYSPROC sysprocs[MAX_SYSPROCS] =
     { 0x243, "START_SCROLL", "IIIIII", TYPE_INT   , 6, SYSMACRO(mod_scroll_start)   },
     { 0x244, "STOP_SCROLL" , "I"     , TYPE_INT   , 1, SYSMACRO(mod_scroll_stop)    },
     { 0x245, "MOVE_SCROLL" , "I"     , TYPE_INT   , 1, SYSMACRO(mod_scroll_move)    },
+    /* mod_key */
+    { 0x24A, "KEY"         , "I"     , TYPE_INT   , 1, SYSMACRO(modkey_key)         },
 
 
     { 0    , 0                , ""      , TYPE_UNDEFINED , 0, 0                        }

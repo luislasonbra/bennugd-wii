@@ -70,13 +70,13 @@ static _inline int _get_key( int code )
 
 /* ----------------------------------------------------------------- */
 
-static int modkey_key( INSTANCE * my, int * params )
+int modkey_key( INSTANCE * my, int * params )
 {
     return ( _get_key( params[0] ) );
 }
 
 /* ----------------------------------------------------------------- */
-
+#ifndef __STATIC__
 DLSYSFUNCS  __bgdexport( mod_key, functions_exports )[] =
 {
     { "KEY" , "I"   , TYPE_INT  , modkey_key   },
@@ -90,5 +90,5 @@ char * __bgdexport( mod_key, modules_dependency )[] =
     "libkey",
     NULL
 };
-
+#endif
 /* ----------------------------------------------------------------- */

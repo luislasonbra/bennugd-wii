@@ -39,6 +39,7 @@
 #include <SDL/SDL.h>
 #include "../../../modules/libjoy/libjoy.h"
 #include "../../../modules/libvideo/libvideo.h"
+#include "../../../modules/libkey/libkey.h"
 #endif
 
 /* --------------------------------------------------------------------------- */
@@ -166,6 +167,8 @@ void bgdrtm_exit( int exit_value )
     libjoy_finalize();
     /* libvideo */
     libvideo_finalize();
+    /* libkey */
+    libkey_finalize();
 #endif
 
     exit( exit_value ) ;

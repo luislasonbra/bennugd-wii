@@ -26,7 +26,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#ifdef TARGET_MAC
+#if defined(TARGET_MAC) || defined(TARGET_WII)
 #include <SDL/SDL.h>
 #else
 #include <SDL.h>
@@ -37,17 +37,14 @@
 #include "dlvaracc.h"
 #include "libkey.h"
 
-/* ----------------------------------------------------------------- */
+#include "offsets.h"
 
+/* ----------------------------------------------------------------- */
+#ifndef __STATIC__
 #define SHIFTSTATUS             0
 #define ASCII                   1
 #define SCANCODE                2
-
-#define STAT_RSHIFT             0x0000001
-#define STAT_LSHIFT             0x0000002
-#define STAT_CTRL               0x0000004
-#define STAT_ALT                0x0000008
-
+#endif
 /* ---------------------------------------------------------------------- */
 
 typedef struct
@@ -196,7 +193,7 @@ static int equivs[] =
 } ;
 
 /* ----------------------------------------------------------------- */
-
+#ifndef __STATIC__
 DLCONSTANT  __bgdexport( libkey, constants_def )[] =
 {
     { "_ESC",         TYPE_DWORD,  1 },
@@ -338,7 +335,7 @@ DLVARFIXUP  __bgdexport( libkey, globals_fixup )[] =
     { "scan_code"    , NULL, -1, -1 },
     { NULL           , NULL, -1, -1 }
 };
-
+#endif
 /* ----------------------------------------------------------------- */
 
 static void add_key_equiv( int equiv, int keyconst )
@@ -421,9 +418,9 @@ static void process_key_events()
     /* must check all the linked equivs */
 
     pressed = 0 ;
-    if ( GLODWORD( libkey,  SCANCODE ) )
+    if ( GLODWORD( SCANCODE ) )
     {
-        curr = &key_table[GLODWORD( libkey,  SCANCODE )] ;
+        curr = &key_table[GLODWORD(  SCANCODE )] ;
         while ( curr != NULL && pressed == 0 )
         {
             if ( keystate[curr->sdlk_equiv] ) pressed = 1 ;
@@ -433,8 +430,8 @@ static void process_key_events()
 
     if ( !pressed )
     {
-        GLODWORD( libkey,  ASCII )     = 0 ;
-        GLODWORD( libkey,  SCANCODE )  = 0 ;
+        GLODWORD(  ASCII )     = 0 ;
+        GLODWORD(  SCANCODE )  = 0 ;
     }
 
     while ( SDL_PeepEvents( &e, 1, SDL_GETEVENT, SDL_EVENTMASK(SDL_KEYDOWN)|SDL_EVENTMASK(SDL_KEYUP) ) > 0 )
@@ -465,7 +462,7 @@ static void process_key_events()
 
                 if ( !keypress )
                 {
-                    GLODWORD( libkey,  SCANCODE )  = k ;
+                    GLODWORD(  SCANCODE )  = k ;
                     if ( e.key.keysym.unicode )
                     {
                         asc = win_to_dos[e.key.keysym.unicode & 0xFF] ;
@@ -479,7 +476,7 @@ static void process_key_events()
                         asc = 0 ; /* NON PRINTABLE */
                     }
 
-                    GLODWORD( libkey,  ASCII ) = asc ;
+                    GLODWORD(  ASCII ) = asc ;
                     keypress = 1 ;
                 }
                 else
@@ -511,13 +508,13 @@ static void process_key_events()
 
     if ( !keypress && keyring_start != keyring_tail )
     {
-        GLODWORD( libkey,  ASCII )     = keyring[keyring_start].ascii ;
-        GLODWORD( libkey,  SCANCODE )  = keyring[keyring_start].scancode ;
+        GLODWORD(  ASCII )     = keyring[keyring_start].ascii ;
+        GLODWORD(  SCANCODE )  = keyring[keyring_start].scancode ;
         if ( ++keyring_start == 64 ) keyring_start = 0 ;
     }
 
     /* Now actualized every frame... */
-    GLODWORD( libkey,  SHIFTSTATUS ) =
+    GLODWORD(  SHIFTSTATUS ) =
         (( m & KMOD_RSHIFT )                         ? STAT_RSHIFT : 0 ) |
         (( m & KMOD_LSHIFT )                         ? STAT_LSHIFT : 0 ) |
         ((( m & KMOD_RCTRL ) || ( m & KMOD_LCTRL ) ) ? STAT_CTRL   : 0 ) |
@@ -528,8 +525,11 @@ static void process_key_events()
 
 /* Bigest priority first execute
    Lowest priority last execute */
-
+#ifdef __STATIC__
+HOOK libkey_hooks[] =
+#else
 HOOK __bgdexport( libkey, handler_hooks )[] =
+#endif
 {
     { 4900, process_key_events },
     {    0, NULL               }
@@ -537,8 +537,11 @@ HOOK __bgdexport( libkey, handler_hooks )[] =
 
 /* ----------------------------------------------------------------- */
 /* Funciones de inicializacion del modulo/plugin                     */
-
+#ifdef __STATIC__
+void libkey_initialize()
+#else
 void __bgdexport( libkey, module_initialize )()
+#endif
 {
     int * ptr = equivs ;
 
@@ -560,8 +563,11 @@ void __bgdexport( libkey, module_initialize )()
 }
 
 /* ----------------------------------------------------------------- */
-
+#ifdef __STATIC__
+void libkey_finalize()
+#else
 void __bgdexport( libkey, module_finalize )()
+#endif
 {
     /* FREE used key_equivs... note base 127 equivs are static not allocated... */
     int i ;
@@ -587,11 +593,11 @@ void __bgdexport( libkey, module_finalize )()
 }
 
 /* ----------------------------------------------------------------- */
-
+#ifndef __STATIC__
 char * __bgdexport( libkey, modules_dependency )[] =
 {
     "libsdlhandler",
     NULL
 };
-
+#endif
 /* ----------------------------------------------------------------- */

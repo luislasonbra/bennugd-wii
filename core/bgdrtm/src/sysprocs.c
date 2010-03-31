@@ -47,6 +47,7 @@
 #include "../../../modules/libmouse/libmouse.h"            //libmouse
 #include "../../../modules/libfont/libfont.h"              //libfont
 #include "../../../modules/mod_grproc/mod_grproc.h"        //mod_grproc
+#include "../../../modules/libkey/libkey.h"                //libkey
 #ifdef TARGET_WII
 #include <SDL/SDL.h>
 #elif defined(TARGET_LINUX)
@@ -363,6 +364,9 @@ extern int modpathfind_path_wall( INSTANCE * my, int * params );
 extern int mod_scroll_start( INSTANCE * my, int * params );
 extern int mod_scroll_stop( INSTANCE * my, int * params );
 extern int mod_scroll_move( INSTANCE * my, int * params );
+
+/* mod_key */
+extern int modkey_key( INSTANCE * my, int * params );
 #endif
 
 #include "sysprocs.h"
@@ -949,6 +953,16 @@ void sysproc_init()
     {
         get_var_info( globals_fixup, dcb.glovar, dcb.data.NGloVars, globaldata );
         globals_fixup++;
+    }
+
+    /* libkey */
+    libkey_initialize();
+    handler_hooks = libkey_hooks;
+    while ( handler_hooks && handler_hooks->hook )
+    {
+        hook_add( *handler_hooks, handler_hook_list, handler_hook_allocated,
+                   handler_hook_count ) ;
+        handler_hooks++;
     }
 
 #endif

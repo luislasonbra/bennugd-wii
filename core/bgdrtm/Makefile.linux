@@ -21,7 +21,7 @@ SOURCES		:=	src
 INCLUDES	:=	include ../include ../../modules/libgrbase ../../modules/libblit \
                 ../../modules/libvideo ../../modules/librender ../../modules/libfont \
                 ../../modules/libtext ../../modules/libscroll ../../modules/mod_regex \
-                ../../modules/libdraw
+                ../../modules/libdraw ../../modules/libkey
 
 #---------------------------------------------------------------------------------
 # options for code generation
@@ -118,7 +118,9 @@ CFILES		:=	dcbr.c sysprocs.c strings.c dirs.c copy.c misc.c instance.c \
               ../../../modules/mod_screen/mod_screen.c \
               ../../../modules/mod_path/mod_path.c \
               ../../../modules/libscroll/libscroll.c \
-              ../../../modules/mod_scroll/mod_scroll.c
+              ../../../modules/mod_scroll/mod_scroll.c \
+              ../../../modules/libkey/libkey.c \
+              ../../../modules/mod_key/mod_key.c
 
 #---------------------------------------------------------------------------------
 # use CXX for linking C++ projects, CC for standard C

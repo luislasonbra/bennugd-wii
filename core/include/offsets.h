@@ -68,10 +68,10 @@
 #define TEXTZ                   4*81
 #define TEXT_FLAGS              4*82
 #define REGEX_REG               4*83    /* 15 strings */
-#define SCROLLS                 4*98    /* 10 structs of size 20*4 each */
-#define SHIFTSTATUS             4*298
-#define ASCII                   4*299
-#define SCANCODE                4*300
+#define SCROLLS                 4*99    /* 10 structs of size 20*4 each */
+#define SHIFTSTATUS             4*299
+#define ASCII                   4*300
+#define SCANCODE                4*301
 #endif
 
 /* ----------------------------------------- */

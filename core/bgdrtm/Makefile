@@ -27,7 +27,7 @@ INCLUDES	:=	include ../include ../../modules/libgrbase ../../modules/libblit \
 # options for code generation
 #---------------------------------------------------------------------------------
 
-CFLAGS		=	-g -O2 -Wall -D__BGDRTM__ -D__STATIC__ -DTARGET_WII -DVERSION='"1.0"' $(MACHDEP) $(INCLUDE) -finline-functions -fno-strict-aliasing
+CFLAGS		=	-g -O2 -Wall -D__BGDRTM__ -D__STATIC__ -DTARGET_WII -DBIGENDIAN -DVERSION='"1.0"' $(MACHDEP) $(INCLUDE) -finline-functions -fno-strict-aliasing
 CXXFLAGS	=	-save-temps -Xassembler -aln=$@.lst $(CFLAGS)
 LDFLAGS		=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map
 

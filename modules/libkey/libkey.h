@@ -24,7 +24,11 @@
 #ifndef _LIBKEY_H
 #define _LIBKEY_H
     #include <bgddl.h>
+#if defined(TARGET_MAC) || defined(TARGET_WII)
+    #include <SDL/SDL.h>
+#else
     #include <SDL.h>
+#endif
 
     #define STAT_RSHIFT             0x0000001
     #define STAT_LSHIFT             0x0000002

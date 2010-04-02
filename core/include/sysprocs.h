@@ -430,7 +430,17 @@ SYSPROC sysprocs[MAX_SYSPROCS] =
     { 0x245, "MOVE_SCROLL" , "I"     , TYPE_INT   , 1, SYSMACRO(mod_scroll_move)    },
     /* mod_key */
     { 0x24A, "KEY"         , "I"     , TYPE_INT   , 1, SYSMACRO(modkey_key)         },
-
+    /* mod_blendop */
+    { 0x250, "BLENDOP_NEW"         , "", TYPE_INT , 0, SYSMACRO(modblendop_create_blendop) },
+    { 0x251, "BLENDOP_IDENTITY"    , "I"    , TYPE_INT , 1, SYSMACRO(modblendop_identity ) },
+    { 0x252, "BLENDOP_TINT"        , "IFIII", TYPE_INT , 5, SYSMACRO(modblendop_tint     ) },
+    { 0x253, "BLENDOP_TRANSLUCENCY", "IF"   , TYPE_INT , 2, SYSMACRO(modblendop_translucency)},
+    { 0x254, "BLENDOP_INTENSITY"   , "IF"   , TYPE_INT , 2, SYSMACRO(modblendop_intensity) },
+    { 0x256, "BLENDOP_SWAP"        , "I"    , TYPE_INT , 1, SYSMACRO(modblendop_swap     ) },
+    { 0x257, "BLENDOP_ASSIGN"      , "III"  , TYPE_INT , 3, SYSMACRO(modblendop_assign   ) },
+    { 0x258, "BLENDOP_APPLY"       , "III"  , TYPE_INT , 3, SYSMACRO(modblendop_apply    ) },
+    { 0x259, "BLENDOP_FREE"        , "I"    , TYPE_INT , 1, SYSMACRO(modblendop_free     ) },
+    { 0x25A, "BLENDOP_GRAYSCALE"   , "II"   , TYPE_INT , 2, SYSMACRO(modblendop_grayscale) },
 
     { 0    , 0                , ""      , TYPE_UNDEFINED , 0, 0                        }
 } ;

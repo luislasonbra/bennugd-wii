@@ -18,10 +18,10 @@ include $(DEVKITPPC)/wii_rules
 TARGET		:=	bgdrtm
 BUILD     :=	build
 SOURCES		:=	src
-INCLUDES	:=	include ../include ../../modules/libgrbase ../../modules/libblit \
-                ../../modules/libvideo ../../modules/librender ../../modules/libfont \
-                ../../modules/libtext ../../modules/libscroll ../../modules/mod_regex \
-                ../../modules/libdraw ../../modules/libkey
+INCLUDES	:=	include ../include  ../include/gnulibc ../../modules/libgrbase \
+                ../../modules/libblit ../../modules/libvideo ../../modules/librender \
+                ../../modules/libfont ../../modules/libtext ../../modules/libscroll \
+                ../../modules/mod_regex ../../modules/libdraw ../../modules/libkey
 
 #---------------------------------------------------------------------------------
 # options for code generation
@@ -120,7 +120,8 @@ CFILES		:=	dcbr.c sysprocs.c strings.c dirs.c copy.c misc.c instance.c \
               ../../../modules/libscroll/libscroll.c \
               ../../../modules/mod_scroll/mod_scroll.c \
               ../../../modules/libkey/libkey.c \
-              ../../../modules/mod_key/mod_key.c
+              ../../../modules/mod_key/mod_key.c \
+              ../../../modules/mod_blendop/mod_blendop.c
 
 #---------------------------------------------------------------------------------
 # use CXX for linking C++ projects, CC for standard C

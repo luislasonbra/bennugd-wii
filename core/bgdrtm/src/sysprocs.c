@@ -367,6 +367,18 @@ extern int mod_scroll_move( INSTANCE * my, int * params );
 
 /* mod_key */
 extern int modkey_key( INSTANCE * my, int * params );
+
+/* mod_blendop */
+extern int modblendop_create_blendop( INSTANCE * my, int * params );
+extern int modblendop_apply( INSTANCE * my, int * params );
+extern int modblendop_assign( INSTANCE * my, int * params );
+extern int modblendop_free( INSTANCE * my, int * params );
+extern int modblendop_identity( INSTANCE * my, int * params );
+extern int modblendop_grayscale( INSTANCE * my, int * params );
+extern int modblendop_translucency( INSTANCE * my, int * params );
+extern int modblendop_intensity( INSTANCE * my, int * params );
+extern int modblendop_swap( INSTANCE * my, int * params );
+extern int modblendop_tint( INSTANCE * my, int * params );
 #endif
 
 #include "sysprocs.h"

@@ -18,7 +18,7 @@ include $(DEVKITPPC)/wii_rules
 TARGET		:=	bgdrtm
 BUILD     :=	build
 SOURCES		:=	src
-INCLUDES	:=	include ../include  ../include/gnulibc ../../modules/libgrbase \
+INCLUDES	:=	include ../include ../../modules/libgrbase \
                 ../../modules/libblit ../../modules/libvideo ../../modules/librender \
                 ../../modules/libfont ../../modules/libtext ../../modules/libscroll \
                 ../../modules/mod_regex ../../modules/libdraw ../../modules/libkey
@@ -27,7 +27,7 @@ INCLUDES	:=	include ../include  ../include/gnulibc ../../modules/libgrbase \
 # options for code generation
 #---------------------------------------------------------------------------------
 
-CFLAGS		=	-g -O2 -Wall -D__BGDRTM__ -D__STATIC__ -DTARGET_WII -DBIGENDIAN -DVERSION='"1.0"' $(MACHDEP) $(INCLUDE) -finline-functions -fno-strict-aliasing
+CFLAGS		=	-g -O2 -Wall -D__BGDRTM__ -D__STATIC__ -DTARGET_WII -DVERSION='"1.0"' $(MACHDEP) $(INCLUDE) -finline-functions -fno-strict-aliasing
 CXXFLAGS	=	-save-temps -Xassembler -aln=$@.lst $(CFLAGS)
 LDFLAGS		=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map
 
@@ -158,6 +158,7 @@ clean:
 	@rm -fr $(BUILD) $(TARGET).a
 
 #---------------------------------------------------------------------------------
+
 else
 
 DEPENDS	:=	$(OFILES:.o=.d)

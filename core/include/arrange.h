@@ -35,7 +35,8 @@
         defined(__ppc__) || \
         defined(__POWERPC__) || \
         defined(_M_PPC) || \
-        defined(__sparc__)
+        defined(__sparc__) || \
+        defined(GEKKO)
         #define __BYTEORDER  __BIG_ENDIAN
     #else
         #define __BYTEORDER  __LIL_ENDIAN

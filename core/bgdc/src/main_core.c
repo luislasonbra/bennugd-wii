@@ -388,7 +388,11 @@ static char * globals_def =
     "    STRING modified;\n"
     "END\n"
 /* mod_sound */
+#ifdef TARGET_WII
+    "sound_freq = 32000 ;\n"
+#else
     "sound_freq = 22050 ;\n"
+#endif
     "sound_mode = MODE_STEREO ;\n"
     "sound_channels = 8 ;\n"
 /* libgrbase */

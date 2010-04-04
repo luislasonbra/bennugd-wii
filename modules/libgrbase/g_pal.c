@@ -26,9 +26,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#ifdef BIGENDIAN
-#include <byteswap.h>
-#endif
 
 #include "libgrbase.h"
 
@@ -650,11 +647,7 @@ int gr_rgb( int r, int g, int b )
 
     if ( !color ) return 1 ;
 
-#if defined(BIGENDIAN)
-    return ((int)bswap_16((uint16_t)color));
-#else
-    return color ;
-#endif
+    return color;
 }
 
 /* --------------------------------------------------------------------------- */
@@ -679,11 +672,7 @@ int gr_rgba( int r, int g, int b, int a )
 
     if ( !color ) return 1 ;
 
-#if defined(BIGENDIAN)
-    return ((int)bswap_16((uint16_t)color));
-#else
     return color ;
-#endif
 }
 
 /* --------------------------------------------------------------------------- */
@@ -708,10 +697,6 @@ void gr_get_rgb( int color, int *r, int *g, int *b )
 
         return ;
     }
-
-#if defined(BIGENDIAN)
-    color = ((int)bswap_16((uint16_t)color));
-#endif
 
     ( *r ) = (( color & sys_pixel_format->Rmask ) >> sys_pixel_format->Rshift ) << sys_pixel_format->Rloss;
     ( *g ) = (( color & sys_pixel_format->Gmask ) >> sys_pixel_format->Gshift ) << sys_pixel_format->Gloss;
@@ -740,11 +725,6 @@ void gr_get_rgba( int color, int *r, int *g, int *b, int *a )
 
         return ;
     }
-
-#if defined(BIGENDIAN)
-    if (sys_pixel_format->depth != 32)
-      color = ((int)bswap_16((uint16_t)color));
-#endif
 
     ( *r ) = (( color & sys_pixel_format->Rmask ) >> sys_pixel_format->Rshift ) << sys_pixel_format->Rloss ;
     ( *g ) = (( color & sys_pixel_format->Gmask ) >> sys_pixel_format->Gshift ) << sys_pixel_format->Gloss ;

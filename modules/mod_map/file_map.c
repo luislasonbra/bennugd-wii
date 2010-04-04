@@ -50,6 +50,10 @@ static GRAPH * gr_read_map( file * fp )
     file_readUint16( fp, &h ) ;
     file_readSint32( fp, &code ) ;
 
+    ARRANGE_WORD(w);
+    ARRANGE_WORD(h);
+    ARRANGE_DWORD(code);
+
     gr = bitmap_new( code, w, h, bpp ) ;
     if ( !gr ) return NULL ;
 

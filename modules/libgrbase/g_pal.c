@@ -26,7 +26,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdint.h>
 
+#include "arrange.h"
 #include "libgrbase.h"
 
 /* --------------------------------------------------------------------------- */
@@ -647,6 +649,8 @@ int gr_rgb( int r, int g, int b )
 
     if ( !color ) return 1 ;
 
+    ARRANGE_WORD(&color);
+
     return color;
 }
 
@@ -671,6 +675,8 @@ int gr_rgba( int r, int g, int b, int a )
             (( b >> sys_pixel_format->Bloss ) << sys_pixel_format->Bshift ) ;
 
     if ( !color ) return 1 ;
+
+    ARRANGE_WORD(&color);
 
     return color ;
 }
@@ -697,6 +703,8 @@ void gr_get_rgb( int color, int *r, int *g, int *b )
 
         return ;
     }
+
+    ARRANGE_WORD(&color);
 
     ( *r ) = (( color & sys_pixel_format->Rmask ) >> sys_pixel_format->Rshift ) << sys_pixel_format->Rloss;
     ( *g ) = (( color & sys_pixel_format->Gmask ) >> sys_pixel_format->Gshift ) << sys_pixel_format->Gloss;
@@ -725,6 +733,9 @@ void gr_get_rgba( int color, int *r, int *g, int *b, int *a )
 
         return ;
     }
+
+    if (sys_pixel_format->depth != 32)
+        ARRANGE_WORD(&color);
 
     ( *r ) = (( color & sys_pixel_format->Rmask ) >> sys_pixel_format->Rshift ) << sys_pixel_format->Rloss ;
     ( *g ) = (( color & sys_pixel_format->Gmask ) >> sys_pixel_format->Gshift ) << sys_pixel_format->Gloss ;

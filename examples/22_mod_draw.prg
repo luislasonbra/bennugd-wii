@@ -10,10 +10,10 @@ End;
 Process main()
 Begin
     // Check that we can set the video mode before actually setting it
-    if(!mode_is_ok(scr_width, scr_height, 16, MODE_WINDOW))
+    if(!mode_is_ok(scr_width, scr_height, 8, MODE_WINDOW))
         return -1;
     end;
-    set_mode(scr_width, scr_height, 16, MODE_WINDOW);
+    set_mode(scr_width, scr_height, 8, MODE_WINDOW);
 
     /* Draw a big red circle in the middle of the screen */
     drawing_map(0, 0);

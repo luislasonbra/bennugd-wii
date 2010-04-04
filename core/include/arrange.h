@@ -53,13 +53,35 @@
         #define ARRANGE_DWORDS(x,c)
         #define ARRANGE_WORDS(x,c)
     #else
-        static __inline__ void DO_Swap16(uint16_t * D) {
-            *D = ((*D<<8)|(*D>>8));
-        }
+        #if defined(__GNUC__) && (defined(__powerpc__) || defined(__ppc__) || defined(GEKKO))
+            /* PowerPC optimized assembly code */
+            static __inline__ void DO_Swap16(uint16_t * D)
+            {
+                uint16_t result;
+	            __asm__("rlwimi %0,%2,8,16,23" : "=&r" (result) : "0" (*D >> 8), "r" (*D));
 
-        static __inline__ void DO_Swap32(uint32_t * D) {
-            *D = ((*D<<24)|((*D<<8)&0x00FF0000)|((*D>>8)&0x0000FF00)|(*D>>24));
-        }
+	            *D = result;
+            }
+
+            static __inline__ void DO_Swap32(uint32_t * D)
+            {
+                uint32_t result;
+
+	            __asm__("rlwimi %0,%2,24,16,23" : "=&r" (result) : "0" (*D>>24), "r" (*D));
+	            __asm__("rlwimi %0,%2,8,8,15"   : "=&r" (result) : "0" (result),    "r" (*D));
+	            __asm__("rlwimi %0,%2,24,0,7"   : "=&r" (result) : "0" (result),    "r" (*D));
+
+	            *D = result;
+            }
+        #else
+            static __inline__ void DO_Swap16(uint16_t * D) {
+                *D = ((*D<<8)|(*D>>8));
+            }
+
+            static __inline__ void DO_Swap32(uint32_t * D) {
+                *D = ((*D<<24)|((*D<<8)&0x00FF0000)|((*D>>8)&0x0000FF00)|(*D>>24));
+            }
+        #endif
 
         #define ARRANGE_DWORD(x)    DO_Swap32(x)
         #define ARRANGE_WORD(x)     DO_Swap16(x)

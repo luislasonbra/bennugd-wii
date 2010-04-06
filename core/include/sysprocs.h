@@ -441,6 +441,11 @@ SYSPROC sysprocs[MAX_SYSPROCS] =
     { 0x258, "BLENDOP_APPLY"       , "III"  , TYPE_INT , 3, SYSMACRO(modblendop_apply    ) },
     { 0x259, "BLENDOP_FREE"        , "I"    , TYPE_INT , 1, SYSMACRO(modblendop_free     ) },
     { 0x25A, "BLENDOP_GRAYSCALE"   , "II"   , TYPE_INT , 2, SYSMACRO(modblendop_grayscale) },
+    /* mod_efects */
+    { 0x260, "GRAYSCALE"  , "IIB"   , TYPE_INT , 3 , SYSMACRO(modeffects_grayscale) },
+    { 0x261, "RGBSCALE"   , "IIFFF" , TYPE_INT , 5 , SYSMACRO(modeffects_rgbscale)  },
+    { 0x262, "BLUR"       , "IIB"   , TYPE_INT , 3 , SYSMACRO(modeffects_blur)      },
+    { 0x263, "FILTER"     , "IIP"   , TYPE_INT , 3 , SYSMACRO(modeffects_filter)    },
 
     { 0    , 0                , ""      , TYPE_UNDEFINED , 0, 0                        }
 } ;

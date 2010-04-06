@@ -379,6 +379,12 @@ extern int modblendop_translucency( INSTANCE * my, int * params );
 extern int modblendop_intensity( INSTANCE * my, int * params );
 extern int modblendop_swap( INSTANCE * my, int * params );
 extern int modblendop_tint( INSTANCE * my, int * params );
+
+/* mod_effects */
+extern int modeffects_filter( INSTANCE *my, int *params );
+extern int modeffects_blur( INSTANCE *my, int *params );
+extern int modeffects_grayscale( INSTANCE *my, int *params );
+extern int modeffects_rgbscale( INSTANCE *my, int *params );
 #endif
 
 #include "sysprocs.h"

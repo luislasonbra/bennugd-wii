@@ -29,24 +29,8 @@
 #include <stdlib.h>
 
 #include "bgddl.h"
-
+#include "mod_effects.h"
 #include "libgrbase.h"
-
-/* --------------------------------------------------------------------------- */
-
-#define BLUR_NORMAL     0
-#define BLUR_3x3        1
-#define BLUR_5x5        2
-#define BLUR_5x5_MAP    3
-
-#define GSCALE_RGB      0
-#define GSCALE_R        1
-#define GSCALE_G        2
-#define GSCALE_B        3
-#define GSCALE_RG       4
-#define GSCALE_RB       5
-#define GSCALE_GB       6
-#define GSCALE_OFF     -1
 
 /* --------------------------------------------------------------------------- */
 /* Esto podria/deberia estar en una liberia general */
@@ -140,7 +124,7 @@ static void _put_pixel( GRAPH * dest, int x, int y, int color )
 
 /* ----------------------------------------------------------------- */
 
-static int modeffects_filter( INSTANCE *my, int *params )
+int modeffects_filter( INSTANCE *my, int *params )
 { //fpg,map,tabla10
 
     GRAPH * map = bitmap_get( params[0], params[1] ), * map2;
@@ -219,7 +203,7 @@ static int modeffects_filter( INSTANCE *my, int *params )
     return 1 ;
 }
 
-static int modeffects_blur( INSTANCE *my, int *params ) // fpg,map,tipo
+int modeffects_blur( INSTANCE *my, int *params ) // fpg,map,tipo
 {
 
     GRAPH * map = bitmap_get( params[0], params[1] ), *map2;
@@ -394,7 +378,7 @@ static int modeffects_blur( INSTANCE *my, int *params ) // fpg,map,tipo
     return 1 ;
 }
 
-static int modeffects_grayscale( INSTANCE *my, int *params ) //fpg,map,tipo
+int modeffects_grayscale( INSTANCE *my, int *params ) //fpg,map,tipo
 {
     GRAPH * map = bitmap_get( params[0], params[1] ) ;
     uint32_t i, j, c;
@@ -450,7 +434,7 @@ static int modeffects_grayscale( INSTANCE *my, int *params ) //fpg,map,tipo
     return 1 ;
 }
 
-static int modeffects_rgbscale( INSTANCE *my, int *params ) //fpg, map, r, g, b
+int modeffects_rgbscale( INSTANCE *my, int *params ) //fpg, map, r, g, b
 {
     GRAPH * map = bitmap_get( params[0], params[1] ) ;
     uint32_t i, j, c;
@@ -475,7 +459,7 @@ static int modeffects_rgbscale( INSTANCE *my, int *params ) //fpg, map, r, g, b
 }
 
 /* --------------------------------------------------------------------------- */
-
+#ifndef __STATIC__
 DLCONSTANT __bgdexport( mod_effects, constants_def )[] =
 {
     { "BLUR_NORMAL" , TYPE_INT, BLUR_NORMAL     },
@@ -514,5 +498,5 @@ char * __bgdexport( mod_effects, modules_dependency )[] =
     "libgrbase",
     NULL
 };
-
+#endif
 /* --------------------------------------------------------------------------- */

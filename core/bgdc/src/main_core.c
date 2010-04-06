@@ -41,6 +41,7 @@
 #include "../../../modules/libtext/libtext.h"
 #include "../../../modules/libscroll/libscroll.h"
 #include "../../../modules/libkey/libkey.h"
+#include "../../../modules/mod_effects/mod_effects.h"
 #endif
 
 /* ----------------------------------------------------------------------- */
@@ -350,7 +351,19 @@ constants_def[] =
     { "STAT_LSHIFT",  TYPE_DWORD,  STAT_LSHIFT },
     { "STAT_CTRL",    TYPE_DWORD,  STAT_CTRL   },
     { "STAT_ALT",     TYPE_DWORD,  STAT_ALT    },
-
+    /* mod_effects */
+    { "BLUR_NORMAL" , TYPE_INT, BLUR_NORMAL     },
+    { "BLUR_3x3"    , TYPE_INT, BLUR_3x3        },
+    { "BLUR_5x5"    , TYPE_INT, BLUR_5x5        },
+    { "BLUR_5x5_MAP", TYPE_INT, BLUR_5x5_MAP    },
+    { "GSCALE_RGB"  , TYPE_INT, GSCALE_RGB      },
+    { "GSCALE_R"    , TYPE_INT, GSCALE_R        },
+    { "GSCALE_G"    , TYPE_INT, GSCALE_G        },
+    { "GSCALE_B"    , TYPE_INT, GSCALE_B        },
+    { "GSCALE_RG"   , TYPE_INT, GSCALE_RG       },
+    { "GSCALE_RB"   , TYPE_INT, GSCALE_RB       },
+    { "GSCALE_GB"   , TYPE_INT, GSCALE_GB       },
+    { "GSCALE_OFF"  , TYPE_INT, GSCALE_OFF      },
 
 #endif
     { NULL              , 0         , 0                   }

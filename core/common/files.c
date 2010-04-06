@@ -34,6 +34,7 @@
 #include <stdint.h>
 
 #include "files.h"
+#include "arrange.h"
 
 #define MAX_POSSIBLE_PATHS  32
 

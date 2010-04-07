@@ -338,13 +338,21 @@ int main( int argc, char **argv )
         }
     }
 
+    /* If sourcefile is not given, try to use main.prg, or quit */
     if ( !sourcefile )
     {
-        printf( MSG_USING
-                MSG_OPTION_D
-                MSG_OPTIONS
-                MSG_LICENSE, argv[0] );
-        exit(0);
+        FILE *fd;
+
+        fd = fopen("main.prg", "r");
+        if (fd == NULL) {   // Couldn't open file, quit now
+            printf( MSG_USING
+                    MSG_OPTION_D
+                    MSG_OPTIONS
+                    MSG_LICENSE, argv[0] );
+            exit(0);
+        }
+        fclose(fd);
+        sourcefile = "main.prg";
     }
 
     add_simple_define( "COMPILER_VERSION", VERSION );

@@ -155,7 +155,7 @@ int dir_create( const char * dir )
 int dir_delete( const char * dir )
 {
     char *c = dir_path_convert( dir ) ;
-    int r = remove( c ) ;
+    int r = rmdir( c ) ;
     free( c ) ;
     return r ;
 }
@@ -230,11 +230,9 @@ __DIR_ST * dir_open( const char * path )
     /* Convert *.* to * */
     if ( fptr > path_final + 2 && fptr[ -1 ] == '*' && fptr[ -2 ] == '.' && fptr[ -3 ] == '*' ) fptr[ -2 ] = 0;
 
-#if defined(TARGET_MAC)
+#if defined(TARGET_MAC) || defined(TARGET_WII)
     glob( path_final, GLOB_ERR | GLOB_NOSORT, NULL, &hDir->globd );
 #elif defined(TARGET_BEOS)
-    glob( path_final, GLOB_ERR | GLOB_NOSORT, NULL, &hDir->globd );
-#elif defined(TARGET_WII)
     glob( path_final, GLOB_ERR | GLOB_NOSORT, NULL, &hDir->globd );
 #else
     glob( path_final, GLOB_ERR | GLOB_PERIOD | GLOB_NOSORT, NULL, &hDir->globd );

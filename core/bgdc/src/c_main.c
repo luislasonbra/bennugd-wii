@@ -1253,7 +1253,7 @@ void compile_program()
     {
         token_back() ;
     }
-    
+
     mainproc = procdef_new( procdef_getid(), identifier_search_or_add( "MAIN" ) ) ;
 
     for ( ;; )
@@ -1359,7 +1359,7 @@ void compile_program()
         varspace_dump( &local, 0 ) ;
         /* segment_dump (localdata) ; */
     }
-    
+
     if ( token.type != NOTOKEN )
     {
         compile_error( MSG_UNEXPECTED_TOKEN ) ;

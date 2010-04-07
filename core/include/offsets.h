@@ -54,7 +54,7 @@
 #define SOUND_FREQ              4*67
 #define SOUND_MODE              4*68
 #define SOUND_CHANNELS          4*69
-#define ALPHA_STEPS             4*79
+#define ALPHA_STEPS             4*70
 #define GRAPH_MODE              4*71
 #define SCALE_MODE              4*72
 #define FULL_SCREEN             4*73

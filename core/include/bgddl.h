@@ -1,5 +1,5 @@
 /*
- *  Copyright © 2006-2009 SplinterGU (Fenix/Bennugd)
+ *  Copyright © 2006-2010 SplinterGU (Fenix/Bennugd)
  *
  *  This file is part of Bennu - Game Development
  *
@@ -39,6 +39,11 @@
 #define __bgdexport(m,a)    m##_##a
 
 /* --------------------------------------------------------------------------- */
+/*
+ *  ENDIANESS TRICKS
+ */
+
+#include "arrange.h"
 
 #include <typedef_st.h>
 #include <instance_st.h>
@@ -49,6 +54,7 @@
 #endif
 
 /* --------------------------------------------------------------------------- */
+
 typedef struct
 {
     char * var;

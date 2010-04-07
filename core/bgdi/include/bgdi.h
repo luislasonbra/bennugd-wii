@@ -1,5 +1,5 @@
 /*
- *  Copyright © 2006-2009 SplinterGU (Fenix/Bennugd)
+ *  Copyright © 2006-2010 SplinterGU (Fenix/Bennugd)
  *  Copyright © 2002-2006 Fenix Team (Fenix)
  *  Copyright © 1999-2002 José Luis Cebrián Pagüe (Fenix)
  *
@@ -36,25 +36,18 @@
 #define BGDI_VERSION     "BGDI " VERSION " (" __DATE__ " " __TIME__ ")"
 
 /*
- * INSTEAD OF JUST EXITING, GIVE THE USER SOME GRACE TIME TO READ THE ERRORS
- */
-#ifdef TARGET_WII
-#define exit( retval ) printf("\nQUITTING in 5 seconds.\n"); sleep(5); exit(retval);
-#endif
-
-/*
  *  HEADER FILES
  */
 
 #include <commons_defs.h>
-
-#include "files.h"
 
 /*
  *  ENDIANESS TRICKS
  */
 
 #include "arrange.h"
+
+#include "files.h"
 
 #include "bgdrtm.h"
 

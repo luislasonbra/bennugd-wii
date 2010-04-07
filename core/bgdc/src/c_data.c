@@ -1,5 +1,5 @@
 /*
- *  Copyright © 2006-2009 SplinterGU (Fenix/Bennugd)
+ *  Copyright © 2006-2010 SplinterGU (Fenix/Bennugd)
  *  Copyright © 2002-2006 Fenix Team (Fenix)
  *  Copyright © 1999-2002 José Luis Cebrián Pagüe (Fenix)
  *
@@ -66,7 +66,7 @@ int compile_array_data( VARSPACE * n, segment * data, int size, int subsize, BAS
             const char * str = string_get( token.code ) ;
             int subcount = 0 ;
 
-            if ( subsize == 0 ) subsize = strlen( str );
+            if ( subsize == 0 ) subsize = strlen( str ) + 1;
 
             if (( int )strlen( str ) > subsize ) compile_error( MSG_TOO_MANY_INIT ) ;
             while ( *str )

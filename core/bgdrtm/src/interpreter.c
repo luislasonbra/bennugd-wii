@@ -1,5 +1,5 @@
 /*
- *  Copyright © 2006-2009 SplinterGU (Fenix/Bennugd)
+ *  Copyright © 2006-2010 SplinterGU (Fenix/Bennugd)
  *  Copyright © 2002-2006 Fenix Team (Fenix)
  *  Copyright © 1999-2002 José Luis Cebrián Pagüe (Fenix)
  *
@@ -1475,8 +1475,8 @@ int instance_go( INSTANCE * r )
 
             case MN_STRACAT:
                 n = r->stack_ptr[-1];
-                strncat( *( char ** )( &r->stack_ptr[-2] ), string_get( n ), ptr[1] - strlen( *( char ** )( &r->stack_ptr[-2] ) ) ) ;
-                (( char * )( r->stack_ptr[-2] ) )[ptr[1]] = 0;
+                strncat( *( char ** )( &r->stack_ptr[-2] ), string_get( n ), (ptr[1]-1) - strlen( *( char ** )( &r->stack_ptr[-2] ) ) ) ;
+                (( char * )( r->stack_ptr[-2] ) )[ptr[1]-1] = 0;
                 r->stack_ptr[-2] = r->stack_ptr[-1];
                 r->stack_ptr--;
                 ptr += 2 ;

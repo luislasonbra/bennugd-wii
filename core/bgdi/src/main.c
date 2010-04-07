@@ -221,7 +221,7 @@ int main( int argc, char **argv )
 
             if ( !dcbloaded )
             {
-                printf( "%s: don't exist or isn't version %d DCB compatible\n", filename, DCB_VERSION >> 8 ) ;
+                printf( "%s: doesn't exist or isn't version %d DCB compatible\n", filename, DCB_VERSION >> 8 ) ;
                 exit(-1) ;
             }
         }

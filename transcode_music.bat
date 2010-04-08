@@ -25,8 +25,16 @@ REM Create the output directory, if it doesn't exist
 IF NOT EXIST %OUTOGG%\NUL MD %OUTOGG%
 REM Try to recode OGG and transcode MP3 & WMA files
 FOR %%i in (*.ogg *.mp3 *.wma) DO CALL %VLC% %%i --sout=#transcode{acodec=vorb,ab=%RATE%,channels=%CHANNELS%,samplerate=%FREQ%}:duplicate{dst=std{access=file,mux=ogg,dst='%OUTOGG%/%%i'} vlc://quit 
+IF EXIST %OUTOGG%\NUL (
+        CD %OUTOGG%
+        REN *.* *.ogg
+)
 
 REM Create the output directory, if it doesn't exist
 IF NOT EXIST %OUTWV%\NUL MD %OUTWAV%
 REM Try to recode OGG and transcode MP3 & WMA files
 FOR %%i in (*.wav) DO CALL %VLC% %%i --sout=#transcode{vcodec=none,acodec=s16l,ab=%RATE%,channels=%CHANNELS%,samplerate=%FREQ%}:duplicate{dst=std{access=file,mux=wav,dst='%OUTWAV%/%%i'} vlc://quit 
+IF NOT EXIST %OUTWV%\NUL (
+        CD %OUTWAV%
+        REN *.* *.wav
+)

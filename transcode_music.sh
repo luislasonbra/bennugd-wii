@@ -23,6 +23,7 @@ for i in *.{ogg,mp3,wma}; do
 		        if [ ! -d $OUTOGG ]; then
                 		mkdir $OUTOGG;
 		        fi
+			echo
 			echo Converting $i into $OUTOGG/$i
 			echo ==================================================
 			echo
@@ -38,6 +39,7 @@ for i in *.wav; do
         		if [ ! -d $OUTWAV ]; then
                 		mkdir $OUTWAV;
 		        fi
+			echo
                         echo Converting $i into $OUTWAV/$i
                         echo ==================================================
 			echo

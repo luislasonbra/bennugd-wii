@@ -21,8 +21,6 @@
  *
  */
 
-#pragma comment (lib, "SDL_mixer")
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -181,7 +179,12 @@ static int sound_init()
 #endif
 
         audio_channels = GLODWORD( SOUND_MODE ) + 1;
+
+#ifdef TARGET_WII
+        audio_buffers = 1024;
+#else
         audio_buffers = 1024 * audio_rate / 22050;
+#endif
 
         /* Open the audio device */
         if ( Mix_OpenAudio( audio_rate, audio_format, audio_channels, audio_buffers ) >= 0 )

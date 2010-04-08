@@ -57,7 +57,7 @@ export DEPSDIR	:=	$(CURDIR)/$(BUILD)
 #---------------------------------------------------------------------------------
 CFILES		:=	dcbr.c sysprocs.c strings.c dirs.c copy.c misc.c instance.c \
               interpreter.c \
-              ../../common/b_crypt.c ../../common/debug.c \
+              ../../common/debug.c \
               ../../common/files.c ../../common/varspace_file.c \
               ../../common/xctype.c \
               ../../../modules/mod_say/mod_say.c \

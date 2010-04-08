@@ -155,7 +155,11 @@ int dir_create( const char * dir )
 int dir_delete( const char * dir )
 {
     char *c = dir_path_convert( dir ) ;
+#ifdef TARGET_WII
+    int r = remove( c );
+#else
     int r = rmdir( c ) ;
+#endif
     free( c ) ;
     return r ;
 }

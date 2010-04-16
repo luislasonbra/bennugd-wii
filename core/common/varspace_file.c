@@ -279,7 +279,7 @@ int loadtype( file * fp, void * data, DCB_TYPEDEF * var, int dcbformat )
     {
         switch ( var->BaseType[n] )
         {
-                /* Not sure about float types */
+            /* Not sure about float types */
             case TYPE_FLOAT:
             case TYPE_INT:
             case TYPE_DWORD:

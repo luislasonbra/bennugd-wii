@@ -32,9 +32,22 @@
 
 int modsay_say( INSTANCE * my, int * params )
 {
+// Using printf in the Wii causes artifacts when combined with
+// SDL
+#ifdef TARGET_WII
+    FILE *fd;
+
+    fd = fopen("stdout.txt", "a");
+    if(fd != NULL) {
+        fprintf(fd, "%s\n", string_get( params[0] ));
+        fflush( fd );
+        fclose( fd );
+    }
+#else
     /* Show debugging info also in stdout */
     printf( "%s\n", string_get( params[0] ) );
     fflush( stdout );
+#endif
     string_discard( params[0] ) ;
     
     return 1;
@@ -44,8 +57,20 @@ int modsay_say( INSTANCE * my, int * params )
 
 int modsay_say_fast( INSTANCE * my, int * params )
 {
+// Using printf in the Wii causes artifacts when combined with
+// SDL
+#ifdef TARGET_WII
+    FILE *fd;
+
+    fd = fopen("stdout.txt", "a");
+    if(fd != NULL) {
+        fprintf(fd, "%s\n", string_get( params[0] ));
+        fclose( fd );
+    }
+#else
     /* Show debugging info also in stdout */
     printf( "%s\n", string_get( params[0] ) );
+#endif
     string_discard( params[0] ) ;
     
     return 1;

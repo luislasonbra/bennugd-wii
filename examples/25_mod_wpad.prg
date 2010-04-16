@@ -20,7 +20,11 @@ Begin
 
     while(! mouse.left)
         for(i=0; i<=7; i++)
-            write(0, scr_width/2, 50+10*i, 4, "Joy "+i+" is ready");
+            if(wpad_is_ready(i) > 0)
+                write(0, scr_width/2, 50+10*i, 4, "Joy "+i+" is ready (Battery: "+
+                      wpad_battery_level(i)+
+                      ")");
+            end;
             if(wpad_is_balanceboard(i) > 0)
                 write(0, scr_width/2, scr_height/2+10*i, 4, "Using "+i+" as a Balance Board");
                 bb = i;

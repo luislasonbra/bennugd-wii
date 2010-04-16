@@ -122,7 +122,8 @@ CFILES		:=	dcbr.c sysprocs.c strings.c dirs.c copy.c misc.c instance.c \
               ../../../modules/libkey/libkey.c \
               ../../../modules/mod_key/mod_key.c \
               ../../../modules/mod_blendop/mod_blendop.c \
-              ../../../modules/mod_effects/mod_effects.c
+              ../../../modules/mod_effects/mod_effects.c \
+              ../../../modules/mod_wpad/mod_wpad.c
 
 #---------------------------------------------------------------------------------
 # use CXX for linking C++ projects, CC for standard C

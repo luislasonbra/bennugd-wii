@@ -385,6 +385,11 @@ extern int modeffects_filter( INSTANCE *my, int *params );
 extern int modeffects_blur( INSTANCE *my, int *params );
 extern int modeffects_grayscale( INSTANCE *my, int *params );
 extern int modeffects_rgbscale( INSTANCE *my, int *params );
+
+/* mod_wpad */
+extern int modwpad_is_ready( INSTANCE * my, int * params );
+extern int modwpad_is_balanceboard( INSTANCE * my, int * params );
+extern int modwpad_query_balanceboard( INSTANCE * my, int * params );
 #endif
 
 #include "sysprocs.h"

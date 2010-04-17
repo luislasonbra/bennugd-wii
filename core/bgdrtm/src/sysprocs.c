@@ -391,6 +391,7 @@ extern int modwpad_is_ready( INSTANCE * my, int * params );
 extern int modwpad_is_balanceboard( INSTANCE * my, int * params );
 extern int modwpad_query_balanceboard( INSTANCE * my, int * params );
 extern int modwpad_battery_level( INSTANCE * my, int * params );
+extern void modwpad_rumble( INSTANCE * my, int * params);
 #endif
 
 #include "sysprocs.h"

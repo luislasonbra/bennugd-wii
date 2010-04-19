@@ -54,7 +54,7 @@
         #define ARRANGE_DWORDS(x,c)
         #define ARRANGE_WORDS(x,c)
     #else
-        #if defined(__GNUC__) && (defined(__powerpc__) || defined(__ppc__) || defined(GEKKO))
+        #if defined(__GNUC__) && ( defined(__powerpc__) || defined(__ppc__) || defined(GEKKO) )
             /* PowerPC optimized assembly code */
             static __inline__ void DO_Swap16(uint16_t * D)
             {

@@ -281,6 +281,7 @@ static int info_text( TEXT * text, REGION * bbox, int * z, int * drawme )
             break;
     }
 
+
     /* Fill the bounding box */
 
     bbox->x = text->_x;
@@ -413,7 +414,7 @@ int gr_text_new( int fontid, int x, int y, int alignment, const char * text )
     texts[textid].fontid = fontid ;
     texts[textid].x = x ;
     texts[textid].y = y ;
-    texts[textid].z = GLOINT32( TEXTZ ) ;
+    texts[textid].z = GLOINT32( libtext, TEXTZ ) ;
     texts[textid].alignment = alignment ;
     texts[textid].text = text ? strdup( text ) : 0 ;
     texts[textid].color8 = fntcolor8 ;
@@ -578,6 +579,7 @@ int gr_text_height_no_margin( int fontid, const unsigned char * text )
                     {
                         l = f->glyph[*text].yoffset + ( int )f->glyph[*text].bitmap->height ;
                     }
+
                     break;
             }
         }
@@ -612,7 +614,7 @@ int gr_text_put( GRAPH * dest, REGION * clip, int fontid, int x, int y, const un
 
     f = fonts[fontid] ;
 
-    flags = GLODWORD( TEXT_FLAGS );
+    flags = GLODWORD( libtext, TEXT_FLAGS );
 
     save8 = pixel_color8;
     save16 = pixel_color16;

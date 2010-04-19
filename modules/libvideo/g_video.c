@@ -251,22 +251,22 @@ int gr_set_mode( int width, int height, int depth )
     int surface_width = width;
     int surface_height = height;
 
-    enable_scale = ( GLODWORD( GRAPH_MODE ) & MODE_2XSCALE ) ? 1 : 0 ;
-    full_screen = ( GLODWORD( GRAPH_MODE ) & MODE_FULLSCREEN ) ? 1 : 0 ;
-    double_buffer = ( GLODWORD( GRAPH_MODE ) & MODE_DOUBLEBUFFER ) ? 1 : 0 ;
-    hardware_scr = ( GLODWORD( GRAPH_MODE ) & MODE_HARDWARE ) ? 1 : 0 ;
-    grab_input = ( GLODWORD( GRAPH_MODE ) & MODE_MODAL ) ? 1 : 0 ;
-    frameless = ( GLODWORD( GRAPH_MODE ) & MODE_FRAMELESS ) ? 1 : 0 ;
-    waitvsync = ( GLODWORD( GRAPH_MODE ) & MODE_WAITVSYNC ) ? 1 : 0 ;
-    scale_mode = GLODWORD( SCALE_MODE );
-    full_screen |= GLODWORD( FULL_SCREEN );
-    scale_resolution = GLODWORD( SCALE_RESOLUTION );
+    enable_scale = ( GLODWORD( libvideo, GRAPH_MODE ) & MODE_2XSCALE ) ? 1 : 0 ;
+    full_screen = ( GLODWORD( libvideo, GRAPH_MODE ) & MODE_FULLSCREEN ) ? 1 : 0 ;
+    double_buffer = ( GLODWORD( libvideo, GRAPH_MODE ) & MODE_DOUBLEBUFFER ) ? 1 : 0 ;
+    hardware_scr = ( GLODWORD( libvideo, GRAPH_MODE ) & MODE_HARDWARE ) ? 1 : 0 ;
+    grab_input = ( GLODWORD( libvideo, GRAPH_MODE ) & MODE_MODAL ) ? 1 : 0 ;
+    frameless = ( GLODWORD( libvideo, GRAPH_MODE ) & MODE_FRAMELESS ) ? 1 : 0 ;
+    waitvsync = ( GLODWORD( libvideo, GRAPH_MODE ) & MODE_WAITVSYNC ) ? 1 : 0 ;
+    scale_mode = GLODWORD( libvideo, SCALE_MODE );
+    full_screen |= GLODWORD( libvideo, FULL_SCREEN );
+    scale_resolution = GLODWORD( libvideo, SCALE_RESOLUTION );
 
     if ( !depth )
     {
-        enable_32bits = ( GLODWORD( GRAPH_MODE ) & MODE_32BITS ) ? 1 : 0 ;
+        enable_32bits = ( GLODWORD( libvideo, GRAPH_MODE ) & MODE_32BITS ) ? 1 : 0 ;
         if ( !enable_32bits )
-            enable_16bits = ( GLODWORD( GRAPH_MODE ) & MODE_16BITS ) ? 1 : 0 ;
+            enable_16bits = ( GLODWORD( libvideo, GRAPH_MODE ) & MODE_16BITS ) ? 1 : 0 ;
         else
             enable_16bits = 0;
         depth = enable_32bits ? 32 : ( enable_16bits ? 16 : 8 );
@@ -494,12 +494,12 @@ void __bgdexport( libvideo, module_initialize )()
 
     e = getenv("VIDEO_DEPTH");
     if ( e )
-        GLODWORD( GRAPH_MODE ) = atoi(e);
+        GLODWORD( libvideo, GRAPH_MODE ) = atoi(e);
     else
 /*#ifdef TARGET_GP2X_WIZ*/
-        GLODWORD( GRAPH_MODE ) = MODE_16BITS;   // Should be default for WII too
+        GLODWORD( libvideo, GRAPH_MODE ) = MODE_16BITS;   // Should be default for WII too
 /*#else
-        GLODWORD( GRAPH_MODE ) = MODE_32BITS;
+        GLODWORD( libvideo, GRAPH_MODE ) = MODE_32BITS;
 #endif*/
 
     gr_init( scr_width, scr_height ) ;

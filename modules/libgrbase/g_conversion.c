@@ -454,11 +454,7 @@ void gr_fade16( GRAPH * graph, int r, int g, int b )
 
 uint16_t * gr_alpha16( int alpha )
 {
-#ifdef __STATIC__
-    if ( !alpha16_tables_ok ) init_alpha16_tables( GLODWORD( ALPHA_STEPS ) );
-#else
     if ( !alpha16_tables_ok ) init_alpha16_tables( GLODWORD( libgrbase, ALPHA_STEPS ) );
-#endif
     return alpha16[ alpha ];
 }
 
@@ -479,11 +475,7 @@ uint16_t * gr_alpha16( int alpha )
 
 uint8_t * gr_alpha8( int alpha )
 {
-#ifdef __STATIC__
-    if ( !alpha8_tables_ok ) init_alpha8_tables( GLODWORD( ALPHA_STEPS ) );
-#else
     if ( !alpha8_tables_ok ) init_alpha8_tables( GLODWORD( libgrbase, ALPHA_STEPS ) );
-#endif
     return ( uint8_t * ) alpha8[ alpha ];
 }
 

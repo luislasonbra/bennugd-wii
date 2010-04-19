@@ -100,7 +100,7 @@ int modregex_regex (INSTANCE * my, int * params)
         if (result != -1)
         {
             /* Fill the regex_reg global variables */
-            regex_reg = (int *) &GLODWORD( REGEX_REG );
+            regex_reg = (int *) &GLODWORD( mod_regex, REGEX_REG );
             for (n = 0 ; n < 16 && n <= pb.re_nsub ; n++)
             {
                 string_discard (regex_reg[n]);
@@ -195,7 +195,7 @@ int modregex_regex_replace (INSTANCE * my, int * params)
             if (regex_filled == 0)
             {
                 regex_filled = 1;
-                regex_reg = (int *)&GLODWORD( REGEX_REG );
+                regex_reg = (int *)&GLODWORD( mod_regex, REGEX_REG );
                 for (n = 0 ; n < 16 && n <= pb.re_nsub ; n++)
                 {
                     string_discard (regex_reg[n]);

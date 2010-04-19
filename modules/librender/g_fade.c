@@ -102,7 +102,7 @@ void gr_fade_init( int r, int g, int b, int speed )
     fade_to.g = ( g > 200 ) ? 200 : g ;
     fade_to.b = ( b > 200 ) ? 200 : b ;
 
-    GLODWORD( FADING ) = 1 ;
+    GLODWORD( librender, FADING ) = 1 ;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -112,19 +112,19 @@ void gr_fade_step()
     if ( fade_on )
     {
         fade_set = 1 ;
-        GLODWORD( FADING ) = 1 ;
+        GLODWORD( librender, FADING ) = 1 ;
 
         fade_step += fade_inc ;
         if ( fade_step < 0 )
         {
-            GLODWORD( FADING ) = 0 ;
+            GLODWORD( librender, FADING ) = 0 ;
             fade_step = 0 ;
             fade_on = 0 ;
         }
 
         if ( fade_step >= 64 )
         {
-            GLODWORD( FADING ) = 0 ;
+            GLODWORD( librender, FADING ) = 0 ;
             fade_step = 64 ;
             fade_on = 0 ;
         }
@@ -137,7 +137,7 @@ void gr_fade_step()
             ( fade_step + fade_inc < 0 || fade_step + fade_inc > 64 ) &&
             ( fade_pos.r == 100 && fade_pos.g == 100 && fade_pos.b == 100 ) )
         {
-            GLODWORD( FADING ) = 0 ;
+            GLODWORD( librender, FADING ) = 0 ;
             fade_step = 100 ;
             fade_on = 0;
         }

@@ -93,7 +93,7 @@ int modscreen_out_region( INSTANCE * my, int * params )
 
     instance_get_bbox( proc, gr, &bbox );
 
-    if ( LOCDWORD( proc, CTYPE ) == C_SCROLL )
+    if ( LOCDWORD( mod_screen, proc, CTYPE ) == C_SCROLL )
     {
         SCROLL_EXTRA_DATA * data;
         scrolldata  * scroll;
@@ -102,12 +102,12 @@ int modscreen_out_region( INSTANCE * my, int * params )
         if ( GLOEXISTS( SCROLLS ) )
         {
 #endif
-            int cnumber = LOCDWORD( proc, CNUMBER );
+            int cnumber = LOCDWORD( mod_screen, proc, CNUMBER );
             if ( !cnumber ) cnumber = 0xFFFFFFFF ;
 
             for ( i = 0 ; i < 10 ; i++ )
             {
-                data = &(( SCROLL_EXTRA_DATA * ) & GLODWORD( SCROLLS ) )[i] ;
+                data = &(( SCROLL_EXTRA_DATA * ) & GLODWORD( mod_screen, SCROLLS ) )[i] ;
                 scroll = ( scrolldata  * ) data->reserved[0];
 
                 if ( scroll && scroll->active && ( cnumber & ( 1 << i ) ) )

@@ -78,7 +78,7 @@ void _advance_timers( void )
     int curr_ticktimer = SDL_GetTicks() ;
 
     /* TODO: Here add checking for console_mode, don't advance in this mode */
-    timer = ( int * ) ( &GLODWORD( TIMER ) );
+    timer = ( int * ) ( &GLODWORD( mod_timers, TIMER ) );
     for ( i = 0 ; i < 10 ; i++ )
     {
         if ( timer[i] != ltimer[i] )

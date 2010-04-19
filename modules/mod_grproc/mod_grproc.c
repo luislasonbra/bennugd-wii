@@ -127,9 +127,9 @@ DLVARFIXUP __bgdexport( mod_grproc, globals_fixup )[] =
 
 int grproc_advance( INSTANCE * my, int * params )
 {
-    int angle = LOCINT32( my, ANGLE ) ;
-    LOCINT32( my, COORDX ) += fixtoi( fmul( fcos( angle ), itofix( params[0] ) ) ) ;
-    LOCINT32( my, COORDY ) -= fixtoi( fmul( fsin( angle ), itofix( params[0] ) ) ) ;
+    int angle = LOCINT32( mod_grproc, my, ANGLE ) ;
+    LOCINT32( mod_grproc, my, COORDX ) += fixtoi( fmul( fcos( angle ), itofix( params[0] ) ) ) ;
+    LOCINT32( mod_grproc, my, COORDY ) -= fixtoi( fmul( fsin( angle ), itofix( params[0] ) ) ) ;
     return 1 ;
 }
 
@@ -138,8 +138,8 @@ int grproc_advance( INSTANCE * my, int * params )
 int grproc_xadvance( INSTANCE * my, int * params )
 {
     int angle = params[0] ;
-    LOCINT32( my, COORDX ) += fixtoi( fmul( fcos( angle ), itofix( params[1] ) ) ) ;
-    LOCINT32( my, COORDY ) -= fixtoi( fmul( fsin( angle ), itofix( params[1] ) ) ) ;
+    LOCINT32( mod_grproc, my, COORDX ) += fixtoi( fmul( fcos( angle ), itofix( params[1] ) ) ) ;
+    LOCINT32( mod_grproc, my, COORDY ) -= fixtoi( fmul( fsin( angle ), itofix( params[1] ) ) ) ;
     return 1 ;
 }
 
@@ -151,8 +151,8 @@ int grproc_get_angle( INSTANCE * my, int * params )
 
     if ( my && b )
     {
-        double dx = ( double )(( int )( LOCINT32( b, COORDX ) - LOCINT32( my, COORDX ) ) ) ;
-        double dy = ( double )(( int )( LOCINT32( b, COORDY ) - LOCINT32( my, COORDY ) ) ) ;
+        double dx = ( double )(( int )( LOCINT32( mod_grproc, b, COORDX ) - LOCINT32( mod_grproc, my, COORDX ) ) ) ;
+        double dy = ( double )(( int )( LOCINT32( mod_grproc, b, COORDY ) - LOCINT32( mod_grproc, my, COORDY ) ) ) ;
         int angle ;
 
         if ( dx == 0 ) return ( dy > 0 ) ? 270000L : 90000L ;
@@ -173,17 +173,17 @@ int grproc_get_dist( INSTANCE * a, int * params )
     if ( a && b )
     {
         int x1, y1, x2, y2;
-        int res = LOCINT32( a, RESOLUTION ) ;
+        int res = LOCINT32( mod_grproc, a, RESOLUTION ) ;
 
-        x1 = LOCINT32( a, COORDX ) ;
-        y1 = LOCINT32( a, COORDY ) ;
+        x1 = LOCINT32( mod_grproc, a, COORDX ) ;
+        y1 = LOCINT32( mod_grproc, a, COORDY ) ;
 
-        RESOLXY( a, x1, y1 );
+        RESOLXY( mod_grproc, a, x1, y1 );
 
-        x2 = LOCINT32( b, COORDX ) ;
-        y2 = LOCINT32( b, COORDY ) ;
+        x2 = LOCINT32( mod_grproc, b, COORDX ) ;
+        y2 = LOCINT32( mod_grproc, b, COORDY ) ;
 
-        RESOLXY( b, x2, y2 );
+        RESOLXY( mod_grproc, b, x2, y2 );
 
         double dx = ( x2 - x1 ) * ( x2 - x1 ) ;
         double dy = ( y2 - y1 ) * ( y2 - y1 ) ;
@@ -227,7 +227,7 @@ int grproc_get_real_point( INSTANCE * my, int * params )
     if ( b->cpoints[params[0]].x == CPOINT_UNDEFINED && b->cpoints[params[0]].y == CPOINT_UNDEFINED )
         return 0;
 
-    r = LOCINT32( my, REGIONID ) ;
+    r = LOCINT32( mod_grproc, my, REGIONID ) ;
     if ( r < 0 || r > 31 ) r = 0 ;
 
     if ( b->cpoints[0].x != CPOINT_UNDEFINED && b->cpoints[0].y != CPOINT_UNDEFINED )
@@ -242,19 +242,19 @@ int grproc_get_real_point( INSTANCE * my, int * params )
     }
 
 
-    if ( LOCINT32( my, ANGLE ) != 0 && !LOCDWORD( my, XGRAPH ) )
+    if ( LOCINT32( mod_grproc, my, ANGLE ) != 0 && !LOCDWORD( mod_grproc, my, XGRAPH ) )
     {
-        _angle = angle = LOCINT32( my, ANGLE ) ;
+        _angle = angle = LOCINT32( mod_grproc, my, ANGLE ) ;
     }
 
 /* if ( b->cpoints[params[0]].x >= 0 )
     {
-        if ( LOCDWORD( my, FLAGS ) & B_HMIRROR )
+        if ( LOCDWORD( mod_grproc, my, FLAGS ) & B_HMIRROR )
             px = centerx - b->cpoints[params[0]].x - 1 ;
         else
             px = b->cpoints[params[0]].x - centerx ;
 
-        if ( LOCDWORD( my, FLAGS ) & B_VMIRROR )
+        if ( LOCDWORD( mod_grproc, my, FLAGS ) & B_VMIRROR )
             py = centery - b->cpoints[params[0]].y - 1 ;
         else
             py = b->cpoints[params[0]].y - centery ;
@@ -267,7 +267,7 @@ int grproc_get_real_point( INSTANCE * my, int * params )
         px = b->cpoints[params[0]].x - centerx ;
         py = b->cpoints[params[0]].y - centery ;
 
-        if ( LOCDWORD( my, FLAGS ) & B_HMIRROR )
+        if ( LOCDWORD( mod_grproc, my, FLAGS ) & B_HMIRROR )
         {
             if (_angle)
             {
@@ -278,7 +278,7 @@ int grproc_get_real_point( INSTANCE * my, int * params )
                 px = (centerx - b->cpoints[params[0]].x) ;
         }
 
-        if ( LOCDWORD( my, FLAGS ) & B_VMIRROR )
+        if ( LOCDWORD( mod_grproc, my, FLAGS ) & B_VMIRROR )
         {
             if (_angle)
             {
@@ -290,23 +290,23 @@ int grproc_get_real_point( INSTANCE * my, int * params )
         }
     }
 
-    if ( LOCINT32( my, GRAPHSIZEX ) == 100 && LOCINT32( my, GRAPHSIZEY ) == 100 )
+    if ( LOCINT32( mod_grproc, my, GRAPHSIZEX ) == 100 && LOCINT32( mod_grproc, my, GRAPHSIZEY ) == 100 )
     {
-        if ((( int )LOCINT32( my, GRAPHSIZE ) ) > 0 )
+        if ((( int )LOCINT32( mod_grproc, my, GRAPHSIZE ) ) > 0 )
         {
             // Corrected a bug from the casting that rounded to 0
-            px = ( int )( px * ( LOCINT32( my, GRAPHSIZE ) / 100.0F ) ) ;
-            py = ( int )( py * ( LOCINT32( my, GRAPHSIZE ) / 100.0F ) ) ;
+            px = ( int )( px * ( LOCINT32( mod_grproc, my, GRAPHSIZE ) / 100.0F ) ) ;
+            py = ( int )( py * ( LOCINT32( mod_grproc, my, GRAPHSIZE ) / 100.0F ) ) ;
         }
     }
     else
     {
         // Adding size_x/size_y control
-        if ( LOCINT32( my, GRAPHSIZEX ) > 0 )
-            px = ( int )( px * ( LOCINT32( my, GRAPHSIZEX ) / 100.0F ) ) ;
+        if ( LOCINT32( mod_grproc, my, GRAPHSIZEX ) > 0 )
+            px = ( int )( px * ( LOCINT32( mod_grproc, my, GRAPHSIZEX ) / 100.0F ) ) ;
 
-        if ( LOCINT32( my, GRAPHSIZEY ) > 0 )
-            py = ( int )( py * ( LOCINT32( my, GRAPHSIZEY ) / 100.0F ) ) ;
+        if ( LOCINT32( mod_grproc, my, GRAPHSIZEY ) > 0 )
+            py = ( int )( py * ( LOCINT32( mod_grproc, my, GRAPHSIZEY ) / 100.0F ) ) ;
     }
 
     if ( angle )
@@ -321,23 +321,23 @@ int grproc_get_real_point( INSTANCE * my, int * params )
         py = ry ;
     }
 
-    x = LOCINT32( my, COORDX ) ;
-    y = LOCINT32( my, COORDY ) ;
+    x = LOCINT32( mod_grproc, my, COORDX ) ;
+    y = LOCINT32( mod_grproc, my, COORDY ) ;
 
-    RESOLXY( my, x, y );
+    RESOLXY( mod_grproc, my, x, y );
 
     rx = x + px ;
     ry = y + py ;
 
-    if ( LOCINT32( my, RESOLUTION ) > 0 )
+    if ( LOCINT32( mod_grproc, my, RESOLUTION ) > 0 )
     {
-        rx *= LOCINT32( my, RESOLUTION );
-        ry *= LOCINT32( my, RESOLUTION );
+        rx *= LOCINT32( mod_grproc, my, RESOLUTION );
+        ry *= LOCINT32( mod_grproc, my, RESOLUTION );
     }
-    else if ( LOCINT32( my, RESOLUTION ) < 0 )
+    else if ( LOCINT32( mod_grproc, my, RESOLUTION ) < 0 )
     {
-        rx /= -LOCINT32( my, RESOLUTION );
-        ry /= -LOCINT32( my, RESOLUTION );
+        rx /= -LOCINT32( mod_grproc, my, RESOLUTION );
+        ry /= -LOCINT32( mod_grproc, my, RESOLUTION );
     }
 
     *( int * )params[1] = rx ;
@@ -354,35 +354,35 @@ static void draw_at( GRAPH * dest, int x, int y, REGION * r, INSTANCE * i )
     GRAPH * map ;
     int scalex, scaley;
 
-    scalex = LOCINT32( i, GRAPHSIZEX );
-    scaley = LOCINT32( i, GRAPHSIZEY );
-    if ( scalex == 100 && scaley == 100 ) scalex = scaley = LOCINT32( i, GRAPHSIZE );
+    scalex = LOCINT32( mod_grproc, i, GRAPHSIZEX );
+    scaley = LOCINT32( mod_grproc, i, GRAPHSIZEY );
+    if ( scalex == 100 && scaley == 100 ) scalex = scaley = LOCINT32( mod_grproc, i, GRAPHSIZE );
 
     map = instance_graph( i ) ;
     if ( !map ) return ;
 
     // PATCH - XGRAPH DOES NOT ROTATE DESTINATION GRAPHIC
-    if ( LOCINT32( i, ANGLE ) || scaley != 100 || scalex != 100 )
+    if ( LOCINT32( mod_grproc, i, ANGLE ) || scaley != 100 || scalex != 100 )
     {
-        if ( LOCDWORD( i, XGRAPH ) && scalex == 100 && scaley == 100 )
+        if ( LOCDWORD( mod_grproc, i, XGRAPH ) && scalex == 100 && scaley == 100 )
         {
-            gr_blit( dest, r, x, y, LOCDWORD( i, FLAGS ), map ) ;
+            gr_blit( dest, r, x, y, LOCDWORD( mod_grproc, i, FLAGS ), map ) ;
         }
         else
         {
-            if ( LOCDWORD( i, XGRAPH ) )
+            if ( LOCDWORD( mod_grproc, i, XGRAPH ) )
             {
-                gr_rotated_blit( dest, r, x, y, LOCDWORD( i, FLAGS ), 0, scalex, scaley, map ) ;
+                gr_rotated_blit( dest, r, x, y, LOCDWORD( mod_grproc, i, FLAGS ), 0, scalex, scaley, map ) ;
             }
             else
             {
-                gr_rotated_blit( dest, r, x, y, LOCDWORD( i, FLAGS ), LOCINT32( i, ANGLE ), scalex, scaley, map ) ;
+                gr_rotated_blit( dest, r, x, y, LOCDWORD( mod_grproc, i, FLAGS ), LOCINT32( mod_grproc, i, ANGLE ), scalex, scaley, map ) ;
             }
         }
     }
     else
     {
-        gr_blit( dest, r, x, y, LOCDWORD( i, FLAGS ), map ) ;
+        gr_blit( dest, r, x, y, LOCDWORD( mod_grproc, i, FLAGS ), map ) ;
     }
 }
 
@@ -397,16 +397,16 @@ static int get_bbox( REGION * bbox, INSTANCE * proc )
     b = instance_graph( proc ) ;
     if ( !b ) return 0 ;
 
-    scalex = LOCINT32( proc, GRAPHSIZEX );
-    scaley = LOCINT32( proc, GRAPHSIZEY );
-    if ( scalex == 100 && scaley == 100 ) scalex = scaley = LOCINT32( proc, GRAPHSIZE );
+    scalex = LOCINT32( mod_grproc, proc, GRAPHSIZEX );
+    scaley = LOCINT32( mod_grproc, proc, GRAPHSIZEY );
+    if ( scalex == 100 && scaley == 100 ) scalex = scaley = LOCINT32( mod_grproc, proc, GRAPHSIZE );
 
-    x = LOCINT32( proc, COORDX ) ;
-    y = LOCINT32( proc, COORDY ) ;
+    x = LOCINT32( mod_grproc, proc, COORDX ) ;
+    y = LOCINT32( mod_grproc, proc, COORDY ) ;
 
-    RESOLXY( proc, x, y );
+    RESOLXY( mod_grproc, proc, x, y );
 
-    gr_get_bbox( bbox, 0, x, y, LOCDWORD( proc, FLAGS ), LOCINT32( proc, ANGLE ), scalex, scaley, b ) ;
+    gr_get_bbox( bbox, 0, x, y, LOCDWORD( mod_grproc, proc, FLAGS ), LOCINT32( mod_grproc, proc, ANGLE ), scalex, scaley, b ) ;
 
     return 1 ;
 }
@@ -420,13 +420,13 @@ static int check_collision_with_mouse( INSTANCE * proc1 )
     int x, y, mx, my ;
     static GRAPH * bmp ;
 
-    mx = GLOINT32( MOUSEX ) ;
-    my = GLOINT32( MOUSEY ) ;
+    mx = GLOINT32( mod_grproc, MOUSEX ) ;
+    my = GLOINT32( mod_grproc, MOUSEY ) ;
 
     /* Checks the process's bounding box to optimize checking
        (only for screen-type objects) */
 
-    if ( LOCDWORD( proc1, CTYPE ) == C_SCREEN )
+    if ( LOCDWORD( mod_grproc, proc1, CTYPE ) == C_SCREEN )
     {
         if ( !get_bbox( &bbox1, proc1 ) ) return 0 ;
 
@@ -445,14 +445,14 @@ static int check_collision_with_mouse( INSTANCE * proc1 )
     bbox1.x = 0 ; bbox1.x2 = 1 ;
     bbox1.y = 0 ; bbox1.y2 = 1 ;
 
-    x = LOCINT32( proc1, COORDX ) ;
-    y = LOCINT32( proc1, COORDY ) ;
+    x = LOCINT32( mod_grproc, proc1, COORDX ) ;
+    y = LOCINT32( mod_grproc, proc1, COORDY ) ;
 
-    RESOLXY( proc1, x, y );
+    RESOLXY( mod_grproc, proc1, x, y );
 
     /* Scroll-type process: check for each region */
 
-    if ( LOCDWORD( proc1, CTYPE ) == C_SCROLL )
+    if ( LOCDWORD( mod_grproc, proc1, CTYPE ) == C_SCROLL )
     {
         SCROLL_EXTRA_DATA * data;
         scrolldata  * scroll;
@@ -461,12 +461,12 @@ static int check_collision_with_mouse( INSTANCE * proc1 )
         if ( GLOEXISTS( SCROLLS ) )
         {
 #endif
-            int cnumber = LOCDWORD( proc1, CNUMBER );
+            int cnumber = LOCDWORD( mod_grproc, proc1, CNUMBER );
             if ( !cnumber ) cnumber = 0xffffffff ;
 
             for ( i = 0 ; i < 10 ; i++ )
             {
-                data = &(( SCROLL_EXTRA_DATA * ) & GLODWORD( SCROLLS ) )[i] ;
+                data = &(( SCROLL_EXTRA_DATA * ) & GLODWORD( mod_grproc, SCROLLS ) )[i] ;
                 scroll = ( scrolldata * ) data->reserved[0];
 
                 if ( scroll && scroll->active && ( cnumber & ( 1 << i ) ) )
@@ -557,17 +557,17 @@ int check_collision( INSTANCE * proc1, INSTANCE * proc2 )
     memset( bmp1->data, 0, bmp1->pitch * h ) ;
     memset( bmp2->data, 0, bmp2->pitch * h ) ;
 
-    x = LOCINT32( proc1, COORDX ) ;
-    y = LOCINT32( proc1, COORDY ) ;
-    RESOLXY( proc1, x, y );
+    x = LOCINT32( mod_grproc, proc1, COORDX ) ;
+    y = LOCINT32( mod_grproc, proc1, COORDY ) ;
+    RESOLXY( mod_grproc, proc1, x, y );
 
     x -= bbox1.x ;
     y -= bbox1.y ;
     draw_at( bmp1, x, y, &bbox2, proc1 ) ;
 
-    x = LOCINT32( proc2, COORDX ) ;
-    y = LOCINT32( proc2, COORDY ) ;
-    RESOLXY( proc2, x, y );
+    x = LOCINT32( mod_grproc, proc2, COORDX ) ;
+    y = LOCINT32( mod_grproc, proc2, COORDY ) ;
+    RESOLXY( mod_grproc, proc2, x, y );
 
     x -= bbox1.x ;
     y -= bbox1.y ;
@@ -666,10 +666,10 @@ int grproc_collision( INSTANCE * my, int * params )
 
     if ( !params[0] )
     {
-        LOCDWORD( my, TYPE_SCAN ) = 0 ;
-        if ( LOCDWORD( my, ID_SCAN ) )
+        LOCDWORD( mod_grproc, my, TYPE_SCAN ) = 0 ;
+        if ( LOCDWORD( mod_grproc, my, ID_SCAN ) )
         {
-            ptr = instance_get( LOCDWORD( my, ID_SCAN ) ) ;
+            ptr = instance_get( LOCDWORD( mod_grproc, my, ID_SCAN ) ) ;
             if ( ptr ) ptr = ptr->next ;
         }
 
@@ -677,47 +677,47 @@ int grproc_collision( INSTANCE * my, int * params )
         {
             if ( ptr != my &&
                   (
-                    ( status = ( LOCDWORD( ptr, STATUS ) & ~STATUS_WAITING_MASK ) ) == STATUS_RUNNING ||
+                    ( status = ( LOCDWORD( mod_grproc, ptr, STATUS ) & ~STATUS_WAITING_MASK ) ) == STATUS_RUNNING ||
                     status == STATUS_FROZEN
                   ) &&
                   check_collision( my, ptr )
                 )
             {
-                LOCDWORD( my, ID_SCAN ) = LOCDWORD( ptr, PROCESS_ID ) ;
-                return LOCDWORD( ptr, PROCESS_ID ) ;
+                LOCDWORD( mod_grproc, my, ID_SCAN ) = LOCDWORD( mod_grproc, ptr, PROCESS_ID ) ;
+                return LOCDWORD( mod_grproc, ptr, PROCESS_ID ) ;
             }
             ptr = ptr->next ;
         }
         return 0 ;
     }
 
-    LOCDWORD( my, ID_SCAN ) = 0 ;
+    LOCDWORD( mod_grproc, my, ID_SCAN ) = 0 ;
     /* Check if already in scan by type and we reach limit */
-    ctx = ( INSTANCE ** ) LOCADDR( my, CONTEXT );
+    ctx = ( INSTANCE ** ) LOCADDR( mod_grproc, my, CONTEXT );
 /*
-    if ( !*ctx && LOCDWORD( my, GRPROC_TYPE_SCAN ) )
+    if ( !*ctx && LOCDWORD( mod_grproc, my, GRPROC_TYPE_SCAN ) )
     {
-        LOCDWORD( my, GRPROC_TYPE_SCAN ) = 0;
+        LOCDWORD( mod_grproc, my, GRPROC_TYPE_SCAN ) = 0;
         return 0;
     }
 */
-    if ( LOCDWORD( my, TYPE_SCAN ) != params[0] ) /* Check if type change from last call */
+    if ( LOCDWORD( mod_grproc, my, TYPE_SCAN ) != params[0] ) /* Check if type change from last call */
     {
         *ctx = NULL;
-        LOCDWORD( my, TYPE_SCAN ) = params[0];
+        LOCDWORD( mod_grproc, my, TYPE_SCAN ) = params[0];
     }
 
     while ( ( ptr = instance_get_by_type( params[0], ctx ) ) )
     {
         if ( ptr != my &&
              (
-                ( status = ( LOCDWORD( ptr, STATUS ) & ~STATUS_WAITING_MASK ) ) == STATUS_RUNNING ||
+                ( status = ( LOCDWORD( mod_grproc, ptr, STATUS ) & ~STATUS_WAITING_MASK ) ) == STATUS_RUNNING ||
                   status == STATUS_FROZEN
              ) &&
              check_collision( my, ptr )
            )
         {
-            return LOCDWORD( ptr, PROCESS_ID ) ;
+            return LOCDWORD( mod_grproc, ptr, PROCESS_ID ) ;
         }
     }
 
@@ -739,18 +739,18 @@ void __bgdexport( mod_grproc, module_initialize )()
 #ifdef __STATIC__
 INSTANCE_HOOK grproc_instance_hook(INSTANCE *r)
 {
-    LOCDWORD( r, ID_SCAN ) = 0;
-    LOCDWORD( r, TYPE_SCAN ) = 0;
-    LOCDWORD( r, CONTEXT ) = 0;
+    LOCDWORD( mod_grproc, r, ID_SCAN ) = 0;
+    LOCDWORD( mod_grproc, r, TYPE_SCAN ) = 0;
+    LOCDWORD( mod_grproc, r, CONTEXT ) = 0;
 
     return NULL;
 };
 #else
 void __bgdexport( mod_grproc, process_exec_hook )( INSTANCE * r )
 {
-    LOCDWORD( r, GRPROC_ID_SCAN ) = 0;
-    LOCDWORD( r, GRPROC_TYPE_SCAN ) = 0;
-    LOCDWORD( r, GRPROC_CONTEXT ) = 0;
+    LOCDWORD( mod_grproc, r, GRPROC_ID_SCAN ) = 0;
+    LOCDWORD( mod_grproc, r, GRPROC_TYPE_SCAN ) = 0;
+    LOCDWORD( mod_grproc, r, GRPROC_CONTEXT ) = 0;
 }
 
 /* ---------------------------------------------------------------------- */

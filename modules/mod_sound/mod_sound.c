@@ -161,7 +161,7 @@ static int sound_init()
     {
         /* Initialize variables: but limit quality to some fixed options */
 
-        audio_rate = GLODWORD( SOUND_FREQ );
+        audio_rate = GLODWORD( mod_sound, SOUND_FREQ );
 
         if ( audio_rate > 22050 )
             audio_rate = 44100;
@@ -178,7 +178,7 @@ static int sound_init()
         audio_format = AUDIO_S16;
 #endif
 
-        audio_channels = GLODWORD( SOUND_MODE ) + 1;
+        audio_channels = GLODWORD( mod_sound, SOUND_MODE ) + 1;
 
 #ifdef TARGET_WII
         audio_buffers = 1024;
@@ -189,10 +189,10 @@ static int sound_init()
         /* Open the audio device */
         if ( Mix_OpenAudio( audio_rate, audio_format, audio_channels, audio_buffers ) >= 0 )
         {
-            GLODWORD( SOUND_CHANNELS ) <= 32 ? Mix_AllocateChannels( GLODWORD( SOUND_CHANNELS ) ) : Mix_AllocateChannels( 32 ) ;
+            GLODWORD( mod_sound, SOUND_CHANNELS ) <= 32 ? Mix_AllocateChannels( GLODWORD( mod_sound, SOUND_CHANNELS ) ) : Mix_AllocateChannels( 32 ) ;
             Mix_QuerySpec( &audio_rate, &audio_format, &audio_channels );
             audio_mix_channels = Mix_AllocateChannels( -1 ) ;
-            GLODWORD( SOUND_CHANNELS ) = audio_mix_channels ;
+            GLODWORD( mod_sound, SOUND_CHANNELS ) = audio_mix_channels ;
 
             audio_initialized = 1;
             return 0;

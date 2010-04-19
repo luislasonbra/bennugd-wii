@@ -418,9 +418,9 @@ static void process_key_events()
     /* must check all the linked equivs */
 
     pressed = 0 ;
-    if ( GLODWORD( SCANCODE ) )
+    if ( GLODWORD( libkey, SCANCODE ) )
     {
-        curr = &key_table[GLODWORD(  SCANCODE )] ;
+        curr = &key_table[GLODWORD( libkey, SCANCODE )] ;
         while ( curr != NULL && pressed == 0 )
         {
             if ( keystate[curr->sdlk_equiv] ) pressed = 1 ;
@@ -430,8 +430,8 @@ static void process_key_events()
 
     if ( !pressed )
     {
-        GLODWORD(  ASCII )     = 0 ;
-        GLODWORD(  SCANCODE )  = 0 ;
+        GLODWORD( libkey, ASCII )     = 0 ;
+        GLODWORD( libkey, SCANCODE )  = 0 ;
     }
 
     while ( SDL_PeepEvents( &e, 1, SDL_GETEVENT, SDL_EVENTMASK(SDL_KEYDOWN)|SDL_EVENTMASK(SDL_KEYUP) ) > 0 )
@@ -462,7 +462,7 @@ static void process_key_events()
 
                 if ( !keypress )
                 {
-                    GLODWORD(  SCANCODE )  = k ;
+                    GLODWORD( libkey, SCANCODE )  = k ;
                     if ( e.key.keysym.unicode )
                     {
                         asc = win_to_dos[e.key.keysym.unicode & 0xFF] ;
@@ -476,7 +476,7 @@ static void process_key_events()
                         asc = 0 ; /* NON PRINTABLE */
                     }
 
-                    GLODWORD(  ASCII ) = asc ;
+                    GLODWORD( libkey, ASCII ) = asc ;
                     keypress = 1 ;
                 }
                 else
@@ -508,13 +508,13 @@ static void process_key_events()
 
     if ( !keypress && keyring_start != keyring_tail )
     {
-        GLODWORD(  ASCII )     = keyring[keyring_start].ascii ;
-        GLODWORD(  SCANCODE )  = keyring[keyring_start].scancode ;
+        GLODWORD( libkey, ASCII )     = keyring[keyring_start].ascii ;
+        GLODWORD( libkey, SCANCODE )  = keyring[keyring_start].scancode ;
         if ( ++keyring_start == 64 ) keyring_start = 0 ;
     }
 
     /* Now actualized every frame... */
-    GLODWORD(  SHIFTSTATUS ) =
+    GLODWORD( libkey, SHIFTSTATUS ) =
         (( m & KMOD_RSHIFT )                         ? STAT_RSHIFT : 0 ) |
         (( m & KMOD_LSHIFT )                         ? STAT_LSHIFT : 0 ) |
         ((( m & KMOD_RCTRL ) || ( m & KMOD_LCTRL ) ) ? STAT_CTRL   : 0 ) |

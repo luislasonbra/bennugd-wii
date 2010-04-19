@@ -98,9 +98,6 @@ typedef struct _instance
 INSTANCE ;
 
 /* Macros to acess local or private data for an instance */
-#ifdef __STATIC__
-#define LOCADDR(a,b)    ( ((uint8_t *)(a->locdata)+b) )
-#endif
 #define LOCDWORD(a,b)   ( *(uint32_t *) ((uint8_t *)(a->locdata)+b) )
 #define LOCWORD(a,b)    ( *(uint16_t *) ((uint8_t *)(a->locdata)+b) )
 #define LOCBYTE(a,b)    ( *(uint8_t  *) ((uint8_t *)(a->locdata)+b) )

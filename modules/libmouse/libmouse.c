@@ -140,27 +140,27 @@ void do_mouse_events()
     /* Mouse.x/y change affects the cursor directly */
 
     if (
-        ( last_mouse_x != -1 && GLOINT32( MOUSEX ) != last_mouse_x ) ||
-        ( last_mouse_y != -1 && GLOINT32( MOUSEY ) != last_mouse_y ) )
+        ( last_mouse_x != -1 && GLOINT32( libmouse, MOUSEX ) != last_mouse_x ) ||
+        ( last_mouse_y != -1 && GLOINT32( libmouse, MOUSEY ) != last_mouse_y ) )
     {
         if ( scale_resolution != 0 )
         {
-            SDL_WarpMouse( GLOINT32( MOUSEX ) / ( (double)screen->w / (double)scale_screen->w ), GLOINT32( MOUSEY ) / ( (double)screen->h / (double)scale_screen->h ) ) ;
+            SDL_WarpMouse( GLOINT32( libmouse, MOUSEX ) / ( (double)screen->w / (double)scale_screen->w ), GLOINT32( libmouse, MOUSEY ) / ( (double)screen->h / (double)scale_screen->h ) ) ;
         }
         else if ( enable_scale || scale_mode != SCALE_NONE )
         {
-            SDL_WarpMouse( GLOINT32( MOUSEX ) * 2 , GLOINT32( MOUSEY ) * 2 ) ;
+            SDL_WarpMouse( GLOINT32( libmouse, MOUSEX ) * 2 , GLOINT32( libmouse, MOUSEY ) * 2 ) ;
         }
         else
         {
-            SDL_WarpMouse( GLOINT32( MOUSEX ), GLOINT32( MOUSEY ) ) ;
+            SDL_WarpMouse( GLOINT32( libmouse, MOUSEX ), GLOINT32( libmouse, MOUSEY ) ) ;
         }
     }
 
     /* Process the independant mouse events */
 
-    GLODWORD( MOUSEWHEELUP   ) = 0 ;
-    GLODWORD( MOUSEWHEELDOWN ) = 0 ;
+    GLODWORD( libmouse, MOUSEWHEELUP   ) = 0 ;
+    GLODWORD( libmouse, MOUSEWHEELDOWN ) = 0 ;
 
     while ( SDL_PeepEvents( &e, 1, SDL_GETEVENT, SDL_MOUSEEVENTMASK ) > 0 )
     {
@@ -169,39 +169,39 @@ void do_mouse_events()
             case SDL_MOUSEMOTION:
                 if ( scale_resolution != 0 )
                 {
-                    GLOINT32( MOUSEX ) = e.motion.x * ( (double)screen->w / (double)scale_screen->w );
-                    GLOINT32( MOUSEY ) = e.motion.y * ( (double)screen->h / (double)scale_screen->h );
+                    GLOINT32( libmouse, MOUSEX ) = e.motion.x * ( (double)screen->w / (double)scale_screen->w );
+                    GLOINT32( libmouse, MOUSEY ) = e.motion.y * ( (double)screen->h / (double)scale_screen->h );
                 }
                 else if ( enable_scale || scale_mode != SCALE_NONE )
                 {
-                    GLOINT32( MOUSEX ) = e.motion.x / 2 ;
-                    GLOINT32( MOUSEY ) = e.motion.y / 2 ;
+                    GLOINT32( libmouse, MOUSEX ) = e.motion.x / 2 ;
+                    GLOINT32( libmouse, MOUSEY ) = e.motion.y / 2 ;
                 }
                 else
                 {
-                    GLOINT32( MOUSEX ) = e.motion.x ;
-                    GLOINT32( MOUSEY ) = e.motion.y ;
+                    GLOINT32( libmouse, MOUSEX ) = e.motion.x ;
+                    GLOINT32( libmouse, MOUSEY ) = e.motion.y ;
                 }
                 break ;
 
             case SDL_MOUSEBUTTONDOWN:
-                if ( e.button.button == SDL_BUTTON_LEFT )      GLODWORD( MOUSELEFT )     = 1 ;
-                if ( e.button.button == SDL_BUTTON_MIDDLE )    GLODWORD( MOUSEMIDDLE )   = 1 ;
-                if ( e.button.button == SDL_BUTTON_RIGHT )     GLODWORD( MOUSERIGHT )    = 1 ;
-                if ( e.button.button == SDL_BUTTON_WHEELUP )   GLODWORD( MOUSEWHEELUP )++ ;
-                if ( e.button.button == SDL_BUTTON_WHEELDOWN ) GLODWORD( MOUSEWHEELDOWN )++ ;
+                if ( e.button.button == SDL_BUTTON_LEFT )      GLODWORD( libmouse, MOUSELEFT )     = 1 ;
+                if ( e.button.button == SDL_BUTTON_MIDDLE )    GLODWORD( libmouse, MOUSEMIDDLE )   = 1 ;
+                if ( e.button.button == SDL_BUTTON_RIGHT )     GLODWORD( libmouse, MOUSERIGHT )    = 1 ;
+                if ( e.button.button == SDL_BUTTON_WHEELUP )   GLODWORD( libmouse, MOUSEWHEELUP )++ ;
+                if ( e.button.button == SDL_BUTTON_WHEELDOWN ) GLODWORD( libmouse, MOUSEWHEELDOWN )++ ;
                 break ;
 
             case SDL_MOUSEBUTTONUP:
-                if ( e.button.button == SDL_BUTTON_LEFT )      GLODWORD( MOUSELEFT )      = 0 ;
-                if ( e.button.button == SDL_BUTTON_MIDDLE )    GLODWORD( MOUSEMIDDLE )    = 0 ;
-                if ( e.button.button == SDL_BUTTON_RIGHT )     GLODWORD( MOUSERIGHT )     = 0 ;
+                if ( e.button.button == SDL_BUTTON_LEFT )      GLODWORD( libmouse, MOUSELEFT )      = 0 ;
+                if ( e.button.button == SDL_BUTTON_MIDDLE )    GLODWORD( libmouse, MOUSEMIDDLE )    = 0 ;
+                if ( e.button.button == SDL_BUTTON_RIGHT )     GLODWORD( libmouse, MOUSERIGHT )     = 0 ;
                 break ;
         }
     }
 
-    last_mouse_x = GLOINT32( MOUSEX ) ;
-    last_mouse_y = GLOINT32( MOUSEY ) ;
+    last_mouse_x = GLOINT32( libmouse, MOUSEX ) ;
+    last_mouse_y = GLOINT32( libmouse, MOUSEY ) ;
 }
 
 /* --------------------------------------------------------------------------- */
@@ -232,10 +232,10 @@ int mouse_info( INSTANCE * i, REGION * clip, int * z, int * drawme )
     int mouseregion;
     int changed;
 
-    * z = mousez = GLOINT32( MOUSEZ );
+    * z = mousez = GLOINT32( libmouse, MOUSEZ );
 
-    mousefile   = GLODWORD( MOUSEFILE );
-    mousegraph  = GLODWORD( MOUSEGRAPH );
+    mousefile   = GLODWORD( libmouse, MOUSEFILE );
+    mousegraph  = GLODWORD( libmouse, MOUSEGRAPH );
 
     mouse_map = ( mousegraph > 0 ) ? bitmap_get( mousefile, mousegraph ) : NULL ;
     if ( !mouse_map )
@@ -248,13 +248,14 @@ int mouse_info( INSTANCE * i, REGION * clip, int * z, int * drawme )
         return 0;
     }
 
-    mousex      = GLOINT32( MOUSEX );
-    mousey      = GLOINT32( MOUSEY );
-//    mousez      = GLODWORD( MOUSEZ );
-    mouseangle  = GLOINT32( MOUSEANGLE );
-    mousesize   = GLOINT32( MOUSESIZE );
-    mouseflags  = GLODWORD( MOUSEFLAGS );
-    mouseregion = GLOINT32( MOUSEREGION );
+    mousex      = GLOINT32( libmouse, MOUSEX );
+    mousey      = GLOINT32( libmouse, MOUSEY );
+//    mousez      = GLODWORD( libmouse, MOUSEZ );
+    mouseangle  = GLOINT32( libmouse, MOUSEANGLE );
+    mousesize   = GLOINT32( libmouse, MOUSESIZE );
+    mouseflags  = GLODWORD( libmouse, MOUSEFLAGS );
+    mouseregion = GLOINT32( libmouse, MOUSEREGION );
+
 
     * drawme = 1;
 
@@ -334,30 +335,30 @@ void mouse_draw( INSTANCE * i, REGION * clip )
     int r ;
     REGION region;
 
-    r = GLOINT32( MOUSEREGION ) ;
+    r = GLOINT32( libmouse, MOUSEREGION ) ;
     if ( r < 0 || r > 31 ) r = 0 ;
 
     region = regions[r];
     if ( clip ) region_union( &region, clip );
 
-    if ( GLOINT32( MOUSEANGLE ) || GLOINT32( MOUSESIZE ) != 100 )
+    if ( GLOINT32( libmouse, MOUSEANGLE ) || GLOINT32( libmouse, MOUSESIZE ) != 100 )
         gr_rotated_blit(
             0,
             &region,
-            GLOINT32( MOUSEX ),
-            GLOINT32( MOUSEY ),
-            GLODWORD( MOUSEFLAGS ),
-            GLOINT32( MOUSEANGLE ),
-            GLOINT32( MOUSESIZE ),
-            GLOINT32( MOUSESIZE ),
+            GLOINT32( libmouse, MOUSEX ),
+            GLOINT32( libmouse, MOUSEY ),
+            GLODWORD( libmouse, MOUSEFLAGS ),
+            GLOINT32( libmouse, MOUSEANGLE ),
+            GLOINT32( libmouse, MOUSESIZE ),
+            GLOINT32( libmouse, MOUSESIZE ),
             mouse_map ) ;
     else
         gr_blit(
             0,
             &region,
-            GLOINT32( MOUSEX ),
-            GLOINT32( MOUSEY ),
-            GLODWORD( MOUSEFLAGS ),
+            GLOINT32( libmouse, MOUSEX ),
+            GLOINT32( libmouse, MOUSEY ),
+            GLODWORD( libmouse, MOUSEFLAGS ),
             mouse_map ) ;
 
     mouse_map->modified = 0;
@@ -393,7 +394,7 @@ void libmouse_init()
 void __bgdexport( libmouse, module_initialize )()
 #endif
 {
-    gr_new_object( GLOINT32( MOUSEZ ), mouse_info, mouse_draw, 0 );
+    gr_new_object( GLOINT32( libmouse, MOUSEZ ), mouse_info, mouse_draw, 0 );
 }
 
 /* --------------------------------------------------------------------------- */

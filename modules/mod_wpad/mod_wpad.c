@@ -23,7 +23,9 @@
 
 #include "bgddl.h"
 #include "libvideo.h"
+#ifdef TARGET_WII
 #include "wiiuse/wpad.h"
+#endif
 
 #ifdef TARGET_WII
 // Checks wether a given wpad number corresponds to a Wii Balance Board

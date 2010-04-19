@@ -16,6 +16,8 @@ FREQ=32000;		# Leave this @ 32KHz
 OUTOGG=converted_music;
 OUTWAV=converted_wav;
 
+cd $(dirname 0)
+
 # Try to recode OGG and transcode MP3 & WMA files
 for i in *.{ogg,mp3,wma}; do
 	if [ -f $i ]; then

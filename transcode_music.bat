@@ -5,6 +5,10 @@ REM by BennuGD-Wii using VLC.
 REM Copyright (C) 2010 - Joseba García Etxebarria <joseba.gar@gmail.com>
 REM
 
+REM Go to the directory where this BAT file is located.
+REM We need to do this when launched from the windows explorer.
+CD %~d0%~p0
+
 REM vlc variant, cvlc is fine  if available,
 REM	"vlc -I dummy" is fine, too (needed for win32)
 SET VLCDIR=%ProgramFiles%\VideoLAN\VLC

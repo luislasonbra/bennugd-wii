@@ -30,10 +30,10 @@
 #ifdef TARGET_WII
 // Checks wether a given wpad number corresponds to a Wii Balance Board
 int is_bb(int i) {
-    u32 devtype;
+    u32 type;
 
-    WPAD_Probe(i, &devtype);
-    if (devtype==WPAD_EXP_WIIBOARD)
+    WPAD_Probe(i, &type);
+    if (type==WPAD_EXP_WIIBOARD)
         return 1;
     else
         return 0;
@@ -68,46 +68,95 @@ int modwpad_is_balanceboard( INSTANCE * my, int * params )
 #endif
 }
 
-// Get data from the Wii Balance Board
-int modwpad_query_balanceboard( INSTANCE * my, int * params )
+// Get info from generic controller
+int modwpad_info( INSTANCE * my, int * params )
 {
 #ifdef TARGET_WII
-    struct expansion_t exp;
+    u32 type;
+    WPADData *wd;
 
-    // First of all, check if the given wpad is a balanceboard
-    if (is_bb(params[0]) == 0)
+    // Ensure it's been correctly initialized
+    if( WPAD_Probe(params[0], &type) != 0 )
         return 0;
 
     // Return the info the user asked for
-    WPAD_SetVRes(params[0], scr_width, scr_height);
-    WPAD_Expansion(params[0], &exp);
+    wd = WPAD_Data(params[0]);
     switch(params[1]) {
-        case 0:     // X position of the center of gravity
-            return exp.wb.x;
-        case 1:     // Y position of the center of gravity
-            return exp.wb.y;
-        case 2:     // Weight measured on the TOP-LEFT base
-            return exp.wb.tl;
-        case 3:     // Weight in TOP-RIGHT
-            return exp.wb.tr;
-        case 4:     // Weight in BOTTOM-LEFT
-            return exp.wb.bl;
-        case 5:     // Weight in BOTTOM-RIGHT
-            return exp.wb.br;
+        case 0:     // Battery level (0<level<256)
+            return (int)WPAD_BatteryLevel(params[0]);
+        case 1:     // X position
+            if( wd->ir.valid )  // Only return data if wiimote pointing @ screen
+                return wd->ir.x;
+            else
+                return 0;
+        case 2:     // Y position
+            if( wd->ir.valid )
+                return wd->ir.y;
+            else
+                return 0;
+        case 3:     // Z position (distance from screen)
+            if( wd->ir.raw_valid )
+                return wd->ir.z;
+            else
+                return 0;
+        case 4:     // Angle, BennuGD likes 1/1000th of degrees
+            if( wd->ir.valid )
+                return (int)(wd->ir.angle*1000. / 180.0 * M_PI);
+            else
+                return 0;
+        case 5:     // Pitch angle, BennuGD likes 1/1000th of degrees
+            return (int)(wd->orient.pitch*1000.);
+        case 6:     // Roll angle,  BennuGD likes 1/1000th of degrees
+            return (int)(wd->orient.roll*1000.);    // Uses accelerometer
+        case 7:     // Acceleration in x axis
+            return wd->accel.x;
+        case 8:     // Acceleration in y axis
+            return wd->accel.y;
+        case 9:     // Acceleration in z axis
+            return wd->accel.z;
     }
 #endif
 
     return 0;
 }
 
-// Get the battery level for a particular Wiimote
-int modwpad_battery_level( INSTANCE * my, int * params )
+// Get data from the Wii Balance Board
+int modwpad_info_bb( INSTANCE * my, int * params )
 {
 #ifdef TARGET_WII
-    return (int)WPAD_BatteryLevel(params[0]);
-#else
-    return 0;
+    struct expansion_t exp;
+    u32 type;
+
+    // First of all, check if the given wpad is a balanceboard
+    if (is_bb(params[0]) == 0)
+        return 0;
+
+    // Ensure it's been correctly initialized
+    if( WPAD_Probe(params[0], &type) != 0 )
+        return 0;
+
+    // Return the info the user asked for
+    WPAD_SetVRes(params[0], scr_width, scr_height);
+    WPAD_Expansion(params[0], &exp);
+    switch(params[1]) {
+        case 0:     // Battery level (0<level<256)
+            return (int)WPAD_BatteryLevel(params[0]);
+        case 1:     // X position
+            return exp.wb.x;
+        case 2:     // Y position
+            return exp.wb.y;
+        case 3:     // Weight measured on the TOP-LEFT base (Balance Board)
+            return exp.wb.tl;
+        case 4:     // Weight in TOP-RIGHT
+            return exp.wb.tr;
+        case 5:     // Weight in BOTTOM-LEFT
+            return exp.wb.bl;
+        case 6:     // Weight in BOTTOM-RIGHT
+            return exp.wb.br;
+    }
 #endif
+
+    return 0;
 }
 
 // Make a controller rumble (or stop rumbling)
@@ -126,8 +175,8 @@ DLSYSFUNCS  __bgdexport( mod_say, functions_exports )[] =
 {
     { "WPAD_IS_READY"          , "I" , TYPE_INT, modwpad_is_ready           },
     { "WPAD_IS_BALANCEBOARD"   , "I" , TYPE_INT, modwpad_is_balanceboard    },
-    { "WPAD_QUERY_BALANCEBOARD", "II", TYPE_INT, modwpad_query_balanceboard },
-    { "WPAD_BATTERY_LEVEL"     , "I" , TYPE_INT, modwpad_battery_level      },
+    { "WPAD_INFO"              , "II", TYPE_INT, modwpad_info               },
+    { "WPAD_INFO_BB"           , "II", TYPE_INT, modwpad_info_bb            },
     { "WPAD_RUMBLE"            , "II", TYPE_UNDEFINED, modwpad_rumble       },
     { 0         , 0  , 0             , 0              }
 };

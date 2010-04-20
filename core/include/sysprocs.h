@@ -449,8 +449,8 @@ SYSPROC sysprocs[MAX_SYSPROCS] =
     /* mod_wpad */
     { 0x26A, "WPAD_IS_READY"       , "I"   , TYPE_INT , 1, SYSMACRO(modwpad_is_ready)        },
     { 0x26B, "WPAD_IS_BALANCEBOARD", "I"   , TYPE_INT , 1, SYSMACRO(modwpad_is_balanceboard) },
-    { 0x26C, "WPAD_QUERY_BALANCEBOARD","II", TYPE_INT , 2, SYSMACRO(modwpad_query_balanceboard) },
-    { 0x26D, "WPAD_BATTERY_LEVEL"  , "I"   , TYPE_INT , 1, SYSMACRO(modwpad_battery_level)   },
+    { 0x26C, "WPAD_INFO"           , "II"  , TYPE_INT , 2, SYSMACRO(modwpad_info)            },
+    { 0x26D, "WPAD_INFO_BB"        , "II"  , TYPE_INT , 2, SYSMACRO(modwpad_info_bb)         },
     { 0x26E, "WPAD_RUMBLE"         , "II"  , TYPE_UNDEFINED, 2, SYSMACRO(modwpad_rumble)     },
 
     { 0    , 0                , ""      , TYPE_UNDEFINED , 0, 0                        }

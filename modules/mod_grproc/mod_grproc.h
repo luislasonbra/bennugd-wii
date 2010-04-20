@@ -24,7 +24,7 @@
 #ifndef __MOD_GRPROC_H
 #define __MOD_GRPROC_H
 
-#include "offsets.h";
+#include "offsets.h"
 
 extern void grpoc_init();
 

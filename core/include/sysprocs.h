@@ -448,7 +448,6 @@ SYSPROC sysprocs[MAX_SYSPROCS] =
     { 0x263, "FILTER"     , "IIP"   , TYPE_INT , 3 , SYSMACRO(modeffects_filter)    },
     /* mod_wpad */
     { 0x26A, "WPAD_IS_READY"       , "I"   , TYPE_INT , 1, SYSMACRO(modwpad_is_ready)        },
-    { 0x26B, "WPAD_IS_BALANCEBOARD", "I"   , TYPE_INT , 1, SYSMACRO(modwpad_is_balanceboard) },
     { 0x26C, "WPAD_INFO"           , "II"  , TYPE_INT , 2, SYSMACRO(modwpad_info)            },
     { 0x26D, "WPAD_INFO_BB"        , "II"  , TYPE_INT , 2, SYSMACRO(modwpad_info_bb)         },
     { 0x26E, "WPAD_RUMBLE"         , "II"  , TYPE_UNDEFINED, 2, SYSMACRO(modwpad_rumble)     },

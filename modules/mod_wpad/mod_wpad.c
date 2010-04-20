@@ -27,23 +27,40 @@
 #include "wiiuse/wpad.h"
 #endif
 
+#define WPAD_BATT        0
+#define WPAD_X           1
+#define WPAD_Y           2
+#define WPAD_Z           3
+#define WPAD_ANGLE       4
+#define WPAD_PITCH       5
+#define WPAD_ROLL        6
+#define WPAD_ACCELX      7
+#define WPAD_ACCELY      8
+#define WPAD_ACCELZ      9
+#define WPAD_IS_BB       10
+#define WPAD_WTL         3
+#define WPAD_WTR         4
+#define WPAD_WBL         5
+#define WPAD_WBR         6
+
 #ifndef __STATIC__
 DLCONSTANT __bgdexport( mod_wpad, constants_def )[] =
 {
-    { "WPAD_BATT",      TYPE_INT,   0           },
-    { "WPAD_X",         TYPE_INT,   1           },
-    { "WPAD_Y",         TYPE_INT,   2           },
-    { "WPAD_Z",         TYPE_INT,   3           },
-    { "WPAD_ANGLE",     TYPE_INT,   4           },
-    { "WPAD_PITCH",     TYPE_INT,   5           },
-    { "WPAD_ROLL",      TYPE_INT,   6           },
-    { "WPAD_ACCELX",    TYPE_INT,   7           },
-    { "WPAD_ACCELY",    TYPE_INT,   8           },
-    { "WPAD_ACCELZ",    TYPE_INT,   9           },
-    { "WPAD_WTL",       TYPE_INT,   3           },
-    { "WPAD_WTR",       TYPE_INT,   4           },
-    { "WPAD_WBL",       TYPE_INT,   5           },
-    { "WPAD_WBR",       TYPE_INT,   6           },
+    { "WPAD_BATT",      TYPE_INT,   WPAD_BATT   },
+    { "WPAD_X",         TYPE_INT,   WPAD_X      },
+    { "WPAD_Y",         TYPE_INT,   WPAD_Y      },
+    { "WPAD_Z",         TYPE_INT,   WPAD_Z      },
+    { "WPAD_ANGLE",     TYPE_INT,   WPAD_ANGLE  },
+    { "WPAD_PITCH",     TYPE_INT,   WPAD_PITCH  },
+    { "WPAD_ROLL",      TYPE_INT,   WPAD_ROLL   },
+    { "WPAD_ACCELX",    TYPE_INT,   WPAD_ACCELX },
+    { "WPAD_ACCELY",    TYPE_INT,   WPAD_ACCELY },
+    { "WPAD_ACCELZ",    TYPE_INT,   WPAD_ACCELZ },
+    { "WPAD_IS_BB",     TYPE_INT,   WPAD_IS_BB  },
+    { "WPAD_WTL",       TYPE_INT,   WPAD_WTL    },
+    { "WPAD_WTR",       TYPE_INT,   WPAD_WTR    },
+    { "WPAD_WBL",       TYPE_INT,   WPAD_WBL    },
+    { "WPAD_WBR",       TYPE_INT,   WPAD_WBR    },
 
     { NULL              , 0       , 0           }
 } ;
@@ -76,17 +93,6 @@ int modwpad_is_ready( INSTANCE * my, int * params )
         return res;
 #else
     return -1;  // No wiimote
-#endif
-}
-
-// Check whether a given WPAD is really a Wii Balance Board
-int modwpad_is_balanceboard( INSTANCE * my, int * params )
-{
-// WPad is supposed to be already initialized (by libjoy)
-#ifdef TARGET_WII
-    return is_bb(params[0]);
-#else
-    return 0;
 #endif
 }
 
@@ -136,6 +142,8 @@ int modwpad_info( INSTANCE * my, int * params )
             return wd->accel.y;
         case 9:     // Acceleration in z axis
             return wd->accel.z;
+        case 10:    // Check wether controller is a balance board
+            return is_bb(params[0]);
     }
 #endif
 
@@ -196,7 +204,6 @@ void modwpad_rumble( INSTANCE * my, int * params)
 DLSYSFUNCS  __bgdexport( mod_wpad, functions_exports )[] =
 {
     { "WPAD_IS_READY"          , "I" , TYPE_INT, modwpad_is_ready           },
-    { "WPAD_IS_BALANCEBOARD"   , "I" , TYPE_INT, modwpad_is_balanceboard    },
     { "WPAD_INFO"              , "II", TYPE_INT, modwpad_info               },
     { "WPAD_INFO_BB"           , "II", TYPE_INT, modwpad_info_bb            },
     { "WPAD_RUMBLE"            , "II", TYPE_UNDEFINED, modwpad_rumble       },

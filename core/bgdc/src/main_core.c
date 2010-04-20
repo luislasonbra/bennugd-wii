@@ -375,6 +375,7 @@ constants_def[] =
     { "WPAD_ACCELX",    TYPE_INT,   7           },
     { "WPAD_ACCELY",    TYPE_INT,   8           },
     { "WPAD_ACCELZ",    TYPE_INT,   9           },
+    { "WPAD_IS_BB",     TYPE_INT,   10          },
     { "WPAD_WTL",       TYPE_INT,   3           },
     { "WPAD_WTR",       TYPE_INT,   4           },
     { "WPAD_WBL",       TYPE_INT,   5           },

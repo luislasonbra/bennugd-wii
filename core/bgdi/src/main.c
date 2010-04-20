@@ -250,7 +250,8 @@ int main( int argc, char **argv )
     // Delete stdout.txt if it exists
     FILE *fd;
 
-    if(fd = fopen("stdout.txt", "a") != NULL) {
+    if( (fd = fopen("stdout.txt", "a")) != NULL ) {
+        fclose(fd);
         unlink("stdout.txt");
     }
 #endif

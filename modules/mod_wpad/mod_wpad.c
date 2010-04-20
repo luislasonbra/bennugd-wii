@@ -27,6 +27,30 @@
 #include "wiiuse/wpad.h"
 #endif
 
+#ifndef __STATIC__
+DLCONSTANT __bgdexport( mod_map, constants_def )[] =
+{
+    { "WPAD_BATT",      TYPE_INT,   0           },
+    { "WPAD_X",         TYPE_INT,   1           },
+    { "WPAD_Y",         TYPE_INT,   2           },
+    { "WPAD_Z",         TYPE_INT,   3           },
+    { "WPAD_ANGLE",     TYPE_INT,   4           },
+    { "WPAD_PITCH",     TYPE_INT,   5           },
+    { "WPAD_ROLL",      TYPE_INT,   6           },
+    { "WPAD_ACCELX",    TYPE_INT,   7           },
+    { "WPAD_ACCELY",    TYPE_INT,   8           },
+    { "WPAD_ACCELZ",    TYPE_INT,   9           },
+    { "WPAD_WTL",       TYPE_INT,   3           },
+    { "WPAD_WTR",       TYPE_INT,   4           },
+    { "WPAD_WBL",       TYPE_INT,   5           },
+    { "WPAD_WBR",       TYPE_INT,   6           },
+
+    { "B_CLEAR",        TYPE_INT,   B_CLEAR     },
+
+    { NULL              , 0       , 0           }
+} ;
+#endif
+
 #ifdef TARGET_WII
 // Checks wether a given wpad number corresponds to a Wii Balance Board
 int is_bb(int i) {
@@ -94,7 +118,7 @@ int modwpad_info( INSTANCE * my, int * params )
                 return wd->ir.y;
             else
                 return 0;
-        case 3:     // Z position (distance from screen)
+        case 3:     // Z position (distance from screen in m)
             if( wd->ir.raw_valid )
                 return wd->ir.z;
             else

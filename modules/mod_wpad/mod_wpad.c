@@ -28,7 +28,7 @@
 #endif
 
 #ifndef __STATIC__
-DLCONSTANT __bgdexport( mod_map, constants_def )[] =
+DLCONSTANT __bgdexport( mod_wpad, constants_def )[] =
 {
     { "WPAD_BATT",      TYPE_INT,   0           },
     { "WPAD_X",         TYPE_INT,   1           },
@@ -44,8 +44,6 @@ DLCONSTANT __bgdexport( mod_map, constants_def )[] =
     { "WPAD_WTR",       TYPE_INT,   4           },
     { "WPAD_WBL",       TYPE_INT,   5           },
     { "WPAD_WBR",       TYPE_INT,   6           },
-
-    { "B_CLEAR",        TYPE_INT,   B_CLEAR     },
 
     { NULL              , 0       , 0           }
 } ;
@@ -195,7 +193,7 @@ void modwpad_rumble( INSTANCE * my, int * params)
 /* ----------------------------------------------------------------- */
 /* Declaracion de funciones                                          */
 #ifndef __STATIC__
-DLSYSFUNCS  __bgdexport( mod_say, functions_exports )[] =
+DLSYSFUNCS  __bgdexport( mod_wpad, functions_exports )[] =
 {
     { "WPAD_IS_READY"          , "I" , TYPE_INT, modwpad_is_ready           },
     { "WPAD_IS_BALANCEBOARD"   , "I" , TYPE_INT, modwpad_is_balanceboard    },

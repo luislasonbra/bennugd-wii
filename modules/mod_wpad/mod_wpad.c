@@ -92,7 +92,7 @@ int modwpad_info( INSTANCE * my, int * params )
                 return 0;
         case 4:     // Angle, BennuGD likes 1/1000th of degrees
             if( wd->ir.valid )
-                return (int)(wd->ir.angle*1000. / 180.0 * M_PI);
+                return -(int)(wd->ir.angle*1000.);
             else
                 return 0;
         case 5:     // Pitch angle, BennuGD likes 1/1000th of degrees

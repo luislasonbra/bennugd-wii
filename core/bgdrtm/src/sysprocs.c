@@ -40,14 +40,15 @@
 #include "../../../modules/mod_sound/mod_sound.h"         //mod_sound
 #include "../../../modules/mod_proc/mod_proc.h"           //mod_proc
 #include "../../../modules/mod_timers/mod_timers.h"       //mod_timers
-#include "../../../modules/libgrbase/libgrbase_definitions.h"    //libgrbase
-#include "../../../modules/librender/librender_constants.h"//librender
-#include "../../../modules/libvideo/libvideo.h"            //libvideo
-#include "../../../modules/libvideo/libvideo_fixups.h"
+#include "libgrbase_definitions.h"    //libgrbase
+#include "librender_constants.h"//librender
+#include "libvideo.h"            //libvideo
+#include "libvideo_fixups.h"
 #include "../../../modules/libmouse/libmouse.h"            //libmouse
-#include "../../../modules/libfont/libfont.h"              //libfont
+#include "libfont.h"              //libfont
 #include "../../../modules/mod_grproc/mod_grproc.h"        //mod_grproc
-#include "../../../modules/libkey/libkey.h"                //libkey
+#include "libkey.h"                //libkey
+#include "mod_wpad.h"
 #ifdef TARGET_WII
 #include <SDL/SDL.h>
 #elif defined(TARGET_LINUX)
@@ -385,12 +386,6 @@ extern int modeffects_filter( INSTANCE *my, int *params );
 extern int modeffects_blur( INSTANCE *my, int *params );
 extern int modeffects_grayscale( INSTANCE *my, int *params );
 extern int modeffects_rgbscale( INSTANCE *my, int *params );
-
-/* mod_wpad */
-extern int modwpad_is_ready( INSTANCE * my, int * params );
-extern int modwpad_info( INSTANCE * my, int * params );
-extern int modwpad_info_bb( INSTANCE * my, int * params );
-extern void modwpad_rumble( INSTANCE * my, int * params);
 #endif
 
 #include "sysprocs.h"

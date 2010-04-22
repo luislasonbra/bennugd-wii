@@ -22,10 +22,10 @@ Begin
         for(i=0; i<=7; i++)
             if(wpad_is_ready(i) > 0)
                 write(0, scr_width/2, 50+10*i, 4, "Joy "+i+" is ready (Battery: "+
-                      wpad_battery_level(i)+
+                      wpad_info(i, WPAD_BATT)+
                       ")");
             end;
-            if(wpad_is_balanceboard(i) > 0)
+            if(wpad_info(i, WPAD_IS_BB) > 0)
                 write(0, scr_width/2, scr_height/2+10*i, 4, "Using "+i+" as a Balance Board");
                 bb = i;
             end;
@@ -33,15 +33,15 @@ Begin
         if(bb >= 0)
             // Get your weight (in kg) from the Wii Balance Board
             write(0, scr_width/2, 3*scr_height/4, 4, "Meassured weight: "+
-                (wpad_query_balanceboard(bb, 2) +
-                 wpad_query_balanceboard(bb, 3) +
-                 wpad_query_balanceboard(bb, 4) +
-                 wpad_query_balanceboard(bb, 5))
+                (wpad_info_bb(bb, WPAD_WTL) +
+                 wpad_info_bb(bb, WPAD_WTR) +
+                 wpad_info_bb(bb, WPAD_WBL) +
+                 wpad_info_bb(bb, WPAD_WBR))
                 );
             // Get the position of your center of gravity
             write(0, scr_width/2, 3*scr_height/4+10, 4, "X:"+
-                wpad_query_balanceboard(bb, 0) + " Y: "+
-                wpad_query_balanceboard(bb, 1) );
+                wpad_info_bb(bb, WPAD_X) + " Y: "+
+                wpad_info_bb(bb, WPAD_Y) );
         end;
         FRAME;
         delete_text(ALL_TEXT);

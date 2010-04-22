@@ -33,6 +33,9 @@
 
 #include <bgddl.h>
 
+/* Headers for importing LOCAL's and things like that from modules */
+#include <mod_wpad.h>
+
 /* ---------------------------------------------------------------------- */
 
 extern void token_dump() ;
@@ -444,7 +447,6 @@ static char * modules_exts[] =
 
 static void import_module( const char * filename )
 {
-#ifndef __STATIC__
     int         libid ;
     void        * library = NULL;
 
@@ -458,6 +460,7 @@ static void import_module( const char * filename )
     char        soname[1024];
     char        * ptr;
     char        ** pex;
+#ifndef __STATIC__
 
 #if defined( WIN32 )
 #define DLLEXT      ".dll"
@@ -577,6 +580,20 @@ static void import_module( const char * filename )
             functions_exports++;
         }
     }
+#else
+    // We'll do equivalent code to that found up, but looking for static symbols
+
+    // mod_wpad
+    constants_def = wpad_constants_def ;
+    if ( constants_def )
+    {
+        while ( constants_def->name )
+        {
+            int code = identifier_search_or_add( constants_def->name ) ;
+            constants_add( code, typedef_new( constants_def->type ), constants_def->code ) ;
+            constants_def++ ;
+        }
+    }
 #endif
 }
 
@@ -615,9 +632,7 @@ void compile_import( void )
     token_next() ;
     if ( token.type != STRING ) compile_error( MSG_STRING_EXP ) ;
 
-#ifndef __STATIC__
     import_module( string_get( token.code ) );
-#endif
 }
 
 /* ---------------------------------------------------------------------- */
@@ -1210,6 +1225,7 @@ void compile_process()
             {
                 printf( "---- Private variables\n" ) ;
                 varspace_dump( proc->privars, 0 ) ;
+
                 printf( "\n" ) ;
             }
 

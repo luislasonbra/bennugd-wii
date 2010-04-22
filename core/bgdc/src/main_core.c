@@ -364,22 +364,6 @@ constants_def[] =
     { "GSCALE_RB"   , TYPE_INT, GSCALE_RB       },
     { "GSCALE_GB"   , TYPE_INT, GSCALE_GB       },
     { "GSCALE_OFF"  , TYPE_INT, GSCALE_OFF      },
-    /* mod_wpad */
-    { "WPAD_BATT",      TYPE_INT,   0           },
-    { "WPAD_X",         TYPE_INT,   1           },
-    { "WPAD_Y",         TYPE_INT,   2           },
-    { "WPAD_Z",         TYPE_INT,   3           },
-    { "WPAD_ANGLE",     TYPE_INT,   4           },
-    { "WPAD_PITCH",     TYPE_INT,   5           },
-    { "WPAD_ROLL",      TYPE_INT,   6           },
-    { "WPAD_ACCELX",    TYPE_INT,   7           },
-    { "WPAD_ACCELY",    TYPE_INT,   8           },
-    { "WPAD_ACCELZ",    TYPE_INT,   9           },
-    { "WPAD_IS_BB",     TYPE_INT,   10          },
-    { "WPAD_WTL",       TYPE_INT,   3           },
-    { "WPAD_WTR",       TYPE_INT,   4           },
-    { "WPAD_WBL",       TYPE_INT,   5           },
-    { "WPAD_WBR",       TYPE_INT,   6           },
 
 #endif
     { NULL              , 0         , 0                   }
@@ -526,7 +510,7 @@ static char * locals_def =
     "smallbro;\n"
     "bigbro;\n"
     "priority;\n"
-    "END\n";
+"END\n";
 
 void core_init()
 {

@@ -21,7 +21,8 @@ SOURCES		:=	src
 INCLUDES	:=	include ../include ../../modules/libgrbase \
                 ../../modules/libblit ../../modules/libvideo ../../modules/librender \
                 ../../modules/libfont ../../modules/libtext ../../modules/libscroll \
-                ../../modules/mod_regex ../../modules/libdraw ../../modules/libkey
+                ../../modules/mod_regex ../../modules/libdraw ../../modules/libkey \
+                ../../modules/mod_wpad/
 
 #---------------------------------------------------------------------------------
 # options for code generation

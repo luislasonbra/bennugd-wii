@@ -32,7 +32,6 @@
 
 #ifdef TARGET_WII
 #include <fat.h>
-#include <wiiuse/wpad.h>
 #endif
 
 #ifdef __STATIC__

@@ -67,7 +67,7 @@ int loadvars( file * fp, void * data, DCB_VAR * var, int nvars, int dcbformat )
 /*
  *  FUNCTION : loadtypes
  *
- *  Load data from memory to a given file at the current file offset,
+ *  Load data from a given file to memory at the current file offset,
  *  using type information stored in memory
  *
  *  PARAMS :

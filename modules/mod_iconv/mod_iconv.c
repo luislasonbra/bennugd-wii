@@ -23,7 +23,7 @@
 //Convert the charset of the string.
 //Acceptable params are:
 //string fromcharset, string tocharset, string translate_string
-static int bgd_iconv(INSTANCE * my, int * params) {
+int bgd_iconv(INSTANCE * my, int * params) {
   size_t inbytesleft, outbytesleft, retval;
   iconv_t cd;
   const char *inchar = string_get( params[2] );
@@ -92,8 +92,10 @@ static int bgd_iconv(INSTANCE * my, int * params) {
   return strid;
 }
 
+#ifndef __STATIC__
 DLSYSFUNCS __bgdexport( mod_iconv, functions_exports )[] =
 {
   { "ICONV"            , "SSS"  , TYPE_STRING, bgd_iconv       },
   { 0                  , 0      , 0          , 0}
 };
+#endif

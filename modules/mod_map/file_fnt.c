@@ -469,7 +469,7 @@ int gr_load_bdf( const char * filename )
 
     /* Open the file and create the font */
 
-    fp = file_open( filename, "r" );
+    fp = file_open( filename, "rb" );
     if ( !fp ) return -1;
 
     id = gr_font_new();

@@ -39,7 +39,6 @@ Begin
     // Save the data to a file
     save("var1.saved", var1);
     save("var2.saved", var2);
-    save("var3.saved", var3);
 
     // Clear the vars
     var1="";
@@ -48,14 +47,20 @@ Begin
     // Reload the vars
     load("var1.saved", var1);
     load("var2.saved", var2);
-    load("var3.saved", var4);
 
     write(0, scr_width/2, 30, 4, "All the following lines should display 'OK'");
     write(0, scr_width/2, 40, 4,
         var1=="The answer to life, the universe and everything" ? "OK":"Fail!");
     write(0, scr_width/2, 50, 4, var2==42 ? "OK":"Fail!");
-    write(0, scr_width/2, 60, 4, var4[3].x == 320 ? "OK":"Fail");
     while(! mouse.left)
+        FRAME;
+    end;
+
+    // Reload the struct
+    save("var3.saved", var3);
+    load("var3.saved", var4);
+    write(0, scr_width/2, 60, 4, var4[3].x == 320 ? "OK":"Fail");
+    while(! mouse.right)
         FRAME;
     end;
 

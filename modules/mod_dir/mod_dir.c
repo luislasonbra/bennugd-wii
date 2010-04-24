@@ -162,13 +162,13 @@ static int __moddir_read(__DIR_ST * dh )
     string_discard( GLODWORD( mod_dir, FILE_CREATED ) );
     string_discard( GLODWORD( mod_dir, FILE_MODIFIED ) );
 
-    GLODWORD( mod_dir, FILE_NAME ) = string_new( dif->filename ); string_use( GLODWORD( mod_dir, FILE_NAME ) );
-    GLODWORD( mod_dir, FILE_PATH ) = string_new( dif->fullpath ); string_use( GLODWORD( mod_dir, FILE_PATH ) );
+    GLODWORD( mod_dir, FILE_NAME        ) = string_new( dif->filename ); string_use( GLODWORD( mod_dir, FILE_NAME ) );
+    GLODWORD( mod_dir, FILE_PATH        ) = string_new( dif->fullpath ); string_use( GLODWORD( mod_dir, FILE_PATH ) );
 
-    GLODWORD( mod_dir, FILE_DIRECTORY ) = dif->attributes & DIR_FI_ATTR_DIRECTORY ? 1 : 0;
-    GLODWORD( mod_dir, FILE_HIDDEN ) = dif->attributes & DIR_FI_ATTR_HIDDEN    ? 1 : 0;
-    GLODWORD( mod_dir, FILE_READONLY ) = dif->attributes & DIR_FI_ATTR_READONLY  ? 1 : 0;
-    GLODWORD( mod_dir, FILE_SIZE ) = dif->size;
+    GLODWORD( mod_dir, FILE_DIRECTORY   ) = dif->attributes & DIR_FI_ATTR_DIRECTORY ? 1 : 0;
+    GLODWORD( mod_dir, FILE_HIDDEN      ) = dif->attributes & DIR_FI_ATTR_HIDDEN    ? 1 : 0;
+    GLODWORD( mod_dir, FILE_READONLY    ) = dif->attributes & DIR_FI_ATTR_READONLY  ? 1 : 0;
+    GLODWORD( mod_dir, FILE_SIZE        ) = dif->size;
 
     /* Store file times */
     strftime( buffer, 20, "%d/%m/%Y %H:%M:S", &dif->modified_time );

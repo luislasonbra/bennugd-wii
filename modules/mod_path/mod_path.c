@@ -39,6 +39,7 @@ typedef struct _node
     double f, g, h ;
     struct _node * parent ;
     struct _node * next ;
+    struct _node * inext ;
 }
 node ;
 
@@ -46,6 +47,8 @@ node ;
 
 static int  * path_result = NULL ;
 static int  * path_result_pointer = NULL ;
+
+static node * pf_all = NULL;
 
 static node * pf_open = NULL ;
 static node * pf_closed = NULL ;
@@ -57,6 +60,11 @@ static int startup_x, startup_y ;
 static GRAPH * map ;
 
 static int block_if = 1 ;
+
+/* --------------------------------------------------------------------------- */
+
+#define PF_NODIAG       1
+#define PF_REVERSE      2
 
 /* --------------------------------------------------------------------------- */
 #ifndef __STATIC__
@@ -126,8 +134,7 @@ static node * node_add( node * list, node * this )
 static node * node_remove( node * list, node * this )
 {
     node * curr = list ;
-    if ( curr == this )
-        return this->next ;
+    if ( curr == this ) return this->next ;
     while ( curr )
     {
         if ( curr->next == this )
@@ -146,16 +153,15 @@ static node * node_find( node * list, int x, int y )
 {
     while ( list )
     {
-        if ( list->x == ( unsigned )x && list->y == ( unsigned )y )
-            return list ;
+        if ( list->x == ( unsigned )x && list->y == ( unsigned )y ) return list ;
         list = list->next ;
     }
     return NULL ;
 }
 
 /* --------------------------------------------------------------------------- */
-
-static node * node_reset( node * list )
+/*
+static void node_reset( node * list )
 {
     node * next ;
     while ( list )
@@ -164,9 +170,8 @@ static node * node_reset( node * list )
         free( list ) ;
         list = next ;
     }
-    return NULL ;
 }
-
+*/
 /* --------------------------------------------------------------------------- */
 
 static node * node_new( node * parent, int x, int y, int cost_inc )
@@ -204,14 +209,19 @@ static void node_push_succesor( node * parent, int ix, int iy, int cost )
     {
         free( curr ); return ;
     }
+
     f_op = node_find( pf_open, curr->x, curr->y ) ;
     if ( f_op && f_op->f <= curr->f )
     {
         free( curr ); return ;
     }
 
-    if ( f_op ) pf_open = node_remove( pf_open, f_op ) ;
-    if ( f_cl ) pf_closed = node_remove( pf_closed, f_cl ) ;
+    /* Add to general list (used for free resources)*/
+    curr->inext = pf_all; pf_all = curr;
+
+    if ( f_op ) { pf_open = node_remove( pf_open, f_op ); } /* this node is removed but childs that referent this node as parent will be wrong */
+/* this can't be possible, previous "if ( f_cl )" abort this code ->   if ( f_cl ) { pf_closed = node_remove( pf_closed, f_cl ); }*/ /* this node is removed but childs that referent this node as parent will be wrong */
+
     pf_open = node_add( pf_open, curr ) ;
 }
 
@@ -227,7 +237,7 @@ static void node_push_succesors( node * parent, int options )
     node_push_succesor( parent, -1, 0, prior->y < parent->y ? 9 : 10 ) ;
     node_push_succesor( parent, 0, -1, prior->y > parent->y ? 9 : 10 ) ;
 
-    if ( !( options & 1 ) )
+    if ( !( options & PF_NODIAG ) )
     {
         node_push_succesor( parent, 1, 1, 12 ) ;
         node_push_succesor( parent, -1, -1, 12 ) ;
@@ -240,18 +250,39 @@ static void node_push_succesors( node * parent, int options )
 
 static int path_find( GRAPH * bitmap, int sx, int sy, int dx, int dy, int options )
 {
-    node * curr ;
+    node * curr, * inext ;
 
     startup_x = sx ;
     startup_y = sy ;
     map = bitmap ;
     destination_x = dx ;
     destination_y = dy ;
+/*
+    node_reset( pf_open ) ;
+    node_reset( pf_closed ) ;
+*/
+    /* Release all resources */
 
-    pf_open = node_reset( pf_open ) ;
-    pf_closed = node_reset( pf_closed ) ;
+    curr = pf_all;
+    while ( curr )
+    {
+        inext = curr->inext ;
+        free( curr ) ;
+        curr = inext ;
+    }
+    pf_all = NULL;
+
+    pf_open = NULL;
+    pf_closed = NULL;
+
+    if ( path_result ) { free ( path_result ); path_result = NULL; }
+    path_result_pointer = NULL;
 
     curr = node_new( NULL, startup_x, startup_y, 0 ) ;
+
+    /* Add to general list (used for free resources)*/
+    curr->inext = pf_all; pf_all = curr;
+
     curr->f = curr->h = 1 ;
     pf_open = node_add( pf_open, curr ) ;
 
@@ -270,9 +301,9 @@ static int path_find( GRAPH * bitmap, int sx, int sy, int dx, int dy, int option
                 count++ ;
                 curr = curr->parent ;
             }
-            if ( path_result ) free( path_result ) ;
+
             path_result = malloc( sizeof( int ) * 2 * ( count + 4 ) ) ;
-            if ( !( options & 2 ) )
+            if ( !( options & PF_REVERSE ) )
             {
                 path_result_pointer = path_result + count * 2 + 1;
                 *path_result_pointer-- = -1 ;
@@ -283,7 +314,12 @@ static int path_find( GRAPH * bitmap, int sx, int sy, int dx, int dy, int option
                     *path_result_pointer-- = found->x ;
                     found = found->parent ;
                 }
-                if ( path_result_pointer != path_result - 1 ) return 0 ;
+
+                if ( path_result_pointer != path_result - 1 )
+                {
+                    path_result_pointer = NULL;
+                    return 0;
+                }
             }
             else
             {
@@ -297,6 +333,7 @@ static int path_find( GRAPH * bitmap, int sx, int sy, int dx, int dy, int option
                 *path_result_pointer++ = -1 ;
                 *path_result_pointer++ = -1 ;
             }
+
             path_result_pointer = path_result ;
             return 1 ;
         }

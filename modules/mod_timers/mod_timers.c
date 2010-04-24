@@ -68,7 +68,7 @@ DLVARFIXUP __bgdexport( mod_timers, globals_fixup )[] =
  *      None
  */
 
-static void _advance_timers( void )
+void _advance_timers( void )
 {
     int * timer, i ;
     int curr_ticktimer = SDL_GetTicks() ;

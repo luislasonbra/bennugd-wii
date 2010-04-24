@@ -1,5 +1,5 @@
 /*
- *  Copyright © 2006-2009 SplinterGU (Fenix/Bennugd)
+ *  Copyright © 2006-2010 SplinterGU (Fenix/Bennugd)
  *  Copyright © 2002-2006 Fenix Team (Fenix)
  *  Copyright © 1999-2002 José Luis Cebrián Pagüe (Fenix)
  *
@@ -180,7 +180,7 @@ int gr_load_pal( const char * filename )
 
     if ( r )
     {
-        pal_use( r );
+//        pal_use( r );
         if ( old_sys_pal )
         {
             pal_destroy( old_sys_pal );

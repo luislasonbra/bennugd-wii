@@ -169,7 +169,7 @@ int modvideo_list_modes( INSTANCE * my, int * params )
 
 */
 
-static int modvideo_mode_is_ok( INSTANCE * my, int * params )
+int modvideo_mode_is_ok( INSTANCE * my, int * params )
 {
     int sdl_flags = get_sdl_flags( params[3] );
     int depth = params[2];

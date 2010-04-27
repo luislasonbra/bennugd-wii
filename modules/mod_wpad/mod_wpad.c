@@ -76,25 +76,13 @@ int modwpad_info( INSTANCE * my, int * params )
         case 0:     // Battery level (0<level<256)
             return (int)WPAD_BatteryLevel(params[0]);
         case 1:     // X position
-            if( wd->ir.valid )  // Only return data if wiimote pointing @ screen
-                return wd->ir.x;
-            else
-                return 0;
+            return wd->ir.x;
         case 2:     // Y position
-            if( wd->ir.valid )
-                return wd->ir.y;
-            else
-                return 0;
+            return wd->ir.y;
         case 3:     // Z position (distance from screen in m)
-            if( wd->ir.raw_valid )
-                return wd->ir.z;
-            else
-                return 0;
+            return wd->ir.z;
         case 4:     // Angle, BennuGD likes 1/1000th of degrees
-            if( wd->ir.valid )
-                return -(int)(wd->ir.angle*1000.);
-            else
-                return 0;
+            return -(int)(wd->ir.angle*1000.);
         case 5:     // Pitch angle, BennuGD likes 1/1000th of degrees
             return (int)(wd->orient.pitch*1000.);
         case 6:     // Roll angle,  BennuGD likes 1/1000th of degrees
@@ -130,21 +118,24 @@ int modwpad_info_bb( INSTANCE * my, int * params )
 
     // Return the info the user asked for
     WPAD_Expansion(params[0], &exp);
+    FILE *fd = fopen("weight.txt", "ab");
+    fprintf(fd, "%d, %d: %d\n", params[0], params[1], exp.wb.tl);
+    fclose(fd);
     switch(params[1]) {
         case 0:     // Battery level (0<level<256)
             return (int)WPAD_BatteryLevel(params[0]);
         case 1:     // X position
-            return exp.wb.x;
+            return (int)exp.wb.x;
         case 2:     // Y position
-            return exp.wb.y;
-        case 3:     // Weight measured on the TOP-LEFT base (Balance Board)
-            return exp.wb.tl;
-        case 4:     // Weight in TOP-RIGHT
-            return exp.wb.tr;
-        case 5:     // Weight in BOTTOM-LEFT
-            return exp.wb.bl;
-        case 6:     // Weight in BOTTOM-RIGHT
-            return exp.wb.br;
+            return (int)exp.wb.y;
+        case WPAD_WTL:     // Weight measured on the TOP-LEFT base (Balance Board)
+            return (int)exp.wb.tl;
+        case WPAD_WTR:     // Weight in TOP-RIGHT
+            return (int)exp.wb.tr;
+        case WPAD_WBL:     // Weight in BOTTOM-LEFT
+            return (int)exp.wb.bl;
+        case WPAD_WBR:     // Weight in BOTTOM-RIGHT
+            return (int)exp.wb.br;
     }
 #endif
 

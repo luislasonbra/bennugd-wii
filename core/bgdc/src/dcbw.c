@@ -137,14 +137,16 @@ static int dcb_varspace( VARSPACE * v )
 
 /* Conversiones de TYPEDEF */
 
-void dcb_settype( DCB_TYPEDEF * d, TYPEDEF * t )
+void dcb_settype_endian( DCB_TYPEDEF * d, TYPEDEF * t, int endian)
 {
     int n;
 
     for ( n = 0; n < MAX_TYPECHUNKS; n++ )
     {
         d->BaseType[n] = t->chunk[n].type;          /* 8 bits */
-        d->Count   [n] = t->chunk[n].count;         ARRANGE_DWORD( &d->Count[n] );
+        d->Count   [n] = t->chunk[n].count;
+	if (endian)
+	  ARRANGE_DWORD( &d->Count[n] );
     }
 
     if ( t->varspace )
@@ -152,9 +154,14 @@ void dcb_settype( DCB_TYPEDEF * d, TYPEDEF * t )
     else
         d->Members = NO_MEMBERS;
 
-    ARRANGE_DWORD( &d->Members );
+    if (endian)
+      ARRANGE_DWORD( &d->Members );
 }
 
+static void dcb_settype(DCB_TYPEDEF * d, TYPEDEF * t)
+{
+  dcb_settype_endian(d, t, 1);
+}
 
 /* Funci�n principal que crea el fichero DCB
  * (ver dcb.h con la estructura del mismo) */
@@ -181,6 +188,12 @@ int dcb_save( const char * filename, int options, const char * stubname )
     DCB_SYSPROC_CODE sdcb;
     SYSPROC * s;
     int NSysProcs = 0;
+
+    {
+      DCB_TYPEDEF *var = (((void*)globaldata->bytes) + 0x570);
+      printf("Wrote globaldata: %x\n", globaldata->current);
+      printf(">> %x, %x\n", var->BaseType[0], var->Count[0]);
+    }
 
     fp = file_open( filename, "wb0" );
     if ( !fp )
@@ -345,6 +358,8 @@ int dcb_save( const char * filename, int options, const char * stubname )
     {
         dcb_settype( &dcb.glovar[n].Type, &global.vars[n].type );
 
+	printf("[%d] Global Count: %x [%x]\n", n, dcb.glovar[n].Type.Count[0], global.vars[n].offset);
+
         dcb.glovar[n].ID     = global.vars[n].code;                             ARRANGE_DWORD( &dcb.glovar[n].ID );
         dcb.glovar[n].Offset = global.vars[n].offset;                           ARRANGE_DWORD( &dcb.glovar[n].Offset );
     }
@@ -352,6 +367,8 @@ int dcb_save( const char * filename, int options, const char * stubname )
     for ( n = 0; n < local.count; n++ )
     {
         dcb_settype( &dcb.locvar[n].Type, &local.vars[n].type );
+
+	printf("[%d] Local Count: %x [%x]\n", n, dcb.locvar[n].Type.Count[0], local.vars[n].offset);
 
         dcb.locvar[n].ID     = local.vars[n].code;                              ARRANGE_DWORD( &dcb.locvar[n].ID );
         dcb.locvar[n].Offset = local.vars[n].offset;                            ARRANGE_DWORD( &dcb.locvar[n].Offset );

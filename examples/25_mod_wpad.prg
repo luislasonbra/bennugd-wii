@@ -9,7 +9,7 @@ End;
 
 Process main()
 Private
-    int i=0, bb=-1;
+    int i=0, bb=-1, weight=0;
 
 Begin
     // Check that we can set the video mode before actually setting it
@@ -32,12 +32,28 @@ Begin
         end;
         if(bb >= 0)
             // Get your weight (in kg) from the Wii Balance Board
+            if(wpad_info(bb, WPAD_WTL) > 0)
+                weight += wpad_info_bb(bb, WPAD_WTL);
+            else
+                write(0, 0, 0, 0, "Error in WPAD_WTL");
+            end;
+            if(wpad_info(bb, WPAD_WTR) > 0)
+                weight += wpad_info_bb(bb, WPAD_WTR);
+            else
+                write(0, scr_width, 0, 2, "Error in WPAD_WTR");
+            end;
+            if(wpad_info(bb, WPAD_WBL) > 0)
+                weight += wpad_info_bb(bb, WPAD_WBL);
+            else
+                write(0, 0, scr_height, 6, "Error in WPAD_WBL");
+            end;
+            if(wpad_info(bb, WPAD_WBR) > 0)
+                weight += wpad_info_bb(bb, WPAD_WBR);
+            else
+                write(0, scr_width, scr_height, 8, "Error in WPAD_WBR");
+            end;
             write(0, scr_width/2, 3*scr_height/4, 4, "Meassured weight: "+
-                (wpad_info_bb(bb, WPAD_WTL) +
-                 wpad_info_bb(bb, WPAD_WTR) +
-                 wpad_info_bb(bb, WPAD_WBL) +
-                 wpad_info_bb(bb, WPAD_WBR))
-                );
+                weight );
             // Get the position of your center of gravity
             write(0, scr_width/2, 3*scr_height/4+10, 4, "X:"+
                 wpad_info_bb(bb, WPAD_X) + " Y: "+

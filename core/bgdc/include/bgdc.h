@@ -96,7 +96,7 @@ extern char langinfo[64] ;  /* language setting */
 
 extern void dcb_add_file (const char * filename) ;
 extern int  dcb_save (const char * filename, int options, const char * stubname) ;
-extern void dcb_settype (DCB_TYPEDEF * d, TYPEDEF * t) ;
+extern void dcb_settype_endian (DCB_TYPEDEF * d, TYPEDEF * t, int endian) ;
 
 /* Funciones del sistema (no definidas) */
 

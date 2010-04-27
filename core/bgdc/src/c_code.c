@@ -784,7 +784,7 @@ SYSPROC * compile_bestproc( SYSPROC ** procs )
                     for ( nvar = 0 ; nvar < res.type.varspace->count ; nvar++ )
                     {
                         DCB_TYPEDEF type;
-                        dcb_settype( &type, &res.type.varspace->vars[nvar].type );
+                        dcb_settype_endian( &type, &res.type.varspace->vars[nvar].type, 0);
                         memcpy(( uint8_t* )globaldata->bytes + globaldata->current, &type, sizeof( DCB_TYPEDEF ) );
                         globaldata->current += sizeof( DCB_TYPEDEF );
                     }
@@ -794,7 +794,7 @@ SYSPROC * compile_bestproc( SYSPROC ** procs )
                 else
                 {
                     DCB_TYPEDEF type;
-                    dcb_settype( &type, &res.type );
+                    dcb_settype_endian( &type, &res.type, 0);
                     segment_alloc( globaldata, sizeof( TYPEDEF ) );
                     codeblock_add( code, MN_GLOBAL, globaldata->current ) ;
                     memcpy(( uint8_t* )globaldata->bytes + globaldata->current, &type, sizeof( DCB_TYPEDEF ) );
@@ -2868,7 +2868,7 @@ expresion_result compile_subexpresion()
                             for ( nvar = 0 ; nvar < right.type.varspace->count ; nvar++ )
                             {
                                 DCB_TYPEDEF type;
-                                dcb_settype( &type, &right.type.varspace->vars[nvar].type );
+                                dcb_settype_endian( &type, &right.type.varspace->vars[nvar].type, 0);
                                 memcpy(( uint8_t* )globaldata->bytes + globaldata->current, &type, sizeof( DCB_TYPEDEF ) );
                                 globaldata->current += sizeof( DCB_TYPEDEF );
                             }

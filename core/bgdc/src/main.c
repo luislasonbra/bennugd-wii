@@ -349,6 +349,7 @@ int main( int argc, char **argv )
                     MSG_OPTION_D
                     MSG_OPTIONS
                     MSG_LICENSE, argv[0] );
+            printf("\n If you were trying to auto-compile your code, rename your main source file to main.prg\n");
             exit(0);
         }
         fclose(fd);

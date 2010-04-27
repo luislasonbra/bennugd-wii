@@ -18,7 +18,7 @@ include $(DEVKITPPC)/wii_rules
 TARGET		:=	bgdc
 BUILD     :=	build
 SOURCES		:=	src
-INCLUDES	:=	include ../include ../../modules/mod_wpad/
+INCLUDES	:=	include ../include ../../modules/mod_wpad/ ../../modules/mod_iconv
 
 #---------------------------------------------------------------------------------
 # options for code generation

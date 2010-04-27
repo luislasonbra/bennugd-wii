@@ -121,7 +121,7 @@ int modwpad_info_bb( INSTANCE * my, int * params )
     u32 type;
 
     // First of all, check if the given wpad is a balanceboard
-    if (is_bb(params[0]) == 0)
+    if (! is_bb(params[0]))
         return 0;
 
     // Ensure it's been correctly initialized
@@ -129,7 +129,6 @@ int modwpad_info_bb( INSTANCE * my, int * params )
         return 0;
 
     // Return the info the user asked for
-    WPAD_SetVRes(params[0], scr_width, scr_height);
     WPAD_Expansion(params[0], &exp);
     switch(params[1]) {
         case 0:     // Battery level (0<level<256)

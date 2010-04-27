@@ -35,6 +35,7 @@
 
 /* Headers for importing LOCAL's and things like that from modules */
 #include <mod_wpad.h>
+#include <mod_iconv.h>
 
 /* ---------------------------------------------------------------------- */
 
@@ -592,6 +593,17 @@ static void import_module( const char * filename )
             int code = identifier_search_or_add( constants_def->name ) ;
             constants_add( code, typedef_new( constants_def->type ), constants_def->code ) ;
             constants_def++ ;
+        }
+    }
+
+    // mod_iconv
+    functions_exports = iconv_functions_exports ;
+    if ( functions_exports )
+    {
+        while ( functions_exports->name )
+        {
+            sysproc_add( functions_exports->name, functions_exports->paramtypes, functions_exports->type, functions_exports->func );
+            functions_exports++;
         }
     }
 #endif

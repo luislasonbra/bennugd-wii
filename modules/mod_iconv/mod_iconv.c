@@ -92,10 +92,3 @@ int bgd_iconv(INSTANCE * my, int * params) {
   return strid;
 }
 
-#ifndef __STATIC__
-DLSYSFUNCS __bgdexport( mod_iconv, functions_exports )[] =
-{
-  { "ICONV"            , "SSS"  , TYPE_STRING, bgd_iconv       },
-  { 0                  , 0      , 0          , 0}
-};
-#endif

@@ -17,16 +17,11 @@
  *
  */
 
-#ifndef __WPAD_H_
-#define __WPAD_H_
+#ifndef __WPAD_H
+#define __WPAD_H
 
+#include <bgddl.h>
 #include <instance_st.h>
-
-#ifdef __BGDC__
-#define SYSMACRO(a) NULL
-#elif defined __BGDRTM__
-#define SYSMACRO(a) a
-#endif
 
 #define WPAD_BATT        0
 #define WPAD_X           1
@@ -50,12 +45,12 @@ extern int modwpad_info( INSTANCE * my, int * params );
 extern int modwpad_info_bb( INSTANCE * my, int * params );
 extern void modwpad_rumble( INSTANCE * my, int * params);
 
-#ifdef __BGDC__
-    #ifdef __STATIC__
+
+#ifdef __STATIC__
 DLCONSTANT wpad_constants_def[] =
-    #else
+#else
 DLCONSTANT __bgdexport( mod_wpad, constants_def )[] =
-    #endif
+#endif
 {
     { "WPAD_BATT",      TYPE_INT,   WPAD_BATT   },
     { "WPAD_X",         TYPE_INT,   WPAD_X      },
@@ -75,6 +70,20 @@ DLCONSTANT __bgdexport( mod_wpad, constants_def )[] =
 
     { NULL              , 0       , 0           }
 } ;
+
+/* ----------------------------------------------------------------- */
+/* Function declarations                                             */
+#ifdef __STATIC__
+DLSYSFUNCS wpad_functions_exports[] =
+#else
+DLSYSFUNCS  __bgdexport( mod_wpad, functions_exports )[] =
 #endif
+{
+    { "WPAD_IS_READY"          , "I" , TYPE_INT, SYSMACRO(modwpad_is_ready)           },
+    { "WPAD_INFO"              , "II", TYPE_INT, SYSMACRO(modwpad_info)               },
+    { "WPAD_INFO_BB"           , "II", TYPE_INT, SYSMACRO(modwpad_info_bb)            },
+    { "WPAD_RUMBLE"            , "II", TYPE_UNDEFINED, SYSMACRO(modwpad_rumble)       },
+    { 0         , 0  , 0             , 0              }
+};
 
 #endif

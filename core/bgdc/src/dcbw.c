@@ -191,8 +191,6 @@ int dcb_save( const char * filename, int options, const char * stubname )
 
     {
       DCB_TYPEDEF *var = (((void*)globaldata->bytes) + 0x570);
-      printf("Wrote globaldata: %x\n", globaldata->current);
-      printf(">> %x, %x\n", var->BaseType[0], var->Count[0]);
     }
 
     fp = file_open( filename, "wb0" );
@@ -358,8 +356,6 @@ int dcb_save( const char * filename, int options, const char * stubname )
     {
         dcb_settype( &dcb.glovar[n].Type, &global.vars[n].type );
 
-	printf("[%d] Global Count: %x [%x]\n", n, dcb.glovar[n].Type.Count[0], global.vars[n].offset);
-
         dcb.glovar[n].ID     = global.vars[n].code;                             ARRANGE_DWORD( &dcb.glovar[n].ID );
         dcb.glovar[n].Offset = global.vars[n].offset;                           ARRANGE_DWORD( &dcb.glovar[n].Offset );
     }
@@ -367,8 +363,6 @@ int dcb_save( const char * filename, int options, const char * stubname )
     for ( n = 0; n < local.count; n++ )
     {
         dcb_settype( &dcb.locvar[n].Type, &local.vars[n].type );
-
-	printf("[%d] Local Count: %x [%x]\n", n, dcb.locvar[n].Type.Count[0], local.vars[n].offset);
 
         dcb.locvar[n].ID     = local.vars[n].code;                              ARRANGE_DWORD( &dcb.locvar[n].ID );
         dcb.locvar[n].Offset = local.vars[n].offset;                            ARRANGE_DWORD( &dcb.locvar[n].Offset );

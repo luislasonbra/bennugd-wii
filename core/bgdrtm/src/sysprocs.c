@@ -48,8 +48,6 @@
 #include "libfont.h"              //libfont
 #include "../../../modules/mod_grproc/mod_grproc.h"        //mod_grproc
 #include "libkey.h"                //libkey
-#include "mod_wpad.h"              // mod_wpad
-#include "mod_iconv.h"
 #ifdef TARGET_WII
 #include <SDL/SDL.h>
 #elif defined(TARGET_LINUX)

@@ -24,8 +24,14 @@
 
 /* --------------------------------------------------------------------------- */
 
-#ifndef __BGDC__
-
+#ifdef __BGDC__
+    #ifndef SYSMACRO
+        #define SYSMACRO(a) NULL
+    #endif
+#else
+    #ifndef SYSMACRO
+        #define SYSMACRO(a) a
+    #endif
 #ifdef WIN32
 #define DLLEXPORT   __declspec(dllexport)
 #define DLLIMPORT   __declspec(dllimport)

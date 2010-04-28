@@ -585,7 +585,17 @@ static void import_module( const char * filename )
     // We'll do equivalent code to that found up, but looking for static symbols
 
     // mod_wpad
-    constants_def = wpad_constants_def ;
+    if(strncmp(filename, "mod_wpad", strlen("mod_wpad")) == 0) {
+        functions_exports = wpad_functions_exports;
+        constants_def = wpad_constants_def ;
+    }
+
+    // mod_iconv
+    if(strncmp(filename, "mod_iconv", strlen("mod_iconv")) == 0) {
+        functions_exports = iconv_functions_exports ;
+    }
+
+    // Now, use the symbols we've declared
     if ( constants_def )
     {
         while ( constants_def->name )
@@ -596,8 +606,6 @@ static void import_module( const char * filename )
         }
     }
 
-    // mod_iconv
-    functions_exports = iconv_functions_exports ;
     if ( functions_exports )
     {
         while ( functions_exports->name )
@@ -606,6 +614,7 @@ static void import_module( const char * filename )
             functions_exports++;
         }
     }
+
 #endif
 }
 

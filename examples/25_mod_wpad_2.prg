@@ -1,7 +1,7 @@
-import "mod_wpad"
 import "mod_video"
 import "mod_text"
 import "mod_mouse"
+import "mod_wpad"
 
 GLOBAL
 scr_width = 640, scr_height=480;

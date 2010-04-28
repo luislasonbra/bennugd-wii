@@ -13,13 +13,10 @@
 #ifndef __ICONV_H
 #define __ICONV_H
 
-extern int bgd_iconv(INSTANCE * my, int * params);
+#include <bgddl.h>
+#include <instance_st.h>
 
-#ifdef __BGDC__
-#define SYSMACRO(a)
-#elif defined(__BGDRTM__)
-#define SYSMACRO(a) a
-#endif
+extern int bgd_iconv(INSTANCE * my, int * params);
 
 #ifdef __STATIC__
 DLSYSFUNCS iconv_functions_exports[] =
@@ -28,7 +25,7 @@ DLSYSFUNCS __bgdexport( mod_iconv, functions_exports )[] =
 #endif
 {
   { "ICONV"            , "SSS"  , TYPE_STRING, SYSMACRO(bgd_iconv)       },
-  { 0                  , 0      , 0          , 0               }
+  { 0                  , 0      , 0          , 0                         }
 };
 
 #endif

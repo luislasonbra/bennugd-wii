@@ -23,10 +23,25 @@
 
 #include "bgddl.h"
 #include "libvideo.h"
-#include "mod_wpad.h"
 #ifdef TARGET_WII
 #include "wiiuse/wpad.h"
 #endif
+
+#define WPAD_BATT        0
+#define WPAD_X           1
+#define WPAD_Y           2
+#define WPAD_Z           3
+#define WPAD_ANGLE       4
+#define WPAD_PITCH       5
+#define WPAD_ROLL        6
+#define WPAD_ACCELX      7
+#define WPAD_ACCELY      8
+#define WPAD_ACCELZ      9
+#define WPAD_IS_BB       10
+#define WPAD_WTL         3
+#define WPAD_WTR         4
+#define WPAD_WBL         5
+#define WPAD_WBR         6
 
 
 #ifdef TARGET_WII
@@ -149,19 +164,5 @@ void modwpad_rumble( INSTANCE * my, int * params)
     WPAD_Rumble(params[0], params[1]);
 #endif
 }
-
-
-/* ----------------------------------------------------------------- */
-/* Function declarations                                             */
-#ifndef __STATIC__
-DLSYSFUNCS  __bgdexport( mod_wpad, functions_exports )[] =
-{
-    { "WPAD_IS_READY"          , "I" , TYPE_INT, modwpad_is_ready           },
-    { "WPAD_INFO"              , "II", TYPE_INT, modwpad_info               },
-    { "WPAD_INFO_BB"           , "II", TYPE_INT, modwpad_info_bb            },
-    { "WPAD_RUMBLE"            , "II", TYPE_UNDEFINED, modwpad_rumble       },
-    { 0         , 0  , 0             , 0              }
-};
-#endif
 
 /* ----------------------------------------------------------------- */

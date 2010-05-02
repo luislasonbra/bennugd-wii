@@ -18,7 +18,7 @@ SET PATH=%PATH%;%VLCDIR%
 REM kbps, 96 is enough
 SET RATE=96
 REM 1 for mono, 2 for stereo
-SET CHANNElS=2
+SET CHANNELS=2
 REM Leave this @ 32KHz for the Wii
 SET FREQ=32000
 REM Output dirs for OGG & WAV MUSIC

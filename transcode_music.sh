@@ -11,7 +11,7 @@
 VLC="vlc -I dummy";	# vlc variant, cvlc is fine  if available,
 			# "vlc -I dummy" is fine, too (needed for win32)
 RATE=96;		# kbps, 96 is enough
-CHANNElS=2;		# 1 for mono, 2 for stereo
+CHANNELS=2;		# 1 for mono, 2 for stereo
 FREQ=32000;		# Leave this @ 32KHz
 OUTOGG=converted_music;
 OUTWAV=converted_wav;
